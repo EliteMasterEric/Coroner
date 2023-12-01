@@ -1,0 +1,7 @@
+{
+    "name": "Coroner",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/EliteMasterEric/Coroner",
+    "description": "Rework the Performance Report with new info, including cause of death.",
+    "dependencies": []
+}
