@@ -4,6 +4,8 @@ REM Copy ../Art/manifest.json to the current directory
 copy /y ..\Art\manifest.json .
 REM Copy ../README.md to the current directory
 copy /y ..\README.md .
+REM Copy ../CHANGELOG.md to the current directory
+copy /y ..\CHANGELOG.md .
 REM Copy all files from ../Coroner/build/bin/Debug to the current directory
 xcopy /s /y /q ..\Coroner\build\bin\Debug\* .
 

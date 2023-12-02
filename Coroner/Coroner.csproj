@@ -73,6 +73,11 @@
       <Private>false</Private>
       <HintPath>..\include\UnityEngine.UI.dll</HintPath>
     </Reference>
+    
+    <Reference Include="LC_API">
+      <Private>false</Private>
+      <HintPath>..\include\LC_API.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +92,12 @@
   </ItemGroup>
 
   <!-- Fuck you. -->
+  <ItemGroup>
+    <Compile Remove="build\obj\**" />
+    <Content Remove="build\obj\**" />
+    <EmbeddedResource Remove="build\obj\**" />
+    <None Remove="build\obj\**" />
+  </ItemGroup>
   <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
     <Exec Command="del %22$(TargetDir)$(TargetName).deps.json%22" />
     <Exec Command="del %22$(TargetDir)$(TargetName).pdb%22" />
