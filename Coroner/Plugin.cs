@@ -3,6 +3,7 @@
 using HarmonyLib;
 using BepInEx.Logging;
 using BepInEx.Bootstrap;
+using System;
 
 namespace Coroner
 {
@@ -20,6 +21,8 @@ namespace Coroner
     {
         public static Plugin Instance { get; private set; }
 
+        public static readonly Random RANDOM = new Random();
+
         public ManualLogSource PluginLogger;
 
         public PluginConfig PluginConfig;
@@ -29,7 +32,6 @@ namespace Coroner
         private void Awake()
         {
             Instance = this;
-
 
             PluginLogger = Logger;
 

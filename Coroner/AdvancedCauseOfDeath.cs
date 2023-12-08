@@ -2,66 +2,112 @@ using System;
 using System.Collections.Generic;
 using GameNetcodeStuff;
 
-namespace Coroner {
-    class AdvancedDeathTracker {
+namespace Coroner
+{
+    class AdvancedDeathTracker
+    {
         public const int PLAYER_CAUSE_OF_DEATH_DROPSHIP = 300;
 
-        private static readonly Dictionary<int, AdvancedCauseOfDeath> PlayerCauseOfDeath = new Dictionary<int, AdvancedCauseOfDeath>();
+        public static readonly string[] FUNNY_NOTES = {
+            "The goofiest goober.",
+            "The cutest employee.",
+            "Had the most fun.",
+            "Had the least fun.",
+            "The bravest employee.",
+            "Did a sick flip.",
+            "Stubbed their toe.",
+            "The most likely to die next time.",
+            "The least likely to die next time.",
+            "Dislikes smoke.",
+            "A team player.",
+            "A real go-getter.",
+            "Ate the most snacks.",
+            "Passed GO and collected $200.",
+            "Got freaky on a Friday night.",
+            "I think this one's a serial killer.",
+            "Perfectly unremarkable.",
+            "Hasn't called their mother in a while.",
+            "Has IP address 127.0.0.1.",
+            "Secretly a lizard"
+        };
 
-        public static void ClearDeathTracker() {
+        private static readonly Dictionary<int, AdvancedCauseOfDeath> PlayerCauseOfDeath = new Dictionary<int, AdvancedCauseOfDeath>();
+        private static readonly Dictionary<int, string> PlayerNotes = new Dictionary<int, string>();
+
+        public static void ClearDeathTracker()
+        {
             PlayerCauseOfDeath.Clear();
+            PlayerNotes.Clear();
         }
 
-        public static void SetCauseOfDeath(int playerIndex, AdvancedCauseOfDeath causeOfDeath, bool broadcast = true) {
+        public static void SetCauseOfDeath(int playerIndex, AdvancedCauseOfDeath causeOfDeath, bool broadcast = true)
+        {
             PlayerCauseOfDeath[playerIndex] = causeOfDeath;
             if (broadcast) DeathBroadcaster.BroadcastCauseOfDeath(playerIndex, causeOfDeath);
         }
 
-        public static void SetCauseOfDeath(int playerIndex, CauseOfDeath causeOfDeath, bool broadcast = true) {
+        public static void SetCauseOfDeath(int playerIndex, CauseOfDeath causeOfDeath, bool broadcast = true)
+        {
             SetCauseOfDeath(playerIndex, ConvertCauseOfDeath(causeOfDeath), broadcast);
         }
 
-        public static void SetCauseOfDeath(PlayerControllerB playerController, CauseOfDeath causeOfDeath, bool broadcast = true) {
-            SetCauseOfDeath((int) playerController.playerClientId, ConvertCauseOfDeath(causeOfDeath), broadcast);
+        public static void SetCauseOfDeath(PlayerControllerB playerController, CauseOfDeath causeOfDeath, bool broadcast = true)
+        {
+            SetCauseOfDeath((int)playerController.playerClientId, ConvertCauseOfDeath(causeOfDeath), broadcast);
         }
 
-        public static void SetCauseOfDeath(PlayerControllerB playerController, AdvancedCauseOfDeath causeOfDeath, bool broadcast = true) {
-            SetCauseOfDeath((int) playerController.playerClientId, causeOfDeath, broadcast);
+        public static void SetCauseOfDeath(PlayerControllerB playerController, AdvancedCauseOfDeath causeOfDeath, bool broadcast = true)
+        {
+            SetCauseOfDeath((int)playerController.playerClientId, causeOfDeath, broadcast);
         }
 
-        public static AdvancedCauseOfDeath GetCauseOfDeath(int playerIndex) {
+        public static AdvancedCauseOfDeath GetCauseOfDeath(int playerIndex)
+        {
             PlayerControllerB playerController = StartOfRound.Instance.allPlayerScripts[playerIndex];
 
             return GetCauseOfDeath(playerController);
         }
 
-        public static AdvancedCauseOfDeath GetCauseOfDeath(PlayerControllerB playerController) {
-            if (!PlayerCauseOfDeath.ContainsKey((int) playerController.playerClientId)) {
+        public static AdvancedCauseOfDeath GetCauseOfDeath(PlayerControllerB playerController)
+        {
+            if (!PlayerCauseOfDeath.ContainsKey((int)playerController.playerClientId))
+            {
                 Plugin.Instance.PluginLogger.LogInfo($"Player {playerController.playerClientId} has no custom cause of death stored! Using fallback...");
                 return GuessCauseOfDeath(playerController);
-            } else {
-                Plugin.Instance.PluginLogger.LogInfo($"Player {playerController.playerClientId} has custom cause of death stored! {PlayerCauseOfDeath[(int) playerController.playerClientId]}");
-                return PlayerCauseOfDeath[(int) playerController.playerClientId];
+            }
+            else
+            {
+                Plugin.Instance.PluginLogger.LogInfo($"Player {playerController.playerClientId} has custom cause of death stored! {PlayerCauseOfDeath[(int)playerController.playerClientId]}");
+                return PlayerCauseOfDeath[(int)playerController.playerClientId];
             }
         }
 
-        public static AdvancedCauseOfDeath GuessCauseOfDeath(PlayerControllerB playerController) {
-            if (playerController.isPlayerDead) {
-                if (IsHoldingJetpack(playerController)) {
-                    if (playerController.causeOfDeath == CauseOfDeath.Gravity) {
+        public static AdvancedCauseOfDeath GuessCauseOfDeath(PlayerControllerB playerController)
+        {
+            if (playerController.isPlayerDead)
+            {
+                if (IsHoldingJetpack(playerController))
+                {
+                    if (playerController.causeOfDeath == CauseOfDeath.Gravity)
+                    {
                         return AdvancedCauseOfDeath.Jetpack_Gravity;
-                    } else if (playerController.causeOfDeath == CauseOfDeath.Blast) {
+                    }
+                    else if (playerController.causeOfDeath == CauseOfDeath.Blast)
+                    {
                         return AdvancedCauseOfDeath.Jetpack_Blast;
                     }
                 }
 
                 return ConvertCauseOfDeath(playerController.causeOfDeath);
-            } else {
+            }
+            else
+            {
                 return AdvancedCauseOfDeath.Unknown;
             }
         }
 
-        public static bool IsHoldingJetpack(PlayerControllerB playerController) {
+        public static bool IsHoldingJetpack(PlayerControllerB playerController)
+        {
             var heldObjectServer = playerController.currentlyHeldObjectServer;
             if (heldObjectServer == null) return false;
             var heldObjectGameObject = heldObjectServer.gameObject;
@@ -69,15 +115,20 @@ namespace Coroner {
             var heldObject = heldObjectGameObject.GetComponent<GrabbableObject>();
             if (heldObject == null) return false;
 
-            if (heldObject is JetpackItem) {
+            if (heldObject is JetpackItem)
+            {
                 return true;
-            } else {
+            }
+            else
+            {
                 return false;
             }
         }
 
-        public static AdvancedCauseOfDeath ConvertCauseOfDeath(CauseOfDeath causeOfDeath) {
-            switch (causeOfDeath) {
+        public static AdvancedCauseOfDeath ConvertCauseOfDeath(CauseOfDeath causeOfDeath)
+        {
+            switch (causeOfDeath)
+            {
                 case CauseOfDeath.Unknown:
                     return AdvancedCauseOfDeath.Unknown;
                 case CauseOfDeath.Bludgeoning:
@@ -107,81 +158,186 @@ namespace Coroner {
             }
         }
 
-        public static string StringifyCauseOfDeath(CauseOfDeath causeOfDeath) {
-            return StringifyCauseOfDeath(ConvertCauseOfDeath(causeOfDeath));
+        public static string StringifyCauseOfDeath(CauseOfDeath causeOfDeath)
+        {
+            return StringifyCauseOfDeath(ConvertCauseOfDeath(causeOfDeath), Plugin.RANDOM);
         }
 
-        public static string StringifyCauseOfDeath(AdvancedCauseOfDeath causeOfDeath) {
-            switch (causeOfDeath) {
+        public static string StringifyCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath)
+        {
+            return StringifyCauseOfDeath(causeOfDeath, Plugin.RANDOM);
+        }
+
+        public static string StringifyCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath, Random random)
+        {
+            var result = SelectCauseOfDeath(causeOfDeath);
+            if (result.Length == 1) return result[0];
+            else return result[random.Next(result.Length)];
+        }
+
+        public static string[] SelectCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath)
+        {
+            if (causeOfDeath == null) return FUNNY_NOTES;
+
+            switch (causeOfDeath)
+            {
                 case AdvancedCauseOfDeath.Bludgeoning:
-                    return "Bludgeoned to death.";
+                    return new[] {
+                        "Bludgeoned to death.",
+                    };
                 case AdvancedCauseOfDeath.Gravity:
-                    return "Fell to their death.";
+                    return new[] {
+                        "Fell to their death.",
+                        "Fell off a cliff.",
+                    };
                 case AdvancedCauseOfDeath.Blast:
-                    return "Went out with a bang.";
+                    return new[] {
+                        "Went out with a bang.",
+                        "Exploded.",
+                        "Was blown to smithereens."
+                    };
                 case AdvancedCauseOfDeath.Strangulation:
-                    return "Strangled to death.";
+                    return new[] {
+                        "Strangled to death.",
+                    };
                 case AdvancedCauseOfDeath.Suffocation:
-                    return "Suffocated to death.";
+                    return new[] {
+                        "Suffocated to death.",
+                    };
                 case AdvancedCauseOfDeath.Mauling:
-                    return "Mauled to death.";
+                    return new[] {
+                        "Mauled to death.",
+                    };
                 case AdvancedCauseOfDeath.Gunshots:
-                    return "Shot to death by a turret.";
+                    return new[] {
+                        "Shot to death by a Turret.",
+                    };
                 case AdvancedCauseOfDeath.Crushing:
-                    return "Crushed to death.";
+                    return new[] {
+                        "Crushed to death.",
+                    };
                 case AdvancedCauseOfDeath.Drowning:
-                    return "Drowned to death.";
+                    return new[] {
+                        "Drowned to death.",
+                    };
                 case AdvancedCauseOfDeath.Abandoned:
-                    return "Abandoned by their coworkers.";
+                    return new[] {
+                        "Abandoned by their coworkers.",
+                    };
                 case AdvancedCauseOfDeath.Electrocution:
-                    return "Electrocuted to death.";
+                    return new[] {
+                        "Electrocuted to death.",
+                    };
 
                 case AdvancedCauseOfDeath.Enemy_Bracken:
-                    return "Had their neck snapped by a Bracken.";
+                    return new[] {
+                        "Had their neck snapped by a Bracken.",
+                        "Stared at a Bracken too long.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_EyelessDog:
-                    return "Was eaten by an Eyeless Dog.";
+                    return new[] {
+                        "Got caught using a mechanical keyboard.",
+                        "Was eaten by an Eyeless Dog.",
+                        "Was eaten by an Eyeless Dog.",
+                        "Was eaten by an Eyeless Dog.",
+                        "Wasn't quiet around an Eyeless Dog.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_ForestGiant:
-                    return "Swallowed whole by a Forest Giant.";
+                    return new[] {
+                        "Swallowed whole by a Forest Giant.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_CircuitBees:
-                    return "Electro-stung to death by Circuit Bees.";
+                    return new[] {
+                        "Electro-stung to death by Circuit Bees.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_GhostGirl:
-                    return "Died a mysterious death.";
+                    return new[] {
+                        "Died a mysterious death.",
+                        "???",
+                    };
                 case AdvancedCauseOfDeath.Enemy_EarthLeviathan:
-                    return "Swallowed whole by an Earth Leviathan.";
+                    return new[] {
+                        "Swallowed whole by an Earth Leviathan.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_BaboonHawk:
-                    return "Was eaten by a Baboon Hawk.";
+                    return new[] {
+                        "Was eaten by a Baboon Hawk.",
+                        "Was mauled by a Baboon Hawk.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_Jester:
-                    return "Was the butt of a joke.";
+                    return new[] {
+                        "Was the butt of the Jester's joke.",
+                        "Got pranked by the Jester.",
+                        "Got popped like a weasel.",
+                    };
+                case AdvancedCauseOfDeath.Enemy_CoilHead:
+                    return new[] {
+                        "Got in a staring contest with a Coil Head.",
+                        "Lost a staring contest with a Coil Head.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_SnareFlea:
-                    return "Was suffocated a Snare Flea.";
+                    return new[] {
+                        "Was suffocated a Snare Flea.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_Hygrodere:
-                    return "Was absorbed by a Hygrodere.";
+                    return new[] {
+                        "Was absorbed by a Hygrodere.",
+                        "Got lost in the sauce.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_HoarderBug:
-                    return "Was hoarded by a Hoarder Bug.";
+                    return new[] {
+                        "Was hoarded by a Hoarder Bug.",
+                    };
                 case AdvancedCauseOfDeath.Enemy_SporeLizard:
-                    return "Was puffed by a Spore Lizard.";
-                case AdvancedCauseOfDeath.Enemy_SandSpider:
-                    return "Ensnared in the Sand Spider's web.";
+                    return new[] {
+                        "Was puffed by a Spore Lizard.",
+                    };
+                case AdvancedCauseOfDeath.Enemy_BunkerSpider:
+                    return new[] {
+                        "Ensnared in the Bunker Spider's web.",
+                    };
 
                 case AdvancedCauseOfDeath.Jetpack_Gravity:
-                    return "Flew too close to the sun.";
+                    return new[] {
+                        "Flew too close to the sun.",
+                        "Ran out of fuel.",
+                    };
                 case AdvancedCauseOfDeath.Jetpack_Blast:
-                    return "Turned into a firework.";
+                    return new[] {
+                        "Turned into a firework.",
+                        "Got blown up by bad piloting.",
+                    };
                 case AdvancedCauseOfDeath.Player_Murder:
-                    return "Was the victim of a murder.";
+                    return new[] {
+                        "Was the victim of a murder.",
+                        "Got murdered.",
+                    };
                 case AdvancedCauseOfDeath.Player_Quicksand:
-                    return "Got stuck in quicksand.";
+                    return new[] {
+                        "Got stuck in quicksand.",
+                        "Drowned in quicksand",
+                    };
                 case AdvancedCauseOfDeath.Player_DepositItemsDesk:
-                    return "Received a demotion.";
+                    return new[] {
+                        "Received a demotion.",
+                        "Was put on disciplinary leave.",
+                    };
                 case AdvancedCauseOfDeath.Player_Dropship:
-                    return "Couldn't wait for their items.";
+                    return new[] {
+                        "Couldn't wait for their items.",
+                        "Got too impatient for their items.",
+                    };
                 case AdvancedCauseOfDeath.Player_StunGrenade:
-                    return "Was the victim of a murder.";
+                    return new[] {
+                        "Was the victim of a murder.",
+                    };
 
-                case AdvancedCauseOfDeath.Unknown:
-                    return "Most sincerely dead.";
+                // case AdvancedCauseOfDeath.Unknown:
                 default:
-                    return "Most sincerely dead.";
+                    return new[] {
+                        "Most sincerely dead.",
+                        "Died somehow.",
+                    };
             }
         }
 
@@ -191,7 +347,8 @@ namespace Coroner {
         }
     }
 
-    enum AdvancedCauseOfDeath {
+    enum AdvancedCauseOfDeath
+    {
         // Basic causes of death
         Unknown,
         Bludgeoning,
@@ -210,17 +367,18 @@ namespace Coroner {
         Enemy_BaboonHawk, // Also known as BaboonBird
         Enemy_Bracken, // Also known as Flowerman
         Enemy_CircuitBees, // Also known as RedLocustBees
+        Enemy_CoilHead,  // Also known as SpringMan
         Enemy_EarthLeviathan, // Also known as SandWorm
         Enemy_EyelessDog, // Also known as MouthDog
         Enemy_ForestGiant,
         Enemy_GhostGirl, // Also known as DressGirl
+        Enemy_Hygrodere, // Also known as Blob
         Enemy_Jester,
         Enemy_SnareFlea, // Also known as Centipede
-        Enemy_SporeLizard, // Also known as Puffer TODO: Implement this.
-        Enemy_Hygrodere, // Also known as Blob TODO: Implement this.
-        Enemy_SandSpider, // TODO: Implement this.
-        Enemy_Thumper, // Also known as Crawler TODO: Implement this.
-        Enemy_HoarderBug, // TODO: Implement this.
+        Enemy_SporeLizard, // Also known as Puffer
+        Enemy_HoarderBug,
+        Enemy_Thumper,
+        Enemy_BunkerSpider,
 
         // Custom causes (other)
         Jetpack_Gravity,

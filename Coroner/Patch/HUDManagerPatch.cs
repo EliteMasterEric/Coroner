@@ -10,30 +10,6 @@ namespace Coroner.Patch {
          * A list of possible funny strings.
          * Displayed when the player has no notes (and hasn't died).
          */
-        public static readonly string[] FUNNY_NOTES = {
-            "* The goofiest goober.\n",
-            "* The cutest employee.\n",
-            "* Had the most fun.\n",
-            "* Had the least fun.\n",
-            "* The bravest employee.\n",
-            "* Did a sick flip.\n",
-            "* Stubbed their toe.\n",
-            "* The most likely to die next time.\n",
-            "* The least likely to die next time.\n",
-            "* Dislikes smoke.\n",
-            "* A team player.\n",
-            "* A real go-getter.\n",
-            "* Ate the most snacks.\n",
-            "* Passed GO and collected $200.\n",
-            "* Got freaky on a Friday night.\n",
-            "* I think this one's a serial killer.\n",
-            "* Perfectly unremarkable.\n",
-            "* Hasn't called their mother in a while.\n",
-            "* Has IP address 127.0.0.1.\n",
-            "* Secretly a lizard.\n"
-        };
-        
-        static readonly Random RANDOM = new Random();
 
         public static void Postfix(HUDManager __instance) {
             try {
@@ -46,8 +22,19 @@ namespace Coroner.Patch {
             }
         }
 
+        static Random BuildSyncedRandom(HUDManager __instance) {
+            var seed = StartOfRound.Instance.randomMapSeed;
+            Plugin.Instance.PluginLogger.LogInfo("Syncing randomization to map seed: '" + seed + "'");
+            return new Random(seed);
+        }
+
+        /*
+         * Override the performance report to display our notes.
+         */
         static void OverridePerformanceReport(HUDManager __instance) {
             Plugin.Instance.PluginLogger.LogInfo("Applying Coroner patches to player notes...");
+
+            var syncedRandom = BuildSyncedRandom(__instance);
 
             for (int playerIndex = 0; playerIndex < __instance.statsUIElements.playerNotesText.Length; playerIndex++) {
                 PlayerControllerB playerController = __instance.playersManager.allPlayerScripts[playerIndex];
@@ -59,44 +46,39 @@ namespace Coroner.Patch {
                 TextMeshProUGUI textMesh = __instance.statsUIElements.playerNotesText[playerIndex];
                 if (playerController.isPlayerDead) {
                     if (Plugin.Instance.PluginConfig.ShouldDisplayCauseOfDeath()) {
-                        var causeOfDeath = AdvancedDeathTracker.GetCauseOfDeath(playerController);
-                        var causeOfDeathStr = AdvancedDeathTracker.StringifyCauseOfDeath(causeOfDeath);
-
                         if (Plugin.Instance.PluginConfig.ShouldDeathReplaceNotes()) {
-                            Plugin.Instance.PluginLogger.LogInfo("Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
+                            Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
                             // Reset the notes.
                             textMesh.text = "Notes: \n";
                         } else {
-                            Plugin.Instance.PluginLogger.LogInfo("Player " + playerIndex + " is dead! Appending notes with Cause of Death...");
+                            Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Appending notes with Cause of Death...");
                         }
-                        textMesh.text += "* " + causeOfDeathStr + "\n";
+                        
+                        var causeOfDeath = AdvancedDeathTracker.GetCauseOfDeath(playerController);
+                        var notes = "* " + AdvancedDeathTracker.StringifyCauseOfDeath(causeOfDeath, syncedRandom) + "\n";
+
+                        textMesh.text += notes;
                     } else {
-                        Plugin.Instance.PluginLogger.LogInfo("Player " + playerIndex + " is dead, but Config says leave it be...");
+                        Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead, but Config says leave it be...");
                     }
                 } else {
-                    Plugin.Instance.PluginLogger.LogInfo("Player " + playerIndex + " is not dead!");
-                    if (textMesh.text == "Notes: \n") {
-                        if (Plugin.Instance.PluginConfig.ShouldDisplayFunnyNotes()) {
-                            Plugin.Instance.PluginLogger.LogInfo("Player " + playerIndex + " has no notes! Injecting something funny...");
-                            // Reset the notes.
-                            textMesh.text = "Notes: \n";
-                            textMesh.text += ChooseFunnyNote();
-                        } else {
-                            Plugin.Instance.PluginLogger.LogInfo("Player " + playerIndex + " has no notes, but Config says leave it be...");
-                        }
+                    if (Plugin.Instance.PluginConfig.ShouldDisplayFunnyNotes()) {
+                        Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes! Injecting something funny...");
+
+                        var notes = "* " + AdvancedDeathTracker.StringifyCauseOfDeath(null, syncedRandom) + "\n";
+
+                        textMesh.text += notes;
+
+                        textMesh.text = "Notes: \n";
+                        textMesh.text += notes;
                     } else {
-                        Plugin.Instance.PluginLogger.LogInfo("Player " + playerIndex + " has notes! Let's leave it be...");
+                        Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes, but Config says leave it be...");
                     }
                 }
             }
 
             // We are done with the death tracker, so clear it.
             AdvancedDeathTracker.ClearDeathTracker();
-        }
-
-        static string ChooseFunnyNote() {
-            // Choose a random entry from the list.
-            return FUNNY_NOTES[RANDOM.Next(FUNNY_NOTES.Length)];
         }
     }
 }
