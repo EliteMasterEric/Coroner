@@ -25,10 +25,10 @@ namespace Coroner {
         }
 
         public static void BroadcastCauseOfDeath(int playerId, AdvancedCauseOfDeath causeOfDeath) {
-            AttemptBroadcast(BuildData(playerId, causeOfDeath), SIGNATURE_DEATH);
+            AttemptBroadcast(BuildDataCauseOfDeath(playerId, causeOfDeath), SIGNATURE_DEATH);
         }
 
-        static string BuildData(int playerId, AdvancedCauseOfDeath causeOfDeath) {
+        static string BuildDataCauseOfDeath(int playerId, AdvancedCauseOfDeath causeOfDeath) {
             return playerId + "|" + ((int) causeOfDeath);
         }
 

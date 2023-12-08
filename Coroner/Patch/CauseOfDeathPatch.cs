@@ -230,6 +230,137 @@ namespace Coroner.Patch {
         }
     }
 
+    [HarmonyPatch(typeof(PufferAI))]
+    [HarmonyPatch("OnCollideWithPlayer")]
+    class PufferAIOnCollideWithPlayerPatch {
+        public static void Postfix(PufferAI __instance, Collider other) {
+            Plugin.Instance.PluginLogger.LogInfo("Handling Spore Lizard damage...");
+
+            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            if (playerControllerB == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                return;
+            }
+
+            if (playerControllerB.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_SporeLizard);
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                return;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(SpringManAI))]
+    [HarmonyPatch("OnCollideWithPlayer")]
+    class SpringManAIOnCollideWithPlayerPatch {
+        public static void Postfix(PufferAI __instance, Collider other) {
+            Plugin.Instance.PluginLogger.LogInfo("Handling Coil Head damage...");
+
+            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            if (playerControllerB == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                return;
+            }
+
+            if (playerControllerB.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_CoilHead);
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                return;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(BlobAI))]
+    [HarmonyPatch("SlimeKillPlayerEffectServerRpc")]
+    class BlobAISlimeKillPlayerEffectServerRpcPatch {
+        public static void Postfix(int playerKilled) {
+            PlayerControllerB playerDying = StartOfRound.Instance.allPlayerScripts[playerKilled];
+
+            if (playerDying == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                return;
+            }
+
+            if (playerDying.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerDying, AdvancedCauseOfDeath.Enemy_Hygrodere);
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                return;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(HoarderBugAI))]
+    [HarmonyPatch("OnCollideWithPlayer")]
+    class HoarderBugAIOnCollideWithPlayerPatch {
+        public static void Postfix(HoarderBugAI __instance, Collider other) {
+            Plugin.Instance.PluginLogger.LogInfo("Handling Hoarder Bug damage...");
+
+            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            if (playerControllerB == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                return;
+            }
+
+            if (playerControllerB.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_HoarderBug);
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                return;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(CrawlerAI))]
+    [HarmonyPatch("OnCollideWithPlayer")]
+    class CrawlerAIOnCollideWithPlayerPatch {
+        public static void Postfix(CrawlerAI __instance, Collider other) {
+            Plugin.Instance.PluginLogger.LogInfo("Handling Thumper damage...");
+
+            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            if (playerControllerB == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                return;
+            }
+
+            if (playerControllerB.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_Thumper);
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                return;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(SandSpiderAI))]
+    [HarmonyPatch("OnCollideWithPlayer")]
+    class SandSpiderAIOnCollideWithPlayerPatch {
+        public static void Postfix(SandSpiderAI __instance, Collider other) {
+            Plugin.Instance.PluginLogger.LogInfo("Handling Bunker Spider damage...");
+
+            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            if (playerControllerB == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                return;
+            }
+
+            if (playerControllerB.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_BunkerSpider);
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                return;
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(ExtensionLadderItem))]
     [HarmonyPatch("StartLadderAnimation")]
     class ExtensionLadderItemStartLadderAnimationPatch {
