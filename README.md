@@ -4,15 +4,19 @@ A plugin which overhauls the end-of-mission Performance Report with new informat
 
 **NOTE:** [LC_API](https://thunderstore.io/c/lethal-company/p/2018/LC_API/) is an optional but highly recommended dependency!
 
+## Issues
+Report any issues on the [Lethal Company Modding Discord](https://discord.com/channels/1168655651455639582/1180049504418930709).
+
 ## Demonstration
 ![](https://raw.githubusercontent.com/EliteMasterEric/Coroner/master/Art/StungByBees.png)
 
 ## Notice
+- Supports More Company's changes to the Performance Report.
 - If [LC_API](https://thunderstore.io/c/lethal-company/p/2018/LC_API/) is installed, death reports will be more precise between players.
-- This should support MoreCompany's overhauled results screen but it's currently not thoroughly tested.
 
 ## Upcoming
 - More detailed information on specific causes of death.
+- More variety in causes of death.
 - Additional bug fixes.
 
 ## Credits
