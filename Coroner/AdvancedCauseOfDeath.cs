@@ -28,7 +28,26 @@ namespace Coroner
             "Perfectly unremarkable.",
             "Hasn't called their mother in a while.",
             "Has IP address 127.0.0.1.",
-            "Secretly a lizard"
+            "Secretly a lizard",
+            "Believes in Santa Claus.",
+            "Still uses a flip phone.",
+            "Can't cook instant noodles right.",
+            "Thinks the Earth is flat.",
+            "Still afraid of the dark.",
+            "Always the first in line for coffee.",
+            "Lost a bet with a parrot.",
+            "Can't remember their passwords.",
+            "Secretly a superhero on weekends.",
+            "Tried to high-five a mirror.",
+            "Thinks pineapple belongs on pizza.",
+            "Never finishes their... ",
+            "Talks to plants.",
+            "Has a pet rock named Steve.",
+            "Wanted to be an astronaut.",
+            "Sleeps with a night light.",
+            "Once got stuck in a revolving door.",
+            "Has a collection of rubber ducks.",
+            "Dances when no one is watching.",
         };
 
         private static readonly Dictionary<int, AdvancedCauseOfDeath> PlayerCauseOfDeath = new Dictionary<int, AdvancedCauseOfDeath>();
@@ -184,152 +203,214 @@ namespace Coroner
                 case AdvancedCauseOfDeath.Bludgeoning:
                     return new[] {
                         "Bludgeoned to death.",
+                        "Met the business end of a hammer.",
+                        "Learned that gravity and rocks don't mix.",
+                        "Discovered why pillows are safer than bricks.",
+                        "Took a hard hit, literally.",
+                        "Found out hammers aren't just for nails."
                     };
                 case AdvancedCauseOfDeath.Gravity:
                     return new[] {
                         "Fell to their death.",
                         "Fell off a cliff.",
+                        "Discovered flying isn't for everyone.",
+                        "Took a dive, forgot to stop.",
+                        "Learned that what goes up must come down.",
+                        "Gravity: 1, Common Sense: 0."
                     };
                 case AdvancedCauseOfDeath.Blast:
                     return new[] {
                         "Went out with a bang.",
                         "Exploded.",
-                        "Was blown to smithereens."
+                        "Was blown to smithereens.",
+                        "Tried to juggle grenades.",
+                        "Learned the hard way that red barrels explode.",
+                        "Found out bombs are not toys."
                     };
                 case AdvancedCauseOfDeath.Strangulation:
                     return new[] {
                         "Strangled to death.",
+                        "Learned the hard way that neckties and machinery don't mix.",
+                        "Discovered the downside of fashion scarves.",
+                        "Played with a rope, it didn't end well.",
+                        "Tried a new necktie, it was too tight."
                     };
                 case AdvancedCauseOfDeath.Suffocation:
                     return new[] {
                         "Suffocated to death.",
+                        "Forgot how to breathe.",
+                        "Tried breathing in a vacuum.",
+                        "Lost a game of hold-your-breath.",
+                        "Found out air is important."
                     };
                 case AdvancedCauseOfDeath.Mauling:
                     return new[] {
                         "Mauled to death.",
+                        "Met a bear, it didn't go well.",
+                        "Tried to pet a not-so-friendly animal.",
+                        "Learned that wild animals aren't always cuddly.",
+                        "Discovered that 'bear hug' can be literal."
                     };
                 case AdvancedCauseOfDeath.Gunshots:
                     return new[] {
                         "Shot to death by a Turret.",
+                        "Found out what a bullet feels like.",
+                        "Learned guns aren't toys.",
+                        "Played a deadly game of dodgeball.",
+                        "Found out why it's called 'live' ammunition."
                     };
                 case AdvancedCauseOfDeath.Crushing:
                     return new[] {
                         "Crushed to death.",
+                        "Hugged too hard by a hydraulic press.",
+                        "Found out what it feels like to be a pancake.",
+                        "Learned that walls can be too close for comfort.",
+                        "Discovered the weight of the world, literally."
                     };
                 case AdvancedCauseOfDeath.Drowning:
                     return new[] {
                         "Drowned to death.",
+                        "Tried to breathe underwater.",
+                        "Forgot they weren't a fish.",
+                        "Swimming lessons didn't pay off.",
+                        "Discovered water is not air."
                     };
                 case AdvancedCauseOfDeath.Abandoned:
                     return new[] {
                         "Abandoned by their coworkers.",
+                        "Forgot to show up for the team meeting.",
+                        "Learned the hard way that team work matters.",
+                        "Left hanging, quite literally.",
+                        "Discovered solitude isn't always peaceful."
                     };
                 case AdvancedCauseOfDeath.Electrocution:
                     return new[] {
                         "Electrocuted to death.",
-                    };
-
-                case AdvancedCauseOfDeath.Enemy_Bracken:
-                    return new[] {
-                        "Had their neck snapped by a Bracken.",
-                        "Stared at a Bracken too long.",
-                    };
-                case AdvancedCauseOfDeath.Enemy_EyelessDog:
-                    return new[] {
-                        "Got caught using a mechanical keyboard.",
-                        "Was eaten by an Eyeless Dog.",
-                        "Was eaten by an Eyeless Dog.",
-                        "Was eaten by an Eyeless Dog.",
-                        "Wasn't quiet around an Eyeless Dog.",
-                    };
-                case AdvancedCauseOfDeath.Enemy_ForestGiant:
-                    return new[] {
-                        "Swallowed whole by a Forest Giant.",
-                    };
-                case AdvancedCauseOfDeath.Enemy_CircuitBees:
-                    return new[] {
-                        "Electro-stung to death by Circuit Bees.",
-                    };
-                case AdvancedCauseOfDeath.Enemy_GhostGirl:
-                    return new[] {
-                        "Died a mysterious death.",
-                        "???",
-                    };
-                case AdvancedCauseOfDeath.Enemy_EarthLeviathan:
-                    return new[] {
-                        "Swallowed whole by an Earth Leviathan.",
+                        "Took a shocking turn of events.",
+                        "Found out lightning does strike twice.",
+                        "Learned why they say 'don't play with electricity'.",
+                        "Discovered that power lines are not tightropes."
                     };
                 case AdvancedCauseOfDeath.Enemy_BaboonHawk:
                     return new[] {
                         "Was eaten by a Baboon Hawk.",
                         "Was mauled by a Baboon Hawk.",
+                        "Had a bad encounter with a Baboon Hawk.",
+                        "Learned that Baboon Hawks aren't friendly.",
+                        "Discovered that flying monkeys are scary."
                     };
                 case AdvancedCauseOfDeath.Enemy_Jester:
                     return new[] {
                         "Was the butt of the Jester's joke.",
                         "Got pranked by the Jester.",
                         "Got popped like a weasel.",
+                        "Didn't find the Jester's joke funny.",
+                        "Learned that laughter can be deadly."
                     };
                 case AdvancedCauseOfDeath.Enemy_CoilHead:
                     return new[] {
                         "Got in a staring contest with a Coil Head.",
                         "Lost a staring contest with a Coil Head.",
+                        "Tried to outstare a Coil Head.",
+                        "Found out Coil Heads don't blink.",
+                        "Discovered eyes can indeed be bigger than stomach."
                     };
                 case AdvancedCauseOfDeath.Enemy_SnareFlea:
                     return new[] {
                         "Was suffocated a Snare Flea.",
+                        "Got a hug from a Snare Flea.",
+                        "Learned that fleas can be more than annoying.",
+                        "Found out that some fleas are deadly.",
+                        "Discovered not all fleas are tiny."
                     };
                 case AdvancedCauseOfDeath.Enemy_Hygrodere:
                     return new[] {
                         "Was absorbed by a Hygrodere.",
                         "Got lost in the sauce.",
+                        "Had an oopsie with a Hygrodere.",
+                        "Learned that Hygroderes don't do handshakes.",
+                        "Found out some hugs are too tight."
                     };
                 case AdvancedCauseOfDeath.Enemy_HoarderBug:
                     return new[] {
                         "Was hoarded by a Hoarder Bug.",
+                        "Found out what it's like to be a collectible.",
+                        "Discovered that Hoarder Bugs don't share.",
+                        "Learned that clutter can be deadly.",
+                        "Got collected by a Hoarder Bug."
                     };
                 case AdvancedCauseOfDeath.Enemy_SporeLizard:
                     return new[] {
                         "Was puffed by a Spore Lizard.",
+                        "Met a Spore Lizard and it didn't go well.",
+                        "Learned that spores aren't always harmless.",
+                        "Found out that lizards can have deadly breath.",
+                        "Discovered that not all lizards are cute."
                     };
                 case AdvancedCauseOfDeath.Enemy_BunkerSpider:
                     return new[] {
                         "Ensnared in the Bunker Spider's web.",
+                        "Met a spider, it was a big one.",
+                        "Learned that some webs are stronger than others.",
+                        "Found out that Bunker Spiders don't make good pets.",
+                        "Discovered eight legs can be eight too many."
                     };
 
                 case AdvancedCauseOfDeath.Jetpack_Gravity:
                     return new[] {
                         "Flew too close to the sun.",
                         "Ran out of fuel.",
+                        "Learned that what goes up must come down.",
+                        "Found out that flying isn't just flapping arms.",
+                        "Discovered jetpacks have a 'down' button."
                     };
                 case AdvancedCauseOfDeath.Jetpack_Blast:
                     return new[] {
                         "Turned into a firework.",
                         "Got blown up by bad piloting.",
+                        "Decided to rocket to the moon, missed.",
+                        "Learned that jetpacks are not toys.",
+                        "Discovered the hard way that jetpacks are tricky."
                     };
                 case AdvancedCauseOfDeath.Player_Murder:
                     return new[] {
                         "Was the victim of a murder.",
                         "Got murdered.",
+                        "Found out that trust is overrated.",
+                        "Learned not everyone plays nice.",
+                        "Discovered betrayal hurts, literally."
                     };
                 case AdvancedCauseOfDeath.Player_Quicksand:
                     return new[] {
                         "Got stuck in quicksand.",
                         "Drowned in quicksand",
+                        "Tried to make quicksand a friend.",
+                        "Learned quicksand is not just in movies.",
+                        "Found out standing still isn't always safe."
                     };
                 case AdvancedCauseOfDeath.Player_DepositItemsDesk:
                     return new[] {
                         "Received a demotion.",
                         "Was put on disciplinary leave.",
+                        "Found out the desk has a temper.",
+                        "Learned paperwork can be deadly.",
+                        "Discovered the desk is not always your friend."
                     };
                 case AdvancedCauseOfDeath.Player_Dropship:
                     return new[] {
                         "Couldn't wait for their items.",
                         "Got too impatient for their items.",
+                        "Learned patience is a virtue, the hard way.",
+                        "Found out timing is everything.",
+                        "Discovered that hurry can lead to worry."
                     };
                 case AdvancedCauseOfDeath.Player_StunGrenade:
                     return new[] {
                         "Was the victim of a murder.",
+                        "Found out what stars look like up close.",
+                        "Learned that stun grenades are stunning.",
+                        "Discovered that loud noises can be deadly.",
+                        "Found out lights out means lights out."
                     };
 
                 // case AdvancedCauseOfDeath.Unknown:
@@ -337,6 +418,9 @@ namespace Coroner
                     return new[] {
                         "Most sincerely dead.",
                         "Died somehow.",
+                        "Passed away under mysterious circumstances.",
+                        "Left this world in an unusual way.",
+                        "Expired in an inexplicable manner."
                     };
             }
         }
