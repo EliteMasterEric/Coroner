@@ -291,6 +291,55 @@ namespace Coroner
                         "Learned why they say 'don't play with electricity'.",
                         "Discovered that power lines are not tightropes."
                     };
+                case AdvancedCauseOfDeath.Enemy_Bracken:
+                    return new[] {
+                        "Had their neck snapped by a Bracken.",
+                        "Stared at a Bracken too long.",
+                        "Tried to play hide and seek with a Bracken.",
+                        "Thought a Bracken was a tree.",
+                        "Gave a Bracken a funny look."
+                    };
+                case AdvancedCauseOfDeath.Enemy_EyelessDog:
+                    return new[] {
+                        "Got caught using a mechanical keyboard.",
+                        "Was eaten by an Eyeless Dog.",
+                        "Wasn't quiet around an Eyeless Dog.",
+                        "Thought 'Eyeless' meant 'harmless'.",
+                        "Tried to teach an Eyeless Dog new tricks."
+                    };
+                case AdvancedCauseOfDeath.Enemy_ForestGiant:
+                    return new[] {
+                        "Swallowed whole by a Forest Giant.",
+                        "Tried to climb a Forest Giant.",
+                        "Mistook a Forest Giant for a walking tree.",
+                        "Played a game of tag with a Forest Giant.",
+                        "Tried to take a selfie with a Forest Giant."
+                    };
+                case AdvancedCauseOfDeath.Enemy_CircuitBees:
+                    return new[] {
+                        "Electro-stung to death by Circuit Bees.",
+                        "Tried to swat a Circuit Bee.",
+                        "Thought Circuit Bees made digital honey.",
+                        "Discovered Circuit Bees don't like water.",
+                        "Tried to catch a Circuit Bee."
+                    };
+                case AdvancedCauseOfDeath.Enemy_GhostGirl:
+                    return new[] {
+                        "Died a mysterious death.",
+                        "???",
+                        "Played hide-and-seek with a Ghost Girl.",
+                        "Tried to have a conversation with a Ghost Girl.",
+                        "Thought a Ghost Girl was just a fog."
+                    };
+                case AdvancedCauseOfDeath.Enemy_EarthLeviathan:
+                    return new[] {
+                        "Swallowed whole by an Earth Leviathan.",
+                        "Tried to pet an Earth Leviathan.",
+                        "Mistook an Earth Leviathan for a mountain.",
+                        "Got in the way of an Earth Leviathan.",
+                        "Thought Earth Leviathans were friendly."
+                    };
+
                 case AdvancedCauseOfDeath.Enemy_BaboonHawk:
                     return new[] {
                         "Was eaten by a Baboon Hawk.",
