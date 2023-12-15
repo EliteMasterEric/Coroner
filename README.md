@@ -12,6 +12,7 @@ Report any issues on the [Lethal Company Modding Discord](https://discord.com/ch
 
 ## Notice
 - Supports More Company's changes to the Performance Report.
+- Does not support Bigger Company (they just straight up disable Performance Reports).
 - If [LC_API](https://thunderstore.io/c/lethal-company/p/2018/LC_API/) is installed, death reports will be more precise between players.
 
 ## Upcoming

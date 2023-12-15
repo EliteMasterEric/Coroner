@@ -90,11 +90,11 @@ namespace Coroner
                 {
                     if (playerController.causeOfDeath == CauseOfDeath.Gravity)
                     {
-                        return AdvancedCauseOfDeath.Jetpack_Gravity;
+                        return AdvancedCauseOfDeath.Player_Jetpack_Gravity;
                     }
                     else if (playerController.causeOfDeath == CauseOfDeath.Blast)
                     {
-                        return AdvancedCauseOfDeath.Jetpack_Blast;
+                        return AdvancedCauseOfDeath.Player_Jetpack_Blast;
                     }
                 }
 
@@ -228,6 +228,10 @@ namespace Coroner
                     return new[] {
                         "Electrocuted to death.",
                     };
+                case AdvancedCauseOfDeath.Kicking:
+                    return new[] {
+                        "Kicked to death.",
+                    };
 
                 case AdvancedCauseOfDeath.Enemy_Bracken:
                     return new[] {
@@ -296,21 +300,54 @@ namespace Coroner
                     return new[] {
                         "Ensnared in the Bunker Spider's web.",
                     };
+                case AdvancedCauseOfDeath.Enemy_Thumper:
+                    return new[] {
+                        "Was ravaged by a Thumper.",
+                        "Got thumped by a Thumper.",
+                    };
 
-                case AdvancedCauseOfDeath.Jetpack_Gravity:
+                case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear:
+                    return new[] {
+                        "Nobody cared who they were until they put on the Mask.",
+                        "Donned the Mask.",
+                    };
+                case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim:
+                    return new[] {
+                        "Became a tragedy at the hands of the Mask.",
+                        "Was killed by a Masked coworker.",
+                    };
+                case AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked:
+                    return new[] {
+                        "Got their nuts cracked by a Nutcracker.",
+                        "Was kicked to death by a Nutcracker.",
+                    };
+                case AdvancedCauseOfDeath.Enemy_Nutcracker_Shot:
+                    return new[] {
+                        "Was at the wrong end of a 21-gun salute.",
+                        "Got shot by a Nutcracker.",
+                    };
+
+                case AdvancedCauseOfDeath.Player_Jetpack_Gravity:
                     return new[] {
                         "Flew too close to the sun.",
                         "Ran out of fuel.",
                     };
-                case AdvancedCauseOfDeath.Jetpack_Blast:
+                case AdvancedCauseOfDeath.Player_Jetpack_Blast:
                     return new[] {
                         "Turned into a firework.",
                         "Got blown up by bad piloting.",
                     };
-                case AdvancedCauseOfDeath.Player_Murder:
+                case AdvancedCauseOfDeath.Player_Murder_Melee:
                     return new[] {
                         "Was the victim of a murder.",
                         "Got murdered.",
+                        "Was bludgeoned to death by a coworker.",
+                    };
+                case AdvancedCauseOfDeath.Player_Murder_Shotgun:
+                    return new[] {
+                        "Was the victim of a murder.",
+                        "Got murdered.",
+                        "Was shot to death by a coworker.",
                     };
                 case AdvancedCauseOfDeath.Player_Quicksand:
                     return new[] {
@@ -362,6 +399,7 @@ namespace Coroner
         Drowning,
         Abandoned,
         Electrocution,
+        Kicking, // New in v45
 
         // Custom causes (enemies)
         Enemy_BaboonHawk, // Also known as BaboonBird
@@ -380,11 +418,18 @@ namespace Coroner
         Enemy_Thumper,
         Enemy_BunkerSpider,
 
-        // Custom causes (other)
-        Jetpack_Gravity,
-        Jetpack_Blast,
+        // Enemies from v45
+        Enemy_MaskedPlayer_Wear, // Comedy mask
+        Enemy_MaskedPlayer_Victim, // Comedy mask
+        Enemy_Nutcracker_Kicked, 
+        Enemy_Nutcracker_Shot, 
+
+        // Custom causes (player)
+        Player_Jetpack_Gravity,
+        Player_Jetpack_Blast,
         Player_Quicksand,
-        Player_Murder,
+        Player_Murder_Melee,
+        Player_Murder_Shotgun,
         Player_DepositItemsDesk,
         Player_Dropship,
         Player_StunGrenade, // TODO: Implement this.

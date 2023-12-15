@@ -26,7 +26,7 @@ namespace Coroner.Patch {
                 Plugin.Instance.PluginLogger.LogInfo("Player died of suffociation while sinking in quicksand! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Quicksand);
             } else {
-                Plugin.Instance.PluginLogger.LogInfo("Player is dying! No cause of death...");
+                Plugin.Instance.PluginLogger.LogInfo("Player is dying! No cause of death registered in hook...");
             }
         }
     }
@@ -178,7 +178,7 @@ namespace Coroner.Patch {
                 Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__instance.clingingToPlayer, AdvancedCauseOfDeath.Enemy_SnareFlea);
             } else if (__instance.clingingToPlayer.isPlayerDead) {
-                Plugin.Instance.PluginLogger.LogWarning("Player died while attacked by Snare Flea! Skipping...");
+                Plugin.Instance.PluginLogger.LogWarning("Player somehow died while attacked by Snare Flea! Skipping...");
                 return;
             } else {
                 // Player still alive.
@@ -192,8 +192,7 @@ namespace Coroner.Patch {
         public static void Postfix(BaboonBirdAI __instance, Collider other) {
             Plugin.Instance.PluginLogger.LogInfo("Handling Baboon Hawk damage...");
 
-            var doingKillAnimation = Traverse.Create(__instance).Field("doingKillAnimation").GetValue<bool>();
-            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other, __instance.inSpecialAnimation || doingKillAnimation);
+            PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
             if (playerControllerB == null) {
                 Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
                 return;
@@ -221,8 +220,15 @@ namespace Coroner.Patch {
             // PlayerControllerB playerControllerWhoHit = StartOfRound.Instance.allPlayerScripts[playerWhoHit];
 
             if (__instance.isPlayerDead) {
-                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
-                AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder);
+                if (__instance.causeOfDeath == CauseOfDeath.Bludgeoning) {
+                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Melee);
+                } else if (__instance.causeOfDeath == CauseOfDeath.Gunshots) {
+                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Shotgun);
+                } else {
+                    Plugin.Instance.PluginLogger.LogWarning("Player was killed by someone else but we don't know how! " + __instance.causeOfDeath);
+                }
             } else {
                 Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
                 return;
@@ -236,7 +242,7 @@ namespace Coroner.Patch {
         public static void Postfix(PufferAI __instance, Collider other) {
             Plugin.Instance.PluginLogger.LogInfo("Handling Spore Lizard damage...");
 
-            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
             if (playerControllerB == null) {
                 Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
                 return;
@@ -258,7 +264,7 @@ namespace Coroner.Patch {
         public static void Postfix(PufferAI __instance, Collider other) {
             Plugin.Instance.PluginLogger.LogInfo("Handling Coil Head damage...");
 
-            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
             if (playerControllerB == null) {
                 Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
                 return;
@@ -301,7 +307,7 @@ namespace Coroner.Patch {
         public static void Postfix(HoarderBugAI __instance, Collider other) {
             Plugin.Instance.PluginLogger.LogInfo("Handling Hoarder Bug damage...");
 
-            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
             if (playerControllerB == null) {
                 Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
                 return;
@@ -323,7 +329,7 @@ namespace Coroner.Patch {
         public static void Postfix(CrawlerAI __instance, Collider other) {
             Plugin.Instance.PluginLogger.LogInfo("Handling Thumper damage...");
 
-            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
             if (playerControllerB == null) {
                 Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
                 return;
@@ -345,7 +351,7 @@ namespace Coroner.Patch {
         public static void Postfix(SandSpiderAI __instance, Collider other) {
             Plugin.Instance.PluginLogger.LogInfo("Handling Bunker Spider damage...");
 
-            PlayerControllerB playerControllerB = __instance.MeetsStandardPlayerCollisionConditions(other);
+            PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
             if (playerControllerB == null) {
                 Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
                 return;
@@ -354,6 +360,91 @@ namespace Coroner.Patch {
             if (playerControllerB.isPlayerDead) {
                 Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_BunkerSpider);
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                return;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(NutcrackerEnemyAI))]
+    [HarmonyPatch("LegKickPlayer")]
+    class NutcrackerEnemyAILegKickPlayerPatch {
+        public static void Postfix(NutcrackerEnemyAI __instance, int playerId) {
+            Plugin.Instance.PluginLogger.LogInfo("Nutcracker kicked a player to death!");
+
+            PlayerControllerB playerDying = StartOfRound.Instance.allPlayerScripts[playerId];
+            Plugin.Instance.PluginLogger.LogInfo("Player is dying! Setting special cause of death...");
+            AdvancedDeathTracker.SetCauseOfDeath(playerDying, AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked);
+        }
+    }
+
+    [HarmonyPatch(typeof(ShotgunItem))]
+    [HarmonyPatch("ShootGun")]
+    class ShotgunItemShootGunPatch {
+        public static void Postfix(ShotgunItem __instance, Vector3 shotgunPosition, Vector3 shotgunForward) {
+            Plugin.Instance.PluginLogger.LogInfo("Handling shotgun shot...");
+
+            PlayerControllerB localPlayerController = GameNetworkManager.Instance.localPlayerController;
+            if (localPlayerController == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access local player after shotgun shot!");
+                return;
+            }
+            if (localPlayerController.isPlayerDead && localPlayerController.causeOfDeath == CauseOfDeath.Gunshots) {
+
+                if (__instance.isHeldByEnemy) {
+                    // Enemy Nutcracker fired the shotgun.
+                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(localPlayerController, AdvancedCauseOfDeath.Enemy_Nutcracker_Shot);
+                } else {
+                    // Player fired the shotgun.
+                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(localPlayerController, AdvancedCauseOfDeath.Player_Murder_Shotgun);
+                }
+            } else if (localPlayerController.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogWarning("Player died while attacked by shotgun? Skipping...");
+                return;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(MaskedPlayerEnemy))]
+    [HarmonyPatch("killAnimation")]
+    class MaskedPlayerEnemykillAnimationPatch {
+        public static void Postfix(MaskedPlayerEnemy __instance) {
+            Plugin.Instance.PluginLogger.LogInfo("Masked Player killed someone...");
+
+            PlayerControllerB playerControllerB = __instance.inSpecialAnimationWithPlayer;
+            if (playerControllerB == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                return;
+            }
+
+            if (playerControllerB.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim);
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                return;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(HauntedMaskItem))]
+    [HarmonyPatch("FinishAttaching")]
+    class HauntedMaskItemFinishAttachingPatch {
+        public static void Postfix(HauntedMaskItem __instance) {
+            Plugin.Instance.PluginLogger.LogInfo("Masked Player killed someone...");
+
+            PlayerControllerB previousPlayerHeldBy = Traverse.Create(__instance).Field("previousPlayerHeldBy").GetValue<PlayerControllerB>();
+            if (previousPlayerHeldBy == null) {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                return;
+            }
+
+            if (previousPlayerHeldBy.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(previousPlayerHeldBy, AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear);
             } else {
                 Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
                 return;

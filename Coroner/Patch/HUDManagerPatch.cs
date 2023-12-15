@@ -6,16 +6,11 @@ namespace Coroner.Patch {
     [HarmonyLib.HarmonyPatch(typeof(HUDManager))]
     [HarmonyLib.HarmonyPatch("FillEndGameStats")]
     class HUDManagerFillEndGameStatsPatch {
-        /*
-         * A list of possible funny strings.
-         * Displayed when the player has no notes (and hasn't died).
-         */
-
         public static void Postfix(HUDManager __instance) {
             try {
                 OverridePerformanceReport(__instance);
             } catch (Exception e) {
-                Plugin.Instance.PluginLogger.LogError("Coroner threw an exception while Caught an exception overriding performance report: ");
+                Plugin.Instance.PluginLogger.LogError("Coroner threw an exception while overriding performance report: ");
                 // Display the error and the stack trace.
                 Plugin.Instance.PluginLogger.LogError(e.ToString());
                 Plugin.Instance.PluginLogger.LogError(e.StackTrace.ToString());

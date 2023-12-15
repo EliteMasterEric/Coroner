@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.3.0
+- Additional death messages for other death types.
+- Added new death messages for the enemies from v45.
+
 # 1.2.0
 ## Additions
 - Each death type can now randomly display one of several messages.
