@@ -210,7 +210,8 @@ namespace Coroner
                     };
                 case AdvancedCauseOfDeath.Gunshots:
                     return new[] {
-                        "Shot to death by a Turret.",
+                        "Shot to death.",
+                        "Filled to the brim with bullets.",
                     };
                 case AdvancedCauseOfDeath.Crushing:
                     return new[] {
@@ -281,7 +282,7 @@ namespace Coroner
                     };
                 case AdvancedCauseOfDeath.Enemy_SnareFlea:
                     return new[] {
-                        "Was suffocated a Snare Flea.",
+                        "Was suffocated by a Snare Flea.",
                     };
                 case AdvancedCauseOfDeath.Enemy_Hygrodere:
                     return new[] {
@@ -345,9 +346,11 @@ namespace Coroner
                     };
                 case AdvancedCauseOfDeath.Player_Murder_Shotgun:
                     return new[] {
-                        "Was the victim of a murder.",
-                        "Got murdered.",
-                        "Was shot to death by a coworker.",
+                        // "Was the victim of a murder.",
+                        // "Got murdered.",
+                        // "Was shot to death by a coworker.",
+                        // "Got one-pumped by a coworker.",
+                        "Got 360-noscoped by a coworker.",
                     };
                 case AdvancedCauseOfDeath.Player_Quicksand:
                     return new[] {

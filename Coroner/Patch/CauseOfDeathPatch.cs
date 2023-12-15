@@ -223,6 +223,9 @@ namespace Coroner.Patch {
                 if (__instance.causeOfDeath == CauseOfDeath.Bludgeoning) {
                     Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Melee);
+                } else if (__instance.causeOfDeath == CauseOfDeath.Mauling) {
+                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Melee);
                 } else if (__instance.causeOfDeath == CauseOfDeath.Gunshots) {
                     Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Shotgun);
@@ -391,7 +394,6 @@ namespace Coroner.Patch {
                 return;
             }
             if (localPlayerController.isPlayerDead && localPlayerController.causeOfDeath == CauseOfDeath.Gunshots) {
-
                 if (__instance.isHeldByEnemy) {
                     // Enemy Nutcracker fired the shotgun.
                     Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
@@ -402,7 +404,7 @@ namespace Coroner.Patch {
                     AdvancedDeathTracker.SetCauseOfDeath(localPlayerController, AdvancedCauseOfDeath.Player_Murder_Shotgun);
                 }
             } else if (localPlayerController.isPlayerDead) {
-                Plugin.Instance.PluginLogger.LogWarning("Player died while attacked by shotgun? Skipping...");
+                Plugin.Instance.PluginLogger.LogWarning("Player died while attacked by shotgun? Skipping... " + localPlayerController.causeOfDeath);
                 return;
             }
         }
@@ -420,13 +422,9 @@ namespace Coroner.Patch {
                 return;
             }
 
-            if (playerControllerB.isPlayerDead) {
-                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
-                AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim);
-            } else {
-                Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
-                return;
-            }
+            // playerControllerB.isPlayerDead is false here but we just assume they will die here.
+            Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+            AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim);
         }
     }
 

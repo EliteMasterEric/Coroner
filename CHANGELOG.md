@@ -1,8 +1,11 @@
 # Changelog
 
 # 1.3.0
+## Additions
 - Additional death messages for other death types.
 - Added new death messages for the enemies from v45.
+## Fixed
+- Fixed some bugs related to v45.
 
 # 1.2.0
 ## Additions
