@@ -1,5 +1,10 @@
 # Changelog
 
+# 1.3.1
+## Fixed
+- Fixed an issue where an exception in one of the cause-of-death patches would cause the player to not die.
+- Fixed an issue where not having LC_API installed would cause an exception to occur.
+
 # 1.3.0
 ## Additions
 - Additional death messages for other death types.

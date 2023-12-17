@@ -10,10 +10,8 @@ namespace Coroner.Patch {
             try {
                 OverridePerformanceReport(__instance);
             } catch (Exception e) {
-                Plugin.Instance.PluginLogger.LogError("Coroner threw an exception while overriding performance report: ");
-                // Display the error and the stack trace.
-                Plugin.Instance.PluginLogger.LogError(e.ToString());
-                Plugin.Instance.PluginLogger.LogError(e.StackTrace.ToString());
+                Plugin.Instance.PluginLogger.LogError("Error in HUDManagerFillEndGameStatsPatch.Postfix: " + e);
+                Plugin.Instance.PluginLogger.LogError(e.StackTrace);
             }
         }
 

@@ -11,7 +11,7 @@ namespace Coroner
     {
         public const string PLUGIN_ID = "Coroner";
         public const string PLUGIN_NAME = "Coroner";
-        public const string PLUGIN_VERSION = "1.3.0";
+        public const string PLUGIN_VERSION = "1.3.1";
         public const string PLUGIN_GUID = "com.elitemastereric.coroner";
     }
 
@@ -27,7 +27,7 @@ namespace Coroner
 
         public PluginConfig PluginConfig;
 
-        public bool IsLC_APIPresent = false;
+        public bool IsLCAPIPresent = false;
         
         private void Awake()
         {
@@ -43,11 +43,11 @@ namespace Coroner
             PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded!");
 
             LoadConfig();
-            QueryLC_API();
+            QueryLCAPI();
             DeathBroadcaster.Initialize();
         }
 
-        private void QueryLC_API()
+        private void QueryLCAPI()
         {
             PluginLogger.LogInfo("Checking for LC_API...");
             if (Chainloader.PluginInfos.ContainsKey("LC_API"))
@@ -58,17 +58,17 @@ namespace Coroner
                 if (pluginInfo == null)
                 {
                     PluginLogger.LogError("Detected LC_API, but could not get plugin info!");
-                    IsLC_APIPresent = false;
+                    IsLCAPIPresent = false;
                     return;
                 }
                 
                 PluginLogger.LogInfo("LCAPI is present! " + pluginInfo.Metadata.GUID + ":" + pluginInfo.Metadata.Version);
-                IsLC_APIPresent = true;
+                IsLCAPIPresent = true;
             }
             else
             {
                 PluginLogger.LogInfo("LCAPI is not present.");
-                IsLC_APIPresent = false;
+                IsLCAPIPresent = false;
             }
         }
 
