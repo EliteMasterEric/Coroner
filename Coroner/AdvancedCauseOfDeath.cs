@@ -72,12 +72,12 @@ namespace Coroner
         {
             if (!PlayerCauseOfDeath.ContainsKey((int)playerController.playerClientId))
             {
-                Plugin.Instance.PluginLogger.LogInfo($"Player {playerController.playerClientId} has no custom cause of death stored! Using fallback...");
+                Plugin.Instance.PluginLogger.LogDebug($"Player {playerController.playerClientId} has no custom cause of death stored! Using fallback...");
                 return GuessCauseOfDeath(playerController);
             }
             else
             {
-                Plugin.Instance.PluginLogger.LogInfo($"Player {playerController.playerClientId} has custom cause of death stored! {PlayerCauseOfDeath[(int)playerController.playerClientId]}");
+                Plugin.Instance.PluginLogger.LogDebug($"Player {playerController.playerClientId} has custom cause of death stored! {PlayerCauseOfDeath[(int)playerController.playerClientId]}");
                 return PlayerCauseOfDeath[(int)playerController.playerClientId];
             }
         }
@@ -171,13 +171,15 @@ namespace Coroner
         public static string StringifyCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath, Random random)
         {
             var result = SelectCauseOfDeath(causeOfDeath);
-            if (result.Length == 1) return result[0];
+            if (result.Length == 1 || Plugin.Instance.PluginConfig.ShouldUseSeriousDeathMessages()) return result[0];
             else return result[random.Next(result.Length)];
         }
 
         public static string[] SelectCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath)
         {
             if (causeOfDeath == null) return FUNNY_NOTES;
+
+            // NOTE: First cause of death in the list should be the "serious" entry.
 
             switch (causeOfDeath)
             {
@@ -192,8 +194,8 @@ namespace Coroner
                     };
                 case AdvancedCauseOfDeath.Blast:
                     return new[] {
-                        "Went out with a bang.",
                         "Exploded.",
+                        "Went out with a bang.",
                         "Was blown to smithereens."
                     };
                 case AdvancedCauseOfDeath.Strangulation:
@@ -241,10 +243,8 @@ namespace Coroner
                     };
                 case AdvancedCauseOfDeath.Enemy_EyelessDog:
                     return new[] {
+                        "Was eaten by an Eyeless Dog.",
                         "Got caught using a mechanical keyboard.",
-                        "Was eaten by an Eyeless Dog.",
-                        "Was eaten by an Eyeless Dog.",
-                        "Was eaten by an Eyeless Dog.",
                         "Wasn't quiet around an Eyeless Dog.",
                     };
                 case AdvancedCauseOfDeath.Enemy_ForestGiant:
@@ -258,6 +258,8 @@ namespace Coroner
                 case AdvancedCauseOfDeath.Enemy_GhostGirl:
                     return new[] {
                         "Died a mysterious death.",
+                        "Lost their mind.",
+                        "Got a real bad headache.",
                         "???",
                     };
                 case AdvancedCauseOfDeath.Enemy_EarthLeviathan:
@@ -271,12 +273,14 @@ namespace Coroner
                     };
                 case AdvancedCauseOfDeath.Enemy_Jester:
                     return new[] {
+                        "Mauled to death by a Jester.",
                         "Was the butt of the Jester's joke.",
                         "Got pranked by the Jester.",
                         "Got popped like a weasel.",
                     };
                 case AdvancedCauseOfDeath.Enemy_CoilHead:
                     return new[] {
+                        "Mauled to death by a Coil Head.",
                         "Got in a staring contest with a Coil Head.",
                         "Lost a staring contest with a Coil Head.",
                     };
@@ -288,13 +292,18 @@ namespace Coroner
                     return new[] {
                         "Was absorbed by a Hygrodere.",
                         "Got lost in the sauce.",
+                        "Had an oopsie with a Hygrodere.",
                     };
                 case AdvancedCauseOfDeath.Enemy_HoarderBug:
                     return new[] {
+                        "Was mauled by a Hoarder Bug.",
+                        "Was swarmed by a Hoarder Bug.",
                         "Was hoarded by a Hoarder Bug.",
+                        "Tried to steal from a Hoarder Bug.",
                     };
                 case AdvancedCauseOfDeath.Enemy_SporeLizard:
                     return new[] {
+                        "Was bitten by a Spore Lizard.",
                         "Was puffed by a Spore Lizard.",
                     };
                 case AdvancedCauseOfDeath.Enemy_BunkerSpider:
@@ -309,47 +318,49 @@ namespace Coroner
 
                 case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear:
                     return new[] {
-                        "Nobody cared who they were until they put on the Mask.",
                         "Donned the Mask.",
+                        "Nobody cared who they were until they put on the Mask.",
                     };
                 case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim:
                     return new[] {
-                        "Became a tragedy at the hands of the Mask.",
                         "Was killed by a Masked coworker.",
+                        "Became a tragedy at the hands of the Mask.",
                     };
                 case AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked:
                     return new[] {
-                        "Got their nuts cracked by a Nutcracker.",
                         "Was kicked to death by a Nutcracker.",
+                        "Got their nuts cracked by a Nutcracker.",
                     };
                 case AdvancedCauseOfDeath.Enemy_Nutcracker_Shot:
                     return new[] {
-                        "Was at the wrong end of a 21-gun salute.",
                         "Got shot by a Nutcracker.",
+                        "Was at the wrong end of a 21-gun salute.",
                     };
 
                 case AdvancedCauseOfDeath.Player_Jetpack_Gravity:
                     return new[] {
+                        "Fell while using a jetpack.",
                         "Flew too close to the sun.",
                         "Ran out of fuel.",
                     };
                 case AdvancedCauseOfDeath.Player_Jetpack_Blast:
                     return new[] {
+                        "Blew up while using a Jetpack.",
                         "Turned into a firework.",
-                        "Got blown up by bad piloting.",
                     };
                 case AdvancedCauseOfDeath.Player_Murder_Melee:
                     return new[] {
+                        "Was bludgeoned to death by a coworker.",
                         "Was the victim of a murder.",
                         "Got murdered.",
-                        "Was bludgeoned to death by a coworker.",
+                        "Got backstabbed by a coworker."
                     };
                 case AdvancedCauseOfDeath.Player_Murder_Shotgun:
                     return new[] {
-                        // "Was the victim of a murder.",
-                        // "Got murdered.",
-                        // "Was shot to death by a coworker.",
-                        // "Got one-pumped by a coworker.",
+                        "Was shot to death by a coworker.",
+                        "Was the victim of a murder.",
+                        "Got murdered.",
+                        "Got one-pumped by a coworker.",
                         "Got 360-noscoped by a coworker.",
                     };
                 case AdvancedCauseOfDeath.Player_Quicksand:
@@ -357,26 +368,42 @@ namespace Coroner
                         "Got stuck in quicksand.",
                         "Drowned in quicksand",
                     };
-                case AdvancedCauseOfDeath.Player_DepositItemsDesk:
+                case AdvancedCauseOfDeath.Player_StunGrenade:
+                    return new[] {
+                        "Got flashbanged by a coworker.",
+                        "Was the victim of a murder.",
+                    };
+
+                case AdvancedCauseOfDeath.Other_DepositItemsDesk:
+                    // NOTE: Since there's no performance report on Gordion this never shows.
                     return new[] {
                         "Received a demotion.",
                         "Was put on disciplinary leave.",
                     };
-                case AdvancedCauseOfDeath.Player_Dropship:
+                case AdvancedCauseOfDeath.Other_Dropship:
                     return new[] {
+                        "Was crushed by the Item Dropship.",
                         "Couldn't wait for their items.",
                         "Got too impatient for their items.",
                     };
-                case AdvancedCauseOfDeath.Player_StunGrenade:
-                    return new[] {
-                        "Was the victim of a murder.",
+                case AdvancedCauseOfDeath.Other_Landmine:
+                    return new [] {
+                        "Stepped on a landmine."
+                    };
+                case AdvancedCauseOfDeath.Other_Turret:
+                    return new [] {
+                        "Got shot by a turret."
+                    };
+                case AdvancedCauseOfDeath.Other_Lightning:
+                    return new [] {
+                        "Was struck by lightning."
                     };
 
-                // case AdvancedCauseOfDeath.Unknown:
                 default:
                     return new[] {
-                        "Most sincerely dead.",
                         "Died somehow.",
+                        "Most sincerely dead.",
+                        "Expired in an inexplicable manner."
                     };
             }
         }
@@ -433,8 +460,12 @@ namespace Coroner
         Player_Quicksand,
         Player_Murder_Melee,
         Player_Murder_Shotgun,
-        Player_DepositItemsDesk,
-        Player_Dropship,
         Player_StunGrenade, // TODO: Implement this.
+
+        Other_Landmine,
+        Other_Turret,
+        Other_Lightning,
+        Other_DepositItemsDesk,
+        Other_Dropship,
     }
 }

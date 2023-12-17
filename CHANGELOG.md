@@ -1,5 +1,17 @@
 # Changelog
 
+# 1.4.0
+## Additions
+- Added custom death messages for specific types of explosions:
+    - Landmines
+    - Jetpack
+    - Lightning
+- Added custom death message for Turrets.
+- Added a `SeriousDeathMessages` config option to display only more to-the-point death messages. Defaults to `false`.
+## Changed
+- The death report now says "Cause of Death" instead of "Notes" when a player dies.
+- Decreased log verbosity to improve performance.
+
 # 1.3.1
 ## Fixed
 - Fixed an issue where an exception in one of the cause-of-death patches would cause the player to not die.

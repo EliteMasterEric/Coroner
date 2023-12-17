@@ -17,7 +17,7 @@ namespace Coroner.Patch {
 
         static Random BuildSyncedRandom(HUDManager __instance) {
             var seed = StartOfRound.Instance.randomMapSeed;
-            Plugin.Instance.PluginLogger.LogInfo("Syncing randomization to map seed: '" + seed + "'");
+            Plugin.Instance.PluginLogger.LogDebug("Syncing randomization to map seed: '" + seed + "'");
             return new Random(seed);
         }
 
@@ -25,7 +25,7 @@ namespace Coroner.Patch {
          * Override the performance report to display our notes.
          */
         static void OverridePerformanceReport(HUDManager __instance) {
-            Plugin.Instance.PluginLogger.LogInfo("Applying Coroner patches to player notes...");
+            Plugin.Instance.PluginLogger.LogDebug("Applying Coroner patches to player notes...");
 
             var syncedRandom = BuildSyncedRandom(__instance);
 
@@ -42,7 +42,7 @@ namespace Coroner.Patch {
                         if (Plugin.Instance.PluginConfig.ShouldDeathReplaceNotes()) {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
                             // Reset the notes.
-                            textMesh.text = "Notes: \n";
+                            textMesh.text = "Cause of Death: \n";
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Appending notes with Cause of Death...");
                         }

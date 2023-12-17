@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+using System.Reflection.Emit;
 using GameNetcodeStuff;
 using HarmonyLib;
 using UnityEngine;
@@ -18,11 +22,10 @@ namespace Coroner.Patch
             try
             {
                 // NOTE: Only called on the client of the player who died.
-
                 if ((int)causeOfDeath == AdvancedDeathTracker.PLAYER_CAUSE_OF_DEATH_DROPSHIP)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player died from item dropship! Setting special cause of death...");
-                    AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Dropship);
+                    Plugin.Instance.PluginLogger.LogDebug("Player died from item dropship! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Other_Dropship);
                     // Now to fix the jank by adding a normal value!
                     causeOfDeath = CauseOfDeath.Crushing;
                     return;
@@ -30,12 +33,16 @@ namespace Coroner.Patch
 
                 if (__instance.isSinking && causeOfDeath == CauseOfDeath.Suffocation)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player died of suffociation while sinking in quicksand! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player died of suffociation while sinking in quicksand! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Quicksand);
+                } else if (causeOfDeath == CauseOfDeath.Blast) {
+                    // Determine what caused the blast.
+                    // WARNING: This code is very janky and may cause mental damage to anyone who reads it.
+
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is dying! No cause of death registered in hook...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is dying! No cause of death registered in hook...");
                 }
             }
             catch (System.Exception e)
@@ -54,11 +61,11 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Accessing state after tentacle devouring...");
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after tentacle devouring...");
 
                 PlayerControllerB playerDying = StartOfRound.Instance.allPlayerScripts[playerID];
-                Plugin.Instance.PluginLogger.LogInfo("Player is dying! Setting special cause of death...");
-                AdvancedDeathTracker.SetCauseOfDeath(playerDying, AdvancedCauseOfDeath.Player_DepositItemsDesk);
+                Plugin.Instance.PluginLogger.LogDebug("Player is dying! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerDying, AdvancedCauseOfDeath.Other_DepositItemsDesk);
             }
             catch (System.Exception e)
             {
@@ -76,7 +83,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Accessing state after Jester mauling...");
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after Jester mauling...");
 
                 PlayerControllerB playerControllerB = StartOfRound.Instance.allPlayerScripts[playerId];
                 if (playerControllerB == null)
@@ -85,7 +92,7 @@ namespace Coroner.Patch
                     return;
                 }
 
-                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_Jester);
             }
             catch (System.Exception e)
@@ -104,7 +111,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Accessing state after Sand Worm devouring...");
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after Sand Worm devouring...");
 
                 if (playerScript == null)
                 {
@@ -112,7 +119,7 @@ namespace Coroner.Patch
                     return;
                 }
 
-                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(playerScript, AdvancedCauseOfDeath.Enemy_EarthLeviathan);
             }
             catch (System.Exception e)
@@ -131,7 +138,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Accessing state after Circuit Bee electrocution...");
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after Circuit Bee electrocution...");
 
                 PlayerControllerB playerDying = StartOfRound.Instance.allPlayerScripts[playerId];
                 if (playerDying == null)
@@ -142,12 +149,12 @@ namespace Coroner.Patch
 
                 if (playerDying.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerDying, AdvancedCauseOfDeath.Enemy_CircuitBees);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -167,7 +174,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Processing Ghost Girl player collision...");
+                Plugin.Instance.PluginLogger.LogDebug("Processing Ghost Girl player collision...");
 
                 if (__instance.hauntingPlayer == null)
                 {
@@ -176,7 +183,7 @@ namespace Coroner.Patch
                 }
                 if (__instance.hauntingPlayer.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(__instance.hauntingPlayer, AdvancedCauseOfDeath.Enemy_GhostGirl);
                 }
             }
@@ -196,7 +203,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Accessing state after Bracken snapping neck...");
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after Bracken snapping neck...");
 
                 if (__instance.inSpecialAnimationWithPlayer == null)
                 {
@@ -204,7 +211,7 @@ namespace Coroner.Patch
                     return;
                 }
 
-                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__instance.inSpecialAnimationWithPlayer, AdvancedCauseOfDeath.Enemy_Bracken);
             }
             catch (System.Exception e)
@@ -223,7 +230,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Accessing state after Forest Giant devouring...");
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after Forest Giant devouring...");
 
                 if (playerBeingEaten == null)
                 {
@@ -231,7 +238,7 @@ namespace Coroner.Patch
                     return;
                 }
 
-                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(playerBeingEaten, AdvancedCauseOfDeath.Enemy_ForestGiant);
             }
             catch (System.Exception e)
@@ -250,7 +257,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Accessing state after dog devouring...");
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after dog devouring...");
 
                 PlayerControllerB playerDying = StartOfRound.Instance.allPlayerScripts[playerId];
                 if (playerDying == null)
@@ -259,7 +266,7 @@ namespace Coroner.Patch
                     return;
                 }
 
-                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(playerDying, AdvancedCauseOfDeath.Enemy_EyelessDog);
             }
             catch (System.Exception e)
@@ -278,7 +285,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling Snare Flea damage...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling Snare Flea damage...");
                 if (__instance.clingingToPlayer == null)
                 {
                     Plugin.Instance.PluginLogger.LogWarning("Could not access player being clung to!");
@@ -287,12 +294,12 @@ namespace Coroner.Patch
 
                 if (__instance.clingingToPlayer.isPlayerDead && __instance.clingingToPlayer.causeOfDeath == CauseOfDeath.Suffocation)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(__instance.clingingToPlayer, AdvancedCauseOfDeath.Enemy_SnareFlea);
                 }
                 else if (__instance.clingingToPlayer.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player somehow died while attacked by Snare Flea! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player somehow died while attacked by Snare Flea! Skipping...");
                     return;
                 }
                 else
@@ -312,11 +319,11 @@ namespace Coroner.Patch
     [HarmonyPatch("OnCollideWithPlayer")]
     class BaboonBirdAIOnCollideWithPlayerPatch
     {
-        public static void Postfix(BaboonBirdAI __instance, Collider other)
+        public static void Postfix(Collider other)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling Baboon Hawk damage...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling Baboon Hawk damage...");
 
                 PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
                 if (playerControllerB == null)
@@ -327,12 +334,12 @@ namespace Coroner.Patch
 
                 if (playerControllerB.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_BaboonHawk);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -348,11 +355,11 @@ namespace Coroner.Patch
     [HarmonyPatch("DamagePlayerFromOtherClientClientRpc")]
     class PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch
     {
-        public static void Postfix(PlayerControllerB __instance, int playerWhoHit)
+        public static void Postfix(PlayerControllerB __instance)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling friendly fire damage...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling friendly fire damage...");
                 if (__instance == null)
                 {
                     Plugin.Instance.PluginLogger.LogWarning("Could not access victim after death!");
@@ -364,17 +371,17 @@ namespace Coroner.Patch
                 {
                     if (__instance.causeOfDeath == CauseOfDeath.Bludgeoning)
                     {
-                        Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                        Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                         AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Melee);
                     }
                     else if (__instance.causeOfDeath == CauseOfDeath.Mauling)
                     {
-                        Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                        Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                         AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Melee);
                     }
                     else if (__instance.causeOfDeath == CauseOfDeath.Gunshots)
                     {
-                        Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                        Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                         AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Shotgun);
                     }
                     else
@@ -384,7 +391,7 @@ namespace Coroner.Patch
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -400,11 +407,11 @@ namespace Coroner.Patch
     [HarmonyPatch("OnCollideWithPlayer")]
     class PufferAIOnCollideWithPlayerPatch
     {
-        public static void Postfix(PufferAI __instance, Collider other)
+        public static void Postfix(Collider other)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling Spore Lizard damage...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling Spore Lizard damage...");
 
                 PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
                 if (playerControllerB == null)
@@ -415,12 +422,12 @@ namespace Coroner.Patch
 
                 if (playerControllerB.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_SporeLizard);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -436,11 +443,11 @@ namespace Coroner.Patch
     [HarmonyPatch("OnCollideWithPlayer")]
     class SpringManAIOnCollideWithPlayerPatch
     {
-        public static void Postfix(PufferAI __instance, Collider other)
+        public static void Postfix(Collider other)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling Coil Head damage...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling Coil Head damage...");
 
                 PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
                 if (playerControllerB == null)
@@ -451,12 +458,12 @@ namespace Coroner.Patch
 
                 if (playerControllerB.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_CoilHead);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -486,12 +493,12 @@ namespace Coroner.Patch
 
                 if (playerDying.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerDying, AdvancedCauseOfDeath.Enemy_Hygrodere);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -511,7 +518,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling Hoarder Bug damage...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling Hoarder Bug damage...");
 
                 PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
                 if (playerControllerB == null)
@@ -522,12 +529,12 @@ namespace Coroner.Patch
 
                 if (playerControllerB.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_HoarderBug);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -543,11 +550,11 @@ namespace Coroner.Patch
     [HarmonyPatch("OnCollideWithPlayer")]
     class CrawlerAIOnCollideWithPlayerPatch
     {
-        public static void Postfix(CrawlerAI __instance, Collider other)
+        public static void Postfix(Collider other)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling Thumper damage...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling Thumper damage...");
 
                 PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
                 if (playerControllerB == null)
@@ -558,12 +565,12 @@ namespace Coroner.Patch
 
                 if (playerControllerB.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_Thumper);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -579,11 +586,11 @@ namespace Coroner.Patch
     [HarmonyPatch("OnCollideWithPlayer")]
     class SandSpiderAIOnCollideWithPlayerPatch
     {
-        public static void Postfix(SandSpiderAI __instance, Collider other)
+        public static void Postfix(Collider other)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling Bunker Spider damage...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling Bunker Spider damage...");
 
                 PlayerControllerB playerControllerB = other.gameObject.GetComponent<PlayerControllerB>();
                 if (playerControllerB == null)
@@ -594,12 +601,12 @@ namespace Coroner.Patch
 
                 if (playerControllerB.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_BunkerSpider);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -615,14 +622,14 @@ namespace Coroner.Patch
     [HarmonyPatch("LegKickPlayer")]
     class NutcrackerEnemyAILegKickPlayerPatch
     {
-        public static void Postfix(NutcrackerEnemyAI __instance, int playerId)
+        public static void Postfix(int playerId)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Nutcracker kicked a player to death!");
+                Plugin.Instance.PluginLogger.LogDebug("Nutcracker kicked a player to death!");
 
                 PlayerControllerB playerDying = StartOfRound.Instance.allPlayerScripts[playerId];
-                Plugin.Instance.PluginLogger.LogInfo("Player is dying! Setting special cause of death...");
+                Plugin.Instance.PluginLogger.LogDebug("Player is dying! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(playerDying, AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked);
             }
             catch (System.Exception e)
@@ -637,11 +644,11 @@ namespace Coroner.Patch
     [HarmonyPatch("ShootGun")]
     class ShotgunItemShootGunPatch
     {
-        public static void Postfix(ShotgunItem __instance, Vector3 shotgunPosition, Vector3 shotgunForward)
+        public static void Postfix(ShotgunItem __instance)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Handling shotgun shot...");
+                Plugin.Instance.PluginLogger.LogDebug("Handling shotgun shot...");
 
                 PlayerControllerB localPlayerController = GameNetworkManager.Instance.localPlayerController;
                 if (localPlayerController == null)
@@ -654,13 +661,13 @@ namespace Coroner.Patch
                     if (__instance.isHeldByEnemy)
                     {
                         // Enemy Nutcracker fired the shotgun.
-                        Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                        Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                         AdvancedDeathTracker.SetCauseOfDeath(localPlayerController, AdvancedCauseOfDeath.Enemy_Nutcracker_Shot);
                     }
                     else
                     {
                         // Player fired the shotgun.
-                        Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                        Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                         AdvancedDeathTracker.SetCauseOfDeath(localPlayerController, AdvancedCauseOfDeath.Player_Murder_Shotgun);
                     }
                 }
@@ -686,7 +693,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Masked Player killed someone...");
+                Plugin.Instance.PluginLogger.LogDebug("Masked Player killed someone...");
 
                 PlayerControllerB playerControllerB = __instance.inSpecialAnimationWithPlayer;
                 if (playerControllerB == null)
@@ -696,7 +703,7 @@ namespace Coroner.Patch
                 }
 
                 // playerControllerB.isPlayerDead is false here but we just assume they will die here.
-                Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim);
             }
             catch (System.Exception e)
@@ -715,7 +722,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Masked Player killed someone...");
+                Plugin.Instance.PluginLogger.LogDebug("Masked Player killed someone...");
 
                 PlayerControllerB previousPlayerHeldBy = Traverse.Create(__instance).Field("previousPlayerHeldBy").GetValue<PlayerControllerB>();
                 if (previousPlayerHeldBy == null)
@@ -726,12 +733,12 @@ namespace Coroner.Patch
 
                 if (previousPlayerHeldBy.isPlayerDead)
                 {
-                    Plugin.Instance.PluginLogger.LogInfo("Player is now dead! Setting special cause of death...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(previousPlayerHeldBy, AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Player is somehow still alive! Skipping...");
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
                     return;
                 }
             }
@@ -751,7 +758,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Extension ladder started animation! Modifying kill trigger...");
+                Plugin.Instance.PluginLogger.LogDebug("Extension ladder started animation! Modifying kill trigger...");
 
                 GameObject extensionLadderGameObject = __instance.gameObject;
                 if (extensionLadderGameObject == null)
@@ -798,7 +805,7 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo("Item dropship spawned! Modifying kill trigger...");
+                Plugin.Instance.PluginLogger.LogDebug("Item dropship spawned! Modifying kill trigger...");
 
                 GameObject itemDropshipGameObject = __instance.gameObject;
                 if (itemDropshipGameObject == null)
@@ -834,6 +841,121 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogError("Error in ItemDropshipStartPatch.Postfix: " + e);
                 Plugin.Instance.PluginLogger.LogError(e.StackTrace);
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(Turret))]
+    [HarmonyPatch("Update")]
+    public class TurretUpdatePatch
+    {
+        public static void Postfix(Turret __instance) {
+            if (__instance.turretMode != TurretMode.Firing) return;
+
+            // TODO: This might conflict with other Gunshots causes of death?
+
+            var targetPlayer = GameNetworkManager.Instance.localPlayerController;
+            if (targetPlayer.isPlayerDead && targetPlayer.causeOfDeath == CauseOfDeath.Gunshots) {
+                Plugin.Instance.PluginLogger.LogDebug("Player is now dead! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, AdvancedCauseOfDeath.Other_Turret);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Landmine))]
+    [HarmonyPatch("SpawnExplosion")]
+    public class LandmineSpawnExplosionPatch
+    {
+        // IL_0177: callvirt  instance void GameNetcodeStuff.PlayerControllerB::KillPlayer(valuetype [UnityEngine.CoreModule]UnityEngine.Vector3, bool, valuetype CauseOfDeath, int32)
+        const string KILL_PLAYER_SIGNATURE = "Void KillPlayer(UnityEngine.Vector3, Boolean, CauseOfDeath, Int32)";
+
+        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator, MethodBase method)
+	    {
+		    var code = new List<CodeInstruction>(instructions);
+
+		    // We'll need to modify code here.
+            var codeToInject = BuildInstructionsToInsert(method);
+            if (codeToInject == null) {
+                Plugin.Instance.PluginLogger.LogError("Could not build instructions to insert in LandmineSpawnExplosionPatch! Safely aborting...");
+                return instructions;
+            }
+
+            // Search for where PlayerControllerB.KillPlayer is called.
+            int insertionIndex = -1;
+            for (int i = 0; i < code.Count; i++)
+            {
+                CodeInstruction instruction = code[i];
+                if (instruction.opcode == OpCodes.Callvirt && instruction.operand.ToString() == KILL_PLAYER_SIGNATURE)
+                {
+                    insertionIndex = i;
+                    break;
+                }
+            }
+
+            if (insertionIndex == -1)
+            {
+                Plugin.Instance.PluginLogger.LogError("Could not find PlayerControllerB.KillPlayer call in LandmineSpawnExplosionPatch! Safely aborting...");
+                return instructions;
+            } else {
+                // Moment of truth.
+                Plugin.Instance.PluginLogger.LogInfo("Injecting patch into Landmine.SpawnExplosion...");
+                code.InsertRange(insertionIndex, codeToInject);
+                Plugin.Instance.PluginLogger.LogInfo("Done.");
+
+		        return code;
+            }
+        }
+
+        static List<CodeInstruction> BuildInstructionsToInsert(MethodBase method) {
+            var result = new List<CodeInstruction>();
+
+            // var argumentIndex_explosionPosition = 0;
+            // var argumentIndex_spawnExplosionEffect = 1;
+            var argumentIndex_killRange = 2;
+            // var argumentIndex_damageRange = 3;
+
+            IList<LocalVariableInfo> localVars = method.GetMethodBody().LocalVariables;
+            LocalVariableInfo localVar_component = null;
+
+            for (int i = 0; i < localVars.Count; i++) {
+                var currentLocalVar = localVars[i];
+
+                if (currentLocalVar.LocalType == typeof(PlayerControllerB)) {
+                    if (localVar_component != null) {
+                        Plugin.Instance.PluginLogger.LogError("Found multiple PlayerControllerB local variables in LandmineSpawnExplosionPatch!");
+                        return null;
+                    }
+                    localVar_component = currentLocalVar;
+                    break;
+                }
+            }
+
+
+            // IL_017D: ldloc.s   component
+            result.Add(new CodeInstruction(OpCodes.Ldloc_S, localVar_component.LocalIndex));
+
+            // IL_017F: ldarg.2
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_killRange));
+
+            // IL_0180: call      void [Coroner]Coroner.Patch.LandmineSpawnExplosionPatch::RewriteCauseOfDeath(class GameNetcodeStuff.PlayerControllerB, float32)
+            result.Add(new CodeInstruction(OpCodes.Call, typeof(LandmineSpawnExplosionPatch).GetMethod(nameof(RewriteCauseOfDeath))));
+
+            return result;
+        }
+
+        public static void RewriteCauseOfDeath(PlayerControllerB targetPlayer, float killRange) {
+            // This function sets different causes of death for the player based on the kill range of the explosion.
+            // This works because different explosion types have different kill ranges.
+
+            AdvancedCauseOfDeath causeOfDeath = AdvancedCauseOfDeath.Blast;
+            if (killRange == 5.0f) {
+                causeOfDeath = AdvancedCauseOfDeath.Player_Jetpack_Blast;
+            } else if (killRange == 5.7f) {
+                causeOfDeath = AdvancedCauseOfDeath.Other_Landmine;
+            } else if (killRange == 2.4f) {
+                causeOfDeath = AdvancedCauseOfDeath.Other_Lightning;
+            }
+
+            AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, causeOfDeath);
         }
     }
 }
