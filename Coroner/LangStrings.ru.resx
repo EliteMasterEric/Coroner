@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbandonedDeath1" xml:space="preserve">
+    <value>Брошен своими коллегами.</value>
+  </data>
+  <data name="BlastDeath1" xml:space="preserve">
+    <value>Взорвался.</value>
+  </data>
+  <data name="BlastDeath2" xml:space="preserve">
+    <value>Ушёл с фейерверком.</value>
+  </data>
+  <data name="BlastDeath3" xml:space="preserve">
+    <value>Был разнесён вдребезги.</value>
+  </data>
+  <data name="BludgeoningDeath1" xml:space="preserve">
+    <value>Забит до смерти.</value>
+  </data>
+  <data name="CrushingDeath1" xml:space="preserve">
+    <value>Раздавлен.</value>
+  </data>
+  <data name="DrowningDeath1" xml:space="preserve">
+    <value>Утонул.</value>
+  </data>
+  <data name="ElectrocutionDeath1" xml:space="preserve">
+    <value>Убит электрическим током.</value>
+  </data>
+  <data name="Enemy_BaboonHawkDeath1" xml:space="preserve">
+    <value>Был съеден Бабуиновым ястребом.</value>
+  </data>
+  <data name="Enemy_BaboonHawkDeath2" xml:space="preserve">
+    <value>Был изуродован Бабуиновым ястребом.</value>
+  </data>
+  <data name="Enemy_BrackenDeath1" xml:space="preserve">
+    <value>Бракен свернул ему шею.</value>
+  </data>
+  <data name="Enemy_BrackenDeath2" xml:space="preserve">
+    <value>Проиграл Бреккену в гляделки.</value>
+  </data>
+  <data name="Enemy_BunkerSpiderDeath1" xml:space="preserve">
+    <value>Попался в сети Бункерного паука.</value>
+  </data>
+  <data name="Enemy_CircuitBeesDeath1" xml:space="preserve">
+    <value>Был зажарен Проводниковыми пчелами.</value>
+  </data>
+  <data name="Enemy_CoilHeadDeath1" xml:space="preserve">
+    <value>Был изуродован Пружиноголовым.</value>
+  </data>
+  <data name="Enemy_CoilHeadDeath2" xml:space="preserve">
+    <value>Неудачно моргнул.</value>
+  </data>
+  <data name="Enemy_CoilHeadDeath3" xml:space="preserve">
+    <value>Проиграл Пружиноголовому в гляделки.</value>
+  </data>
+  <data name="Enemy_EarthLeviathanDeath1" xml:space="preserve">
+    <value>Проглочен Земным Левиафаном.</value>
+  </data>
+  <data name="Enemy_EyelessDogDeath1" xml:space="preserve">
+    <value>Был съеден Слепой собакой.</value>
+  </data>
+  <data name="Enemy_EyelessDogDeath2" xml:space="preserve">
+    <value>Был пойман за использование механической клавиатуры.</value>
+  </data>
+  <data name="Enemy_EyelessDogDeath3" xml:space="preserve">
+    <value>Чихнул рядом со Слепой собакой.</value>
+  </data>
+  <data name="Enemy_ForestGiantDeath1" xml:space="preserve">
+    <value>Проглочен Лесным гигантом.</value>
+  </data>
+  <data name="Enemy_GhostGirlDeath1" xml:space="preserve">
+    <value>Умер загадочной смертью.</value>
+  </data>
+  <data name="Enemy_GhostGirlDeath2" xml:space="preserve">
+    <value>Потерял рассудок.</value>
+  </data>
+  <data name="Enemy_GhostGirlDeath3" xml:space="preserve">
+    <value>Получил сильную головную боль.</value>
+  </data>
+  <data name="Enemy_GhostGirlDeath4" xml:space="preserve">
+    <value>???</value>
+  </data>
+  <data name="Enemy_HoarderBugDeath1" xml:space="preserve">
+    <value>Был изуродован Жуком-собирателем.</value>
+  </data>
+  <data name="Enemy_HoarderBugDeath2" xml:space="preserve">
+    <value>Был окружен Жуком-собирателем.</value>
+  </data>
+  <data name="Enemy_HoarderBugDeath3" xml:space="preserve">
+    <value>Был собран Жуком-собирателем.</value>
+  </data>
+  <data name="Enemy_HoarderBugDeath4" xml:space="preserve">
+    <value>Пытался украсть у Жука-собирателя.</value>
+  </data>
+  <data name="Enemy_HygrodereDeath1" xml:space="preserve">
+    <value>Был поглощен Гигродером.</value>
+  </data>
+  <data name="Enemy_HygrodereDeath2" xml:space="preserve">
+    <value>Потерялся в соусе.</value>
+  </data>
+  <data name="Enemy_HygrodereDeath3" xml:space="preserve">
+    <value>Превратился в лужу.</value>
+  </data>
+  <data name="Enemy_JesterDeath1" xml:space="preserve">
+    <value>Mauled to death by a Jester.</value>
+  </data>
+  <data name="Enemy_JesterDeath2" xml:space="preserve">
+    <value>Был объектом шутки Шута.</value>
+  </data>
+  <data name="Enemy_JesterDeath3" xml:space="preserve">
+    <value>Это всего лишь пранк, Бро!</value>
+  </data>
+  <data name="Enemy_JesterDeath4" xml:space="preserve">
+    <value>Умер от кринжа.</value>
+  </data>
+  <data name="Enemy_MaskedPlayer_VictimDeath1" xml:space="preserve">
+    <value>Был убит коллегой в Маске.</value>
+  </data>
+  <data name="Enemy_MaskedPlayer_VictimDeath2" xml:space="preserve">
+    <value>Стал трагедией от рук Маски.</value>
+  </data>
+  <data name="Enemy_MaskedPlayer_WearDeath1" xml:space="preserve">
+    <value>Надел Маску.</value>
+  </data>
+  <data name="Enemy_MaskedPlayer_WearDeath2" xml:space="preserve">
+    <value>Никого не волновало, кем он был, пока не надел Маску.</value>
+  </data>
+  <data name="Enemy_Nutcracker_KickedDeath1" xml:space="preserve">
+    <value>Был забит до смерти Щелкунчиком.</value>
+  </data>
+  <data name="Enemy_Nutcracker_KickedDeath2" xml:space="preserve">
+    <value>Щелкунчик расколол его орехи.</value>
+  </data>
+  <data name="Enemy_Nutcracker_ShotDeath1" xml:space="preserve">
+    <value>Был застрелен Щелкунчиком.</value>
+  </data>
+  <data name="Enemy_Nutcracker_ShotDeath2" xml:space="preserve">
+    <value>Был не на том конце салюта из 21 калибра.</value>
+  </data>
+  <data name="Enemy_SnareFleaDeath1" xml:space="preserve">
+    <value>Был задушен Блохой-ловушкой.</value>
+  </data>
+  <data name="Enemy_SporeLizardDeath1" xml:space="preserve">
+    <value>Был укушен Споровой ящерицей.</value>
+  </data>
+  <data name="Enemy_SporeLizardDeath2" xml:space="preserve">
+    <value>Был отравлен Споровой ящерицей.</value>
+  </data>
+  <data name="Enemy_ThumperDeath1" xml:space="preserve">
+    <value>Был съеден Тампером.</value>
+  </data>
+  <data name="Enemy_ThumperDeath2" xml:space="preserve">
+    <value>Был раздавлен Тампером.</value>
+  </data>
+  <data name="FunnyNote1" xml:space="preserve">
+    <value>Самый тупой болван.</value>
+  </data>
+  <data name="FunnyNote10" xml:space="preserve">
+    <value>Не любит курящих.</value>
+  </data>
+  <data name="FunnyNote11" xml:space="preserve">
+    <value>Командный игрок.</value>
+  </data>
+  <data name="FunnyNote12" xml:space="preserve">
+    <value>Настоящий предприимчивый человек.</value>
+  </data>
+  <data name="FunnyNote13" xml:space="preserve">
+    <value>Съел больше всего закусок.</value>
+  </data>
+  <data name="FunnyNote14" xml:space="preserve">
+    <value>Прошел GO и получил 200$.</value>
+  </data>
+  <data name="FunnyNote15" xml:space="preserve">
+    <value>Нажрался в пятницу вечером.</value>
+  </data>
+  <data name="FunnyNote16" xml:space="preserve">
+    <value>Я думаю, что это серийный убийца.</value>
+  </data>
+  <data name="FunnyNote17" xml:space="preserve">
+    <value>Совершенно ничем не примечателен.</value>
+  </data>
+  <data name="FunnyNote18" xml:space="preserve">
+    <value>Давненько не звонил матери.</value>
+  </data>
+  <data name="FunnyNote19" xml:space="preserve">
+    <value>Имеет IP-адрес 127.0.0.1.</value>
+  </data>
+  <data name="FunnyNote2" xml:space="preserve">
+    <value>Самый милый сотрудник.</value>
+  </data>
+  <data name="FunnyNote20" xml:space="preserve">
+    <value>Тайно ящерка.</value>
+  </data>
+  <data name="FunnyNote3" xml:space="preserve">
+    <value>Получил больше веселья чем другие.</value>
+  </data>
+  <data name="FunnyNote4" xml:space="preserve">
+    <value>Получил меньше веселья чем другие.</value>
+  </data>
+  <data name="FunnyNote5" xml:space="preserve">
+    <value>Самый смелый сотрудник.</value>
+  </data>
+  <data name="FunnyNote6" xml:space="preserve">
+    <value>Сделал крутой кувырок.</value>
+  </data>
+  <data name="FunnyNote7" xml:space="preserve">
+    <value>Ушиб палец на ноге.</value>
+  </data>
+  <data name="FunnyNote8" xml:space="preserve">
+    <value>Скорее всего, умрёт в следующий раз.</value>
+  </data>
+  <data name="FunnyNote9" xml:space="preserve">
+    <value>Вряд ли умрёт в следующий раз.</value>
+  </data>
+  <data name="GravityDeath1" xml:space="preserve">
+    <value>Разбился насмерть.</value>
+  </data>
+  <data name="GravityDeath2" xml:space="preserve">
+    <value>Упал с обрыва.</value>
+  </data>
+  <data name="GunshotsDeath1" xml:space="preserve">
+    <value>Застрелен турелью.</value>
+  </data>
+  <data name="GunshotsDeath2" xml:space="preserve">
+    <value>Набит до краев пулями.</value>
+  </data>
+  <data name="KickingDeath1" xml:space="preserve">
+    <value>Запинали до смерти.</value>
+  </data>
+  <data name="MaulingDeath1" xml:space="preserve">
+    <value>Изуродован до смерти.</value>
+  </data>
+  <data name="Other_DepositItemsDeskDeath1" xml:space="preserve">
+    <value>Получил понижение в должности.</value>
+  </data>
+  <data name="Other_DepositItemsDeskDeath2" xml:space="preserve">
+    <value>Был отправлен в дисциплинарный отпуск.</value>
+  </data>
+  <data name="Other_DropshipDeath1" xml:space="preserve">
+    <value>Был раздавлен десантной капсулой.</value>
+  </data>
+  <data name="Other_DropshipDeath2" xml:space="preserve">
+    <value>Не мог дождаться своих товаров.</value>
+  </data>
+  <data name="Other_DropshipDeath3" xml:space="preserve">
+    <value>Был слишком нетерпелив десантной капсулой.</value>
+  </data>
+  <data name="Other_LandmineDeath1" xml:space="preserve">
+    <value>Наступил на мину.</value>
+  </data>
+  <data name="Other_LightningDeath1" xml:space="preserve">
+    <value>Был поражен молнией.</value>
+  </data>
+  <data name="Other_TurretDeath1" xml:space="preserve">
+    <value>Был застрелен турелью.</value>
+  </data>
+  <data name="Player_Jetpack_BlastDeath1" xml:space="preserve">
+    <value>Взорвался используя Джетпак.</value>
+  </data>
+  <data name="Player_Jetpack_BlastDeath2" xml:space="preserve">
+    <value>Превратился в фейерверк.</value>
+  </data>
+  <data name="Player_Jetpack_GravityDeath1" xml:space="preserve">
+    <value>Упал используя Джетпак.</value>
+  </data>
+  <data name="Player_Jetpack_GravityDeath2" xml:space="preserve">
+    <value>Подлетел слишком близко к солнцу.</value>
+  </data>
+  <data name="Player_Jetpack_GravityDeath3" xml:space="preserve">
+    <value>Закончилось топливо.</value>
+  </data>
+  <data name="Player_Murder_MeleeDeath1" xml:space="preserve">
+    <value>Был забит до смерти коллегой.</value>
+  </data>
+  <data name="Player_Murder_MeleeDeath2" xml:space="preserve">
+    <value>Стал жертвой убийства.</value>
+  </data>
+  <data name="Player_Murder_MeleeDeath3" xml:space="preserve">
+    <value>Был убит.</value>
+  </data>
+  <data name="Player_Murder_MeleeDeath4" xml:space="preserve">
+    <value>Получил удар в спину от коллеги.</value>
+  </data>
+  <data name="Player_Murder_ShotgunDeath1" xml:space="preserve">
+    <value>Был застрелен коллегой.</value>
+  </data>
+  <data name="Player_Murder_ShotgunDeath2" xml:space="preserve">
+    <value>Стал жертвой убийства.</value>
+  </data>
+  <data name="Player_Murder_ShotgunDeath3" xml:space="preserve">
+    <value>Был убит.</value>
+  </data>
+  <data name="Player_Murder_ShotgunDeath4" xml:space="preserve">
+    <value>Был набит до краев коллегой.</value>
+  </data>
+  <data name="Player_Murder_ShotgunDeath5" xml:space="preserve">
+    <value>Коллега сделал 360 в лицо.</value>
+  </data>
+  <data name="Player_QuicksandDeath1" xml:space="preserve">
+    <value>Застрял в зыбучих песках.</value>
+  </data>
+  <data name="Player_QuicksandDeath2" xml:space="preserve">
+    <value>Утонул в зыбучих песках.</value>
+  </data>
+  <data name="Player_StunGrenadeDeath1" xml:space="preserve">
+    <value>Был убит светошумовой гранатой.</value>
+  </data>
+  <data name="Player_StunGrenadeDeath2" xml:space="preserve">
+    <value>Стал жертвой убийства.</value>
+  </data>
+  <data name="StrangulationDeath1" xml:space="preserve">
+    <value>Задушен.</value>
+  </data>
+  <data name="SuffocationDeath1" xml:space="preserve">
+    <value>Умер от нехватки воздуха.</value>
+  </data>
+  <data name="TextMesh" xml:space="preserve">
+    <value>Причина смерти: </value>
+  </data>
+  <data name="UnknownDeath1" xml:space="preserve">
+    <value>Умер как-то.</value>
+  </data>
+  <data name="UnknownDeath2" xml:space="preserve">
+    <value>Самый искренний мертвец.</value>
+  </data>
+  <data name="UnknownDeath3" xml:space="preserve">
+    <value>Срок годности истек необъяснимым образом.</value>
+  </data>
+</root>

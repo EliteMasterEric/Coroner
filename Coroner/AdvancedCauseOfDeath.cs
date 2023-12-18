@@ -1,34 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Resources;
 using GameNetcodeStuff;
 
 namespace Coroner
 {
+    
     class AdvancedDeathTracker
     {
         public const int PLAYER_CAUSE_OF_DEATH_DROPSHIP = 300;
 
         public static readonly string[] FUNNY_NOTES = {
-            "The goofiest goober.",
-            "The cutest employee.",
-            "Had the most fun.",
-            "Had the least fun.",
-            "The bravest employee.",
-            "Did a sick flip.",
-            "Stubbed their toe.",
-            "The most likely to die next time.",
-            "The least likely to die next time.",
-            "Dislikes smoke.",
-            "A team player.",
-            "A real go-getter.",
-            "Ate the most snacks.",
-            "Passed GO and collected $200.",
-            "Got freaky on a Friday night.",
-            "I think this one's a serial killer.",
-            "Perfectly unremarkable.",
-            "Hasn't called their mother in a while.",
-            "Has IP address 127.0.0.1.",
-            "Secretly a lizard"
+            LangStrings.FunnyNote1,
+            LangStrings.FunnyNote2,
+            LangStrings.FunnyNote3,
+            LangStrings.FunnyNote4,
+            LangStrings.FunnyNote5,
+            LangStrings.FunnyNote6,
+            LangStrings.FunnyNote7,
+            LangStrings.FunnyNote8,
+            LangStrings.FunnyNote9,
+            LangStrings.FunnyNote10,
+            LangStrings.FunnyNote11,
+            LangStrings.FunnyNote12,
+            LangStrings.FunnyNote13,
+            LangStrings.FunnyNote14,
+            LangStrings.FunnyNote15,
+            LangStrings.FunnyNote16,
+            LangStrings.FunnyNote17,
+            LangStrings.FunnyNote18,
+            LangStrings.FunnyNote19,
+            LangStrings.FunnyNote20
         };
 
         private static readonly Dictionary<int, AdvancedCauseOfDeath> PlayerCauseOfDeath = new Dictionary<int, AdvancedCauseOfDeath>();
@@ -185,225 +188,225 @@ namespace Coroner
             {
                 case AdvancedCauseOfDeath.Bludgeoning:
                     return new[] {
-                        "Bludgeoned to death.",
+                        LangStrings.BludgeoningDeath1
                     };
                 case AdvancedCauseOfDeath.Gravity:
                     return new[] {
-                        "Fell to their death.",
-                        "Fell off a cliff.",
+                        LangStrings.GravityDeath1,
+                        LangStrings.GravityDeath2
                     };
                 case AdvancedCauseOfDeath.Blast:
                     return new[] {
-                        "Exploded.",
-                        "Went out with a bang.",
-                        "Was blown to smithereens."
+                        LangStrings.BlastDeath1,
+                        LangStrings.BlastDeath2,
+                        LangStrings.BlastDeath3
                     };
                 case AdvancedCauseOfDeath.Strangulation:
                     return new[] {
-                        "Strangled to death.",
+                        LangStrings.StrangulationDeath1
                     };
                 case AdvancedCauseOfDeath.Suffocation:
                     return new[] {
-                        "Suffocated to death.",
+                        LangStrings.SuffocationDeath1
                     };
                 case AdvancedCauseOfDeath.Mauling:
                     return new[] {
-                        "Mauled to death.",
+                        LangStrings.MaulingDeath1
                     };
                 case AdvancedCauseOfDeath.Gunshots:
                     return new[] {
-                        "Shot to death.",
-                        "Filled to the brim with bullets.",
+                        LangStrings.GunshotsDeath1,
+                        LangStrings.GunshotsDeath2
                     };
                 case AdvancedCauseOfDeath.Crushing:
                     return new[] {
-                        "Crushed to death.",
+                        LangStrings.CrushingDeath1
                     };
                 case AdvancedCauseOfDeath.Drowning:
                     return new[] {
-                        "Drowned to death.",
+                        LangStrings.DrowningDeath1
                     };
                 case AdvancedCauseOfDeath.Abandoned:
                     return new[] {
-                        "Abandoned by their coworkers.",
+                        LangStrings.AbandonedDeath1
                     };
                 case AdvancedCauseOfDeath.Electrocution:
                     return new[] {
-                        "Electrocuted to death.",
+                        LangStrings.ElectrocutionDeath1
                     };
                 case AdvancedCauseOfDeath.Kicking:
                     return new[] {
-                        "Kicked to death.",
+                        LangStrings.KickingDeath1
                     };
 
                 case AdvancedCauseOfDeath.Enemy_Bracken:
                     return new[] {
-                        "Had their neck snapped by a Bracken.",
-                        "Stared at a Bracken too long.",
+                        LangStrings.Enemy_BrackenDeath1,
+                        LangStrings.Enemy_BrackenDeath2
                     };
                 case AdvancedCauseOfDeath.Enemy_EyelessDog:
                     return new[] {
-                        "Was eaten by an Eyeless Dog.",
-                        "Got caught using a mechanical keyboard.",
-                        "Wasn't quiet around an Eyeless Dog.",
+                        LangStrings.Enemy_EyelessDogDeath1,
+                        LangStrings.Enemy_EyelessDogDeath2,
+                        LangStrings.Enemy_EyelessDogDeath3
                     };
                 case AdvancedCauseOfDeath.Enemy_ForestGiant:
                     return new[] {
-                        "Swallowed whole by a Forest Giant.",
+                        LangStrings.Enemy_ForestGiantDeath1
                     };
                 case AdvancedCauseOfDeath.Enemy_CircuitBees:
                     return new[] {
-                        "Electro-stung to death by Circuit Bees.",
+                        LangStrings.Enemy_CircuitBeesDeath1
                     };
                 case AdvancedCauseOfDeath.Enemy_GhostGirl:
                     return new[] {
-                        "Died a mysterious death.",
-                        "Lost their mind.",
-                        "Got a real bad headache.",
-                        "???",
+                        LangStrings.Enemy_GhostGirlDeath1,
+                        LangStrings.Enemy_GhostGirlDeath2,
+                        LangStrings.Enemy_GhostGirlDeath3,
+                        LangStrings.Enemy_GhostGirlDeath4
                     };
                 case AdvancedCauseOfDeath.Enemy_EarthLeviathan:
                     return new[] {
-                        "Swallowed whole by an Earth Leviathan.",
+                        LangStrings.Enemy_EarthLeviathanDeath1
                     };
                 case AdvancedCauseOfDeath.Enemy_BaboonHawk:
                     return new[] {
-                        "Was eaten by a Baboon Hawk.",
-                        "Was mauled by a Baboon Hawk.",
+                        LangStrings.Enemy_BaboonHawkDeath1,
+                        LangStrings.Enemy_BaboonHawkDeath2
                     };
                 case AdvancedCauseOfDeath.Enemy_Jester:
                     return new[] {
-                        "Mauled to death by a Jester.",
-                        "Was the butt of the Jester's joke.",
-                        "Got pranked by the Jester.",
-                        "Got popped like a weasel.",
+                        LangStrings.Enemy_JesterDeath1,
+                        LangStrings.Enemy_JesterDeath2,
+                        LangStrings.Enemy_JesterDeath3,
+                        LangStrings.Enemy_JesterDeath4
                     };
                 case AdvancedCauseOfDeath.Enemy_CoilHead:
                     return new[] {
-                        "Mauled to death by a Coil Head.",
-                        "Got in a staring contest with a Coil Head.",
-                        "Lost a staring contest with a Coil Head.",
+                        LangStrings.Enemy_CoilHeadDeath1,
+                        LangStrings.Enemy_CoilHeadDeath2,
+                        LangStrings.Enemy_CoilHeadDeath3
                     };
                 case AdvancedCauseOfDeath.Enemy_SnareFlea:
                     return new[] {
-                        "Was suffocated by a Snare Flea.",
+                        LangStrings.Enemy_SnareFleaDeath1
                     };
                 case AdvancedCauseOfDeath.Enemy_Hygrodere:
                     return new[] {
-                        "Was absorbed by a Hygrodere.",
-                        "Got lost in the sauce.",
-                        "Had an oopsie with a Hygrodere.",
+                        LangStrings.Enemy_HygrodereDeath1,
+                        LangStrings.Enemy_HygrodereDeath2,
+                        LangStrings.Enemy_HygrodereDeath3
                     };
                 case AdvancedCauseOfDeath.Enemy_HoarderBug:
                     return new[] {
-                        "Was mauled by a Hoarder Bug.",
-                        "Was swarmed by a Hoarder Bug.",
-                        "Was hoarded by a Hoarder Bug.",
-                        "Tried to steal from a Hoarder Bug.",
+                        LangStrings.Enemy_HoarderBugDeath1,
+                        LangStrings.Enemy_HoarderBugDeath2,
+                        LangStrings.Enemy_HoarderBugDeath3,
+                        LangStrings.Enemy_HoarderBugDeath4
                     };
                 case AdvancedCauseOfDeath.Enemy_SporeLizard:
                     return new[] {
-                        "Was bitten by a Spore Lizard.",
-                        "Was puffed by a Spore Lizard.",
+                        LangStrings.Enemy_SporeLizardDeath1,
+                        LangStrings.Enemy_SporeLizardDeath2
                     };
                 case AdvancedCauseOfDeath.Enemy_BunkerSpider:
                     return new[] {
-                        "Ensnared in the Bunker Spider's web.",
+                        LangStrings.Enemy_BunkerSpiderDeath1
                     };
                 case AdvancedCauseOfDeath.Enemy_Thumper:
                     return new[] {
-                        "Was ravaged by a Thumper.",
-                        "Got thumped by a Thumper.",
+                        LangStrings.Enemy_ThumperDeath1,
+                        LangStrings.Enemy_ThumperDeath2
                     };
 
                 case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear:
                     return new[] {
-                        "Donned the Mask.",
-                        "Nobody cared who they were until they put on the Mask.",
+                        LangStrings.Enemy_MaskedPlayer_WearDeath1,
+                        LangStrings.Enemy_MaskedPlayer_WearDeath2
                     };
                 case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim:
                     return new[] {
-                        "Was killed by a Masked coworker.",
-                        "Became a tragedy at the hands of the Mask.",
+                        LangStrings.Enemy_MaskedPlayer_VictimDeath1,
+                        LangStrings.Enemy_MaskedPlayer_VictimDeath2
                     };
                 case AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked:
                     return new[] {
-                        "Was kicked to death by a Nutcracker.",
-                        "Got their nuts cracked by a Nutcracker.",
+                        LangStrings.Enemy_Nutcracker_KickedDeath1,
+                        LangStrings.Enemy_Nutcracker_KickedDeath2
                     };
                 case AdvancedCauseOfDeath.Enemy_Nutcracker_Shot:
                     return new[] {
-                        "Got shot by a Nutcracker.",
-                        "Was at the wrong end of a 21-gun salute.",
+                        LangStrings.Enemy_Nutcracker_ShotDeath1,
+                        LangStrings.Enemy_Nutcracker_ShotDeath2
                     };
 
                 case AdvancedCauseOfDeath.Player_Jetpack_Gravity:
                     return new[] {
-                        "Fell while using a jetpack.",
-                        "Flew too close to the sun.",
-                        "Ran out of fuel.",
+                        LangStrings.Player_Jetpack_GravityDeath1,
+                        LangStrings.Player_Jetpack_GravityDeath2,
+                        LangStrings.Player_Jetpack_GravityDeath3
                     };
                 case AdvancedCauseOfDeath.Player_Jetpack_Blast:
                     return new[] {
-                        "Blew up while using a Jetpack.",
-                        "Turned into a firework.",
+                        LangStrings.Player_Jetpack_BlastDeath1,
+                        LangStrings.Player_Jetpack_BlastDeath2
                     };
                 case AdvancedCauseOfDeath.Player_Murder_Melee:
                     return new[] {
-                        "Was bludgeoned to death by a coworker.",
-                        "Was the victim of a murder.",
-                        "Got murdered.",
-                        "Got backstabbed by a coworker."
+                        LangStrings.Player_Murder_MeleeDeath1,
+                        LangStrings.Player_Murder_MeleeDeath2,
+                        LangStrings.Player_Murder_MeleeDeath3,
+                        LangStrings.Player_Murder_MeleeDeath4
                     };
                 case AdvancedCauseOfDeath.Player_Murder_Shotgun:
                     return new[] {
-                        "Was shot to death by a coworker.",
-                        "Was the victim of a murder.",
-                        "Got murdered.",
-                        "Got one-pumped by a coworker.",
-                        "Got 360-noscoped by a coworker.",
+                        LangStrings.Player_Murder_ShotgunDeath1,
+                        LangStrings.Player_Murder_ShotgunDeath2,
+                        LangStrings.Player_Murder_ShotgunDeath3,
+                        LangStrings.Player_Murder_ShotgunDeath4,
+                        LangStrings.Player_Murder_ShotgunDeath5
                     };
                 case AdvancedCauseOfDeath.Player_Quicksand:
                     return new[] {
-                        "Got stuck in quicksand.",
-                        "Drowned in quicksand",
+                        LangStrings.Player_QuicksandDeath1,
+                        LangStrings.Player_QuicksandDeath2
                     };
                 case AdvancedCauseOfDeath.Player_StunGrenade:
                     return new[] {
-                        "Got flashbanged by a coworker.",
-                        "Was the victim of a murder.",
+                        LangStrings.Player_StunGrenadeDeath1,
+                        LangStrings.Player_StunGrenadeDeath2
                     };
 
                 case AdvancedCauseOfDeath.Other_DepositItemsDesk:
                     // NOTE: Since there's no performance report on Gordion this never shows.
                     return new[] {
-                        "Received a demotion.",
-                        "Was put on disciplinary leave.",
+                        LangStrings.Other_DepositItemsDeskDeath1,
+                        LangStrings.Other_DepositItemsDeskDeath2
                     };
                 case AdvancedCauseOfDeath.Other_Dropship:
                     return new[] {
-                        "Was crushed by the Item Dropship.",
-                        "Couldn't wait for their items.",
-                        "Got too impatient for their items.",
+                        LangStrings.Other_DropshipDeath1,
+                        LangStrings.Other_DropshipDeath2,
+                        LangStrings.Other_DropshipDeath3
                     };
                 case AdvancedCauseOfDeath.Other_Landmine:
                     return new [] {
-                        "Stepped on a landmine."
+                        LangStrings.Other_LandmineDeath1
                     };
                 case AdvancedCauseOfDeath.Other_Turret:
                     return new [] {
-                        "Got shot by a turret."
+                        LangStrings.Other_TurretDeath1
                     };
                 case AdvancedCauseOfDeath.Other_Lightning:
                     return new [] {
-                        "Was struck by lightning."
+                        LangStrings.Other_LightningDeath1
                     };
 
                 default:
                     return new[] {
-                        "Died somehow.",
-                        "Most sincerely dead.",
-                        "Expired in an inexplicable manner."
+                        LangStrings.UnknownDeath1,
+                        LangStrings.UnknownDeath2,
+                        LangStrings.UnknownDeath3
                     };
             }
         }
