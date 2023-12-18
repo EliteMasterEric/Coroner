@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.4.1
+## Fixed.
+- Fixed a minor build issue.
+
 # 1.4.0
 ## Additions
 - Added custom death messages for specific types of explosions:
