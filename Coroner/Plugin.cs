@@ -40,9 +40,11 @@ namespace Coroner
             harmony.PatchAll();
 
             // Plugin startup logic
-            PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded!");
+            PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded!");  
 
             LoadConfig();
+            PluginLogger.LogInfo($"{PluginInfo.PLUGIN_NAME} LanguagePicker: {PluginConfig.LanguagePickerValue()}");
+            LanguageManager.SetLanguage(PluginConfig.LanguagePickerValue());
             QueryLCAPI();
             DeathBroadcaster.Initialize();
         }

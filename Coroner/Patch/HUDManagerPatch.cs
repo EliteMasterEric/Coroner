@@ -43,7 +43,7 @@ namespace Coroner.Patch {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
                             // Reset the notes.
                             //textMesh.text = "Cause of Death: \n";
-                            textMesh.text = LangStrings.TextMesh + "\n";
+                            textMesh.text = Strings.TextMesh + "\n";
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Appending notes with Cause of Death...");
                         }

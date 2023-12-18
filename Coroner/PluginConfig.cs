@@ -8,6 +8,7 @@ namespace Coroner
         ConfigEntry<bool> SeriousDeathMessages;
         ConfigEntry<bool> DisplayFunnyNotes;
         ConfigEntry<bool> DeathReplacesNotes;
+        ConfigEntry<string> LanguagePicker;
 
         // Constructor
         public PluginConfig()
@@ -21,6 +22,8 @@ namespace Coroner
             SeriousDeathMessages = _config.Bind("General", "SeriousDeathMessages", false, "Cause of death messages are more to-the-point.");
             DisplayFunnyNotes = _config.Bind("General", "DisplayFunnyNotes", true, "Display a random note when the player has no notes.");
             DeathReplacesNotes = _config.Bind("General", "DeathReplacesNotes", true, "True to replace notes when the player dies, false to append.");
+
+            LanguagePicker = _config.Bind("Language", "LanguagePicker", "en", "(en, ru, fr)");
         }
 
         public bool ShouldDisplayCauseOfDeath()
@@ -41,6 +44,11 @@ namespace Coroner
         public bool ShouldDeathReplaceNotes()
         {
             return DeathReplacesNotes.Value;
+        }
+
+        public string LanguagePickerValue()
+        {
+            return LanguagePicker.Value;
         }
     }
 }

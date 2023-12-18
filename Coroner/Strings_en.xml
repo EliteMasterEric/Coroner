@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="en" />
+  </tags> 
+  <strings>
+    <string id="FunnyNote1" text="The goofiest goober." />
+	<string id="FunnyNote2" text="The cutest employee." />
+	<string id="FunnyNote3" text="Had the most fun." />
+    <string id="FunnyNote4" text="Had the least fun." />
+    <string id="FunnyNote5" text="The bravest employee." />
+    <string id="FunnyNote6" text="Did a sick flip." />
+    <string id="FunnyNote7" text="Stubbed their toe." />
+    <string id="FunnyNote8" text="The most likely to die next time." />
+    <string id="FunnyNote9" text="The least likely to die next time." />
+    <string id="FunnyNote10" text="Dislikes smoke." />
+    <string id="FunnyNote11" text="A team player." />
+    <string id="FunnyNote12" text="A real go-getter." />
+    <string id="FunnyNote13" text="Ate the most snacks." />
+    <string id="FunnyNote14" text="Passed GO and collected $200." />
+    <string id="FunnyNote15" text="Got freaky on a Friday night." />
+    <string id="FunnyNote16" text="I think this one's a serial killer." />
+    <string id="FunnyNote17" text="Perfectly unremarkable." />
+    <string id="FunnyNote18" text="Hasn't called their mother in a while." />
+    <string id="FunnyNote19" text="Has IP address 127.0.0.1." />
+    <string id="FunnyNote20" text="Secretly a lizard." />
+	
+    
+    <string id="BludgeoningDeath1" text="Bludgeoned to death." />
+	
+	<string id="GravityDeath1" text="Fell to their death." />
+    <string id="GravityDeath2" text="Fell off a cliff." />
+	
+	<string id="BlastDeath1" text="Exploded." />
+    <string id="BlastDeath2" text="Went out with a bang." />
+    <string id="BlastDeath3" text="Was blown to smithereens." />
+	
+	<string id="StrangulationDeath1" text="Strangled to death." />
+	
+    <string id="SuffocationDeath1" text="Suffocated to death." />
+	
+	<string id="MaulingDeath1" text="Mauled to death." />
+	
+	<string id="GunshotsDeath1" text="Shot to death." />
+    <string id="GunshotsDeath2" text="Filled to the brim with bullets." />
+	
+	<string id="CrushingDeath1" text="Crushed to death." />
+	
+	<string id="DrowningDeath1" text="Drowned to death." />
+	
+    <string id="AbandonedDeath1" text="Abandoned by their coworkers." />
+	
+	<string id="ElectrocutionDeath1" text="Electrocuted to death." />
+	
+	<string id="KickingDeath1" text="Kicked to death." />
+	
+	
+	<string id="Enemy_BrackenDeath1" text="Had their neck snapped by a Bracken." />
+    <string id="Enemy_BrackenDeath2" text="Stared at a Bracken too long." />
+	
+	<string id="Enemy_EyelessDogDeath1" text="Was eaten by an Eyeless Dog." />
+    <string id="Enemy_EyelessDogDeath2" text="Got caught using a mechanical keyboard." />
+    <string id="Enemy_EyelessDogDeath3" text="Wasn't quiet around an Eyeless Dog." />
+	
+	<string id="Enemy_ForestGiantDeath1" text="Swallowed whole by a Forest Giant." />
+	
+	<string id="Enemy_CircuitBeesDeath1" text="Electro-stung to death by Circuit Bees." />
+	
+	<string id="Enemy_GhostGirlDeath1" text="Died a mysterious death." />
+    <string id="Enemy_GhostGirlDeath2" text="Lost their mind." />
+    <string id="Enemy_GhostGirlDeath3" text="Got a real bad headache." />
+    <string id="Enemy_GhostGirlDeath4" text="???" />
+	
+	<string id="Enemy_EarthLeviathanDeath1" text="Swallowed whole by an Earth Leviathan." />
+	
+	<string id="Enemy_BaboonHawkDeath1" text="Was eaten by a Baboon Hawk." />
+    <string id="Enemy_BaboonHawkDeath2" text="Was mauled by a Baboon Hawk." />
+	
+	<string id="Enemy_JesterDeath1" text="Mauled to death by a Jester." />
+    <string id="Enemy_JesterDeath2" text="Was the butt of the Jester's joke." />
+    <string id="Enemy_JesterDeath3" text="Got pranked by the Jester." />
+    <string id="Enemy_JesterDeath4" text="Got popped like a weasel." />
+	
+	<string id="Enemy_CoilHeadDeath1" text="Mauled to death by a Coil Head." />
+    <string id="Enemy_CoilHeadDeath2" text="Got in a staring contest with a Coil Head." />
+    <string id="Enemy_CoilHeadDeath3" text="Lost a staring contest with a Coil Head." />
+	
+	<string id="Enemy_SnareFleaDeath1" text="Was suffocated by a Snare Flea." />
+	
+	<string id="Enemy_HygrodereDeath1" text="Was absorbed by a Hygrodere." />
+    <string id="Enemy_HygrodereDeath2" text="Got lost in the sauce." />
+    <string id="Enemy_HygrodereDeath3" text="Had an oopsie with a Hygrodere." />
+	
+	<string id="Enemy_HoarderBugDeath1" text="Was mauled by a Hoarder Bug." />
+    <string id="Enemy_HoarderBugDeath2" text="Was swarmed by a Hoarder Bug." />
+    <string id="Enemy_HoarderBugDeath3" text="Was hoarded by a Hoarder Bug." />
+    <string id="Enemy_HoarderBugDeath4" text="Tried to steal from a Hoarder Bug." />
+	
+	<string id="Enemy_SporeLizardDeath1" text="Was bitten by a Spore Lizard." />
+    <string id="Enemy_SporeLizardDeath2" text="Was puffed by a Spore Lizard." />
+	
+	<string id="Enemy_BunkerSpiderDeath1" text="Ensnared in the Bunker Spider's web." />
+	
+	<string id="Enemy_ThumperDeath1" text="Was ravaged by a Thumper." />
+    <string id="Enemy_ThumperDeath2" text="Got thumped by a Thumper." />
+	
+	<string id="Enemy_MaskedPlayer_WearDeath1" text="Donned the Mask." />
+    <string id="Enemy_MaskedPlayer_WearDeath2" text="Nobody cared who they were until they put on the Mask." />
+	
+	<string id="Enemy_MaskedPlayer_VictimDeath1" text="Was killed by a Masked coworker." />
+    <string id="Enemy_MaskedPlayer_VictimDeath2" text="Became a tragedy at the hands of the Mask." />
+	
+	<string id="Enemy_Nutcracker_KickedDeath1" text="Was kicked to death by a Nutcracker." />
+    <string id="Enemy_Nutcracker_KickedDeath2" text="Got their nuts cracked by a Nutcracker." />
+	
+    <string id="Enemy_Nutcracker_ShotDeath1" text="Got shot by a Nutcracker." />
+    <string id="Enemy_Nutcracker_ShotDeath2" text="Was at the wrong end of a 21-gun salute." />
+	
+	
+	<string id="Player_Jetpack_GravityDeath1" text="Fell while using a jetpack." />
+    <string id="Player_Jetpack_GravityDeath2" text="Flew too close to the sun." />
+    <string id="Player_Jetpack_GravityDeath3" text="Ran out of fuel." />
+	
+	<string id="Player_Jetpack_BlastDeath1" text="Blew up while using a Jetpack." />
+    <string id="Player_Jetpack_BlastDeath2" text="Turned into a firework." />
+	
+	<string id="Player_Murder_MeleeDeath1" text="Was bludgeoned to death by a coworker." />
+    <string id="Player_Murder_MeleeDeath2" text="Was the victim of a murder." />
+    <string id="Player_Murder_MeleeDeath3" text="Got murdered." />
+    <string id="Player_Murder_MeleeDeath4" text="Got backstabbed by a coworker." />
+	
+	<string id="Player_Murder_ShotgunDeath1" text="Was shot to death by a coworker." />
+    <string id="Player_Murder_ShotgunDeath2" text="Was the victim of a murder." />
+    <string id="Player_Murder_ShotgunDeath3" text="Got murdered." />
+    <string id="Player_Murder_ShotgunDeath4" text="Got one-pumped by a coworker." />
+    <string id="Player_Murder_ShotgunDeath5" text="Got 360-noscoped by a coworker." />
+	
+	<string id="Player_QuicksandDeath1" text="Got stuck in quicksand." />
+    <string id="Player_QuicksandDeath2" text="Drowned in quicksand." />
+	
+	<string id="Player_StunGrenadeDeath1" text="Got flashbanged by a coworker." />
+    <string id="Player_StunGrenadeDeath2" text="Was the victim of a murder." />
+	
+	
+    <string id="Other_DepositItemsDeskDeath1" text="Received a demotion." />
+    <string id="Other_DepositItemsDeskDeath2" text="Was put on disciplinary leave." />
+	
+    <string id="Other_DropshipDeath1" text="Was crushed by the Item Dropship." />
+    <string id="Other_DropshipDeath2" text="Couldn't wait for their items." />
+    <string id="Other_DropshipDeath3" text="Got too impatient for their items." />
+	
+    <string id="Other_LandmineDeath1" text="Stepped on a landmine." />
+   
+    <string id="Other_TurretDeath1" text="Got shot by a turret." />
+	
+	<string id="Other_LightningDeath1" text="Was struck by lightning." />
+	
+    
+    <string id="UnknownDeath1" text="Died somehow." />
+    <string id="UnknownDeath2" text="Most sincerely dead." />
+    <string id="UnknownDeath3" text="Expired in an inexplicable manner." />
+	
+	
+	<string id="TextMesh" text="Cause of Death: " />
+  </strings>
+</base>

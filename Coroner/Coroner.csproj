@@ -98,14 +98,6 @@
     <EmbeddedResource Remove="build\obj\**" />
     <None Remove="build\obj\**" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="LangStrings.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LangStrings.ru.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-  </ItemGroup>
   <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
     <Exec Command="del %22$(TargetDir)$(TargetName).deps.json%22" />
     <Exec Command="del %22$(TargetDir)$(TargetName).pdb%22" />
