@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using GameNetcodeStuff;
 using TMPro;
 
@@ -43,7 +44,9 @@ namespace Coroner.Patch {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
                             // Reset the notes.
                             //textMesh.text = "Cause of Death: \n";
-                            textMesh.text = Strings.TextMesh + "\n";
+                            //textMesh.text = Strings.TextMesh + "\n";
+                            textMesh.text = string.Join("\n", AdvancedDeathTracker.doc.Descendants("itemTextMeshDeath")
+                                .Select(item => item.Attribute("text")?.Value)) + "\n";
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Appending notes with Cause of Death...");
                         }
@@ -63,7 +66,9 @@ namespace Coroner.Patch {
 
                         textMesh.text += notes;
 
-                        textMesh.text = "Notes: \n";
+                        //textMesh.text = "Notes: \n";
+                        textMesh.text = string.Join("\n", AdvancedDeathTracker.doc.Descendants("itemTextMeshNotes")
+                                .Select(item => item.Attribute("text")?.Value)) + "\n";
                         textMesh.text += notes;
                     } else {
                         Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes, but Config says leave it be...");
