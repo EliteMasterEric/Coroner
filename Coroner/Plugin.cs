@@ -44,7 +44,6 @@ namespace Coroner
 
             LoadConfig();
             PluginLogger.LogInfo($"{PluginInfo.PLUGIN_NAME} LanguagePicker: {PluginConfig.LanguagePickerValue()}");
-            LanguageManager.SetLanguage(PluginConfig.LanguagePickerValue());
             QueryLCAPI();
             DeathBroadcaster.Initialize();
         }
