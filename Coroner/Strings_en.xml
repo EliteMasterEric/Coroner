@@ -28,11 +28,8 @@
     
     <itemBludgeoningDeath text="Bludgeoned to death." />
 	
-	<itemGravityDeath text="1Fell to their death." />
-    <itemGravityDeath text="2Fell off a cliff." />
-	<itemGravityDeath text="3Fell off a cliff." />
-	<itemGravityDeath text="4Fell off a cliff." />
-	<itemGravityDeath text="5Fell off a cliff." />
+	<itemGravityDeath text="Fell to their death." />
+    <itemGravityDeath text="Fell off a cliff." />
 	
 	<itemBlastDeath text="Exploded." />
     <itemBlastDeath text="Went out with a bang." />
