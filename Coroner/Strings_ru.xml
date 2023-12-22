@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="ru" />
+  </tags> 
+  <strings>
+    <itemFunnyNote text="Самый тупой болван." />
+	<itemFunnyNote text="Самый милый сотрудник." />
+	<itemFunnyNote text="Получил больше веселья чем другие." />
+    <itemFunnyNote text="Получил меньше веселья чем другие." />
+    <itemFunnyNote text="Самый смелый сотрудник." />
+    <itemFunnyNote text="Сделал крутой кувырок." />
+    <itemFunnyNote text="Ушиб палец на ноге." />
+    <itemFunnyNote text="Скорее всего, умрёт в следующий раз." />
+    <itemFunnyNote text="Вряд ли умрёт в следующий раз." />
+    <itemFunnyNote text="Не любит курящих." />
+    <itemFunnyNote text="Командный игрок." />
+    <itemFunnyNote text="Настоящий мусорщик." />
+    <itemFunnyNote text="Съел больше всего закусок." />
+    <itemFunnyNote text="Прошел GO и получил 200$" />
+    <itemFunnyNote text="Нажрался в пятницу вечером." />
+    <itemFunnyNote text="Я думаю, что это серийный убийца." />
+    <itemFunnyNote text="Совершенно ничем не примечателен." />
+    <itemFunnyNote text="Давненько не звонил матери." />
+    <itemFunnyNote text="Имеет IP-адрес 127.0.0.1." />
+    <itemFunnyNote text="Тайно ящерка." />
+	
+    
+    <itemBludgeoningDeath text="Забит до смерти." />
+	
+	<itemGravityDeath text="Разбился насмерть." />
+    <itemGravityDeath text="Упал с обрыва." />
+	
+	<itemBlastDeath text="Взорвался." />
+    <itemBlastDeath text="Ушёл с фейерверком." />
+    <itemBlastDeath text="Был разнесён вдребезги." />
+	
+	<itemStrangulationDeath text="Задушен." />
+	
+    <itemSuffocationDeath text="Умер от нехватки воздуха." />
+	
+	<itemMaulingDeath text="Изуродован до смерти." />
+	
+	<itemGunshotsDeath text="Застрелен." />
+    <itemGunshotsDeath text="Набит до краев пулями." />
+	
+	<itemCrushingDeath text="Раздавлен." />
+	
+	<itemDrowningDeath text="Утонул." />
+	
+    <itemAbandonedDeath text="Брошен своими коллегами." />
+	
+	<itemElectrocutionDeath text="Убит электрическим током." />
+	
+	<itemKickingDeath text="Запинали до смерти." />
+	
+	
+	<itemEnemy_BrackenDeath text="Брекен свернул ему шею." />
+    <itemEnemy_BrackenDeath text="Проиграл Бреккену в гляделки." />
+	
+	<itemEnemy_EyelessDogDeath text="Был съеден Слепой собакой." />
+    <itemEnemy_EyelessDogDeath text="Был пойман за использование механической клавиатуры." />
+    <itemEnemy_EyelessDogDeath text="Чихнул рядом со Слепой собакой." />
+	
+	<itemEnemy_ForestGiantDeath text="Проглочен Лесным гигантом." />
+	
+	<itemEnemy_CircuitBeesDeath text="Был зажарен Проводниковыми пчелами." />
+	
+	<itemEnemy_GhostGirlDeath text="Умер загадочной смертью." />
+    <itemEnemy_GhostGirlDeath text="Потерял рассудок." />
+    <itemEnemy_GhostGirlDeath text="Получил сильную головную боль." />
+    <itemEnemy_GhostGirlDeath text="???" />
+	
+	<itemEnemy_EarthLeviathanDeath text="Проглочен Земным Левиафаном." />
+	
+	<itemEnemy_BaboonHawkDeath text="Был съеден Бабуиновым ястребом." />
+    <itemEnemy_BaboonHawkDeath text="Был изуродован Бабуиновым ястребом." />
+	
+	<itemEnemy_JesterDeath text="Был изуродован Шутом." />
+    <itemEnemy_JesterDeath text="Был объектом шутки Шута." />
+    <itemEnemy_JesterDeath text="Это всего лишь пранк, Бро!" />
+    <itemEnemy_JesterDeath text="Умер от кринжа." />
+	
+	<itemEnemy_CoilHeadDeath text="Был изуродован Пружиноголовым." />
+    <itemEnemy_CoilHeadDeath text="Неудачно моргнул." />
+    <itemEnemy_CoilHeadDeath text="Проиграл Пружиноголовому в гляделки." />
+	
+	<itemEnemy_SnareFleaDeath text="Был задушен Блохой-ловушкой." />
+	
+	<itemEnemy_HygrodereDeath text="Был поглощен Гигродером." />
+    <itemEnemy_HygrodereDeath text="Потерялся в соусе." />
+    <itemEnemy_HygrodereDeath text="Превратился в лужу." />
+	
+	<itemEnemy_HoarderBugDeath text="Был изуродован Жуком-собирателем." />
+    <itemEnemy_HoarderBugDeath text="Был окружен Жуком-собирателем." />
+    <itemEnemy_HoarderBugDeath text="Был собран Жуком-собирателем." />
+    <itemEnemy_HoarderBugDeath text="Пытался украсть у Жука-собирателя." />
+	
+	<itemEnemy_SporeLizardDeath text="Был укушен Споровой ящерицей." />
+    <itemEnemy_SporeLizardDeath text="Был отравлен Споровой ящерицей." />
+	
+	<itemEnemy_BunkerSpiderDeath text="Попался в сети Бункерного паука." />
+	
+	<itemEnemy_ThumperDeath text="Был съеден Тампером." />
+    <itemEnemy_ThumperDeath text="Был раздавлен Тампером." />
+	
+	<itemEnemy_MaskedPlayer_WearDeath text="Надел Маску." />
+    <itemEnemy_MaskedPlayer_WearDeath text="Никого не волновало, кем он был, пока не надел Маску." />
+	
+	<itemEnemy_MaskedPlayer_VictimDeath text="Был убит коллегой в Маске." />
+    <itemEnemy_MaskedPlayer_VictimDeath text="Стал трагедией от рук Маски." />
+	
+	<itemEnemy_Nutcracker_KickedDeath text="Был забит до смерти Щелкунчиком." />
+    <itemEnemy_Nutcracker_KickedDeath text="Щелкунчик расколол его орехи." />
+	
+    <itemEnemy_Nutcracker_ShotDeath text="Был застрелен Щелкунчиком." />
+    <itemEnemy_Nutcracker_ShotDeath text="Был не на том конце салюта из 21 калибра." />
+	
+	
+	<itemPlayer_Jetpack_GravityDeath text="Упал используя Джетпак." />
+    <itemPlayer_Jetpack_GravityDeath text="Подлетел слишком близко к солнцу." />
+    <itemPlayer_Jetpack_GravityDeath text="Закончилось топливо." />
+	
+	<itemPlayer_Jetpack_BlastDeath text="Взорвался используя Джетпак." />
+    <itemPlayer_Jetpack_BlastDeath text="Превратился в фейерверк." />
+	
+	<itemPlayer_Murder_MeleeDeath text="Был забит до смерти коллегой." />
+    <itemPlayer_Murder_MeleeDeath text="Стал жертвой убийства." />
+    <itemPlayer_Murder_MeleeDeath text="Был убит." />
+    <itemPlayer_Murder_MeleeDeath text="Получил удар в спину от коллеги." />
+	
+	<itemPlayer_Murder_ShotgunDeath text="Был застрелен коллегой." />
+    <itemPlayer_Murder_ShotgunDeath text="Стал жертвой убийства." />
+    <itemPlayer_Murder_ShotgunDeath text="Был убит." />
+    <itemPlayer_Murder_ShotgunDeath text="Был нафарширован коллегой." />
+    <itemPlayer_Murder_ShotgunDeath text="Получил 360 в лицо от коллеги." />
+	
+	<itemPlayer_QuicksandDeath text="Застрял в зыбучих песках." />
+    <itemPlayer_QuicksandDeath text="Утонул в зыбучих песках." />
+	
+	<itemPlayer_StunGrenadeDeath text="Был убит светошумовой гранатой." />
+    <itemPlayer_StunGrenadeDeath text="Стал жертвой убийства." />
+	
+	
+    <itemOther_DepositItemsDeskDeath text="Получил понижение в должности." />
+    <itemOther_DepositItemsDeskDeath text="Был отправлен в дисциплинарный отпуск." />
+	
+    <itemOther_DropshipDeath text="Был раздавлен десантной капсулой." />
+    <itemOther_DropshipDeath text="Не мог дождаться своих товаров." />
+    <itemOther_DropshipDeath text="Был слишком нетерпелив с десантной капсулой." />
+	
+    <itemOther_LandmineDeath text="Наступил на мину." />
+   
+    <itemOther_TurretDeath text="Был застрелен турелью." />
+	
+	<itemOther_LightningDeath text="Был поражен молнией." />
+	
+    
+    <itemUnknownDeath text="Умер как-то." />
+    <itemUnknownDeath text="Самый искренний мертвец." />
+    <itemUnknownDeath text="Срок годности истек необъяснимым образом." />
+	
+	
+	<itemTextMeshDeath text="Причина смерти: " />
+	
+	<itemTextMeshNotes text="Заметки: " />
+  </strings>
+</base>
