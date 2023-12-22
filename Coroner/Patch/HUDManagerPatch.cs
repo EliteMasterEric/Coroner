@@ -55,17 +55,21 @@ namespace Coroner.Patch {
                         Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead, but Config says leave it be...");
                     }
                 } else {
-                    if (Plugin.Instance.PluginConfig.ShouldDisplayFunnyNotes()) {
-                        Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes! Injecting something funny...");
+                    if (textMesh.text == "") {
+                        if (Plugin.Instance.PluginConfig.ShouldDisplayFunnyNotes()) {
+                            Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes! Injecting something funny...");
 
-                        var notes = "* " + AdvancedDeathTracker.StringifyCauseOfDeath(null, syncedRandom) + "\n";
+                            var notes = "* " + AdvancedDeathTracker.StringifyCauseOfDeath(null, syncedRandom) + "\n";
 
-                        textMesh.text += notes;
+                            textMesh.text += notes;
 
-                        textMesh.text = "Notes: \n";
-                        textMesh.text += notes;
+                            textMesh.text = "Notes: \n";
+                            textMesh.text += notes;
+                        } else {
+                            Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes, but Config says leave it be...");
+                        }
                     } else {
-                        Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes, but Config says leave it be...");
+                        Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has notes, don't override them...");
                     }
                 }
             }

@@ -1,8 +1,23 @@
 # Changelog
 
+# Upcoming
+[] Translation support
+    [] Potentially refactor code?
+[] Russian translation
+[] Dutch translation
+[] Portuguese translation
+
+# 1.5.0
+## Fixed
+- Fixed an issue where vanilla notes would be replaced with funny notes (funny notes should only display if no vanilla ones were given)
+
+# 1.4.2
+## Added
+- Now includes the mod lel
+
 # 1.4.1
-## Fixed.
-- Fixed a minor build issue.
+## Removed
+- I decided you folks had it too good *yoinks mod away*
 
 # 1.4.0
 ## Additions
