@@ -23,7 +23,7 @@ namespace Coroner
             DisplayFunnyNotes = _config.Bind("General", "DisplayFunnyNotes", true, "Display a random note when the player has no notes.");
             DeathReplacesNotes = _config.Bind("General", "DeathReplacesNotes", true, "True to replace notes when the player dies, false to append.");
 
-            LanguagePicker = _config.Bind("Language", "LanguagePicker", "en", "(en, ru, fr)");
+            LanguagePicker = _config.Bind("Language", "LanguagePicker", "en", "Select a language to use " + LanguageHandler.GetLanguageList());
         }
 
         public bool ShouldDisplayCauseOfDeath()
@@ -46,7 +46,7 @@ namespace Coroner
             return DeathReplacesNotes.Value;
         }
 
-        public string LanguagePickerValue()
+        public string GetSelectedLanguage()
         {
             return LanguagePicker.Value;
         }

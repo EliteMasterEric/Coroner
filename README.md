@@ -24,4 +24,5 @@ Report any issues on the [Lethal Company Modding Discord](https://discord.com/ch
 
 ## Credits
 - EliteMasterEric: Programming
+- NickolasFleim: Implemented support for additional languages
 - FoguDragon: Playtesting

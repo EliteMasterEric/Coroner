@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DunGen.Tags;
 using GameNetcodeStuff;
 using TMPro;
 
@@ -16,7 +17,7 @@ namespace Coroner.Patch {
             }
         }
 
-        static Random BuildSyncedRandom(HUDManager __instance) {
+        static Random BuildSyncedRandom() {
             var seed = StartOfRound.Instance.randomMapSeed;
             Plugin.Instance.PluginLogger.LogDebug("Syncing randomization to map seed: '" + seed + "'");
             return new Random(seed);
@@ -28,7 +29,7 @@ namespace Coroner.Patch {
         static void OverridePerformanceReport(HUDManager __instance) {
             Plugin.Instance.PluginLogger.LogDebug("Applying Coroner patches to player notes...");
 
-            var syncedRandom = BuildSyncedRandom(__instance);
+            var syncedRandom = BuildSyncedRandom();
 
             for (int playerIndex = 0; playerIndex < __instance.statsUIElements.playerNotesText.Length; playerIndex++) {
                 PlayerControllerB playerController = __instance.playersManager.allPlayerScripts[playerIndex];
@@ -43,10 +44,8 @@ namespace Coroner.Patch {
                         if (Plugin.Instance.PluginConfig.ShouldDeathReplaceNotes()) {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
                             // Reset the notes.
-                            //textMesh.text = "Cause of Death: \n";
-                            //textMesh.text = Strings.TextMesh + "\n";
-                            textMesh.text = string.Join("\n", AdvancedDeathTracker.doc.Descendants("itemTextMeshDeath")
-                                .Select(item => item.Attribute("text")?.Value)) + "\n";
+                            // TODO: Rewrite this.
+                            textMesh.text = LanguageHandler.GetValueByTag(LanguageHandler.TAG_UI_DEATH) + "\n";
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Appending notes with Cause of Death...");
                         }
@@ -68,8 +67,7 @@ namespace Coroner.Patch {
                             textMesh.text += notes;
 
                             // TODO: Modify this.
-                            textMesh.text = string.Join("\n", AdvancedDeathTracker.doc.Descendants("itemTextMeshNotes")
-                                    .Select(item => item.Attribute("text")?.Value)) + "\n";
+                            textMesh.text = LanguageHandler.GetValueByTag(LanguageHandler.TAG_UI_NOTES) + "\n";
                             textMesh.text += notes;
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes, but Config says leave it be...");

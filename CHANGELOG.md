@@ -1,11 +1,12 @@
 # Changelog
 
 # Upcoming
-[] Translation support
-    [] Potentially refactor code?
-[] Russian translation
 [] Dutch translation
 [] Portuguese translation
+
+[] Test language support
+[] Test fix for serious death messages
+[] Test Stun Grenade death
 
 # 1.5.0
 ## Fixed

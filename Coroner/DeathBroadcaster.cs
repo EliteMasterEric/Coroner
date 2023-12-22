@@ -4,7 +4,7 @@ namespace Coroner {
 
         public static void Initialize() {
             if (Plugin.Instance.IsLCAPIPresent) {
-                Coroner.LCAPI.DeathBroadcasterLCAPI.Initialize();
+                LCAPI.DeathBroadcasterLCAPI.Initialize();
             } else {
                 Plugin.Instance.PluginLogger.LogInfo("LC_API is not present! Skipping registration...");
             }
@@ -20,7 +20,7 @@ namespace Coroner {
 
         static void AttemptBroadcast(string data, string signature) {
             if (Plugin.Instance.IsLCAPIPresent) {
-                Coroner.LCAPI.DeathBroadcasterLCAPI.AttemptBroadcast(data, signature);
+                LCAPI.DeathBroadcasterLCAPI.AttemptBroadcast(data, signature);
             } else {
                 Plugin.Instance.PluginLogger.LogInfo("LC_API is not present! Skipping broadcast...");
             }

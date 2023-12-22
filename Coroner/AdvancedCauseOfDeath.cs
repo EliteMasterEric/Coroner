@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+
 using GameNetcodeStuff;
 
 namespace Coroner
@@ -11,64 +10,8 @@ namespace Coroner
     {
         public const int PLAYER_CAUSE_OF_DEATH_DROPSHIP = 300;
 
-        //public static readonly string[] FUNNY_NOTES = {
-        //    Strings.FunnyNote1,
-        //    Strings.FunnyNote2,
-        //    Strings.FunnyNote3,
-        //    Strings.FunnyNote4,
-        //    Strings.FunnyNote5,
-        //    Strings.FunnyNote6,
-        //    Strings.FunnyNote7,
-        //    Strings.FunnyNote8,
-        //    Strings.FunnyNote9,
-        //    Strings.FunnyNote10,
-        //    Strings.FunnyNote11,
-        //    Strings.FunnyNote12,
-        //    Strings.FunnyNote13,
-        //    Strings.FunnyNote14,
-        //    Strings.FunnyNote15,
-        //    Strings.FunnyNote16,
-        //    Strings.FunnyNote17,
-        //    Strings.FunnyNote18,
-        //    Strings.FunnyNote19,
-        //    Strings.FunnyNote20
-        //};
-
-        public static readonly string[] FUNNY_NOTES;
-        private static string currentCulture = "en";
-        public static XDocument doc;
-        //public static XDocument doc = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_{currentCulture}.xml");
-
-        //public static void UpdateCurrentCulture(string newCulture)
-        //{
-        //    currentCulture = newCulture;
-        //    // ������������ XML �� ����� ��� ����� ��������
-        //    doc = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_{currentCulture}.xml");
-        //}
-
-
         private static readonly Dictionary<int, AdvancedCauseOfDeath> PlayerCauseOfDeath = new Dictionary<int, AdvancedCauseOfDeath>();
         private static readonly Dictionary<int, string> PlayerNotes = new Dictionary<int, string>();
-
-        static AdvancedDeathTracker()
-        {
-            
-            currentCulture = Plugin.Instance.PluginConfig.LanguagePickerValue();
-
-            try
-            {
-                doc = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_{currentCulture}.xml");
-            }
-            catch(Exception ex)
-            {
-                Plugin.Instance.PluginLogger.LogError($"{PluginInfo.PLUGIN_NAME} LanguageManagerException: {ex.Message}");
-                doc = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_en.xml");
-            }
-            
-            FUNNY_NOTES = doc.Descendants("itemFunnyNote")
-                .Select(item => item.Attribute("text")?.Value)
-                .ToArray();
-        }
 
         public static void ClearDeathTracker()
         {
@@ -222,363 +165,105 @@ namespace Coroner
 
         public static string[] SelectCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath)
         {
-            if (causeOfDeath == null) return FUNNY_NOTES;
+            if (causeOfDeath == null) return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_FUNNY_NOTES);
 
             // NOTE: First cause of death in the list should be the "serious" entry.
             
             switch (causeOfDeath)
             {
                 case AdvancedCauseOfDeath.Bludgeoning:
-                    //return new[] {
-                    //    Strings.BludgeoningDeath1
-                    //};
-                    return doc.Descendants("itemBludgeoningDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_BLUDGEONING);
                 case AdvancedCauseOfDeath.Gravity:
-                    //return new[] {
-                    //    Strings.GravityDeath1,
-                    //    Strings.GravityDeath2
-                    //};
-                    return doc.Descendants("itemGravityDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_GRAVITY);
                 case AdvancedCauseOfDeath.Blast:
-                    //return new[] {
-                    //    Strings.BlastDeath1,
-                    //    Strings.BlastDeath2,
-                    //    Strings.BlastDeath3
-                    //};
-                    return doc.Descendants("itemBlastDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_BLAST);
                 case AdvancedCauseOfDeath.Strangulation:
-                    //return new[] {
-                    //    Strings.StrangulationDeath1
-                    //};
-                    return doc.Descendants("itemStrangulationDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_STRANGULATION);
                 case AdvancedCauseOfDeath.Suffocation:
-                    //return new[] {
-                    //    Strings.SuffocationDeath1
-                    //};
-                    return doc.Descendants("itemSuffocationDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_SUFFOCATION);
                 case AdvancedCauseOfDeath.Mauling:
-                    //return new[] {
-                    //    Strings.MaulingDeath1
-                    //};
-                    return doc.Descendants("itemMaulingDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_MAULING);
                 case AdvancedCauseOfDeath.Gunshots:
-                    //return new[] {
-                    //    Strings.GunshotsDeath1,
-                    //    Strings.GunshotsDeath2
-                    //};
-                    return doc.Descendants("itemGunshotsDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_GUNSHOTS);
                 case AdvancedCauseOfDeath.Crushing:
-                    //return new[] {
-                    //    Strings.CrushingDeath1
-                    //};
-                    return doc.Descendants("itemCrushingDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_CRUSHING);
                 case AdvancedCauseOfDeath.Drowning:
-                    //return new[] {
-                    //    Strings.DrowningDeath1
-                    //};
-                    return doc.Descendants("itemDrowningDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_DROWNING);
                 case AdvancedCauseOfDeath.Abandoned:
-                    //return new[] {
-                    //    Strings.AbandonedDeath1
-                    //};
-                    return doc.Descendants("itemAbandonedDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_ABANDONED);
                 case AdvancedCauseOfDeath.Electrocution:
-                    //return new[] {
-                    //    Strings.ElectrocutionDeath1
-                    //};
-                    return doc.Descendants("itemElectrocutionDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_ELECTROCUTION);
                 case AdvancedCauseOfDeath.Kicking:
-                    //return new[] {
-                    //    Strings.KickingDeath1
-                    //};
-                    return doc.Descendants("itemKickingDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_KICKING);
 
                 case AdvancedCauseOfDeath.Enemy_Bracken:
-                    //return new[] {
-                    //    Strings.Enemy_BrackenDeath1,
-                    //    Strings.Enemy_BrackenDeath2
-                    //};
-                    return doc.Descendants("itemEnemy_BrackenDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BRACKEN);
                 case AdvancedCauseOfDeath.Enemy_EyelessDog:
-                    //return new[] {
-                    //    Strings.Enemy_EyelessDogDeath1,
-                    //    Strings.Enemy_EyelessDogDeath2,
-                    //    Strings.Enemy_EyelessDogDeath3
-                    //};
-                    return doc.Descendants("itemEnemy_EyelessDogDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_EYELESS_DOG);
                 case AdvancedCauseOfDeath.Enemy_ForestGiant:
-                    //return new[] {
-                    //    Strings.Enemy_ForestGiantDeath1
-                    //};
-                    return doc.Descendants("itemEnemy_ForestGiantDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_FOREST_GIANT);
                 case AdvancedCauseOfDeath.Enemy_CircuitBees:
-                    //return new[] {
-                    //    Strings.Enemy_CircuitBeesDeath1
-                    //};
-                    return doc.Descendants("itemEnemy_CircuitBeesDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_CIRCUIT_BEES);
                 case AdvancedCauseOfDeath.Enemy_GhostGirl:
-                    //return new[] {
-                    //    Strings.Enemy_GhostGirlDeath1,
-                    //    Strings.Enemy_GhostGirlDeath2,
-                    //    Strings.Enemy_GhostGirlDeath3,
-                    //    Strings.Enemy_GhostGirlDeath4
-                    //};
-                    return doc.Descendants("itemEnemy_GhostGirlDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_GHOST_GIRL);
                 case AdvancedCauseOfDeath.Enemy_EarthLeviathan:
-                    //return new[] {
-                    //    Strings.Enemy_EarthLeviathanDeath1
-                    //};
-                    return doc.Descendants("itemEnemy_EarthLeviathanDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_EARTH_LEVIATHAN);
                 case AdvancedCauseOfDeath.Enemy_BaboonHawk:
-                    //return new[] {
-                    //    Strings.Enemy_BaboonHawkDeath1,
-                    //    Strings.Enemy_BaboonHawkDeath2
-                    //};
-                    return doc.Descendants("itemEnemy_BaboonHawkDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BABOON_HAWK);
                 case AdvancedCauseOfDeath.Enemy_Jester:
-                    //return new[] {
-                    //    Strings.Enemy_JesterDeath1,
-                    //    Strings.Enemy_JesterDeath2,
-                    //    Strings.Enemy_JesterDeath3,
-                    //    Strings.Enemy_JesterDeath4
-                    //};
-                    return doc.Descendants("itemEnemy_JesterDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_JESTER);
                 case AdvancedCauseOfDeath.Enemy_CoilHead:
-                    //return new[] {
-                    //    Strings.Enemy_CoilHeadDeath1,
-                    //    Strings.Enemy_CoilHeadDeath2,
-                    //    Strings.Enemy_CoilHeadDeath3
-                    //};
-                    return doc.Descendants("itemEnemy_CoilHeadDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_COILHEAD);
                 case AdvancedCauseOfDeath.Enemy_SnareFlea:
-                    //return new[] {
-                    //    Strings.Enemy_SnareFleaDeath1
-                    //};
-                    return doc.Descendants("itemEnemy_SnareFleaDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_SNARE_FLEA);
                 case AdvancedCauseOfDeath.Enemy_Hygrodere:
-                    //return new[] {
-                    //    Strings.Enemy_HygrodereDeath1,
-                    //    Strings.Enemy_HygrodereDeath2,
-                    //    Strings.Enemy_HygrodereDeath3
-                    //};
-                    return doc.Descendants("itemEnemy_HygrodereDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_HYGRODERE);
                 case AdvancedCauseOfDeath.Enemy_HoarderBug:
-                    //return new[] {
-                    //    Strings.Enemy_HoarderBugDeath1,
-                    //    Strings.Enemy_HoarderBugDeath2,
-                    //    Strings.Enemy_HoarderBugDeath3,
-                    //    Strings.Enemy_HoarderBugDeath4
-                    //};
-                    return doc.Descendants("itemEnemy_HoarderBugDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_HOARDER_BUG);
                 case AdvancedCauseOfDeath.Enemy_SporeLizard:
-                    //return new[] {
-                    //    Strings.Enemy_SporeLizardDeath1,
-                    //    Strings.Enemy_SporeLizardDeath2
-                    //};
-                    return doc.Descendants("itemEnemy_SporeLizardDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_SPORE_LIZARD);
                 case AdvancedCauseOfDeath.Enemy_BunkerSpider:
-                    //return new[] {
-                    //    Strings.Enemy_BunkerSpiderDeath1
-                    //};
-                    return doc.Descendants("itemEnemy_BunkerSpiderDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BUNKER_SPIDER);
                 case AdvancedCauseOfDeath.Enemy_Thumper:
-                    //return new[] {
-                    //    Strings.Enemy_ThumperDeath1,
-                    //    Strings.Enemy_ThumperDeath2
-                    //};
-                    return doc.Descendants("itemEnemy_ThumperDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_THUMPER);
 
                 case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear:
-                    //return new[] {
-                    //    Strings.Enemy_MaskedPlayer_WearDeath1,
-                    //    Strings.Enemy_MaskedPlayer_WearDeath2
-                    //};
-                    return doc.Descendants("itemEnemy_MaskedPlayer_WearDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_WEAR);
                 case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim:
-                    //return new[] {
-                    //    Strings.Enemy_MaskedPlayer_VictimDeath1,
-                    //    Strings.Enemy_MaskedPlayer_VictimDeath2
-                    //};
-                    return doc.Descendants("itemEnemy_MaskedPlayer_VictimDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_VICTIM);
                 case AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked:
-                    //return new[] {
-                    //    Strings.Enemy_Nutcracker_KickedDeath1,
-                    //    Strings.Enemy_Nutcracker_KickedDeath2
-                    //};
-                    return doc.Descendants("itemEnemy_Nutcracker_KickedDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_KICKED);
                 case AdvancedCauseOfDeath.Enemy_Nutcracker_Shot:
-                    //return new[] {
-                    //    Strings.Enemy_Nutcracker_ShotDeath1,
-                    //    Strings.Enemy_Nutcracker_ShotDeath2
-                    //};
-                    return doc.Descendants("itemEnemy_Nutcracker_ShotDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_SHOT);
 
                 case AdvancedCauseOfDeath.Player_Jetpack_Gravity:
-                    //return new[] {
-                    //    Strings.Player_Jetpack_GravityDeath1,
-                    //    Strings.Player_Jetpack_GravityDeath2,
-                    //    Strings.Player_Jetpack_GravityDeath3
-                    //};
-                    return doc.Descendants("itemPlayer_Jetpack_GravityDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_GRAVITY);
                 case AdvancedCauseOfDeath.Player_Jetpack_Blast:
-                    //return new[] {
-                    //    Strings.Player_Jetpack_BlastDeath1,
-                    //    Strings.Player_Jetpack_BlastDeath2
-                    //};
-                    return doc.Descendants("itemPlayer_Jetpack_BlastDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_BLAST);
                 case AdvancedCauseOfDeath.Player_Murder_Melee:
-                    //return new[] {
-                    //    Strings.Player_Murder_MeleeDeath1,
-                    //    Strings.Player_Murder_MeleeDeath2,
-                    //    Strings.Player_Murder_MeleeDeath3,
-                    //    Strings.Player_Murder_MeleeDeath4
-                    //};
-                    return doc.Descendants("itemPlayer_Murder_MeleeDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_MURDER_MELEE);
                 case AdvancedCauseOfDeath.Player_Murder_Shotgun:
-                    //return new[] {
-                    //    Strings.Player_Murder_ShotgunDeath1,
-                    //    Strings.Player_Murder_ShotgunDeath2,
-                    //    Strings.Player_Murder_ShotgunDeath3,
-                    //    Strings.Player_Murder_ShotgunDeath4,
-                    //    Strings.Player_Murder_ShotgunDeath5
-                    //};
-                    return doc.Descendants("itemPlayer_Murder_ShotgunDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_MURDER_SHOTGUN);
                 case AdvancedCauseOfDeath.Player_Quicksand:
-                    //return new[] {
-                    //    Strings.Player_QuicksandDeath1,
-                    //    Strings.Player_QuicksandDeath2
-                    //};
-                    return doc.Descendants("itemPlayer_QuicksandDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_QUICKSAND);
                 case AdvancedCauseOfDeath.Player_StunGrenade:
-                    //return new[] {
-                    //    Strings.Player_StunGrenadeDeath1,
-                    //    Strings.Player_StunGrenadeDeath2
-                    //};
-                    return doc.Descendants("itemPlayer_StunGrenadeDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_STUN_GRENADE);
+                    
 
                 case AdvancedCauseOfDeath.Other_DepositItemsDesk:
                     // NOTE: Since there's no performance report on Gordion this never shows.
-                    //return new[] {
-                    //    Strings.Other_DepositItemsDeskDeath1,
-                    //    Strings.Other_DepositItemsDeskDeath2
-                    //};
-                    return doc.Descendants("itemOther_DepositItemsDeskDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK);
                 case AdvancedCauseOfDeath.Other_Dropship:
-                    //return new[] {
-                    //    Strings.Other_DropshipDeath1,
-                    //    Strings.Other_DropshipDeath2,
-                    //    Strings.Other_DropshipDeath3
-                    //};
-                    return doc.Descendants("itemOther_DropshipDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
                 case AdvancedCauseOfDeath.Other_Landmine:
-                    //return new[] {
-                    //    Strings.Other_LandmineDeath1
-                    //};
-                    return doc.Descendants("itemOther_LandmineDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_LANDMINE);
                 case AdvancedCauseOfDeath.Other_Turret:
-                    //return new[] {
-                    //    Strings.Other_TurretDeath1
-                    //};
-                    return doc.Descendants("itemOther_TurretDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_TURRET);
                 case AdvancedCauseOfDeath.Other_Lightning:
-                    //return new[] {
-                    //    Strings.Other_LightningDeath1
-                    //};
-                    return doc.Descendants("itemOther_LightningDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
 
                 default:
-                    //return new[] {
-                    //    Strings.UnknownDeath1,
-                    //    Strings.UnknownDeath2,
-                    //    Strings.UnknownDeath3
-                    //};
-                    return doc.Descendants("itemUnknownDeath")
-                        .Select(item => item.Attribute("text")?.Value)
-                        .ToArray();
+                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_UNKNOWN);
             }
         }
 
@@ -636,6 +321,7 @@ namespace Coroner
         Player_Murder_Shotgun,
         Player_StunGrenade, // TODO: Implement this.
 
+        // Custom causes (other)
         Other_Landmine,
         Other_Turret,
         Other_Lightning,

@@ -43,7 +43,7 @@ namespace Coroner
             PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded!");  
 
             LoadConfig();
-            PluginLogger.LogInfo($"{PluginInfo.PLUGIN_NAME} LanguagePicker: {PluginConfig.LanguagePickerValue()}");
+            LanguageHandler.Initialize();
             QueryLCAPI();
             DeathBroadcaster.Initialize();
         }
