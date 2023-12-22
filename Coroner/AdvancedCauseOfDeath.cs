@@ -171,8 +171,14 @@ namespace Coroner
         public static string StringifyCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath, Random random)
         {
             var result = SelectCauseOfDeath(causeOfDeath);
-            if (result.Length == 1 || Plugin.Instance.PluginConfig.ShouldUseSeriousDeathMessages()) return result[0];
-            else return result[random.Next(result.Length)];
+
+            var shouldRandomize = result.Length > 1 && (causeOfDeath == null || !Plugin.Instance.PluginConfig.ShouldUseSeriousDeathMessages());
+
+            if (shouldRandomize) {
+                return result[random.Next(result.Length)];
+            } else {
+                return result[0];
+            }
         }
 
         public static string[] SelectCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath)

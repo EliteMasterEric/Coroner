@@ -10,6 +10,7 @@
 # 1.5.0
 ## Fixed
 - Fixed an issue where vanilla notes would be replaced with funny notes (funny notes should only display if no vanilla ones were given)
+- Fixed an issue where "Funny Notes" were not randomized when serious death messages were turned on.
 
 # 1.4.2
 ## Added
