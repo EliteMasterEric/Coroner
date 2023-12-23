@@ -5,8 +5,8 @@
         <tag language="ru" />
     </tags>
     <strings>
-        <UINotes text="Причина смерти: " />
-        <UICauseOfDeath text="Заметки: " />
+        <UINotes text="Заметки: " />
+        <UICauseOfDeath text="Причина смерти: " />
 
         <FunnyNote text="Самый тупой болван." />
         <FunnyNote text="Самый милый сотрудник." />
