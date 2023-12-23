@@ -59,7 +59,7 @@
 
 
         <DeathEnemyBracken text="Брекен свернул ему шею." />
-        <DeathEnemyBracken text="Проиграл Бреккену в гляделки." />
+        <DeathEnemyBracken text="Проиграл Брекену в гляделки." />
 
         <DeathEnemyEyelessDog text="Был съеден Слепой собакой." />
         <DeathEnemyEyelessDog text="Был пойман за использование механической клавиатуры." />
@@ -67,7 +67,7 @@
 
         <DeathEnemyForestGiant text="Проглочен Лесным гигантом." />
 
-        <DeathEnemyCircuitBees text="Был зажарен Проводниковыми пчелами." />
+        <DeathEnemyCircuitBees text="Был зажарен Электропчелами." />
 
         <DeathEnemyGhostGirl text="Умер загадочной смертью." />
         <DeathEnemyGhostGirl text="Потерял рассудок." />
@@ -80,7 +80,7 @@
         <DeathEnemyBaboonHawk text="Был изуродован Бабуиновым ястребом." />
 
         <DeathEnemyJester text="Был изуродован Шутом." />
-        <DeathEnemyJester text="Был объектом шутки Шута." />
+        <DeathEnemyJester text="Стал объектом шутки Шута." />
         <DeathEnemyJester text="Это всего лишь пранк, Бро!" />
         <DeathEnemyJester text="Умер от кринжа." />
 
@@ -88,7 +88,7 @@
         <DeathEnemyCoilHead text="Неудачно моргнул." />
         <DeathEnemyCoilHead text="Проиграл Пружиноголовому в гляделки." />
 
-        <DeathEnemySnareFlea text="Был задушен Блохой-ловушкой." />
+        <DeathEnemySnareFlea text="Был задушен Многоножкой." />
 
         <DeathEnemyHygrodere text="Был поглощен Гигродером." />
         <DeathEnemyHygrodere text="Потерялся в соусе." />
