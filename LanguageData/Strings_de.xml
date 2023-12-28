@@ -2,7 +2,7 @@
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
     <tags>
-        <tag language="en" />
+        <tag language="de" />
     </tags>
     <strings>
         <UINotes text="Anmerkungen: " />
