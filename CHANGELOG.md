@@ -3,12 +3,12 @@
 # Upcoming
 [] Implement Stun Grenade death
 
-# 1.6.0
+# 1.5.1
 ## Added
-- Added a new French translation.
+- Added a new French localization.
 ## Changed
-- Removed LC_API dependency from the config again because apparently it's not compatible with vanilla.
-- Improved the Dutch translation.
+- I have removed LC_API as a dependency from the manifest. Coroner on its own does a reasonable job of synchronizing cause of death messages across clients without it, in my experience, to a greater extent than I originally thought. I do not anticipate making it a dependency again in the future. Apologies for the inconvenience.
+- Improved the Dutch localization.
 
 # 1.5.0
 ## Added
