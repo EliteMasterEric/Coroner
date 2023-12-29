@@ -9,8 +9,9 @@ namespace Coroner {
         public static readonly string[] AVAILABLE_LANGUAGES = [
             "en", // English
             "ru", // Russian
-            "ptbr", // Portuguese (Brazil)
             "nl", // Dutch
+            // "ptbr", // Portuguese (Brazil)
+            "fr", // French
         ];
 
         public const string TAG_FUNNY_NOTES = "FunnyNote";
@@ -93,7 +94,10 @@ namespace Coroner {
         static void LoadLanguageData(string languageCode) {
             try
             {
-                languageData = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_{languageCode}.xml");
+                // R2Modman is a weirdo.
+                // languageData = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_{languageCode}.xml");
+                // languageData = XDocument.Load($"./BepInEx/plugins/{PluginInfo.PLUGIN_AUTHOR}-{PluginInfo.PLUGIN_NAME}/Strings_{languageCode}.xml");
+                languageData = XDocument.Load($"{Plugin.AssemblyDirectory}/Strings_{languageCode}.xml");
             }
             catch(Exception ex)
             {
