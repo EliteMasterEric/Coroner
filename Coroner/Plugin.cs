@@ -4,6 +4,8 @@ using HarmonyLib;
 using BepInEx.Logging;
 using BepInEx.Bootstrap;
 using System;
+using System.Reflection;
+using System.IO;
 
 namespace Coroner
 {
@@ -11,6 +13,7 @@ namespace Coroner
     {
         public const string PLUGIN_ID = "Coroner";
         public const string PLUGIN_NAME = "Coroner";
+        public const string PLUGIN_AUTHOR = "EliteMasterEric";
         public const string PLUGIN_VERSION = "1.5.0";
         public const string PLUGIN_GUID = "com.elitemastereric.coroner";
     }
@@ -23,9 +26,20 @@ namespace Coroner
 
         public static readonly Random RANDOM = new Random();
 
-        public ManualLogSource PluginLogger;
+        public PluginLogger PluginLogger;
 
         public PluginConfig PluginConfig;
+
+        public static string AssemblyDirectory
+        {
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
+        }
 
         public bool IsLCAPIPresent = false;
         
@@ -33,7 +47,7 @@ namespace Coroner
         {
             Instance = this;
 
-            PluginLogger = Logger;
+            PluginLogger = new PluginLogger(Logger);
 
             // Apply Harmony patches (if any exist)
             Harmony harmony = new Harmony(PluginInfo.PLUGIN_GUID);
@@ -77,6 +91,47 @@ namespace Coroner
         {
             PluginConfig = new PluginConfig();
             PluginConfig.BindConfig(Config);
+        }
+    }
+
+    public class PluginLogger
+    {
+        ManualLogSource manualLogSource;
+        LogLevel logLevel;
+
+        public PluginLogger(ManualLogSource manualLogSource, LogLevel logLevel = LogLevel.Info) {
+            this.manualLogSource = manualLogSource;
+            this.logLevel = logLevel;
+        }
+
+        public void LogFatal(object data)
+        {
+            if (logLevel >= LogLevel.Fatal) manualLogSource.LogFatal(data);
+        }
+
+        public void LogError(object data)
+        {
+            if (logLevel >= LogLevel.Error) manualLogSource.LogError(data);
+        }
+
+        public void LogWarning(object data)
+        {
+            if (logLevel >= LogLevel.Warning) manualLogSource.LogWarning(data);
+        }
+
+        public void LogMessage(object data)
+        {
+            if (logLevel >= LogLevel.Message) manualLogSource.LogMessage(data);
+        }
+
+        public void LogInfo(object data)
+        {
+            if (logLevel >= LogLevel.Info) manualLogSource.LogInfo(data);
+        }
+
+        public void LogDebug(object data)
+        {
+            if (logLevel >= LogLevel.Debug) manualLogSource.LogDebug(data);
         }
     }
 }
