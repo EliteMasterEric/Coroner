@@ -8,6 +8,8 @@ namespace Coroner.Patch {
     [HarmonyLib.HarmonyPatch(typeof(HUDManager))]
     [HarmonyLib.HarmonyPatch("FillEndGameStats")]
     class HUDManagerFillEndGameStatsPatch {
+        const string EMPTY_NOTES = "Notes: \n";
+
         public static void Postfix(HUDManager __instance) {
             try {
                 OverridePerformanceReport(__instance);
@@ -44,31 +46,23 @@ namespace Coroner.Patch {
                         if (Plugin.Instance.PluginConfig.ShouldDeathReplaceNotes()) {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
                             // Reset the notes.
-                            // TODO: Rewrite this.
                             textMesh.text = LanguageHandler.GetValueByTag(LanguageHandler.TAG_UI_DEATH) + "\n";
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Appending notes with Cause of Death...");
                         }
                         
                         var causeOfDeath = AdvancedDeathTracker.GetCauseOfDeath(playerController);
-                        var notes = "* " + AdvancedDeathTracker.StringifyCauseOfDeath(causeOfDeath, syncedRandom) + "\n";
-
-                        textMesh.text += notes;
+                        textMesh.text += "* " + AdvancedDeathTracker.StringifyCauseOfDeath(causeOfDeath, syncedRandom) + "\n";
                     } else {
                         Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead, but Config says leave it be...");
                     }
                 } else {
-                    if (textMesh.text == "") {
+                    if (textMesh.text == EMPTY_NOTES) {
                         if (Plugin.Instance.PluginConfig.ShouldDisplayFunnyNotes()) {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes! Injecting something funny...");
 
-                            var notes = "* " + AdvancedDeathTracker.StringifyCauseOfDeath(null, syncedRandom) + "\n";
-
-                            textMesh.text += notes;
-
-                            // TODO: Modify this.
                             textMesh.text = LanguageHandler.GetValueByTag(LanguageHandler.TAG_UI_NOTES) + "\n";
-                            textMesh.text += notes;
+                            textMesh.text += "* " + AdvancedDeathTracker.StringifyCauseOfDeath(null, syncedRandom) + "\n";
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes, but Config says leave it be...");
                         }
