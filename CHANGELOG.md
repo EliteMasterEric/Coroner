@@ -2,11 +2,13 @@
 
 # Upcoming
 [] Implement Stun Grenade death
-[] Implement French translations
 
 # 1.6.0
+## Added
+- Added a new French translation.
 ## Changed
 - Removed LC_API dependency from the config again because apparently it's not compatible with vanilla.
+- Improved the Dutch translation.
 
 # 1.5.0
 ## Added

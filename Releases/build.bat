@@ -1,3 +1,5 @@
+@echo off
+
 REM Copy ../Art/icon.png to the current directory
 copy /y ..\Art\icon.png .
 REM Copy ../Art/manifest.json to the current directory
@@ -12,5 +14,7 @@ REM Copy Strings_* files from ../Coroner to the current directory, excluding Str
 xcopy /s /y /q ..\LanguageData\* .\BepInEx\Lang\Coroner\
 
 REM Create a zip file named Coroner.zip containing all files (except build.bat and Strings_test.xml) in the current directory
-"C:\Program Files\7-Zip\7z.exe" a Coroner.zip * -x!build.bat -x!Coroner.zip -x!BepInEx\Lang\Coroner\Strings_test.xml
+"C:\Program Files\7-Zip\7z.exe" a -r Coroner.zip * -x!build.bat -x!Coroner.zip
 
+for %%I in (*) do if not "%%I"=="Coroner.zip" if not "%%I"=="build.bat" del /q "%%I"
+for /d %%D in (*) do if not "%%D"=="Coroner.zip" if not "%%D"=="build.bat" rd /s /q "%%D"

@@ -4,7 +4,11 @@ A plugin which overhauls the end-of-mission Performance Report with new informat
 
 Supports v45.
 
-**NOTE:** [LC_API](https://thunderstore.io/c/lethal-company/p/2018/LC_API/) is an optional but highly recommended dependency!
+Now in v1.5.0, language support! Open the mod config to set your language.
+
+**NOTE:** It is recommended to use [Russian textures](https://thunderstore.io/c/lethal-company/p/Hayrizan/Russian_textures/) if you use the Russian language texture..
+
+**NOTE:** [LC_API](https://thunderstore.io/c/lethal-company/p/2018/LC_API/) is highly recommended as a dependency! Without it, death messages are extremely vague (for example, players will see that the person "got their neck snapped by a Bracken" rather than "strangled to death" while LC_API is installed).
 
 ## Issues
 Report any issues on the [Lethal Company Modding Discord](https://discord.com/channels/1168655651455639582/1180049504418930709).
@@ -24,5 +28,5 @@ Report any issues on the [Lethal Company Modding Discord](https://discord.com/ch
 
 ## Credits
 - EliteMasterEric: Programming
-- NickolasFleim: Implemented support for additional languages
-- FoguDragon: Playtesting
+- NickolasFleim: Programmed Localization Feature, Russian Localization
+- FoguDragon: Playtesting, Dutch Localization
