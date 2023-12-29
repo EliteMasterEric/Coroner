@@ -10,12 +10,10 @@ namespace Coroner
         public const int PLAYER_CAUSE_OF_DEATH_DROPSHIP = 300;
 
         private static readonly Dictionary<int, AdvancedCauseOfDeath> PlayerCauseOfDeath = new Dictionary<int, AdvancedCauseOfDeath>();
-        private static readonly Dictionary<int, string> PlayerNotes = new Dictionary<int, string>();
 
         public static void ClearDeathTracker()
         {
             PlayerCauseOfDeath.Clear();
-            PlayerNotes.Clear();
         }
 
         public static void SetCauseOfDeath(int playerIndex, AdvancedCauseOfDeath causeOfDeath, bool broadcast = true)
