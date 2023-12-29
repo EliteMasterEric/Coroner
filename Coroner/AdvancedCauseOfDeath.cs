@@ -5,8 +5,7 @@ using GameNetcodeStuff;
 
 namespace Coroner
 {
-
-    class AdvancedDeathTracker
+    public class AdvancedDeathTracker
     {
         public const int PLAYER_CAUSE_OF_DEATH_DROPSHIP = 300;
 
@@ -273,7 +272,7 @@ namespace Coroner
         }
     }
 
-    enum AdvancedCauseOfDeath
+    public enum AdvancedCauseOfDeath
     {
         // Basic causes of death
         Unknown,
