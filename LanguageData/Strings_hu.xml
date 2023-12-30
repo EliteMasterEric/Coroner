@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base
+        type="string">
+    <tags>
+        <tag language="hu" />
+    </tags>
+    <strings>
+        <UINotes text="Megjegyzések: " />
+        <UICauseOfDeath text="Halál oka: " />
+
+        <FunnyNote text="A legidiótább idióta." />
+        <FunnyNote text="A legcukibb alkalmazott." />
+        <FunnyNote text="Ő élvezte legjobban." />
+        <FunnyNote text="Ő élvezte legkevésbé." />
+        <FunnyNote text="A legbátrabb alkalmazott." />
+        <FunnyNote text="Csinált egy szaltót." />
+        <FunnyNote text="Beütötte a kislábujját." />
+        <FunnyNote text="Ő a legvalószínűbb, hogy legközelebb meg fog halni." />
+        <FunnyNote text="Ő a legkevésbé valószínűbb, hogy legközelebb meg fog halni." />
+        <FunnyNote text="Utálja a füstöt." />
+        <FunnyNote text="Csapatjátékos." />
+        <FunnyNote text="Egy igazán céltudatos egyén." />
+        <FunnyNote text="Ő zabált a legtöbbet." />
+        <FunnyNote text="Átment a START-on és gyűjtött 20000 HUF-ot." />
+        <FunnyNote text="Volt egy őrült Péntek estéje." />
+        <FunnyNote text="Szerintem ez egy sorozatgyilkos." />
+        <FunnyNote text="Tökéletesen jelentéktelen." />
+        <FunnyNote text="Már egy jó ideje nem hívta fel az édesanyját." />
+        <FunnyNote text="127.0.0.1. az IP címe." />
+        <FunnyNote text="Titokban egy gyík." />
+
+        <DeathBludgeoning text="Halálra verték." />
+
+        <DeathGravity text="Halálába zuhant." />
+        <DeathGravity text="Leesett egy szirtről." />
+
+        <DeathBlast text="Felrobbant." />
+        <DeathBlast text="Egy nagy durranással távozott." />
+        <DeathBlast text="Darabokra robbant." />
+
+        <DeathStrangulation text="Megfojtották." />
+
+        <DeathSuffocation text="Megfulladt." />
+
+        <DeathMauling text="Halálra marcangolták." />
+
+        <DeathGunshots text="Agyonlőtték." />
+        <DeathGunshots text="Színültig megtelt golyókkal." />
+        <DeathGunshots text="Sajtreszelővé lőtték." />
+
+        <DeathCrushing text="Halálra zúzták." />
+
+        <DeathDrowning text="Megfulladt." />
+        <DeathDrowning text="Vízbe fulladt." />
+
+        <DeathAbandoned text="Otthagyták a munkatársai." />
+        <DeathAbandoned text="Kereshetne jobb barátokat." />
+
+        <DeathElectrocution text="Megbaszta az áram." />
+        <DeathElectrocution text="Megtanulta vezetni az áramot." />
+
+        <DeathKicking text="Halálra rugdosták." />
+
+        <DeathEnemyBracken text="Kitörte a nyakát egy Bracken." />
+        <DeathEnemyBracken text="Túl sok ideig szemezett egy Bracken-el." />
+
+        <DeathEnemyEyelessDog text="Megette egy Szemtelen Kutya." />
+        <DeathEnemyEyelessDog text="Rajtakapták, hogy mechanikus billentyűzetet használ." />
+        <DeathEnemyEyelessDog text="Nem kussolt egy Szemtelen Kutya körül." />
+
+        <DeathEnemyForestGiant text="Egyben lenyelte egy Erdei Óriás." />
+
+        <DeathEnemyCircuitBees text="Halálra csípkedték elektromossággal az Áramkör Méhek." />
+        <DeathEnemyCircuitBees text="Legközelebb inkább ne csipkelődjön az Áramkör Méhekkel." />
+
+        <DeathEnemyGhostGirl text="Rejtélyes halált halt." />
+        <DeathEnemyGhostGirl text="Elvesztette az ép elméjét." />
+        <DeathEnemyGhostGirl text="Halálos fejfájás tört rá." />
+        <DeathEnemyGhostGirl text="???" />
+
+        <DeathEnemyEarthLeviathan text="Egyben lenyelte egy Földi Szörnyeteg." />
+
+        <DeathEnemyBaboonHawk text="Megette egy Pávián Sólyom." />
+        <DeathEnemyBaboonHawk text="Összeverte egy Pávián Sólyom." />
+
+        <DeathEnemyJester text="Halálra marcangolta egy Udvari Bolond." />
+        <DeathEnemyJester text="Az Udvari Bolond tréfája lett." />
+        <DeathEnemyJester text="Megtréfálta egy Udvari Bolond." />
+        <DeathEnemyJester text="Kiderült mi van a dobozban." />
+
+        <DeathEnemyCoilHead text="Halálra marcangolta egy Tekercsfej." />
+        <DeathEnemyCoilHead text="Farkasszemet nézett egy Tekercsfejjel." />
+        <DeathEnemyCoilHead text="Nem volt jó ötlet farkasszemet nézni egy Tekercsfejjel." />
+
+        <DeathEnemySnareFlea text="Megfojtotta egy Csapda Bolha." />
+
+        <DeathEnemyHygrodere text="Elnyelte egy Nyálka." />
+        <DeathEnemyHygrodere text="Elveszett a szószban." />
+        <DeathEnemyHygrodere text="Apróbb hibát vétett egy Nyálkával." />
+
+        <DeathEnemyHoarderBug text="Összeverte egy Gyűjtögető Bogár." />
+        <DeathEnemyHoarderBug text="Rá rajzott egy Gyűjtögető Bogár." />
+        <DeathEnemyHoarderBug text="Összegyűjtötte egy Gyűjtögető Bogár." />
+        <DeathEnemyHoarderBug text="Lopni próbált egy Gyűjtögető Bogártól." />
+
+        <DeathEnemySporeLizard text="Megcsípte egy Spóra Gyík." />
+        <DeathEnemySporeLizard text="Felfújta egy Spóra Gyík." />
+
+        <DeathEnemyBunkerSpider text="Behálózta a Bunker Pók a hálójába." />
+
+        <DeathEnemyThumper text="Elpusztította egy Dobbantó." />
+        <DeathEnemyThumper text="Rálépett egy Dobbantó." />
+
+        <DeathEnemyMaskedPlayerWear text="Engedett a kísértésnek, felvette a Maszkot." />
+        <DeathEnemyMaskedPlayerWear text="Senkit sem érdekelt ki volt ő, míg fel nem vette a Maszkot." />
+
+        <DeathEnemyMaskedPlayerVictim text="Megölte egy Maszkos munkatársa." />
+        <DeathEnemyMaskedPlayerVictim text="Megtapasztalta a Maszk tragikus következményeit." />
+
+        <DeathEnemyNutcrackerKicked text="Halálra rugdosta egy Diótörő." />
+        <DeathEnemyNutcrackerKicked text="Tökön rúgta egy Diótörő." />
+
+        <DeathEnemyNutcrackerShot text="Lelőtte egy Diótörő." />
+        <DeathEnemyNutcrackerShot text="Túl közelről látta a fegyveres tisztelgést." />
+        <DeathEnemyNutcrackerShot text="Megnézte van-e golyó a csőben. Volt." />
+
+        <DeathPlayerJetpackGravity text="Zuhant egy nagyot jetpack-el a hátán." />
+        <DeathPlayerJetpackGravity text="Túl közel repült a naphoz." />
+        <DeathPlayerJetpackGravity text="Ikarus szeretett volna lenni." />
+        <DeathPlayerJetpackGravity text="Kifogyott a nafta." />
+
+        <DeathPlayerJetpackBlast text="Jetpack-el a hátán felrobbant." />
+        <DeathPlayerJetpackBlast text="Tűzijátékká változott." />
+
+        <DeathPlayerMurderMelee text="Halálra verte egy munkatársa." />
+        <DeathPlayerMurderMelee text="Egy gyilkosság célpontja lett." />
+        <DeathPlayerMurderMelee text="Meggyilkolták." />
+        <DeathPlayerMurderMelee text="Hátbaszúrta egy munkatársa." />
+
+        <DeathPlayerMurderShotgun text="Halálra lőtte egy munkatársa." />
+        <DeathPlayerMurderShotgun text="Egy gyilkosság célpontja lett." />
+        <DeathPlayerMurderShotgun text="Meggyilkolták." />
+        <DeathPlayerMurderShotgun text="Nem tudott elugrani egy munkatársa golyója elől." />
+        <DeathPlayerMurderShotgun text="Egy 360-noscope áldozata lett." />
+
+        <DeathPlayerQuicksand text="Futóhomokban ragadt." />
+        <DeathPlayerQuicksand text="Megfulladt a futóhomokban." />
+        <DeathPlayerQuicksand text="Elnyelte a futóhomok." />
+
+        <DeathPlayerStunGrenade text="Elvakította egy villanógránát." />
+        <DeathPlayerStunGrenade text="Megvakult." />
+        <DeathPlayerStunGrenade text="Egy gyilkosság célpontja lett." />
+
+        <DeathOtherDepositItemsDesk text="Lefokozták." />
+        <DeathOtherDepositItemsDesk text="Kényszerpihenőre küldték." />
+
+        <DeathOtherItemDropship text="Összenyomta a Felszereléskapszula" />
+        <DeathOtherItemDropship text="Nem bírta kivárni a sorát." />
+        <DeathOtherItemDropship text="Türelmetlen volt." />
+
+        <DeathOtherLandmine text="Aknára lépett." />
+
+        <DeathOtherTurret text="Lelőtte egy géppuskatorony." />
+        <DeathOtherTurret text="Nem vette észre időben a lézert." />
+
+        <DeathOtherLightning text="Megbaszta a villám." />
+        <DeathOtherLightning text="Villámhárító lett." />
+
+        <DeathUnknown text="Valahogy meghalt." />
+        <DeathUnknown text="Halottabb mint egy halott." />
+        <DeathUnknown text="Ez megdöglött." />
+        <DeathUnknown text="Ismeretlen okokból eltávozott közülünk." />
+    </strings>
+</base>
