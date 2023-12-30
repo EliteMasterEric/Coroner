@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+    <tags>
+        <tag language="zh-cn" />
+    </tags>
+    <strings>
+        <UINotes text="备注：" />
+        <UICauseOfDeath text="死因：" />
+
+        <FunnyNote text="今天左脚出门。" />
+        <FunnyNote text="最可爱的员工。" />
+        <FunnyNote text="度过了最愉快的时光。" />
+        <FunnyNote text="表演特技。" />
+        <FunnyNote text="过于勇敢的员工。" />
+        <FunnyNote text="做了个炫酷的翻滚。" />
+        <FunnyNote text="被脚趾头撞到。" />
+        <FunnyNote text="死亡flag最多的人。" />
+        <FunnyNote text="在打电话。" />
+        <FunnyNote text="不喜欢烟雾。" />
+        <FunnyNote text="迷路。" />
+        <FunnyNote text="在摸鱼。" />
+        <FunnyNote text="吃零食最多。" />
+        <FunnyNote text="想要发出VW50的声音。" />
+        <FunnyNote text="星期四变得疯狂。" />
+        <FunnyNote text="生存还是毁灭？" />
+        <FunnyNote text="有的人死了，但还活着。" />
+        <FunnyNote text="忘记了员工手册。" />
+        <FunnyNote text="IP地址为127.0.0.1。" />
+        <FunnyNote text="致命公司启动！" />
+
+        <DeathBludgeoning text="被重击致死。" />
+
+        <DeathGravity text="坠落致死。" />
+        <DeathGravity text="从悬崖上摔下。" />
+
+        <DeathBlast text="爆炸身亡。" />
+        <DeathBlast text="以轰动的方式结束。" />
+        <DeathBlast text="被炸成碎片。" />
+
+        <DeathStrangulation text="被勒死。" />
+
+        <DeathSuffocation text="窒息而亡。" />
+
+        <DeathMauling text="被猛兽撕咬致死。" />
+
+        <DeathGunshots text="被枪击致死。" />
+        <DeathGunshots text="被子弹打得满身是洞。" />
+
+        <DeathCrushing text="被压碎致死。" />
+
+        <DeathDrowning text="被淹死。" />
+
+        <DeathAbandoned text="被同事遗弃。" />
+
+        <DeathElectrocution text="被电击致死。" />
+
+        <DeathKicking text="被踢致死。" />
+
+        <DeathEnemyBracken text="被小黑掐断脖子。" />
+        <DeathEnemyBracken text="盯着小黑看得太久。" />
+
+        <DeathEnemyEyelessDog text="被无眼狗吃掉。" />
+        <DeathEnemyEyelessDog text="被抓到使用机械键盘。" />
+        <DeathEnemyEyelessDog text="在无眼狗周围不够安静。" />
+
+        <DeathEnemyForestGiant text="被森林巨人整个吞噬。" />
+
+        <DeathEnemyCircuitBees text="被电路蜜蜂电击致死。" />
+
+        <DeathEnemyGhostGirl text="死于神秘原因。" />
+        <DeathEnemyGhostGirl text="失去理智。" />
+        <DeathEnemyGhostGirl text="头痛得厉害。" />
+        <DeathEnemyGhostGirl text="???" />
+
+        <DeathEnemyEarthLeviathan text="被利维坦整个吞噬。" />
+
+        <DeathEnemyBaboonHawk text="被狒狒鹰吃掉。" />
+        <DeathEnemyBaboonHawk text="被狒狒鹰抓伤。" />
+
+        <DeathEnemyJester text="被小丑(音乐盒）撕咬致死。" />
+        <DeathEnemyJester text="成为小丑(音乐盒）的朋友。" />
+        <DeathEnemyJester text="被小丑(音乐盒）整蛊。" />
+        <DeathEnemyJester text="沉寂在小丑(音乐盒）的演奏中。" />
+
+        <DeathEnemyCoilHead text="被线圈头扭断了脖子。" />
+        <DeathEnemyCoilHead text="与线圈头进行了对视大赛。" />
+        <DeathEnemyCoilHead text="在与线圈头的对视中失败。" />
+
+        <DeathEnemySnareFlea text="被抱脸虫抓走。" />
+
+        <DeathEnemyHygrodere text="被史莱姆吸收。" />
+        <DeathEnemyHygrodere text="在史莱姆的胃中迷失。" />
+        <DeathEnemyHygrodere text="在与史莱姆的对峙中不慎出错。" />
+
+        <DeathEnemyHoarderBug text="被囤积虫撕咬致死。" />
+        <DeathEnemyHoarderBug text="被囤积虫蜂拥而至。" />
+        <DeathEnemyHoarderBug text="被囤积虫围攻。" />
+        <DeathEnemyHoarderBug text="试图从囤积虫那里偷东西。" />
+
+        <DeathEnemySporeLizard text="被毒蜥蜴咬伤。" />
+        <DeathEnemySporeLizard text="被毒蜥蜴吹飞。" />
+
+		<DeathEnemyBunkerSpider text="被蛛网困住。" />
+		<DeathEnemyBunkerSpider text="死于蜘蛛的袭击。" />
+
+		<DeathEnemyThumper text="被重击者摧毁。" />
+		<DeathEnemyThumper text="被重击者猛击。" />
+
+		<DeathEnemyMaskedPlayerWear text="戴上了面具。" />
+		<DeathEnemyMaskedPlayerWear text="在戴上面具之前没人关心他们是谁。" />
+
+		<DeathEnemyMaskedPlayerVictim text="被戴面具的同事杀害。" />
+		<DeathEnemyMaskedPlayerVictim text="成为面具下的悲剧。" />
+
+		<DeathEnemyNutcrackerKicked text="被胡桃夹子踢死。" />
+		<DeathEnemyNutcrackerKicked text="过于靠近胡桃夹子。" />
+
+		<DeathEnemyNutcrackerShot text="被胡桃夹子射击。" />
+		<DeathEnemyNutcrackerShot text="大人，时代变了 by胡桃夹子。" />
+
+		<DeathPlayerJetpackGravity text="在使用喷气背包时坠落。" />
+		<DeathPlayerJetpackGravity text="飞得离太阳太近。" />
+		<DeathPlayerJetpackGravity text="燃料用尽。" />
+
+		<DeathPlayerJetpackBlast text="在使用喷气背包时爆炸。" />
+		<DeathPlayerJetpackBlast text="变成了焰火。" />
+
+		<DeathPlayerMurderMelee text="被同事用重物殴打致死。" />
+		<DeathPlayerMurderMelee text="成为谋杀的受害者。" />
+		<DeathPlayerMurderMelee text="被谋杀。" />
+		<DeathPlayerMurderMelee text="被同事背后袭击。" />
+
+		<DeathPlayerMurderShotgun text="被同事射杀致死。" />
+		<DeathPlayerMurderShotgun text="成为谋杀的受害者。" />
+		<DeathPlayerMurderShotgun text="被谋杀。" />
+		<DeathPlayerMurderShotgun text="被同事一枪打垮。" />
+		<DeathPlayerMurderShotgun text="被同事360度无镜跳刀。" />
+
+		<DeathPlayerQuicksand text="陷入流沙。" />
+		<DeathPlayerQuicksand text="在流沙中淹死。" />
+
+		<DeathPlayerStunGrenade text="被同事闪光弹闪瞎。" />
+		<DeathPlayerStunGrenade text="成为谋杀的受害者。" />
+
+		<DeathOtherDepositItemsDesk text="被降职。" />
+		<DeathOtherDepositItemsDesk text="被迫休假。" />
+
+		<DeathOtherItemDropship text="被物品运输飞船压死。" />
+		<DeathOtherItemDropship text="拿快递过于着急。" />
+		<DeathOtherItemDropship text="拿外卖过于心急。" />
+
+		<DeathOtherLandmine text="踩到地雷。" />
+		<DeathOtherLandmine text="当心脚下。" />
+
+		<DeathOtherTurret text="被炮台射中。" />
+
+		<DeathOtherLightning text="被雷击中。" />
+		<DeathOtherLightning text="成为了一道光。" />
+
+		<DeathUnknown text="以某种方式死去。" />
+		<DeathUnknown text="真诚地死去。" />
+		<DeathUnknown text="以无法解释的方式死亡。" />
+    </strings>
+</base>
