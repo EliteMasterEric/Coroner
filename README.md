@@ -6,7 +6,7 @@ Supports v45.
 
 Now in v1.5.0, language support! Open the mod config to set your language.
 
-**NOTE:** It is recommended to use [Russian textures](https://thunderstore.io/c/lethal-company/p/Hayrizan/Russian_textures/) if you use the Russian language texture..
+**NOTE:** It is recommended to use [RTLC Russian Translation](https://thunderstore.io/c/lethal-company/p/Hayrizan/RTLC_Russian_Translation/) if you use the Russian language texture..
 
 **NOTE:** [LC_API](https://thunderstore.io/c/lethal-company/p/2018/LC_API/) is an optional but recommended dependency. Certain causes of death will fail to syncronize between clients in some circumstances but LC_API fixes this issue.
 
