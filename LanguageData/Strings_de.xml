@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
     <tags>
@@ -46,7 +46,6 @@
 
         <DeathGunshots text="Wurde erschossen." />
         <DeathGunshots text="Wurde von Kugeln durchsiebt." />
-        <DeathGunshots text="Hat eine Ladung Schrot abbekommen." />
 
         <DeathCrushing text="Wurde zerquetscht." />
 
@@ -62,7 +61,7 @@
         <DeathEnemyBracken text="Hat sich von einem Bracken chiropraktisch behandeln lassen." />
         <DeathEnemyBracken text="Hat einem Bracken zu lange in die Augen geschaut." />
 
-        <DeathEnemyEyelessDog text="Ist als Hundefutter geendet." />
+        <DeathEnemyEyelessDog text="Endete als Hundefutter." />
         <DeathEnemyEyelessDog text="Wurde bei der Verwendung einer mechanischen Tastatur erwischt." />
         <DeathEnemyEyelessDog text="Ist vor die Hunde gegangen." />
 
@@ -95,7 +94,7 @@
 
         <DeathEnemyHygrodere text="Wurde von Schleim absorbiert." />
         <DeathEnemyHygrodere text="Musste den Schleim unbedingt anfassen.." />
-        <DeathEnemyHygrodere text="Ist etwas Großem auf den Leim gegangen." />
+        <DeathEnemyHygrodere text="Ist auf den (Sch)leim gegangen." />
         <DeathEnemyHygrodere text="Hat jetzt Waldmeister Geschmack." />
 
         <DeathEnemyHoarderBug text="Wurde von einem Käfer erschlagen." />
@@ -141,7 +140,7 @@
         <DeathPlayerMurderShotgun text="Wurde von einem Kollegen erschossen." />
         <DeathPlayerMurderShotgun text="Wurde zum Opfer in einem Mordfall." />
         <DeathPlayerMurderShotgun text="Wurde ermordet." />
-        <DeathPlayerMurderShotgun text="War langsamer als das Schrot seines Kollegen." />
+        <DeathPlayerMurderShotgun text="Hat eine kollegiale Ladung Schrot abbgekommen." />
         <DeathPlayerMurderShotgun text="Hat von einem Kollegen einen 360-noscope kassiert." />
 
         <DeathPlayerQuicksand text="Ist in Treibsand stecken geblieben." />
@@ -158,10 +157,10 @@
         <DeathOtherItemDropship text="Wurde vom Zusteller für seine Ungeduld bestraft." />
 
         <DeathOtherLandmine text="Ist auf eine Mine getreten." />
-        <DeathOtherLandmine text="Hat eine Mine gefunden." />
+        <DeathOtherLandmine text="Hat eine Landmine gefunden." />
 
         <DeathOtherTurret text="Wurde Opfer einer Selbstschussanlage." />
-        <DeathOtherTurret text="Wurde von einem Geschütz durchlöchert." />
+        <DeathOtherTurret text="Wurde von einem Geschütz über den Haufen geschossen." />
 
         <DeathOtherLightning text="Wurde vom Blitz erschlagen." />
         <DeathOtherLightning text="Diente als menschlicher Blitzableiter." />
