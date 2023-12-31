@@ -10,9 +10,7 @@ Built for Lethal Company v45.
 
 Starting with version 1.5.0, Coroner now has support for multiple languages! Open the mod's config file (or use the Config Editor in R2Modman) to choose your desired language.
 
-Side note, custom language files placed in the plugin folder should work.
-
-if you throw a custom language file into the folder,
+Side note, custom language files placed in the plugin folder should work, just make sure you specify your language code in the config.
 
 ## Issues
 Report any issues on the [Lethal Company Modding Discord](https://discord.com/channels/1168655651455639582/1180049504418930709).
