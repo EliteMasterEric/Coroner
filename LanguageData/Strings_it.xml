@@ -57,8 +57,8 @@
 
         <DeathKicking text="Preso a calci." />
 
-        <DeathEnemyBracken text="Si è fatto rompere il collo da un Bracken." />
-        <DeathEnemyBracken text="Ha guardato il Bracken troppo a lungo." />
+        <DeathEnemyBracken text="Si è fatto rompere il collo da uno Pteride." />
+        <DeathEnemyBracken text="Ha guardato lo Pteride troppo a lungo." />
 
         <DeathEnemyEyelessDog text="Sbranato dal Cane Talpa." />
         <DeathEnemyEyelessDog text="Beccato per aver utilizzato una tastiera meccanica." />
@@ -78,9 +78,9 @@
         <DeathEnemyBaboonHawk text="Mangiato da un Falcuìno." />
         <DeathEnemyBaboonHawk text="Sbranato da un Falcuìno." />
 
-        <DeathEnemyJester text="Sbranato da un Buffone." />
-        <DeathEnemyJester text="Era il bersaglio dello scherzo del Buffone." />
-        <DeathEnemyJester text="Il Buffone gli ha fatto uno scherzo." />
+        <DeathEnemyJester text="Sbranato da un Giullare." />
+        <DeathEnemyJester text="Era il bersaglio dello scherzo del Giullare." />
+        <DeathEnemyJester text="Il Giullare gli ha fatto uno scherzo." />
         <DeathEnemyJester text="Gli hanno fatto cucùsettete." />
 
         <DeathEnemyCoilHead text="Sbranato da un Testa-Molla." />
@@ -89,9 +89,9 @@
 
         <DeathEnemySnareFlea text="Soffocato da un Intrappolatore Strisciante." />
 
-        <DeathEnemyHygrodere text="Assorbito da un Hygrodera." />
+        <DeathEnemyHygrodere text="Assorbito da un Igrodera." />
         <DeathEnemyHygrodere text="Annegato nella pozzanghera." />
-        <DeathEnemyHygrodere text="Ha avuto un problemino con un Hygrodera." />
+        <DeathEnemyHygrodere text="Ha avuto un problemino con un Igrodera." />
 
         <DeathEnemyHoarderBug text="Sbranato da una Mosca Accumulatrice." />
         <DeathEnemyHoarderBug text="Assalito da una Mosca Accumulatrice." />
