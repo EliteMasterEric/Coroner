@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+    <tags>
+        <tag language="kr" />
+    </tags>
+    <strings>
+
+        <UINotes text="노트: " /> 
+        <UICauseOfDeath text="사망 원인: " /> 
+
+        <FunnyNote text="세상에서 가장 멍청함." />
+        <FunnyNote text="세상에서 가장 귀여움." />
+        <FunnyNote text="즐겁다!" />
+        <FunnyNote text="노잼." />
+        <FunnyNote text="가장 용감한 직원." />
+        <FunnyNote text="경 아무것도 안함 축" />
+        <FunnyNote text="터미널 모서리에 발가락을 찧음." />
+        <FunnyNote text="다음에 죽을 확률이 높음." />
+        <FunnyNote text="다음에 죽을 확률이 낮음." />
+        <FunnyNote text="팀 플레이어." />
+        <FunnyNote text="내가 제일 잘나가." />
+        <FunnyNote text="돼지." />
+        <FunnyNote text="자택 경비원." />
+        <FunnyNote text="날먹." />
+        <FunnyNote text="내 생각엔 얘가 임포스터야." />
+        <FunnyNote text="뭐야 너 있었어?" />
+        <FunnyNote text="얘가 엄마랑 통화하는걸 본적이 없어." />
+        <FunnyNote text="얘 아이피 127.0.0.1임." />
+        <FunnyNote text="랩틸리언." />
+
+        <DeathBludgeoning text="구타당함." />
+
+        <DeathGravity text="낙사." />
+        <DeathGravity text="절벽에 쳐박힘." />
+
+        <DeathBlast text="폭발함" />
+        <DeathBlast text="폭발과 함게 사라지다." />
+        <DeathBlast text="폭☆발은 예술이다." />
+
+        <DeathStrangulation text="목이 졸려 사망." />
+
+        <DeathSuffocation text="숨이 막혀 사망." />
+
+        <DeathMauling text="찢겨 죽음." />
+
+        <DeathGunshots text="총살." />
+        <DeathGunshots text="벌집이됨." />
+
+        <DeathCrushing text="압사." />
+
+        <DeathDrowning text="익사." />
+
+        <DeathAbandoned text="버려짐." />
+        <DeathAbandoned text="너는 여기 살아 우리는 갈꺼야." />
+        <DeathAbandoned text="그러게 처신 잘 했어야지." />
+        <DeathAbandoned text="쓸 모 없음." />
+
+        <DeathElectrocution text="감전사." />
+
+        <DeathKicking text="발로 차여 사망." />
+
+        <DeathEnemyBracken text="브래켄에 의해 목이 돌아감" />
+        <DeathEnemyBracken text="스토커를 발견함." />
+
+        <DeathEnemyEyelessDog text="우리 댕댕이 영양간식." />
+        <DeathEnemyEyelessDog text="그러게 누가 기계식 키보드 쓰래?" />
+        <DeathEnemyEyelessDog text="댕댕이가 너 시끄럽대." />
+
+        <DeathEnemyForestGiant text="거인에게 먹힘." />
+        <DeathEnemyForestGiant text="진격의 거인." />
+
+        <DeathEnemyCircuitBees text="회로 벌에게 감전됨." />
+
+        <DeathEnemyGhostGirl text="혼자 쓰러짐" />
+        <DeathEnemyGhostGirl text="저는 그만 정신을 잃고 말았습니다." />
+        <DeathEnemyGhostGirl text="정신병." />
+        <DeathEnemyGhostGirl text="???" />
+
+        <DeathEnemyEarthLeviathan text="육지 레비아탄이 먹음." />
+
+        <DeathEnemyBaboonHawk text="하지만 오늘은 개코매의 점심이죠." />
+        <DeathEnemyBaboonHawk text="개코매가 찢음" />
+
+        <DeathEnemyJester text="제스터에게 찔려죽음." />
+        <DeathEnemyJester text="제스터의 농담에 얼어죽음." />
+        <DeathEnemyJester text="제스터에게 나댔음." />
+        <DeathEnemyJester text="이곳은 8시의 서커스." /> 
+
+        <DeathEnemyCoilHead text="코일 헤드에 의해 사망함." />
+        <DeathEnemyCoilHead text="코일 헤드와 눈싸움함." />
+        <DeathEnemyCoilHead text="코일 헤드와의 눈싸움에서 패배함" />
+
+        <DeathEnemySnareFlea text="올무 벼룩에 의해 질식사." />
+        <DeathEnemySnareFlea text="봉이 아빠." />
+
+        <DeathEnemyHygrodere text="하이그로데레에게 흡수됨." />
+        <DeathEnemyHygrodere text="액체괴물." />
+        <DeathEnemyHygrodere text="슬라임에게 메챠쿠챠." />
+
+        <DeathEnemyHoarderBug text="비축 벌레에게 찢김." />
+        <DeathEnemyHoarderBug text="비축 벌레에게 비축당함." />
+        <DeathEnemyHoarderBug text="예삐." />
+
+        <DeathEnemySporeLizard text="포자 도마뱀에게 물림." />
+
+        <DeathEnemyBunkerSpider text="벙커 거미 거미줄에 걸림." />
+        <DeathEnemyBunkerSpider text="거미 공포증." />
+
+        <DeathEnemyThumper text="덤퍼가 파괴함." />
+        <DeathEnemyThumper text="덤퍼 과실 100." />
+
+        <DeathEnemyMaskedPlayerWear text="가면을 썼음." />
+        <DeathEnemyMaskedPlayerWear
+            text="인간을 포기함." /> 
+
+        <DeathEnemyMaskedPlayerVictim text="가면을 쓴 동료에게 살해당함." /> 
+        <DeathEnemyMaskedPlayerVictim text="DIO에게 살해당함." />
+
+        <DeathEnemyNutcrackerKicked text="호두까기 인형에게 차였음." /> 
+        <DeathEnemyNutcrackerKicked text="호두까기 인형이 영 좋지 않을곳을 찼음." />
+
+        <DeathEnemyNutcrackerShot text="호두까기 인형에 의해 구멍이 났음." /> 
+        <DeathEnemyNutcrackerShot text="더블배럴 샷건 훌륭한 대화 수단이지!" />
+
+        <DeathPlayerJetpackGravity text="제트팩을 잘못탐." />
+        <DeathPlayerJetpackGravity text="태양과 가까워짐." /> 
+        <DeathPlayerJetpackGravity text="나로호." />
+
+        <DeathPlayerJetpackBlast text="제트팩과 함께 폭사함." />
+        <DeathPlayerJetpackBlast text="인간 폭죽." />
+
+        <DeathPlayerMurderMelee text="동료에게 맞아죽음." />
+        <DeathPlayerMurderMelee text="사내 괴롭힘." />
+        <DeathPlayerMurderMelee text="임포스터에게 맞아죽음." />
+        <DeathPlayerMurderMelee text="살해당함." />
+
+        <DeathPlayerMurderShotgun text="동료가 쏴죽임." />
+        <DeathPlayerMurderShotgun text="살해당함." />
+        <DeathPlayerMurderShotgun text="딱 한번 만 쏴보려고 했는데." />
+        <DeathPlayerMurderShotgun text="감히 내 딸을 넘봐?" />
+
+        <DeathPlayerLadder text="연장형 사다리에 압사." />
+        <DeathPlayerLadder text="사다리 설치방법을 몰랐음." />
+
+        <DeathPlayerQuicksand text="진흙에 빠짐." />
+
+        <DeathPlayerStunGrenade text="섬광탄." /> 
+        <DeathPlayerStunGrenade text="이것은 섬광탄이여." />
+
+        <DeathOtherItemDropship text="아이템 수송선에 압사함." />
+        <DeathOtherItemDropship text="참을성이 없음." />
+        <DeathOtherItemDropship text="너무 급했음." />
+
+        <DeathOtherDepositItemsDesk text="강등당함." />
+        <DeathOtherDepositItemsDesk text="징계." />
+
+
+        <DeathOtherLandmine text="지뢰를 밟았음." />
+
+        <DeathOtherTurret text="포탑에 의해 벌집이됨." />
+
+        <DeathOtherLightning text="전기 통구이." />
+
+        <DeathUnknown text="어떻게든 죽었겠지." />
+        <DeathUnknown text="불명." />
+    </strings>
+</base>
