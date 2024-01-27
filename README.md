@@ -35,3 +35,5 @@ Report any issues on the [Lethal Company Modding Discord](https://discord.com/ch
 - NickolasFleim: Programmed Localization Feature, Russian Localization
 - FoguDragon: Playtesting, Dutch Localization
 - Fleetway: French Localization
+- YoBii: German Localization
+- Sgkill6: Korean Localization
