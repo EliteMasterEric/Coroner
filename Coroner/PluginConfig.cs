@@ -48,7 +48,7 @@ namespace Coroner
 
         public string GetSelectedLanguage()
         {
-            return LanguagePicker.Value;
+            return LanguagePicker.Value.Replace('-', '_');
         }
     }
 }

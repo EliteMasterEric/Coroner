@@ -2,7 +2,9 @@
 
 A plugin which overhauls the end-of-mission Performance Report with new information, including cause of death for any deceased players. There are some fun easter eggs thrown in too.
 
-Built for Lethal Company v45.
+Built for Lethal Company v49.
+
+**NOTE:** If you have issues when using foreign language fonts, install [FontFixer](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/FontFixer/).
 
 **NOTE:** [LC_API](https://thunderstore.io/c/lethal-company/p/2018/LC_API/) is an optional but recommended dependency. Certain causes of death will fail to syncronize between clients in some circumstances but LC_API fixes this issue.
 

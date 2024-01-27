@@ -14,7 +14,7 @@ namespace Coroner
         public const string PLUGIN_ID = "Coroner";
         public const string PLUGIN_NAME = "Coroner";
         public const string PLUGIN_AUTHOR = "EliteMasterEric";
-        public const string PLUGIN_VERSION = "1.5.1";
+        public const string PLUGIN_VERSION = "1.6.0";
         public const string PLUGIN_GUID = "com.elitemastereric.coroner";
     }
 
@@ -34,6 +34,7 @@ namespace Coroner
         {
             get
             {
+                // TODO: Replace with Plugin.Info.Location
                 string codeBase = Assembly.GetExecutingAssembly().CodeBase;
                 UriBuilder uri = new UriBuilder(codeBase);
                 string path = Uri.UnescapeDataString(uri.Path);
@@ -60,6 +61,10 @@ namespace Coroner
             LanguageHandler.Initialize();
             QueryLCAPI();
             DeathBroadcaster.Initialize();
+        }
+
+        public String GetConfigPath() {
+            return $"{Paths.ConfigPath}/{PluginInfo.PLUGIN_AUTHOR}-{PluginInfo.PLUGIN_NAME}";
         }
 
         private void QueryLCAPI()

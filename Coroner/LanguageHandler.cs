@@ -10,8 +10,11 @@ namespace Coroner {
             "en", // English
             "ru", // Russian
             "nl", // Dutch
-            // "ptbr", // Portuguese (Brazil)
             "fr", // French
+            // "ptbr", // Portuguese (Brazil)
+            // "de", // German
+            // "hu", // Hungarian
+            // "zh-cn", // Chinese (Simplified)
         ];
 
         public const string TAG_FUNNY_NOTES = "FunnyNote";
@@ -97,7 +100,9 @@ namespace Coroner {
                 // R2Modman is a weirdo.
                 // languageData = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_{languageCode}.xml");
                 // languageData = XDocument.Load($"./BepInEx/plugins/{PluginInfo.PLUGIN_AUTHOR}-{PluginInfo.PLUGIN_NAME}/Strings_{languageCode}.xml");
-                languageData = XDocument.Load($"{Plugin.AssemblyDirectory}/Strings_{languageCode}.xml");
+                // languageData = XDocument.Load($"{Plugin.AssemblyDirectory}/Strings_{languageCode}.xml");
+                Plugin.Instance.PluginLogger.LogInfo($"Loading Coroner language data from {Plugin.Instance.GetConfigPath()}");
+                languageData = XDocument.Load($"{Plugin.Instance.GetConfigPath()}/Strings_{languageCode}.xml");
             }
             catch(Exception ex)
             {
