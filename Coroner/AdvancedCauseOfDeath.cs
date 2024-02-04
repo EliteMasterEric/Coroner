@@ -8,6 +8,7 @@ namespace Coroner
     public class AdvancedDeathTracker
     {
         public const int PLAYER_CAUSE_OF_DEATH_DROPSHIP = 300;
+        public const int PLAYER_CAUSE_OF_DEATH_LADDER = 301;
 
         private static readonly Dictionary<int, AdvancedCauseOfDeath> PlayerCauseOfDeath = new Dictionary<int, AdvancedCauseOfDeath>();
 
@@ -42,6 +43,16 @@ namespace Coroner
             PlayerControllerB playerController = StartOfRound.Instance.allPlayerScripts[playerIndex];
 
             return GetCauseOfDeath(playerController);
+        }
+
+        public static bool HasCauseOfDeath(int playerIndex)
+        {
+            return PlayerCauseOfDeath.ContainsKey(playerIndex);
+        }
+
+        public static bool HasCauseOfDeath(PlayerControllerB playerController)
+        {
+            return HasCauseOfDeath((int)playerController.playerClientId);
         }
 
         public static AdvancedCauseOfDeath GetCauseOfDeath(PlayerControllerB playerController)
@@ -152,7 +163,8 @@ namespace Coroner
 
             if (shouldRandomize)
             {
-                return result[random.Next(result.Length)];
+                var index = random.Next(result.Length);
+                return result[index];
             }
             else
             {
@@ -162,105 +174,107 @@ namespace Coroner
 
         public static string[] SelectCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath)
         {
-            if (causeOfDeath == null) return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_FUNNY_NOTES);
+            if (causeOfDeath == null) return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_FUNNY_NOTES);
 
             // NOTE: First cause of death in the list should be the "serious" entry.
             
             switch (causeOfDeath)
             {
                 case AdvancedCauseOfDeath.Bludgeoning:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_BLUDGEONING);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_BLUDGEONING);
                 case AdvancedCauseOfDeath.Gravity:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_GRAVITY);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_GRAVITY);
                 case AdvancedCauseOfDeath.Blast:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_BLAST);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_BLAST);
                 case AdvancedCauseOfDeath.Strangulation:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_STRANGULATION);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_STRANGULATION);
                 case AdvancedCauseOfDeath.Suffocation:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_SUFFOCATION);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_SUFFOCATION);
                 case AdvancedCauseOfDeath.Mauling:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_MAULING);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_MAULING);
                 case AdvancedCauseOfDeath.Gunshots:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_GUNSHOTS);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_GUNSHOTS);
                 case AdvancedCauseOfDeath.Crushing:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_CRUSHING);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_CRUSHING);
                 case AdvancedCauseOfDeath.Drowning:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_DROWNING);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_DROWNING);
                 case AdvancedCauseOfDeath.Abandoned:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_ABANDONED);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_ABANDONED);
                 case AdvancedCauseOfDeath.Electrocution:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_ELECTROCUTION);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_ELECTROCUTION);
                 case AdvancedCauseOfDeath.Kicking:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_KICKING);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_KICKING);
 
                 case AdvancedCauseOfDeath.Enemy_Bracken:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BRACKEN);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BRACKEN);
                 case AdvancedCauseOfDeath.Enemy_EyelessDog:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_EYELESS_DOG);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_EYELESS_DOG);
                 case AdvancedCauseOfDeath.Enemy_ForestGiant:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_FOREST_GIANT);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_FOREST_GIANT);
                 case AdvancedCauseOfDeath.Enemy_CircuitBees:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_CIRCUIT_BEES);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_CIRCUIT_BEES);
                 case AdvancedCauseOfDeath.Enemy_GhostGirl:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_GHOST_GIRL);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_GHOST_GIRL);
                 case AdvancedCauseOfDeath.Enemy_EarthLeviathan:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_EARTH_LEVIATHAN);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_EARTH_LEVIATHAN);
                 case AdvancedCauseOfDeath.Enemy_BaboonHawk:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BABOON_HAWK);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BABOON_HAWK);
                 case AdvancedCauseOfDeath.Enemy_Jester:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_JESTER);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_JESTER);
                 case AdvancedCauseOfDeath.Enemy_CoilHead:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_COILHEAD);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_COILHEAD);
                 case AdvancedCauseOfDeath.Enemy_SnareFlea:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_SNARE_FLEA);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_SNARE_FLEA);
                 case AdvancedCauseOfDeath.Enemy_Hygrodere:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_HYGRODERE);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_HYGRODERE);
                 case AdvancedCauseOfDeath.Enemy_HoarderBug:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_HOARDER_BUG);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_HOARDER_BUG);
                 case AdvancedCauseOfDeath.Enemy_SporeLizard:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_SPORE_LIZARD);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_SPORE_LIZARD);
                 case AdvancedCauseOfDeath.Enemy_BunkerSpider:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BUNKER_SPIDER);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BUNKER_SPIDER);
                 case AdvancedCauseOfDeath.Enemy_Thumper:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_THUMPER);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_THUMPER);
 
                 case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_WEAR);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_WEAR);
                 case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_VICTIM);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_VICTIM);
                 case AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_KICKED);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_KICKED);
                 case AdvancedCauseOfDeath.Enemy_Nutcracker_Shot:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_SHOT);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_SHOT);
 
                 case AdvancedCauseOfDeath.Player_Jetpack_Gravity:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_GRAVITY);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_GRAVITY);
                 case AdvancedCauseOfDeath.Player_Jetpack_Blast:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_BLAST);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_BLAST);
+                case AdvancedCauseOfDeath.Player_Ladder:
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_LADDER);
                 case AdvancedCauseOfDeath.Player_Murder_Melee:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_MURDER_MELEE);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_MURDER_MELEE);
                 case AdvancedCauseOfDeath.Player_Murder_Shotgun:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_MURDER_SHOTGUN);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_MURDER_SHOTGUN);
                 case AdvancedCauseOfDeath.Player_Quicksand:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_QUICKSAND);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_QUICKSAND);
                 case AdvancedCauseOfDeath.Player_StunGrenade:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_STUN_GRENADE);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_STUN_GRENADE);
                     
 
                 case AdvancedCauseOfDeath.Other_DepositItemsDesk:
                     // NOTE: Since there's no performance report on Gordion this never shows.
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK);
                 case AdvancedCauseOfDeath.Other_Dropship:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
                 case AdvancedCauseOfDeath.Other_Landmine:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_LANDMINE);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_LANDMINE);
                 case AdvancedCauseOfDeath.Other_Turret:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_TURRET);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_TURRET);
                 case AdvancedCauseOfDeath.Other_Lightning:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
 
                 default:
-                    return LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_UNKNOWN);
+                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_UNKNOWN);
             }
         }
 
@@ -314,6 +328,7 @@ namespace Coroner
         Player_Jetpack_Gravity,
         Player_Jetpack_Blast,
         Player_Quicksand,
+        Player_Ladder,
         Player_Murder_Melee,
         Player_Murder_Shotgun,
         Player_StunGrenade, // TODO: Implement this.

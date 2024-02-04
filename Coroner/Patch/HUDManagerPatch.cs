@@ -46,7 +46,7 @@ namespace Coroner.Patch {
                         if (Plugin.Instance.PluginConfig.ShouldDeathReplaceNotes()) {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
                             // Reset the notes.
-                            textMesh.text = LanguageHandler.GetValueByTag(LanguageHandler.TAG_UI_DEATH) + "\n";
+                            textMesh.text = Plugin.Instance.LanguageHandler.GetValueByTag(LanguageHandler.TAG_UI_DEATH) + "\n";
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Appending notes with Cause of Death...");
                         }
@@ -61,7 +61,7 @@ namespace Coroner.Patch {
                         if (Plugin.Instance.PluginConfig.ShouldDisplayFunnyNotes()) {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes! Injecting something funny...");
 
-                            textMesh.text = LanguageHandler.GetValueByTag(LanguageHandler.TAG_UI_NOTES) + "\n";
+                            textMesh.text = Plugin.Instance.LanguageHandler.GetValueByTag(LanguageHandler.TAG_UI_NOTES) + "\n";
                             textMesh.text += "* " + AdvancedDeathTracker.StringifyCauseOfDeath(null, syncedRandom) + "\n";
                         } else {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes, but Config says leave it be...");

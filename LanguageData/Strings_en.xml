@@ -184,8 +184,8 @@
         <DeathPlayerQuicksand text="Got stuck in quicksand." />
         <DeathPlayerQuicksand text="Drowned in quicksand." />
 
-        <DeathPlayerStunGrenade text="Got flashbanged by a coworker." /> <!-- TN: Yes, the stun grenade can do damage, but not very much. -->
-        <DeathPlayerStunGrenade text="Was the victim of a murder." />
+        <DeathPlayerStunGrenade text="Held a Stun Grenade for too long." /> <!-- TN: Yes, the stun grenade can do damage, but only if you're holding it when it goes off. -->
+        <DeathPlayerStunGrenade text="Was absolutely stunning." />
 
         <DeathOtherItemDropship text="Was crushed by the Item Dropship." /> <!-- TN: Used when a player stands underneath the Item Dropship and gets crushed. -->
         <DeathOtherItemDropship text="Couldn't wait for their items." />

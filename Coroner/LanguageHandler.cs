@@ -3,18 +3,21 @@ using System.Linq;
 using System.Xml.Linq;
 
 namespace Coroner {
-    class LanguageHandler {
+    public class LanguageHandler {
         public const string DEFAULT_LANGUAGE = "en";
 
         public static readonly string[] AVAILABLE_LANGUAGES = [
             "en", // English
-            "ru", // Russian
-            "nl", // Dutch
+            "de", // German
+            "es", // Spanish
             "fr", // French
-            // "ptbr", // Portuguese (Brazil)
-            // "de", // German
-            // "hu", // Hungarian
-            // "zh-cn", // Chinese (Simplified)
+            "hu", // Hungarian
+            "it", // Italian
+            "ko", // Korean
+            "nl", // Dutch/Netherlands
+            "pt-br", // Portuguese (Brazil)
+            "ru", // Russian
+            "zh-cn" // Chinese (Simplified)
         ];
 
         public const string TAG_FUNNY_NOTES = "FunnyNote";
@@ -62,6 +65,7 @@ namespace Coroner {
         // Custom causes (player)
         public const string TAG_DEATH_PLAYER_JETPACK_GRAVITY = "DeathPlayerJetpackGravity";
         public const string TAG_DEATH_PLAYER_JETPACK_BLAST = "DeathPlayerJetpackBlast";
+        public const string TAG_DEATH_PLAYER_LADDER = "DeathPlayerLadder";
         public const string TAG_DEATH_PLAYER_MURDER_MELEE = "DeathPlayerMurderMelee";
         public const string TAG_DEATH_PLAYER_MURDER_SHOTGUN = "DeathPlayerMurderShotgun";
         public const string TAG_DEATH_PLAYER_QUICKSAND = "DeathPlayerQuicksand";
@@ -76,17 +80,19 @@ namespace Coroner {
 
         public const string TAG_DEATH_UNKNOWN = "DeathUnknown";
 
-        static XDocument languageData;
+        public string languageCode;
+        XDocument languageData;
 
-        public static void Initialize() {
-            Plugin.Instance.PluginLogger.LogInfo($"{PluginInfo.PLUGIN_NAME} Language Support: {Plugin.Instance.PluginConfig.GetSelectedLanguage()}");
+        public LanguageHandler(string languageCode) {
+            Plugin.Instance.PluginLogger.LogInfo($"{PluginInfo.PLUGIN_NAME} loading Language Support: {languageCode}");
+            this.languageCode = languageCode;
 
-            ValidateLanguage(Plugin.Instance.PluginConfig.GetSelectedLanguage());
+            ValidateLanguage(languageCode);
 
-            LoadLanguageData(Plugin.Instance.PluginConfig.GetSelectedLanguage());
+            LoadLanguageData(languageCode);
         }
 
-        static void ValidateLanguage(string languageCode) {
+        void ValidateLanguage(string languageCode) {
             if (!AVAILABLE_LANGUAGES.Contains(languageCode)) {
                 // Just throw a warning.
                 Plugin.Instance.PluginLogger.LogWarning($"{PluginInfo.PLUGIN_NAME} Unknown language code: {languageCode}");
@@ -94,7 +100,7 @@ namespace Coroner {
             }
         }
 
-        static void LoadLanguageData(string languageCode) {
+        void LoadLanguageData(string languageCode) {
             try
             {
                 // R2Modman is a weirdo.
@@ -108,7 +114,6 @@ namespace Coroner {
             {
                 Plugin.Instance.PluginLogger.LogError($"{PluginInfo.PLUGIN_NAME} Error loading language data: {ex.Message}");
                 Plugin.Instance.PluginLogger.LogError(ex.StackTrace);
-                if (languageCode != DEFAULT_LANGUAGE) LoadLanguageData(DEFAULT_LANGUAGE);
             }
         }
 
@@ -116,18 +121,39 @@ namespace Coroner {
             return "(" + string.Join(", ", AVAILABLE_LANGUAGES) + ")";
         }
 
-        public static string GetValueByTag(string tag) {
+        public string GetValueByTag(string tag) {
+            if (languageData == null && languageCode != DEFAULT_LANGUAGE) {
+                return Plugin.Instance.FallbackLanguageHandler.GetValueByTag(tag);
+            }
+
             var tagElement = languageData.Descendants(tag).FirstOrDefault();
             var value = tagElement?.Attribute("text")?.Value;
+
+            if (value == null || value.Length == 0) {
+                Plugin.Instance.PluginLogger.LogWarning($"No values found for tag '{tag}' in language '{languageCode}', displaying error text...");
+                return $"{{'{tag}'}}";
+            }
 
             return value;
         }
 
-        public static string[] GetValuesByTag(string tag) {
+        public string[] GetValuesByTag(string tag) {
+            if (languageData == null && languageCode != DEFAULT_LANGUAGE) {
+                return Plugin.Instance.FallbackLanguageHandler.GetValuesByTag(tag);
+            }
+
             var tags = languageData.Descendants(tag);
             var values = tags.Select(item => item.Attribute("text")?.Value);
             var filteredValues = values.Where(item => item != null);
             var valuesArray = filteredValues.ToArray();
+
+            if (valuesArray.Length == 0 && languageCode != DEFAULT_LANGUAGE) {
+                Plugin.Instance.PluginLogger.LogWarning($"No values found for tag '{tag}' in language '{languageCode}', using fallback...");
+                return Plugin.Instance.FallbackLanguageHandler.GetValuesByTag(tag);
+            } else if (valuesArray.Length == 0) {
+                Plugin.Instance.PluginLogger.LogWarning($"No values found for tag '{tag}' in language '{languageCode}', displaying error text...");
+                return [$"{{'{tag}'}}"];
+            }
 
             return valuesArray;
         }

@@ -21,11 +21,23 @@ namespace Coroner.Patch
         {
             try
             {
+                if (AdvancedDeathTracker.HasCauseOfDeath(__instance))
+                {
+                    Plugin.Instance.PluginLogger.LogDebug("Player already has a known specific cause of death! Skipping advanced processing...");
+                    return;
+                }
+
                 // NOTE: Only called on the client of the player who died.
                 if ((int)causeOfDeath == AdvancedDeathTracker.PLAYER_CAUSE_OF_DEATH_DROPSHIP)
                 {
                     Plugin.Instance.PluginLogger.LogDebug("Player died from item dropship! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Other_Dropship);
+                    // Now to fix the jank by adding a normal value!
+                    causeOfDeath = CauseOfDeath.Crushing;
+                    return;
+                } else if ((int) causeOfDeath == AdvancedDeathTracker.PLAYER_CAUSE_OF_DEATH_LADDER) {
+                    Plugin.Instance.PluginLogger.LogDebug("Player died from ladder! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Ladder);
                     // Now to fix the jank by adding a normal value!
                     causeOfDeath = CauseOfDeath.Crushing;
                     return;
@@ -36,9 +48,22 @@ namespace Coroner.Patch
                     Plugin.Instance.PluginLogger.LogDebug("Player died of suffociation while sinking in quicksand! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Quicksand);
                 } else if (causeOfDeath == CauseOfDeath.Blast) {
-                    // Determine what caused the blast.
-                    // WARNING: This code is very janky and may cause mental damage to anyone who reads it.
-
+                    // Make a guess at what caused the blast.
+                    var heldObjectServer = __instance.currentlyHeldObjectServer;
+                    if (heldObjectServer != null) {
+                        var heldObjectGameObject = heldObjectServer.gameObject;
+                        if (heldObjectGameObject != null) {
+                            var heldObject = heldObjectGameObject.GetComponent<GrabbableObject>();
+                            if (heldObject != null) {
+                                if (heldObject is StunGrenadeItem) {
+                                    // Players take 20 damage when holding a stun grenade while it explodes.
+                                    Plugin.Instance.PluginLogger.LogDebug("Player died from stun grenade explosion! Setting special cause of death...");
+                                    AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_StunGrenade);
+                                }
+                            }
+                        }
+                        
+                    }
                 }
                 else
                 {
@@ -786,8 +811,8 @@ namespace Coroner.Patch
                     Plugin.Instance.PluginLogger.LogError("Could not fetch KillLocalPlayer from KillTrigger GameObject.");
                 }
 
-                // Correct the cause of death.
-                killLocalPlayer.causeOfDeath = CauseOfDeath.Crushing;
+                // Modify the cause of death in a janky way.
+                killLocalPlayer.causeOfDeath = (CauseOfDeath)AdvancedDeathTracker.PLAYER_CAUSE_OF_DEATH_LADDER;
             }
             catch (System.Exception e)
             {

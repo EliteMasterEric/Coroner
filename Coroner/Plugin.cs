@@ -30,6 +30,9 @@ namespace Coroner
 
         public PluginConfig PluginConfig;
 
+        public LanguageHandler LanguageHandler; // Uses player selected language, default to English
+        public LanguageHandler FallbackLanguageHandler; // Always uses English
+
         public static string AssemblyDirectory
         {
             get
@@ -58,13 +61,18 @@ namespace Coroner
             PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded!");  
 
             LoadConfig();
-            LanguageHandler.Initialize();
+            LoadLanguageHandlers();
             QueryLCAPI();
             DeathBroadcaster.Initialize();
         }
 
-        public String GetConfigPath() {
+        public string GetConfigPath() {
             return $"{Paths.ConfigPath}/{PluginInfo.PLUGIN_AUTHOR}-{PluginInfo.PLUGIN_NAME}";
+        }
+
+        public void LoadLanguageHandlers() {
+            LanguageHandler = new LanguageHandler(PluginConfig.GetSelectedLanguage());
+            FallbackLanguageHandler = new LanguageHandler(LanguageHandler.DEFAULT_LANGUAGE);
         }
 
         private void QueryLCAPI()
