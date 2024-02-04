@@ -1,26 +1,25 @@
 # Changelog
 
-# Upcoming
-[] Implement Stun Grenade death
-[] Implement Ladder death
-[] Option to display unknown cause of death if body is not in ship
-[] Finalize Portuguese translations
-[] Finalize Hungarian translation (PR)
-[] Finalize German translation (PR)
-[] Finalize Chinese translation (PR)
-
-
 # 1.6.0
 ## Added
 - Added new custom messages for specific causes of death:
-    - Stun Grenade
+    - Holding a Stun Grenade
     - Extension Ladder
 - Added support for the expanded Unicode character set while [FontFixer](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/FontFixer/) is installed.
+- Added a new Spanish localization.
+- Added a new German localization.
+- Added a new Italian localization.
+- Added a new Korean localization.
+- Added a new Hungarian localization.
+- Added a new Chinese (Simplified) localization.
+- Added a new Portuguese (Brazilian) localization.
 ## Changed
 - Numerous translation changes.
     - The English Translation now has additional notes to assist other translators.
 - Moved the localization files into the config folder.
     - This should allow modpacks to properly override them.
+- Changed translation handling to fallback to English if specific lines are missing.
+    - This applies when some lines are present and some aren't.
 ## Fixed
 - Fixes for Lethal Company v49.
 

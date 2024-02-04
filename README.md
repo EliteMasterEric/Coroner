@@ -21,6 +21,7 @@ Report any issues on the [Lethal Company Modding Discord](https://discord.com/ch
 ![](https://raw.githubusercontent.com/EliteMasterEric/Coroner/master/Art/Nutcracker.png)
 
 ## Notice
+- Has special integration with Advanced Company.
 - Supports More Company's changes to the Performance Report.
 - Does not support Bigger Company (they just straight up disable Performance Reports).
 
@@ -32,8 +33,13 @@ Report any issues on the [Lethal Company Modding Discord](https://discord.com/ch
 
 ## Credits
 - EliteMasterEric: Programming
-- NickolasFleim: Programmed Localization Feature, Russian Localization
-- FoguDragon: Playtesting, Dutch Localization
+- NickolasFleim: Programmed Localization Feature, Russian Localization (via Github)
+- Ayden: Playtesting, Dutch Localization
 - Fleetway: French Localization
 - YoBii: German Localization
+- MakinDay: Italian Localization
 - Sgkill6: Korean Localization
+- Kultercode: Hungarian Localization
+- 颜绎: Chinese (Simplified) Localization
+- Helado de Pato: Spanish Localization
+- Foxeru: Portuguese (Brazilian) Localization
