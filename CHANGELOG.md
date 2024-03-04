@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.6.1
+# Fixed
+- Improved the clarity of the error messages for when people install the mod incorrectly (you won't get this error if you use R2Modman!).
+
 # 1.6.0
 ## Added
 - Added new custom messages for specific causes of death:

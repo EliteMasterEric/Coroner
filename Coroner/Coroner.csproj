@@ -6,7 +6,7 @@
     <Company>EliteMasterEric</Company>
     <AssemblyName>Coroner</AssemblyName>
     <GUID>com.elitemastereric.coroner</GUID>
-    <Version>1.6.0</Version>
+    <Version>1.6.1</Version>
 
     <Title>Coroner</Title>
     <Description>Rework the Performance Report with new info, including cause of death.</Description>

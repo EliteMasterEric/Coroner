@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -103,16 +104,33 @@ namespace Coroner {
         void LoadLanguageData(string languageCode) {
             try
             {
+                Plugin.Instance.PluginLogger.LogInfo($"Loading Coroner language data from config folder, at {Plugin.Instance.GetConfigPath()}");
                 // R2Modman is a weirdo.
                 // languageData = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_{languageCode}.xml");
                 // languageData = XDocument.Load($"./BepInEx/plugins/{PluginInfo.PLUGIN_AUTHOR}-{PluginInfo.PLUGIN_NAME}/Strings_{languageCode}.xml");
                 // languageData = XDocument.Load($"{Plugin.AssemblyDirectory}/Strings_{languageCode}.xml");
-                Plugin.Instance.PluginLogger.LogInfo($"Loading Coroner language data from {Plugin.Instance.GetConfigPath()}");
-                languageData = XDocument.Load($"{Plugin.Instance.GetConfigPath()}/Strings_{languageCode}.xml");
+
+                if (!File.Exists(Plugin.Instance.GetConfigPath()))
+                {
+                    Plugin.Instance.PluginLogger.LogError($"Config folder not found at: {Plugin.Instance.GetConfigPath()}");
+                    var wrongConfigPath = $"{Plugin.AssemblyDirectory}/BepInEx/config/{PluginInfo.PLUGIN_AUTHOR}-{PluginInfo.PLUGIN_NAME}/Strings_{languageCode}.xml";
+                    if (File.Exists(wrongConfigPath)) {
+                        Plugin.Instance.PluginLogger.LogError($"IMPORTANT: You didn't install the mod correctly! Move the BepInEx/config folder to the right spot!");
+                    } else {
+                        Plugin.Instance.PluginLogger.LogError($"Try reinstalling the mod from scratch.");
+                    }
+                }
+                else if (!File.Exists($"{Plugin.Instance.GetConfigPath()}/Strings_{languageCode}.xml")) {
+                    Plugin.Instance.PluginLogger.LogError($"Localization File not found at: {Plugin.Instance.GetConfigPath()}");
+                }
+                else
+                {
+                    languageData = XDocument.Load($"{Plugin.Instance.GetConfigPath()}/Strings_{languageCode}.xml");
+                }
             }
             catch(Exception ex)
             {
-                Plugin.Instance.PluginLogger.LogError($"{PluginInfo.PLUGIN_NAME} Error loading language data: {ex.Message}");
+                Plugin.Instance.PluginLogger.LogError($"Error loading language data: {ex.Message}");
                 Plugin.Instance.PluginLogger.LogError(ex.StackTrace);
             }
         }
