@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.6.2
+# Fixed
+- Fixed an issue where Coroner fails to detect the config folder (even when it is in the proper location).
+
 # 1.6.1
 # Fixed
 - Improved the clarity of the error messages for when people install the mod incorrectly (you won't get this error if you use R2Modman!).

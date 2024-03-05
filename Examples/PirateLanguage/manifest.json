@@ -4,6 +4,6 @@
     "website_url": "https://github.com/EliteMasterEric/Coroner",
     "description": "A modpack which adds a Pirate language to Coroner..",
     "dependencies": [
-		"EliteMasterEric-Coroner-1.6.1"
+		"EliteMasterEric-Coroner-1.6.2"
     ]
 }

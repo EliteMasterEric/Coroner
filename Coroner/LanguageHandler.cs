@@ -85,7 +85,7 @@ namespace Coroner {
         XDocument languageData;
 
         public LanguageHandler(string languageCode) {
-            Plugin.Instance.PluginLogger.LogInfo($"{PluginInfo.PLUGIN_NAME} loading Language Support: {languageCode}");
+            Plugin.Instance.PluginLogger.LogInfo($"{PluginInfo.PLUGIN_NAME} loading language support: {languageCode}");
             this.languageCode = languageCode;
 
             ValidateLanguage(languageCode);
@@ -104,13 +104,13 @@ namespace Coroner {
         void LoadLanguageData(string languageCode) {
             try
             {
-                Plugin.Instance.PluginLogger.LogInfo($"Loading Coroner language data from config folder, at {Plugin.Instance.GetConfigPath()}");
+                Plugin.Instance.PluginLogger.LogInfo($"Loading language data from config folder: {Plugin.Instance.GetConfigPath()}");
                 // R2Modman is a weirdo.
                 // languageData = XDocument.Load($"./BepInEx/Lang/Coroner/Strings_{languageCode}.xml");
                 // languageData = XDocument.Load($"./BepInEx/plugins/{PluginInfo.PLUGIN_AUTHOR}-{PluginInfo.PLUGIN_NAME}/Strings_{languageCode}.xml");
                 // languageData = XDocument.Load($"{Plugin.AssemblyDirectory}/Strings_{languageCode}.xml");
 
-                if (!File.Exists(Plugin.Instance.GetConfigPath()))
+                if (!Directory.Exists(Plugin.Instance.GetConfigPath()))
                 {
                     Plugin.Instance.PluginLogger.LogError($"Config folder not found at: {Plugin.Instance.GetConfigPath()}");
                     var wrongConfigPath = $"{Plugin.AssemblyDirectory}/BepInEx/config/{PluginInfo.PLUGIN_AUTHOR}-{PluginInfo.PLUGIN_NAME}/Strings_{languageCode}.xml";
