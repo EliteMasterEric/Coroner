@@ -15,7 +15,7 @@ Below is a list of currently included languages, the version of the translation,
 - French (`fr`) [v0] | Fleetway
 - German (`de`) [v0] | [YoBii](https://github.com/YoBii)
 - Hungarian (`hu`) [v0] | [Kultercode (Kristóf Juhász)](https://github.com/Kultercode)
-- Italian (`it`) [v0] | [MakinDay (Federico G.)](https://github.com/MakinDay)
+- Italian (`it`) [v1] | [MakinDay (Federico G.)](https://github.com/MakinDay)
 - Korean (`ko`) [v0] | [sgkill8 (킬육)](https://github.com/sgkill6)
 - Portuguese (Brazil) (`pt-br`) [v0] | Foxeru
 - Russian (`ru`) [v3] | [NickolasFleim](https://github.com/NickolasFleim), [D4N9 (D4N9-Twitch)](https://github.com/D4N9-Twitch)

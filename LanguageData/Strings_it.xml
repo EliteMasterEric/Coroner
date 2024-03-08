@@ -6,8 +6,8 @@
     </tags>
     <strings>
         <!--
-            Italian v0
-            (it)
+            Translation Notes:
+            This is the default localization file for Coroner.
             
             By default, any of the `FunnyNote` or `Death` strings are dynamically chosen at random.
             If the `SeriousDeathMessages` option is enabled, the first `Death` message found in the file is used,
@@ -18,6 +18,12 @@
 
         <UINotes text="Appunti: " />
         <UICauseOfDeath text="Causa della Morte: " />
+
+        <!--
+            TN: Funny Notes
+            If the player has not died, and has no performance notes to display,
+            one of these will be chosen at random, so that nobody has no notes.
+        -->
 
         <FunnyNote text="Il più stupidone." />
         <FunnyNote text="L'impiegato più carino." />
@@ -39,6 +45,12 @@
         <FunnyNote text="Non chiama sua madre da un po' di tempo." />
         <FunnyNote text="Il suo indirizzo IP è 127.0.0.1." />
         <FunnyNote text="In segreto è una lucertola." />
+
+        <!--
+            TN: Generic Death Messages
+            Generally, causes of death like bludgeoning, strangulation, and blasts will be overridden by messages specific to that type.
+            These are fallbacks for when there is no specific message. Try to make these broadly applicable.
+        -->
 
         <DeathBludgeoning text="Randellato." />
 
@@ -67,6 +79,12 @@
         <DeathElectrocution text="Folgorato a morte." />
 
         <DeathKicking text="Preso a calci." />
+
+        <!-- 
+            TN: Enemy Death Messages
+            These are messages for when the player is killed by a specific enemy.
+            Try to keep these high quality since they will be the ones players see the most.
+        -->
 
         <DeathEnemyBracken text="Si è fatto rompere il collo da uno Pteride." />
         <DeathEnemyBracken text="Ha guardato lo Pteride troppo a lungo." />
@@ -117,6 +135,12 @@
         <DeathEnemyThumper text="Devastato da uno Spaccatore." />
         <DeathEnemyThumper text="Spaccato dallo Spaccatore." />
 
+        <!-- 
+            TN: v45 Enemy Death Messages
+            Messages used for enemies added in v45.
+            Most of these enemies have multiple ways they can kill you, so make sure you don't mix them up.
+        -->
+
         <DeathEnemyMaskedPlayerWear text="Ha indossato la maschera." />
         <DeathEnemyMaskedPlayerWear
             text="A nessuno importava chi fossero finché non hanno indossato la maschera." />
@@ -129,6 +153,12 @@
 
         <DeathEnemyNutcrackerShot text="Ucciso dal fucile dello Schiaccianoci." />
         <DeathEnemyNutcrackerShot text="Si trovava all'estremità sbagliata di un fucile." />
+
+        <!-- 
+            TN: Player Death Messages
+            These are messages for when the player dies due to player-related means,
+            such as murder or using an item improperly.
+        -->
 
         <DeathPlayerJetpackGravity text="Caduto mentre utilizzava il jetpack." />
         <DeathPlayerJetpackGravity text="Ha volato troppo vicino al sole." />
@@ -160,6 +190,13 @@
         <DeathOtherItemDropship text="Schiacciato dalla Navicella di Consegna." />
         <DeathOtherItemDropship text="Non vedeva l'ora che arrivasse la consegna." />
         <DeathOtherItemDropship text="Troppo impaziente per la consegna." />
+
+        <!--
+            TN: Messages for the tentacle that kills players at the company building.
+            Performance reports don't show up at the company building so this is unused.
+        -->
+        <DeathOtherDepositItemsDesk text="Ha ricevuto una retrocessione." />
+        <DeathOtherDepositItemsDesk text="È stato messo in congedo disciplinare." />
 
         <DeathOtherLandmine text="Inciampato su una mina." />
 
