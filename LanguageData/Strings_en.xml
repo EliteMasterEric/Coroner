@@ -7,13 +7,13 @@
     <strings>
         <!--
             Translation Notes:
-            This is the default localization file for Coroner. 
+            This is the default localization file for Coroner.
             
             By default, any of the `FunnyNote` or `Death` strings are dynamically chosen at random.
             If the `SeriousDeathMessages` option is enabled, the first `Death` message found in the file is used,
-                 so make this one literal and specific.
+                so make this one literal and specific.
             The other ones can be puns or jokes, and options can be added or removed as needed, just make sure
-                 to keep the correct tags, and make sure that there is at least one message for each `Death` type.
+                to keep the correct tags, and make sure that there is at least one message for each `Death` type.
         -->
 
         <UINotes text="Notes: " /> <!-- TN: First line of the notes if the player hasn't died. -->
@@ -511,7 +511,8 @@
         -->
 
         <DeathEnemyMaskedPlayerWear text="Donned the Mask." /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
-        <DeathEnemyMaskedPlayerWear text="Nobody cared who they were until they put on the Mask." /> <!-- TN: The Dark Knight Rises reference -->
+        <DeathEnemyMaskedPlayerWear
+            text="Nobody cared who they were until they put on the Mask." /> <!-- TN: The Dark Knight Rises reference -->
         <DeathEnemyMaskedPlayerWear text="Got a makeover into a masked player." />
         <DeathEnemyMaskedPlayerWear text="Learned the Mask comes with strings attached." />
         <DeathEnemyMaskedPlayerWear text="Found out the Mask wasn't just for show." />
@@ -679,7 +680,7 @@
         <DeathOtherItemDropship text="Tried to intercept a dropship. Failed." />
         <DeathOtherItemDropship text="Learned that dropships have a deadly ETA." />
 
-        <!-- 
+        <!--
             TN: Messages for the tentacle that kills players at the company building.
             Performance reports don't show up at the company building so this is unused.
         -->
