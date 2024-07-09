@@ -1,9 +1,0 @@
-{
-    "name": "Coroner-PirateLanguage",
-    "version_number": "1.0.0",
-    "website_url": "https://github.com/EliteMasterEric/Coroner",
-    "description": "A modpack which adds a Pirate language to Coroner..",
-    "dependencies": [
-		"EliteMasterEric-Coroner-1.6.2"
-    ]
-}

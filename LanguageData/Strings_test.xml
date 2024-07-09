@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+    <tags>
+        <tag language="test" />
+    </tags>
+    <strings>
+        <UINotes text="Notes: " /> <!-- TN: First line of the notes if the player hasn't died. -->
+        <UICauseOfDeath text="Cause of Death: " /> <!-- TN: First line of the notes if the player has died. -->
+
+        <FunnyNote text="FunnyNote 1" />
+        <FunnyNote text="FunnyNote 2" />
+        <FunnyNote text="FunnyNote 3" />
+        <FunnyNote text="FunnyNote 4" />
+        <FunnyNote text="FunnyNote 5" />
+        <FunnyNote text="FunnyNote 6" />
+        <FunnyNote text="FunnyNote 7" />
+        <FunnyNote text="FunnyNote 8" />
+        <FunnyNote text="FunnyNote 9" />
+
+        <DeathBludgeoning text="[GENERIC] Bludgeoning 1" />
+        <DeathBludgeoning text="[GENERIC] Bludgeoning 2" />
+        <DeathBludgeoning text="[GENERIC] Bludgeoning 3" />
+        <DeathBludgeoning text="[GENERIC] Bludgeoning 4" />
+        <DeathBludgeoning text="[GENERIC] Bludgeoning 5" />
+
+        <DeathGravity text="Gravity 1" />
+        <DeathGravity text="Gravity 2" />
+        <DeathGravity text="Gravity 3" />
+        <DeathGravity text="Gravity 4" />
+        <DeathGravity text="Gravity 5" />
+
+        <DeathBlast text="[GENERIC] Blast 1" />
+        <DeathBlast text="[GENERIC] Blast 2" />
+        <DeathBlast text="[GENERIC] Blast 3" />
+        <DeathBlast text="[GENERIC] Blast 4" />
+        <DeathBlast text="[GENERIC] Blast 5" />
+
+        <DeathStrangulation text="[GENERIC] Strangulation 1" />
+        <DeathStrangulation text="[GENERIC] Strangulation 2" />
+        <DeathStrangulation text="[GENERIC] Strangulation 3" />
+        <DeathStrangulation text="[GENERIC] Strangulation 4" />
+        <DeathStrangulation text="[GENERIC] Strangulation 5" />
+
+        <DeathSuffocation text="[GENERIC] Suffocation 1" />
+        <DeathSuffocation text="[GENERIC] Suffocation 2" />
+        <DeathSuffocation text="[GENERIC] Suffocation 3" />
+        <DeathSuffocation text="[GENERIC] Suffocation 4" />
+        <DeathSuffocation text="[GENERIC] Suffocation 5" />
+
+        <DeathMauling text="[GENERIC] Mauling 1" />
+        <DeathMauling text="[GENERIC] Mauling 2" />
+        <DeathMauling text="[GENERIC] Mauling 3" />
+        <DeathMauling text="[GENERIC] Mauling 4" />
+        <DeathMauling text="[GENERIC] Mauling 5" />
+
+        <DeathGunshots text="[GENERIC] Gunshots 1" />
+        <DeathGunshots text="[GENERIC] Gunshots 2" />
+        <DeathGunshots text="[GENERIC] Gunshots 3" />
+        <DeathGunshots text="[GENERIC] Gunshots 4" />
+        <DeathGunshots text="[GENERIC] Gunshots 5" />
+
+        <DeathCrushing text="[GENERIC] Crushing 1" />
+        <DeathCrushing text="[GENERIC] Crushing 2" />
+        <DeathCrushing text="[GENERIC] Crushing 3" />
+        <DeathCrushing text="[GENERIC] Crushing 4" />
+        <DeathCrushing text="[GENERIC] Crushing 5" />
+
+        <DeathDrowning text="Drowned 1" />
+        <DeathDrowning text="Drowned 2" />
+        <DeathDrowning text="Drowned 3" />
+        <DeathDrowning text="Drowned 4" />
+        <DeathDrowning text="Drowned 5" />
+
+        <DeathAbandoned text="Abandoned 1" />
+        <DeathAbandoned text="Abandoned 2" />
+        <DeathAbandoned text="Abandoned 3" />
+        <DeathAbandoned text="Abandoned 4" />
+        <DeathAbandoned text="Abandoned 5" />
+
+        <DeathElectrocution text="[GENERIC] Electrocution 1" />
+        <DeathElectrocution text="[GENERIC] Electrocution 2" />
+        <DeathElectrocution text="[GENERIC] Electrocution 3" />
+        <DeathElectrocution text="[GENERIC] Electrocution 4" />
+        <DeathElectrocution text="[GENERIC] Electrocution 5" />
+
+        <DeathKicking text="[GENERIC] Kicking 1" />
+        <DeathKicking text="[GENERIC] Kicking 2" />
+        <DeathKicking text="[GENERIC] Kicking 3" />
+        <DeathKicking text="[GENERIC] Kicking 4" />
+        <DeathKicking text="[GENERIC] Kicking 5" />
+
+        <DeathBurning text="[GENERIC] Burning 1" />
+        <DeathBurning text="[GENERIC] Burning 2" />
+        <DeathBurning text="[GENERIC] Burning 3" />
+        <DeathBurning text="[GENERIC] Burning 4" />
+        <DeathBurning text="[GENERIC] Burning 5" />
+
+        <DeathStabbing text="[GENERIC] Stabbing 1" />
+        <DeathStabbing text="[GENERIC] Stabbing 2" />
+        <DeathStabbing text="[GENERIC] Stabbing 3" />
+        <DeathStabbing text="[GENERIC] Stabbing 4" />
+        <DeathStabbing text="[GENERIC] Stabbing 5" />
+
+        <DeathFan text="Fan 1" />
+        <DeathFan text="Fan 2" />
+        <DeathFan text="Fan 3" />
+        <DeathFan text="Fan 4" />
+        <DeathFan text="Fan 5" />
+
+        <DeathEnemyBracken text="Bracken 1" />
+        <DeathEnemyBracken text="Bracken 2" />
+        <DeathEnemyBracken text="Bracken 3" />
+        <DeathEnemyBracken text="Bracken 4" />
+        <DeathEnemyBracken text="Bracken 5" />
+
+        <DeathEnemyEyelessDog text="Eyeless Dog 1" />
+        <DeathEnemyEyelessDog text="Eyeless Dog 2" />
+        <DeathEnemyEyelessDog text="Eyeless Dog 3" />
+        <DeathEnemyEyelessDog text="Eyeless Dog 4" />
+        <DeathEnemyEyelessDog text="Eyeless Dog 5" />
+
+        <DeathEnemyForestGiantEaten text="Forest Giant (Eaten) 1" />
+        <DeathEnemyForestGiantEaten text="Forest Giant (Eaten) 2" />
+        <DeathEnemyForestGiantEaten text="Forest Giant (Eaten) 3" />
+        <DeathEnemyForestGiantEaten text="Forest Giant (Eaten) 4" />
+        <DeathEnemyForestGiantEaten text="Forest Giant (Eaten) 5" />
+
+        <DeathEnemyForestGiantDeath text="Forest Giant (Crushed) 1" />
+        <DeathEnemyForestGiantDeath text="Forest Giant (Crushed) 2" />
+        <DeathEnemyForestGiantDeath text="Forest Giant (Crushed) 3" />
+        <DeathEnemyForestGiantDeath text="Forest Giant (Crushed) 4" />
+        <DeathEnemyForestGiantDeath text="Forest Giant (Crushed) 5" />
+
+        <DeathEnemyCircuitBees text="Circuit Bees 1" />
+        <DeathEnemyCircuitBees text="Circuit Bees 2" />
+        <DeathEnemyCircuitBees text="Circuit Bees 3" />
+        <DeathEnemyCircuitBees text="Circuit Bees 4" />
+        <DeathEnemyCircuitBees text="Circuit Bees 5" />
+
+        <DeathEnemyGhostGirl text="Ghost Girl 1" />
+        <DeathEnemyGhostGirl text="Ghost Girl 2" />
+        <DeathEnemyGhostGirl text="Ghost Girl 3" />
+        <DeathEnemyGhostGirl text="Ghost Girl 4" />
+        <DeathEnemyGhostGirl text="Ghost Girl 5" />
+
+        <DeathEnemyEarthLeviathan text="Earth Leviathan 1" />
+        <DeathEnemyEarthLeviathan text="Earth Leviathan 2" />
+        <DeathEnemyEarthLeviathan text="Earth Leviathan 3" />
+        <DeathEnemyEarthLeviathan text="Earth Leviathan 4" />
+        <DeathEnemyEarthLeviathan text="Earth Leviathan 5" />
+
+        <DeathEnemyBaboonHawk text="Baboon Hawk 1" />
+        <DeathEnemyBaboonHawk text="Baboon Hawk 2" />
+        <DeathEnemyBaboonHawk text="Baboon Hawk 3" />
+        <DeathEnemyBaboonHawk text="Baboon Hawk 4" />
+        <DeathEnemyBaboonHawk text="Baboon Hawk 5" />
+
+        <DeathEnemyJester text="Jester 1" />
+        <DeathEnemyJester text="Jester 2" />
+        <DeathEnemyJester text="Jester 3" />
+        <DeathEnemyJester text="Jester 4" />
+        <DeathEnemyJester text="Jester 5" />
+
+        <DeathEnemyCoilHead text="Coil Head 1" />
+        <DeathEnemyCoilHead text="Coil Head 2" />
+        <DeathEnemyCoilHead text="Coil Head 3" />
+        <DeathEnemyCoilHead text="Coil Head 4" />
+        <DeathEnemyCoilHead text="Coil Head 5" />
+
+        <DeathEnemySnareFlea text="Snare Flea 1" />
+        <DeathEnemySnareFlea text="Snare Flea 2" />
+        <DeathEnemySnareFlea text="Snare Flea 3" />
+        <DeathEnemySnareFlea text="Snare Flea 4" />
+        <DeathEnemySnareFlea text="Snare Flea 5" />
+
+        <DeathEnemyHygrodere text="Hygrodere 1" />
+        <DeathEnemyHygrodere text="Hygrodere 2" />
+        <DeathEnemyHygrodere text="Hygrodere 3" />
+        <DeathEnemyHygrodere text="Hygrodere 4" />
+        <DeathEnemyHygrodere text="Hygrodere 5" />
+
+        <DeathEnemyHoarderBug text="Hoarder Bug 1" />
+        <DeathEnemyHoarderBug text="Hoarder Bug 2" />
+        <DeathEnemyHoarderBug text="Hoarder Bug 3" />
+        <DeathEnemyHoarderBug text="Hoarder Bug 4" />
+        <DeathEnemyHoarderBug text="Hoarder Bug 5" />
+
+        <DeathEnemyLassoMan text="Lasso Man 1" />
+        <DeathEnemyLassoMan text="Lasso Man 2" />
+        <DeathEnemyLassoMan text="Lasso Man 3" />
+        <DeathEnemyLassoMan text="Lasso Man 4" />
+        <DeathEnemyLassoMan text="Lasso Man 5" />
+
+        <DeathEnemySporeLizard text="Spore Lizard 1" />
+        <DeathEnemySporeLizard text="Spore Lizard 2" />
+        <DeathEnemySporeLizard text="Spore Lizard 3" />
+        <DeathEnemySporeLizard text="Spore Lizard 4" />
+        <DeathEnemySporeLizard text="Spore Lizard 5" />
+
+        <DeathEnemyBunkerSpider text="Bunker Spider 1" />
+        <DeathEnemyBunkerSpider text="Bunker Spider 2" />
+        <DeathEnemyBunkerSpider text="Bunker Spider 3" />
+        <DeathEnemyBunkerSpider text="Bunker Spider 4" />
+        <DeathEnemyBunkerSpider text="Bunker Spider 5" />
+
+        <DeathEnemyThumper text="Thumper 1" />
+        <DeathEnemyThumper text="Thumper 2" />
+        <DeathEnemyThumper text="Thumper 3" />
+        <DeathEnemyThumper text="Thumper 4" />
+        <DeathEnemyThumper text="Thumper 5" />
+
+        <DeathEnemyMaskedPlayerWear text="Masked Player (Wear) 1" />
+        <DeathEnemyMaskedPlayerWear text="Masked Player (Wear) 2" />
+        <DeathEnemyMaskedPlayerWear text="Masked Player (Wear) 3" />
+        <DeathEnemyMaskedPlayerWear text="Masked Player (Wear) 4" />
+        <DeathEnemyMaskedPlayerWear text="Masked Player (Wear) 5" />
+
+        <DeathEnemyMaskedPlayerVictim text="Masked Player (Victim) 1" />
+        <DeathEnemyMaskedPlayerVictim text="Masked Player (Victim) 2" />
+        <DeathEnemyMaskedPlayerVictim text="Masked Player (Victim) 3" />
+        <DeathEnemyMaskedPlayerVictim text="Masked Player (Victim) 4" />
+        <DeathEnemyMaskedPlayerVictim text="Masked Player (Victim) 5" />
+
+        <DeathEnemyNutcrackerKicked text="Nutcracker (Kicked) 1" />
+        <DeathEnemyNutcrackerKicked text="Nutcracker (Kicked) 2" />
+        <DeathEnemyNutcrackerKicked text="Nutcracker (Kicked) 3" />
+        <DeathEnemyNutcrackerKicked text="Nutcracker (Kicked) 4" />
+        <DeathEnemyNutcrackerKicked text="Nutcracker (Kicked) 5" />
+
+        <DeathEnemyNutcrackerShot text="Nutcracker (Shot) 1" />
+        <DeathEnemyNutcrackerShot text="Nutcracker (Shot) 2" />
+        <DeathEnemyNutcrackerShot text="Nutcracker (Shot) 3" />
+        <DeathEnemyNutcrackerShot text="Nutcracker (Shot) 4" />
+        <DeathEnemyNutcrackerShot text="Nutcracker (Shot) 5" />
+
+        <DeathEnemyButlerStab text="Butler (Stab) 1" />
+        <DeathEnemyButlerStab text="Butler (Stab) 2" />
+        <DeathEnemyButlerStab text="Butler (Stab) 3" />
+        <DeathEnemyButlerStab text="Butler (Stab) 4" />
+        <DeathEnemyButlerStab text="Butler (Stab) 5" />
+
+        <DeathEnemyButlerExplode text="Butler (Explode) 1" />
+        <DeathEnemyButlerExplode text="Butler (Explode) 2" />
+        <DeathEnemyButlerExplode text="Butler (Explode) 3" />
+        <DeathEnemyButlerExplode text="Butler (Explode) 4" />
+        <DeathEnemyButlerExplode text="Butler (Explode) 5" />
+
+        <DeathEnemyMaskHornets text="Mask Hornets 1" />
+        <DeathEnemyMaskHornets text="Mask Hornets 2" />
+        <DeathEnemyMaskHornets text="Mask Hornets 3" />
+        <DeathEnemyMaskHornets text="Mask Hornets 4" />
+        <DeathEnemyMaskHornets text="Mask Hornets 5" />
+
+        <DeathEnemyTulipSnakeDrop text="Tulip Snake (Drop) 1" />
+        <DeathEnemyTulipSnakeDrop text="Tulip Snake (Drop) 2" />
+        <DeathEnemyTulipSnakeDrop text="Tulip Snake (Drop) 3" />
+        <DeathEnemyTulipSnakeDrop text="Tulip Snake (Drop) 4" />
+        <DeathEnemyTulipSnakeDrop text="Tulip Snake (Drop) 5" />
+
+        <DeathEnemyOldBirdRocket text="Old Bird (Rocket) 1" />
+        <DeathEnemyOldBirdRocket text="Old Bird (Rocket) 2" />
+        <DeathEnemyOldBirdRocket text="Old Bird (Rocket) 3" />
+        <DeathEnemyOldBirdRocket text="Old Bird (Rocket) 4" />
+        <DeathEnemyOldBirdRocket text="Old Bird (Rocket) 5" />
+
+        <DeathEnemyOldBirdStomp text="Old Bird (Stomp) 1" />
+        <DeathEnemyOldBirdStomp text="Old Bird (Stomp) 2" />
+        <DeathEnemyOldBirdStomp text="Old Bird (Stomp) 3" />
+        <DeathEnemyOldBirdStomp text="Old Bird (Stomp) 4" />
+        <DeathEnemyOldBirdStomp text="Old Bird (Stomp) 5" />
+
+        <DeathEnemyOldBirdCharge text="Old Bird (Charge) 1" />
+        <DeathEnemyOldBirdCharge text="Old Bird (Charge) 2" />
+        <DeathEnemyOldBirdCharge text="Old Bird (Charge) 3" />
+        <DeathEnemyOldBirdCharge text="Old Bird (Charge) 4" />
+        <DeathEnemyOldBirdCharge text="Old Bird (Charge) 5" />
+
+        <DeathEnemyOldBirdTorch text="Old Bird (Torch) 1" />
+        <DeathEnemyOldBirdTorch text="Old Bird (Torch) 2" />
+        <DeathEnemyOldBirdTorch text="Old Bird (Torch) 3" />
+        <DeathEnemyOldBirdTorch text="Old Bird (Torch) 4" />
+        <DeathEnemyOldBirdTorch text="Old Bird (Torch) 5" />        
+
+        <DeathEnemyKidnapperFox text="Kidnapper Fox 1" />
+        <DeathEnemyKidnapperFox text="Kidnapper Fox 2" />
+        <DeathEnemyKidnapperFox text="Kidnapper Fox 3" />
+        <DeathEnemyKidnapperFox text="Kidnapper Fox 4" />
+        <DeathEnemyKidnapperFox text="Kidnapper Fox 5" />
+
+        <DeathEnemyBarber text="Barber 1" />
+        <DeathEnemyBarber text="Barber 2" />
+        <DeathEnemyBarber text="Barber 3" />
+        <DeathEnemyBarber text="Barber 4" />
+        <DeathEnemyBarber text="Barber 5" />
+
+        <DeathPlayerCruiserDriver text="Cruiser (Driver) 1" />
+        <DeathPlayerCruiserDriver text="Cruiser (Driver) 2" />
+        <DeathPlayerCruiserDriver text="Cruiser (Driver) 3" />
+        <DeathPlayerCruiserDriver text="Cruiser (Driver) 4" />
+        <DeathPlayerCruiserDriver text="Cruiser (Driver) 5" />
+
+        <DeathPlayerCruiserPassenger text="Cruiser (Passenger) 1" />
+        <DeathPlayerCruiserPassenger text="Cruiser (Passenger) 2" />
+        <DeathPlayerCruiserPassenger text="Cruiser (Passenger) 3" />
+        <DeathPlayerCruiserPassenger text="Cruiser (Passenger) 4" />
+        <DeathPlayerCruiserPassenger text="Cruiser (Passenger) 5" />
+
+        <DeathPlayerCruiserExplodeBystander text="Cruiser (Explode) 1" />
+        <DeathPlayerCruiserExplodeBystander text="Cruiser (Explode) 2" />
+        <DeathPlayerCruiserExplodeBystander text="Cruiser (Explode) 3" />
+        <DeathPlayerCruiserExplodeBystander text="Cruiser (Explode) 4" />
+        <DeathPlayerCruiserExplodeBystander text="Cruiser (Explode) 5" />
+
+        <DeathPlayerCruiserRanOver text="Cruiser (Ran Over) 1" />
+        <DeathPlayerCruiserRanOver text="Cruiser (Ran Over) 2" />
+        <DeathPlayerCruiserRanOver text="Cruiser (Ran Over) 3" />
+        <DeathPlayerCruiserRanOver text="Cruiser (Ran Over) 4" />
+        <DeathPlayerCruiserRanOver text="Cruiser (Ran Over) 5" />
+
+        <DeathPlayerJetpackGravity text="Jetpack (Gravity) 1" />
+        <DeathPlayerJetpackGravity text="Jetpack (Gravity) 2" />
+        <DeathPlayerJetpackGravity text="Jetpack (Gravity) 3" />
+        <DeathPlayerJetpackGravity text="Jetpack (Gravity) 4" />
+        <DeathPlayerJetpackGravity text="Jetpack (Gravity) 5" />
+
+        <DeathPlayerJetpackBlast text="Jetpack (Blast) 1" />
+        <DeathPlayerJetpackBlast text="Jetpack (Blast) 2" />
+        <DeathPlayerJetpackBlast text="Jetpack (Blast) 3" />
+        <DeathPlayerJetpackBlast text="Jetpack (Blast) 4" />
+        <DeathPlayerJetpackBlast text="Jetpack (Blast) 5" />
+
+        <DeathPlayerMurderShovel text="Murder (Shovel) 1" />
+        <DeathPlayerMurderShovel text="Murder (Shovel) 2" />
+        <DeathPlayerMurderShovel text="Murder (Shovel) 3" />
+        <DeathPlayerMurderShovel text="Murder (Shovel) 4" />
+        <DeathPlayerMurderShovel text="Murder (Shovel) 5" />
+
+        <DeathPlayerMurderStopSign text="Murder (Stop Sign) 1" />
+        <DeathPlayerMurderStopSign text="Murder (Stop Sign) 2" />
+        <DeathPlayerMurderStopSign text="Murder (Stop Sign) 3" />
+        <DeathPlayerMurderStopSign text="Murder (Stop Sign) 4" />
+        <DeathPlayerMurderStopSign text="Murder (Stop Sign) 5" />
+
+        <DeathPlayerMurderYieldSign text="Murder (Yield Sign) 1" />
+        <DeathPlayerMurderYieldSign text="Murder (Yield Sign) 2" />
+        <DeathPlayerMurderYieldSign text="Murder (Yield Sign) 3" />
+        <DeathPlayerMurderYieldSign text="Murder (Yield Sign) 4" />
+        <DeathPlayerMurderYieldSign text="Murder (Yield Sign) 5" />
+
+        <DeathPlayerMurderKnife text="Murder (Knife) 1" />
+        <DeathPlayerMurderKnife text="Murder (Knife) 2" />
+        <DeathPlayerMurderKnife text="Murder (Knife) 3" />
+        <DeathPlayerMurderKnife text="Murder (Knife) 4" />
+        <DeathPlayerMurderKnife text="Murder (Knife) 5" />
+
+        <DeathPlayerMurderShotgun text="Murder (Shotgun) 1" />
+        <DeathPlayerMurderShotgun text="Murder (Shotgun) 2" />
+        <DeathPlayerMurderShotgun text="Murder (Shotgun) 3" />
+        <DeathPlayerMurderShotgun text="Murder (Shotgun) 4" />
+        <DeathPlayerMurderShotgun text="Murder (Shotgun) 5" />
+
+        <DeathPlayerLadder text="Ladder 1" />
+        <DeathPlayerLadder text="Ladder 2" />
+        <DeathPlayerLadder text="Ladder 3" />
+        <DeathPlayerLadder text="Ladder 4" />
+        <DeathPlayerLadder text="Ladder 5" />
+
+        <DeathPlayerQuicksand text="Quicksand 1" />
+        <DeathPlayerQuicksand text="Quicksand 2" />
+        <DeathPlayerQuicksand text="Quicksand 3" />
+        <DeathPlayerQuicksand text="Quicksand 4" />
+        <DeathPlayerQuicksand text="Quicksand 5" />
+
+        <DeathPlayerStunGrenade text="Stun Grenade 1" />
+        <DeathPlayerStunGrenade text="Stun Grenade 2" />
+        <DeathPlayerStunGrenade text="Stun Grenade 3" />
+        <DeathPlayerStunGrenade text="Stun Grenade 4" />
+        <DeathPlayerStunGrenade text="Stun Grenade 5" />
+
+        <DeathPlayerEasterEgg text="Easter Egg 1" />
+        <DeathPlayerEasterEgg text="Easter Egg 2" />
+        <DeathPlayerEasterEgg text="Easter Egg 3" />
+        <DeathPlayerEasterEgg text="Easter Egg 4" />
+        <DeathPlayerEasterEgg text="Easter Egg 5" />
+
+        <DeathOtherItemDropship text="Item Dropship 1" />
+        <DeathOtherItemDropship text="Item Dropship 2" />
+        <DeathOtherItemDropship text="Item Dropship 3" />
+        <DeathOtherItemDropship text="Item Dropship 4" />
+        <DeathOtherItemDropship text="Item Dropship 5" />
+
+        <DeathOtherSpikeTrap text="Spike Trap 1" />
+        <DeathOtherSpikeTrap text="Spike Trap 2" />
+        <DeathOtherSpikeTrap text="Spike Trap 3" />
+        <DeathOtherSpikeTrap text="Spike Trap 4" />
+        <DeathOtherSpikeTrap text="Spike Trap 5" />
+
+        <DeathOtherFacilityPit text="Facility Pit 1" />
+        <DeathOtherFacilityPit text="Facility Pit 2" />
+        <DeathOtherFacilityPit text="Facility Pit 3" />
+        <DeathOtherFacilityPit text="Facility Pit 4" />
+        <DeathOtherFacilityPit text="Facility Pit 5" />
+
+        <DeathOtherDepositItemsDesk text="Deposit Items Desk 1" />
+        <DeathOtherDepositItemsDesk text="Deposit Items Desk 2" />
+        <DeathOtherDepositItemsDesk text="Deposit Items Desk 3" />
+        <DeathOtherDepositItemsDesk text="Deposit Items Desk 4" />
+        <DeathOtherDepositItemsDesk text="Deposit Items Desk 5" />
+
+        <DeathOtherLandmine text="Landmine 1" />
+        <DeathOtherLandmine text="Landmine 2" />
+        <DeathOtherLandmine text="Landmine 3" />
+        <DeathOtherLandmine text="Landmine 4" />
+        <DeathOtherLandmine text="Landmine 5" />
+
+        <DeathOtherTurret text="Turret 1" />
+        <DeathOtherTurret text="Turret 2" />
+        <DeathOtherTurret text="Turret 3" />
+        <DeathOtherTurret text="Turret 4" />
+        <DeathOtherTurret text="Turret 5" />
+
+        <DeathOtherLightning text="Lightning 1" />
+        <DeathOtherLightning text="Lightning 2" />
+        <DeathOtherLightning text="Lightning 3" />
+        <DeathOtherLightning text="Lightning 4" />
+        <DeathOtherLightning text="Lightning 5" />
+
+        <DeathOtherOutOfBounds text="Out of Bounds 1" />
+        <DeathOtherOutOfBounds text="Out of Bounds 2" />
+        <DeathOtherOutOfBounds text="Out of Bounds 3" />
+        <DeathOtherOutOfBounds text="Out of Bounds 4" />
+        <DeathOtherOutOfBounds text="Out of Bounds 5" />
+
+        <DeathUnknown text="!!!UNKNOWN!!!" />
+    </strings>
+</base>

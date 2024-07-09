@@ -1,9 +1,10 @@
 {
     "name": "Coroner",
-    "version_number": "1.6.2",
+    "version_number": "2.0.0",
     "website_url": "https://github.com/EliteMasterEric/Coroner",
-    "description": "Rework the Performance Report with new info, including cause of death.",
+    "description": "Add Cause of Death to the performance report, rebuilt and better than ever.",
     "dependencies": [
-        "BepInEx-BepInExPack-5.4.2100"
+        "BepInEx-BepInExPack-5.4.2100",
+        "xilophor-StaticNetcodeLib-1.1.1"
     ]
 }

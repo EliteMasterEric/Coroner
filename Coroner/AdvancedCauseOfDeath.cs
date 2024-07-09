@@ -1,71 +1,118 @@
 using System;
 using System.Collections.Generic;
-
 using GameNetcodeStuff;
+
+#nullable enable
 
 namespace Coroner
 {
-    public class AdvancedDeathTracker
+    class AdvancedDeathTracker
     {
-        public const int PLAYER_CAUSE_OF_DEATH_DROPSHIP = 300;
-        public const int PLAYER_CAUSE_OF_DEATH_LADDER = 301;
-
-        private static readonly Dictionary<int, AdvancedCauseOfDeath> PlayerCauseOfDeath = new Dictionary<int, AdvancedCauseOfDeath>();
+        public static Dictionary<int, AdvancedCauseOfDeath?> causeOfDeathDictionary = new Dictionary<int, AdvancedCauseOfDeath?>();
 
         public static void ClearDeathTracker()
         {
-            PlayerCauseOfDeath.Clear();
+            foreach (PlayerControllerB player in StartOfRound.Instance.allPlayerScripts)
+            {
+                // Set the cause of death to null for each player.
+                // true = force override
+                StoreLocalCauseOfDeath((int) player.playerClientId, null, true);
+            }
         }
 
-        public static void SetCauseOfDeath(int playerIndex, AdvancedCauseOfDeath causeOfDeath, bool broadcast = true)
+        public static void SetCauseOfDeath(int playerIndex, AdvancedCauseOfDeath? causeOfDeath, bool forceOverride = false) {
+            if (causeOfDeath == null) {
+                NetworkRPC.ReportCauseOfDeathServerRpc(playerIndex, null, forceOverride);    
+            } else {
+                AdvancedCauseOfDeath result = (AdvancedCauseOfDeath) causeOfDeath;
+                Plugin.Instance.PluginLogger.LogDebug($"Serializing {result} to {result.GetLanguageTag()}{(forceOverride ? " (FORCED)" : "")}");
+                NetworkRPC.ReportCauseOfDeathServerRpc(playerIndex, result.GetLanguageTag(), forceOverride);
+            }
+        }
+
+        public static void SetCauseOfDeath(PlayerControllerB playerController, AdvancedCauseOfDeath? causeOfDeath, bool forceOverride = false)
         {
-            PlayerCauseOfDeath[playerIndex] = causeOfDeath;
-            if (broadcast) DeathBroadcaster.BroadcastCauseOfDeath(playerIndex, causeOfDeath);
+            SetCauseOfDeath((int) playerController.playerClientId, causeOfDeath, forceOverride);
         }
 
-        public static void SetCauseOfDeath(int playerIndex, CauseOfDeath causeOfDeath, bool broadcast = true)
+        public static void StoreLocalCauseOfDeath(int playerId, AdvancedCauseOfDeath? causeOfDeath, bool overrideExisting)
         {
-            SetCauseOfDeath(playerIndex, ConvertCauseOfDeath(causeOfDeath), broadcast);
+            // If overrideExisting is false, don't override an existing cause of death unless we are clearing it.
+            if (!overrideExisting && (causeOfDeath == null || HasCauseOfDeath(playerId))) {
+                if (causeOfDeath == null) {
+                    Plugin.Instance.PluginLogger.LogDebug($"Ignoring null cause of death for player {playerId}");
+                    return;
+                } else {
+                    var newCauseOfDeathTag = ((AdvancedCauseOfDeath) causeOfDeath).GetLanguageTag();
+                    AdvancedCauseOfDeath? existingCauseOfDeath = GetCauseOfDeath(playerId, false);
+                    string existingCauseOfDeathTag = existingCauseOfDeath == null ? "null" : ((AdvancedCauseOfDeath) existingCauseOfDeath).GetLanguageTag();
+                    Plugin.Instance.PluginLogger.LogWarning($"Player {playerId} already has a cause of death set ({existingCauseOfDeathTag}), not overwriting it with {newCauseOfDeathTag}.");
+                    return;
+                }
+            }
+
+            if (causeOfDeath == null)
+            {
+                Plugin.Instance.PluginLogger.LogDebug($"Clearing cause of death for player {playerId}");
+                causeOfDeathDictionary[playerId] = null;
+            }
+            else
+            {
+                AdvancedCauseOfDeath? existingCauseOfDeath = GetCauseOfDeath(playerId, false);
+                string existingCauseOfDeathTag = existingCauseOfDeath == null ? "null" : ((AdvancedCauseOfDeath) existingCauseOfDeath).GetLanguageTag();
+                string causeOfDeathTag = ((AdvancedCauseOfDeath)causeOfDeath).GetLanguageTag();
+                Plugin.Instance.PluginLogger.LogDebug($"Storing cause of death {causeOfDeathTag} (overriding {existingCauseOfDeathTag}) for player {playerId}!");
+                causeOfDeathDictionary[playerId] = causeOfDeath;
+            }
         }
 
-        public static void SetCauseOfDeath(PlayerControllerB playerController, CauseOfDeath causeOfDeath, bool broadcast = true)
-        {
-            SetCauseOfDeath((int)playerController.playerClientId, ConvertCauseOfDeath(causeOfDeath), broadcast);
+        /**
+         * Retrieve the network variable storing the cause of death for the given player.
+         * If it doesn't exist, instantiate it and store it statically.
+         *
+         * @param playerController
+         * @return the cause of death network variable
+         */
+        static AdvancedCauseOfDeath? FetchCauseOfDeathVariable(PlayerControllerB playerController) {
+            if (!HasCauseOfDeath(playerController)) {
+                return null;
+            }
+
+            return causeOfDeathDictionary[(int) playerController.playerClientId];
         }
 
-        public static void SetCauseOfDeath(PlayerControllerB playerController, AdvancedCauseOfDeath causeOfDeath, bool broadcast = true)
-        {
-            SetCauseOfDeath((int)playerController.playerClientId, causeOfDeath, broadcast);
-        }
-
-        public static AdvancedCauseOfDeath GetCauseOfDeath(int playerIndex)
+        public static AdvancedCauseOfDeath? GetCauseOfDeath(int playerIndex, bool shouldGuess = true)
         {
             PlayerControllerB playerController = StartOfRound.Instance.allPlayerScripts[playerIndex];
 
-            return GetCauseOfDeath(playerController);
+            return GetCauseOfDeath(playerController, shouldGuess);
         }
 
         public static bool HasCauseOfDeath(int playerIndex)
         {
-            return PlayerCauseOfDeath.ContainsKey(playerIndex);
+            return HasCauseOfDeath(StartOfRound.Instance.allPlayerScripts[playerIndex]);
         }
 
         public static bool HasCauseOfDeath(PlayerControllerB playerController)
         {
-            return HasCauseOfDeath((int)playerController.playerClientId);
+            return causeOfDeathDictionary.ContainsKey((int) playerController.playerClientId) && (causeOfDeathDictionary[(int) playerController.playerClientId] != null);
         }
 
-        public static AdvancedCauseOfDeath GetCauseOfDeath(PlayerControllerB playerController)
+        public static AdvancedCauseOfDeath? GetCauseOfDeath(PlayerControllerB playerController, bool shouldGuess = true)
         {
-            if (!PlayerCauseOfDeath.ContainsKey((int)playerController.playerClientId))
+            AdvancedCauseOfDeath? causeOfDeath = FetchCauseOfDeathVariable(playerController);
+
+            if (causeOfDeath != null)
             {
+                AdvancedCauseOfDeath result = (AdvancedCauseOfDeath) causeOfDeath;
+                Plugin.Instance.PluginLogger.LogDebug($"Player {playerController.playerClientId} has custom cause of death stored! {result.GetLanguageTag()}");
+                return result;
+            } else if (!shouldGuess) {
+                Plugin.Instance.PluginLogger.LogDebug($"Player {playerController.playerClientId} has no custom cause of death stored! Returning null...");    
+                return null;
+            } else {
                 Plugin.Instance.PluginLogger.LogDebug($"Player {playerController.playerClientId} has no custom cause of death stored! Using fallback...");
                 return GuessCauseOfDeath(playerController);
-            }
-            else
-            {
-                Plugin.Instance.PluginLogger.LogDebug($"Player {playerController.playerClientId} has custom cause of death stored! {PlayerCauseOfDeath[(int)playerController.playerClientId]}");
-                return PlayerCauseOfDeath[(int)playerController.playerClientId];
             }
         }
 
@@ -85,7 +132,8 @@ namespace Coroner
                     }
                 }
 
-                return ConvertCauseOfDeath(playerController.causeOfDeath);
+                // Implicit cast
+                return playerController.causeOfDeath;
             }
             else
             {
@@ -93,13 +141,20 @@ namespace Coroner
             }
         }
 
-        public static bool IsHoldingJetpack(PlayerControllerB playerController)
+        static GrabbableObject? GetHeldObject(PlayerControllerB playerController)
         {
             var heldObjectServer = playerController.currentlyHeldObjectServer;
-            if (heldObjectServer == null) return false;
+            if (heldObjectServer == null) return null;
             var heldObjectGameObject = heldObjectServer.gameObject;
-            if (heldObjectGameObject == null) return false;
+            if (heldObjectGameObject == null) return null;
             var heldObject = heldObjectGameObject.GetComponent<GrabbableObject>();
+
+            return heldObject;
+        }
+
+        public static bool IsHoldingJetpack(PlayerControllerB playerController)
+        {
+            var heldObject = GetHeldObject(playerController);
             if (heldObject == null) return false;
 
             if (heldObject is JetpackItem)
@@ -112,42 +167,81 @@ namespace Coroner
             }
         }
 
-        public static AdvancedCauseOfDeath ConvertCauseOfDeath(CauseOfDeath causeOfDeath)
+        public static bool IsHoldingShovel(PlayerControllerB playerController)
         {
-            switch (causeOfDeath)
+            var heldObject = GetHeldObject(playerController);
+            if (heldObject == null) return false;
+
+            if (heldObject is Shovel)
             {
-                case CauseOfDeath.Unknown:
-                    return AdvancedCauseOfDeath.Unknown;
-                case CauseOfDeath.Bludgeoning:
-                    return AdvancedCauseOfDeath.Bludgeoning;
-                case CauseOfDeath.Gravity:
-                    return AdvancedCauseOfDeath.Gravity;
-                case CauseOfDeath.Blast:
-                    return AdvancedCauseOfDeath.Blast;
-                case CauseOfDeath.Strangulation:
-                    return AdvancedCauseOfDeath.Strangulation;
-                case CauseOfDeath.Suffocation:
-                    return AdvancedCauseOfDeath.Suffocation;
-                case CauseOfDeath.Mauling:
-                    return AdvancedCauseOfDeath.Mauling;
-                case CauseOfDeath.Gunshots:
-                    return AdvancedCauseOfDeath.Gunshots;
-                case CauseOfDeath.Crushing:
-                    return AdvancedCauseOfDeath.Crushing;
-                case CauseOfDeath.Drowning:
-                    return AdvancedCauseOfDeath.Drowning;
-                case CauseOfDeath.Abandoned:
-                    return AdvancedCauseOfDeath.Abandoned;
-                case CauseOfDeath.Electrocution:
-                    return AdvancedCauseOfDeath.Electrocution;
-                default:
-                    return AdvancedCauseOfDeath.Unknown;
+                if (heldObject.gameObject.name == "Shovel")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsHoldingStopSign(PlayerControllerB playerController)
+        {
+            var heldObject = GetHeldObject(playerController);
+            if (heldObject == null) return false;
+
+            if (heldObject is Shovel)
+            {
+                if (heldObject.gameObject.name == "StopSign")
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        public static bool IsHoldingYieldSign(PlayerControllerB playerController)
+        {
+            var heldObject = GetHeldObject(playerController);
+            if (heldObject == null) return false;
+
+            if (heldObject is Shovel)
+            {
+                if (heldObject.gameObject.name == "YieldSign")
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        public static bool IsHoldingShotgun(PlayerControllerB playerController)
+        {
+            var heldObject = GetHeldObject(playerController);
+            if (heldObject == null) return false;
+
+            if (heldObject is ShotgunItem)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public static string StringifyCauseOfDeath(CauseOfDeath causeOfDeath)
+        public static bool IsHoldingKnife(PlayerControllerB playerController)
         {
-            return StringifyCauseOfDeath(ConvertCauseOfDeath(causeOfDeath), Plugin.RANDOM);
+            var heldObject = GetHeldObject(playerController);
+            if (heldObject == null) return false;
+
+            if (heldObject is KnifeItem)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static string StringifyCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath)
@@ -177,167 +271,245 @@ namespace Coroner
             if (causeOfDeath == null) return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_FUNNY_NOTES);
 
             // NOTE: First cause of death in the list should be the "serious" entry.
-            
-            switch (causeOfDeath)
+
+            if (AdvancedCauseOfDeath.IsCauseOfDeathRegistered(causeOfDeath))
             {
-                case AdvancedCauseOfDeath.Bludgeoning:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_BLUDGEONING);
-                case AdvancedCauseOfDeath.Gravity:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_GRAVITY);
-                case AdvancedCauseOfDeath.Blast:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_BLAST);
-                case AdvancedCauseOfDeath.Strangulation:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_STRANGULATION);
-                case AdvancedCauseOfDeath.Suffocation:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_SUFFOCATION);
-                case AdvancedCauseOfDeath.Mauling:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_MAULING);
-                case AdvancedCauseOfDeath.Gunshots:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_GUNSHOTS);
-                case AdvancedCauseOfDeath.Crushing:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_CRUSHING);
-                case AdvancedCauseOfDeath.Drowning:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_DROWNING);
-                case AdvancedCauseOfDeath.Abandoned:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_ABANDONED);
-                case AdvancedCauseOfDeath.Electrocution:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_ELECTROCUTION);
-                case AdvancedCauseOfDeath.Kicking:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_GENERIC_KICKING);
-
-                case AdvancedCauseOfDeath.Enemy_Bracken:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BRACKEN);
-                case AdvancedCauseOfDeath.Enemy_EyelessDog:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_EYELESS_DOG);
-                case AdvancedCauseOfDeath.Enemy_ForestGiant:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_FOREST_GIANT);
-                case AdvancedCauseOfDeath.Enemy_CircuitBees:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_CIRCUIT_BEES);
-                case AdvancedCauseOfDeath.Enemy_GhostGirl:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_GHOST_GIRL);
-                case AdvancedCauseOfDeath.Enemy_EarthLeviathan:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_EARTH_LEVIATHAN);
-                case AdvancedCauseOfDeath.Enemy_BaboonHawk:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BABOON_HAWK);
-                case AdvancedCauseOfDeath.Enemy_Jester:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_JESTER);
-                case AdvancedCauseOfDeath.Enemy_CoilHead:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_COILHEAD);
-                case AdvancedCauseOfDeath.Enemy_SnareFlea:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_SNARE_FLEA);
-                case AdvancedCauseOfDeath.Enemy_Hygrodere:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_HYGRODERE);
-                case AdvancedCauseOfDeath.Enemy_HoarderBug:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_HOARDER_BUG);
-                case AdvancedCauseOfDeath.Enemy_SporeLizard:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_SPORE_LIZARD);
-                case AdvancedCauseOfDeath.Enemy_BunkerSpider:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_BUNKER_SPIDER);
-                case AdvancedCauseOfDeath.Enemy_Thumper:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_THUMPER);
-
-                case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_WEAR);
-                case AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_VICTIM);
-                case AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_KICKED);
-                case AdvancedCauseOfDeath.Enemy_Nutcracker_Shot:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_SHOT);
-
-                case AdvancedCauseOfDeath.Player_Jetpack_Gravity:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_GRAVITY);
-                case AdvancedCauseOfDeath.Player_Jetpack_Blast:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_BLAST);
-                case AdvancedCauseOfDeath.Player_Ladder:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_LADDER);
-                case AdvancedCauseOfDeath.Player_Murder_Melee:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_MURDER_MELEE);
-                case AdvancedCauseOfDeath.Player_Murder_Shotgun:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_MURDER_SHOTGUN);
-                case AdvancedCauseOfDeath.Player_Quicksand:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_QUICKSAND);
-                case AdvancedCauseOfDeath.Player_StunGrenade:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_PLAYER_STUN_GRENADE);
-                    
-
-                case AdvancedCauseOfDeath.Other_DepositItemsDesk:
-                    // NOTE: Since there's no performance report on Gordion this never shows.
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK);
-                case AdvancedCauseOfDeath.Other_Dropship:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
-                case AdvancedCauseOfDeath.Other_Landmine:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_LANDMINE);
-                case AdvancedCauseOfDeath.Other_Turret:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_TURRET);
-                case AdvancedCauseOfDeath.Other_Lightning:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
-
-                default:
-                    return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_UNKNOWN);
+                return ((AdvancedCauseOfDeath)causeOfDeath).GetLanguageValues();
             }
-        }
-
-        internal static void SetCauseOfDeath(PlayerControllerB playerControllerB, object enemy_BaboonHawk)
-        {
-            throw new NotImplementedException();
+            else
+            {
+                return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_UNKNOWN);
+            }
         }
     }
 
-    public enum AdvancedCauseOfDeath
+    public struct AdvancedCauseOfDeath
     {
+        public static readonly Dictionary<string, AdvancedCauseOfDeath> Registry = new Dictionary<string, AdvancedCauseOfDeath>();
+        private static int NextId = 100;
+
         // Basic causes of death
-        Unknown,
-        Bludgeoning,
-        Gravity,
-        Blast,
-        Strangulation,
-        Suffocation,
-        Mauling,
-        Gunshots,
-        Crushing,
-        Drowning,
-        Abandoned,
-        Electrocution,
-        Kicking, // New in v45
+        public static AdvancedCauseOfDeath Unknown = BuildFromExisting(LanguageHandler.TAG_DEATH_UNKNOWN, CauseOfDeath.Unknown);
+        public static AdvancedCauseOfDeath Bludgeoning = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_BLUDGEONING, CauseOfDeath.Bludgeoning);
+        public static AdvancedCauseOfDeath Gravity = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_GRAVITY, CauseOfDeath.Gravity);
+        public static AdvancedCauseOfDeath Blast = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_BLAST, CauseOfDeath.Blast);
+        public static AdvancedCauseOfDeath Strangulation = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_STRANGULATION, CauseOfDeath.Strangulation);
+        public static AdvancedCauseOfDeath Suffocation = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_SUFFOCATION, CauseOfDeath.Suffocation);
+        public static AdvancedCauseOfDeath Mauling = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_MAULING, CauseOfDeath.Mauling);
+        public static AdvancedCauseOfDeath Gunshots = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_GUNSHOTS, CauseOfDeath.Gunshots);
+        public static AdvancedCauseOfDeath Crushing = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_CRUSHING, CauseOfDeath.Crushing);
+        public static AdvancedCauseOfDeath Drowning = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_DROWNING, CauseOfDeath.Drowning);
+        public static AdvancedCauseOfDeath Abandoned = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_ABANDONED, CauseOfDeath.Abandoned);
+        public static AdvancedCauseOfDeath Electrocution = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_ELECTROCUTION, CauseOfDeath.Electrocution);
+        // New in v45
+        public static AdvancedCauseOfDeath Kicking = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_KICKING, CauseOfDeath.Kicking); // This gets redirected to Enemy_Nutcracker_Kicked
+        // New in v50
+        public static AdvancedCauseOfDeath Burning = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_BURNING, CauseOfDeath.Burning);
+        public static AdvancedCauseOfDeath Stabbing = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_STABBING, CauseOfDeath.Stabbing); // This gets redirected based on who stabbed
+        public static AdvancedCauseOfDeath Fan = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_FAN, CauseOfDeath.Fan); // This one gets actually used
+        public static AdvancedCauseOfDeath Inertia = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_INERTIA, CauseOfDeath.Inertia); // This gets redirected to one of the car ones
+        public static AdvancedCauseOfDeath Snipped = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_SNIPPED, CauseOfDeath.Snipped); // This gets redirected to Enemy_Barber
 
         // Custom causes (enemies)
-        Enemy_BaboonHawk, // Also known as BaboonBird
-        Enemy_Bracken, // Also known as Flowerman
-        Enemy_CircuitBees, // Also known as RedLocustBees
-        Enemy_CoilHead,  // Also known as SpringMan
-        Enemy_EarthLeviathan, // Also known as SandWorm
-        Enemy_EyelessDog, // Also known as MouthDog
-        Enemy_ForestGiant,
-        Enemy_GhostGirl, // Also known as DressGirl
-        Enemy_Hygrodere, // Also known as Blob
-        Enemy_Jester,
-        Enemy_SnareFlea, // Also known as Centipede
-        Enemy_SporeLizard, // Also known as Puffer
-        Enemy_HoarderBug,
-        Enemy_Thumper,
-        Enemy_BunkerSpider,
+        public static AdvancedCauseOfDeath Enemy_BaboonHawk = Build(LanguageHandler.TAG_DEATH_ENEMY_BABOON_HAWK); // Also known as BaboonBird
+        public static AdvancedCauseOfDeath Enemy_Bracken = Build(LanguageHandler.TAG_DEATH_ENEMY_BRACKEN); // Also known as Flowerman
+        public static AdvancedCauseOfDeath Enemy_BunkerSpider = Build(LanguageHandler.TAG_DEATH_ENEMY_BUNKER_SPIDER);
+        public static AdvancedCauseOfDeath Enemy_CircuitBees = Build(LanguageHandler.TAG_DEATH_ENEMY_CIRCUIT_BEES); // Also known as RedLocustBees
+        public static AdvancedCauseOfDeath Enemy_CoilHead = Build(LanguageHandler.TAG_DEATH_ENEMY_COILHEAD); // Also known as SpringMan
+        public static AdvancedCauseOfDeath Enemy_EarthLeviathan = Build(LanguageHandler.TAG_DEATH_ENEMY_EARTH_LEVIATHAN); // Also known as SandWorm
+        public static AdvancedCauseOfDeath Enemy_EyelessDog = Build(LanguageHandler.TAG_DEATH_ENEMY_EYELESS_DOG); // Also known as MouthDog
+        public static AdvancedCauseOfDeath Enemy_GhostGirl = Build(LanguageHandler.TAG_DEATH_ENEMY_GHOST_GIRL); // Also known as DressGirl
+        public static AdvancedCauseOfDeath Enemy_HoarderBug = Build(LanguageHandler.TAG_DEATH_ENEMY_HOARDER_BUG);
+        public static AdvancedCauseOfDeath Enemy_Hygrodere = Build(LanguageHandler.TAG_DEATH_ENEMY_HYGRODERE); // Also known as Blob
+        public static AdvancedCauseOfDeath Enemy_Jester = Build(LanguageHandler.TAG_DEATH_ENEMY_JESTER);
+        public static AdvancedCauseOfDeath Enemy_LassoMan = Build(LanguageHandler.TAG_DEATH_ENEMY_LASSO_MAN);
+        public static AdvancedCauseOfDeath Enemy_SnareFlea = Build(LanguageHandler.TAG_DEATH_ENEMY_SNARE_FLEA); // Also known as Centipede
+        public static AdvancedCauseOfDeath Enemy_SporeLizard = Build(LanguageHandler.TAG_DEATH_ENEMY_SPORE_LIZARD); // Also known as Puffer
+        public static AdvancedCauseOfDeath Enemy_Thumper = Build(LanguageHandler.TAG_DEATH_ENEMY_THUMPER);
+        
+        public static AdvancedCauseOfDeath Enemy_ForestGiant_Eaten = Build(LanguageHandler.TAG_DEATH_ENEMY_FOREST_GIANT_EATEN);
+        public static AdvancedCauseOfDeath Enemy_ForestGiant_Death = Build(LanguageHandler.TAG_DEATH_ENEMY_FOREST_GIANT_DEATH); // Crushed under the Forest Giant's body
 
         // Enemies from v45
-        Enemy_MaskedPlayer_Wear, // Comedy mask
-        Enemy_MaskedPlayer_Victim, // Comedy mask
-        Enemy_Nutcracker_Kicked,
-        Enemy_Nutcracker_Shot,
+        public static AdvancedCauseOfDeath Enemy_MaskedPlayer_Wear = Build(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_WEAR); // Comedy mask
+        public static AdvancedCauseOfDeath Enemy_MaskedPlayer_Victim = Build(LanguageHandler.TAG_DEATH_ENEMY_MASKED_PLAYER_VICTIM); // Comedy mask
+        public static AdvancedCauseOfDeath Enemy_Nutcracker_Kicked = Build(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_KICKED);
+        public static AdvancedCauseOfDeath Enemy_Nutcracker_Shot = Build(LanguageHandler.TAG_DEATH_ENEMY_NUTCRACKER_SHOT);
+
+        // Enemies from v50
+        public static AdvancedCauseOfDeath Enemy_Butler_Stab = Build(LanguageHandler.TAG_DEATH_ENEMY_BUTLER_STAB);
+        public static AdvancedCauseOfDeath Enemy_Butler_Explode = Build(LanguageHandler.TAG_DEATH_ENEMY_BUTLER_EXPLODE);
+        public static AdvancedCauseOfDeath Enemy_MaskHornets = Build(LanguageHandler.TAG_DEATH_ENEMY_MASK_HORNETS); // Spawned by the Butler.
+        public static AdvancedCauseOfDeath Enemy_TulipSnake_Drop = Build(LanguageHandler.TAG_DEATH_ENEMY_TULIP_SNAKE_DROP); // Upon dying from gravity. Also known as FlowerSnake
+        public static AdvancedCauseOfDeath Enemy_Old_Bird_Rocket = Build(LanguageHandler.TAG_DEATH_ENEMY_OLD_BIRD_ROCKET); // Also known as RadMech
+        public static AdvancedCauseOfDeath Enemy_Old_Bird_Charge = Build(LanguageHandler.TAG_DEATH_ENEMY_OLD_BIRD_CHARGE);
+        public static AdvancedCauseOfDeath Enemy_Old_Bird_Stomp = Build(LanguageHandler.TAG_DEATH_ENEMY_OLD_BIRD_STOMP);
+        public static AdvancedCauseOfDeath Enemy_Old_Bird_Torch = Build(LanguageHandler.TAG_DEATH_ENEMY_OLD_BIRD_TORCH);
+
+        // Enemies from v55
+        public static AdvancedCauseOfDeath Enemy_KidnapperFox = Build(LanguageHandler.TAG_DEATH_ENEMY_KIDNAPPER_FOX);
+        public static AdvancedCauseOfDeath Enemy_Barber = Build(LanguageHandler.TAG_DEATH_ENEMY_BARBER);
 
         // Custom causes (player)
-        Player_Jetpack_Gravity,
-        Player_Jetpack_Blast,
-        Player_Quicksand,
-        Player_Ladder,
-        Player_Murder_Melee,
-        Player_Murder_Shotgun,
-        Player_StunGrenade, // TODO: Implement this.
+        public static AdvancedCauseOfDeath Player_Jetpack_Gravity = Build(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_GRAVITY); // I think this one just never triggers.
+        public static AdvancedCauseOfDeath Player_Jetpack_Blast = Build(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_BLAST);
+        public static AdvancedCauseOfDeath Player_Quicksand = Build(LanguageHandler.TAG_DEATH_PLAYER_QUICKSAND);
+        public static AdvancedCauseOfDeath Player_Ladder = Build(LanguageHandler.TAG_DEATH_PLAYER_LADDER);
+        public static AdvancedCauseOfDeath Player_Murder_Shovel = Build(LanguageHandler.TAG_DEATH_PLAYER_MURDER_SHOVEL);
+        public static AdvancedCauseOfDeath Player_Murder_Stop_Sign = Build(LanguageHandler.TAG_DEATH_PLAYER_MURDER_STOP_SIGN);
+        public static AdvancedCauseOfDeath Player_Murder_Yield_Sign = Build(LanguageHandler.TAG_DEATH_PLAYER_MURDER_YIELD_SIGN);
+        public static AdvancedCauseOfDeath Player_Murder_Shotgun = Build(LanguageHandler.TAG_DEATH_PLAYER_MURDER_SHOTGUN);
+        public static AdvancedCauseOfDeath Player_Murder_Knife = Build(LanguageHandler.TAG_DEATH_PLAYER_MURDER_KNIFE);
+        public static AdvancedCauseOfDeath Player_StunGrenade = Build(LanguageHandler.TAG_DEATH_PLAYER_STUN_GRENADE);
+        public static AdvancedCauseOfDeath Player_EasterEgg = Build(LanguageHandler.TAG_DEATH_PLAYER_EASTER_EGG);
+
+        public static AdvancedCauseOfDeath Player_Cruiser_Driver = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_DRIVER);
+        public static AdvancedCauseOfDeath Player_Cruiser_Passenger = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_PASSENGER);
+        public static AdvancedCauseOfDeath Player_Cruiser_Explode_Bystander = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_EXPLODE_BYSTANDER);
+        public static AdvancedCauseOfDeath Player_Cruiser_Ran_Over = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_RAN_OVER);
 
         // Custom causes (other)
-        Other_Landmine,
-        Other_Turret,
-        Other_Lightning,
-        Other_DepositItemsDesk,
-        Other_Dropship,
+        public static AdvancedCauseOfDeath Other_Landmine = Build(LanguageHandler.TAG_DEATH_OTHER_LANDMINE);
+        public static AdvancedCauseOfDeath Other_Turret = Build(LanguageHandler.TAG_DEATH_OTHER_TURRET);
+        public static AdvancedCauseOfDeath Other_Lightning = Build(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
+        public static AdvancedCauseOfDeath Other_DepositItemsDesk = Build(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK); // You never see this one since there's no report.
+        public static AdvancedCauseOfDeath Other_Dropship = Build(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
+        public static AdvancedCauseOfDeath Other_Facility_Pit = Build(LanguageHandler.TAG_DEATH_OTHER_FACILITY_PIT);
+        public static AdvancedCauseOfDeath Other_Spike_Trap = Build(LanguageHandler.TAG_DEATH_OTHER_SPIKE_TRAP);
+        public static AdvancedCauseOfDeath Other_OutOfBounds = Build(LanguageHandler.TAG_DEATH_OTHER_OUT_OF_BOUNDS);
+
+        public static AdvancedCauseOfDeath Build(string languageTag)
+        {
+            // This internal number might not be consistent between clients, but the Key should.
+            int statusCode = NextId;
+            string key = languageTag;
+            NextId += 1;
+            AdvancedCauseOfDeath result = new AdvancedCauseOfDeath()
+            {
+                statusCode = statusCode,
+                languageTag = languageTag
+            };
+            Register(key, result);
+            return result;
+        }
+
+        public static AdvancedCauseOfDeath BuildFromExisting(string languageTag, CauseOfDeath statusCode)
+        {
+            string key = languageTag;
+            AdvancedCauseOfDeath result = new AdvancedCauseOfDeath()
+            {
+                statusCode = (int) statusCode,
+                languageTag = languageTag
+            };
+            Register(key, result);
+            return result;
+        }
+
+        private static void Register(string key, AdvancedCauseOfDeath value)
+        {
+            if (IsTagRegistered(key))
+            {
+                Plugin.Instance.PluginLogger.LogError($"Tried to register duplicate Cause of Death key ({key})!");
+            }
+            else if (IsCauseOfDeathRegistered(value))
+            {
+                Plugin.Instance.PluginLogger.LogError($"Tried to register Cause of Death twice ({value})!");
+            }
+            else
+            {
+                Registry.Add(key, value);
+            }
+        }
+
+        public static AdvancedCauseOfDeath? Fetch(string? key)
+        {
+            if (key == null) return null;
+            if (!Registry.ContainsKey(key)) return null;
+            return Registry[key];
+        }
+
+        public static bool IsTagRegistered(string key)
+        {
+            return Registry.ContainsKey(key);
+        }
+
+        public static bool IsCauseOfDeathRegistered(AdvancedCauseOfDeath? value)
+        {
+            if (value == null) return false;
+            return Registry.ContainsValue((AdvancedCauseOfDeath)value);
+        }
+        
+        static AdvancedCauseOfDeath ConvertCauseOfDeath(CauseOfDeath causeOfDeath)
+        {
+            switch (causeOfDeath)
+            {
+                case CauseOfDeath.Unknown: return Unknown;
+                case CauseOfDeath.Bludgeoning: return Bludgeoning;
+                case CauseOfDeath.Gravity: return Gravity;
+                case CauseOfDeath.Blast: return Blast;
+                case CauseOfDeath.Strangulation: return Strangulation;
+                case CauseOfDeath.Suffocation: return Suffocation;
+                case CauseOfDeath.Mauling: return Mauling;
+                case CauseOfDeath.Gunshots: return Gunshots;
+                case CauseOfDeath.Crushing: return Crushing;
+                case CauseOfDeath.Drowning: return Drowning;
+                case CauseOfDeath.Abandoned: return Abandoned;
+                case CauseOfDeath.Electrocution: return Electrocution;
+                case CauseOfDeath.Burning: return Burning;
+                case CauseOfDeath.Fan: return Fan;
+                case CauseOfDeath.Stabbing: return Stabbing;
+                default: return Unknown;
+            }
+        }
+
+        //
+        // Instance Fields
+        // 
+
+        private int statusCode;
+        private string languageTag;
+
+        public string GetLanguageTag()
+        {
+            return languageTag;
+        }
+
+        public string[] GetLanguageValues()
+        {
+            return Plugin.Instance.LanguageHandler.GetValuesByTag(languageTag);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is AdvancedCauseOfDeath code &&
+                       statusCode == code.statusCode;
+        }
+
+        public override int GetHashCode() {
+            return HashCode.Combine(statusCode, languageTag);
+        }
+
+        public static bool operator ==(AdvancedCauseOfDeath left, AdvancedCauseOfDeath right) => left.statusCode == right.statusCode;
+        public static bool operator !=(AdvancedCauseOfDeath left, AdvancedCauseOfDeath right) => left.statusCode != right.statusCode;
+
+        public static bool operator ==(CauseOfDeath left, AdvancedCauseOfDeath right) => (int) left == right.statusCode;
+        public static bool operator !=(CauseOfDeath left, AdvancedCauseOfDeath right) => (int) left != right.statusCode;
+
+        public static bool operator ==(AdvancedCauseOfDeath left, CauseOfDeath right) => left.statusCode == (int) right;
+        public static bool operator !=(AdvancedCauseOfDeath left, CauseOfDeath right) => left.statusCode != (int) right;
+
+        public static implicit operator AdvancedCauseOfDeath(CauseOfDeath value)
+        {
+            return ConvertCauseOfDeath(value);
+        }
+
+        public static implicit operator CauseOfDeath(AdvancedCauseOfDeath value)
+        {
+            return (CauseOfDeath) value.statusCode;
+        }
+
+        public override string ToString() {
+            return $"AdvancedCauseOfDeath({languageTag})";
+        }
     }
 }
