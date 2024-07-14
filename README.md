@@ -34,7 +34,7 @@ Report any issues on the [Lethal Company Modding Discord](https://discord.com/ch
     [X] Language strings
     [X] Code implementation
     [X] Fix Old Bird deaths
-    [] Implement cruiser
+    [X] Implement cruiser
     [X] Implement Kidnapper Fox
     [X] Implement Barber
 [] Implement localization modules

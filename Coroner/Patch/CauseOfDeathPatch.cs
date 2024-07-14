@@ -1047,84 +1047,127 @@ namespace Coroner.Patch
     [HarmonyPatch("DamagePlayerFromOtherClientClientRpc")]
     class PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch
     {
-        public static void Postfix(PlayerControllerB __instance, int damageAmount, Vector3 hitDirection, int playerWhoHit, int newHealthAmount)
+        // IL_021c: callvirt instance void GameNetcodeStuff.PlayerControllerB::DamagePlayer(int32, bool, bool, valuetype CauseOfDeath, int32, bool, valuetype [UnityEngine.CoreModule]UnityEngine.Vector3)
+        const string DAMAGE_PLAYER_SIGNATURE = "Void DamagePlayer(Int32, Boolean, Boolean, CauseOfDeath, Int32, Boolean, UnityEngine.Vector3)";
+
+        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator, MethodBase method)
         {
-            try
+            var code = new List<CodeInstruction>(instructions);
+
+            var codeToInjectDamage = BuildInstructionsToInsert(method);
+            if (codeToInjectDamage == null)
             {
-                Plugin.Instance.PluginLogger.LogDebug("Handling friendly fire damage...");
-                if (__instance == null)
+                Plugin.Instance.PluginLogger.LogError("Could not build instructions to insert in PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch! Safely aborting...");
+                return instructions;
+            }
+
+            // Search for where PlayerControllerB.DamagePlayer is called.
+            // Do this after the first insection is done.
+            int insertionIndexDamage = -1;
+            for (int i = 0; i < code.Count; i++)
+            {
+                CodeInstruction instruction = code[i];
+                if (instruction.opcode == OpCodes.Call && instruction.operand.ToString() == DAMAGE_PLAYER_SIGNATURE)
                 {
-                    Plugin.Instance.PluginLogger.LogWarning("Could not access victim after death!");
-                    return;
+                    insertionIndexDamage = i;
                 }
+            }
 
-                if (__instance.isPlayerDead)
+            if (insertionIndexDamage == -1)
+            {
+                Plugin.Instance.PluginLogger.LogError("Could not find PlayerControllerB.DamagePlayer call in PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch! Safely aborting...");
+                return instructions;
+            }
+            else
+            {
+                // Moment of truth.
+                Plugin.Instance.PluginLogger.LogDebug("Injecting patch into PlayerControllerB.DamagePlayerFromOtherClientClientRpc...");
+                code.InsertRange(insertionIndexDamage + 1, codeToInjectDamage);
+                Plugin.Instance.PluginLogger.LogDebug("Done.");
+
+            }
+
+            Plugin.Instance.PluginLogger.LogDebug("Done with all PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch patches.");
+            return code;
+        }
+
+        static List<CodeInstruction>? BuildInstructionsToInsert(MethodBase method)
+        {
+            var result = new List<CodeInstruction>();
+
+            var argumentIndex_self = 0; // Instance functions are just static functions where the first argument is `self`
+            var argumentIndex_damageAmount = 1;
+            var argumentIndex_hitDirection = 2;
+            var argumentIndex_playerWhoHit = 3;
+            var argumentIndex_newHealthAmount = 4;
+
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_self));
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_damageAmount));
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_hitDirection));
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_playerWhoHit));
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_newHealthAmount));
+
+            // IL_0180: call      void [Coroner]Coroner.Patch.PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch::MaybeRewriteCauseOfDeath(class GameNetcodeStuff.PlayerControllerB, float32)
+            result.Add(new CodeInstruction(OpCodes.Call, typeof(PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch).GetMethod(nameof(MaybeRewriteCauseOfDeath))));
+
+            return result;
+        }
+
+        public static void MaybeRewriteCauseOfDeath(PlayerControllerB targetPlayer, int damageAmount, Vector3 hitDirection, int playerWhoHit, int newHealthAmount) {
+            Plugin.Instance.PluginLogger.LogDebug($"Player damaged another player ${targetPlayer}({damageAmount}, {hitDirection}, {playerWhoHit}, {newHealthAmount})");
+            // Called when the player is DAMAGED by an explosion, but not necessarily killed.
+            if (targetPlayer.isPlayerDead) {
+                Plugin.Instance.PluginLogger.LogDebug($"Player died from friendly fire damage");
+                RewriteCauseOfDeath(targetPlayer, playerWhoHit);
+            } else {
+                Plugin.Instance.PluginLogger.LogDebug($"Player did not die from friendly fire (left at ${targetPlayer.health} health)");
+            }
+        }
+
+        public static void RewriteCauseOfDeath(PlayerControllerB targetPlayer, int playerWhoHitIndex)
+        {
+            PlayerControllerB playerWhoHit = StartOfRound.Instance.allPlayerScripts[playerWhoHitIndex];
+
+            if (targetPlayer == null) {
+                Plugin.Instance.PluginLogger.LogError("Damage from other client: victim is null!");
+            } else if (playerWhoHit == null) {
+                Plugin.Instance.PluginLogger.LogError("Damage from other client: attacker is null!");
+            } else {
+                Plugin.Instance.PluginLogger.LogDebug($"Player died from murder ({targetPlayer.causeOfDeath}), determining special cause of death...");
+
+                if (AdvancedDeathTracker.IsHoldingShotgun(playerWhoHit)) {
+                    Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Shotgun! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, AdvancedCauseOfDeath.Player_Murder_Shotgun);
+                }
+                else if (AdvancedDeathTracker.IsHoldingKnife(playerWhoHit))
                 {
-                    if (__instance.causeOfDeath == CauseOfDeath.Bludgeoning)
-                    {
-                        // NOTE: Bludgeoning is used for melee damage on all clients.
-                        PlayerControllerB murderer = StartOfRound.Instance.allPlayerScripts[playerWhoHit];
-
-                        if (murderer == null)
-                        {
-                            Plugin.Instance.PluginLogger.LogWarning("Player was murdered by another player but couldn't access the killer!");
-                            AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Bludgeoning);
-                            return;
-                        }
-                        else
-                        {
-
-                            if (AdvancedDeathTracker.IsHoldingKnife(murderer))
-                            {
-                                Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Knife! Setting special cause of death...");
-                                AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Knife);
-                            }
-                            else if (AdvancedDeathTracker.IsHoldingShovel(murderer))
-                            {
-                                Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Shovel! Setting special cause of death...");
-                                AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Shovel);
-                            }
-                            else if (AdvancedDeathTracker.IsHoldingStopSign(murderer))
-                            {
-                                Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Stop Sign! Setting special cause of death...");
-                                AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Stop_Sign);
-                            }
-                            else if (AdvancedDeathTracker.IsHoldingYieldSign(murderer))
-                            {
-                                Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Yield Sign! Setting special cause of death...");
-                                AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Yield_Sign);
-                            }
-                            else
-                            {
-                                Plugin.Instance.PluginLogger.LogWarning("Player was killed by someone else but we don't know what weapon! " + __instance.causeOfDeath);
-                                AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Unknown);
-                            }
-                        }
-                    }
-                    else if (__instance.causeOfDeath == CauseOfDeath.Gunshots)
-                    {
-                        Plugin.Instance.PluginLogger.LogDebug("Player was murdered by gunfire! Setting special cause of death...");
-                        AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Player_Murder_Shotgun);
-                    }
-                    else
-                    {
-                        Plugin.Instance.PluginLogger.LogWarning("Player was killed by someone else but we don't know how! " + __instance.causeOfDeath);
-                        AdvancedDeathTracker.SetCauseOfDeath(__instance, AdvancedCauseOfDeath.Unknown);
-                    }
+                    Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Knife! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, AdvancedCauseOfDeath.Player_Murder_Knife);
+                }
+                else if (AdvancedDeathTracker.IsHoldingShovel(playerWhoHit))
+                {
+                    Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Shovel! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, AdvancedCauseOfDeath.Player_Murder_Shovel);
+                }
+                else if (AdvancedDeathTracker.IsHoldingStopSign(playerWhoHit))
+                {
+                    Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Stop Sign! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, AdvancedCauseOfDeath.Player_Murder_Stop_Sign);
+                }
+                else if (AdvancedDeathTracker.IsHoldingYieldSign(playerWhoHit))
+                {
+                    Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Yield Sign! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, AdvancedCauseOfDeath.Player_Murder_Yield_Sign);
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
-                    return;
+                    Plugin.Instance.PluginLogger.LogWarning($"Player was killed by someone else, holding an unknown item {AdvancedDeathTracker.GetHeldObject(playerWhoHit)}! " + targetPlayer.causeOfDeath);
+                    AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, targetPlayer.causeOfDeath);
                 }
-            }
-            catch (System.Exception e)
-            {
-                Plugin.Instance.PluginLogger.LogError("Error in PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch.Postfix: " + e);
-                Plugin.Instance.PluginLogger.LogError(e.StackTrace);
             }
         }
     }
+
 
     // Player_Ladder
     [HarmonyPatch(typeof(ExtensionLadderItem))]
@@ -1221,7 +1264,8 @@ namespace Coroner.Patch
             {
                 // Moment of truth.
                 Plugin.Instance.PluginLogger.LogDebug("Injecting patch into VehicleController.DestroyCar...");
-                code.InsertRange(insertionIndex + 1, codeToInject);
+                // Inject BEFORE the KillPlayer rather than after, so they're still in the vehicle.
+                code.InsertRange(insertionIndex, codeToInject);
                 Plugin.Instance.PluginLogger.LogDebug("Done.");
 
                 return code;
@@ -1250,6 +1294,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogWarning("Could not get reference to vehicle...");
                 AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Explode_Bystander);
             } else {
+
                 Plugin.Instance.PluginLogger.LogDebug($"Got vehicle controller. ({vehicle.localPlayerInControl}, {vehicle.localPlayerInPassengerSeat})");
 
                 if (vehicle.localPlayerInControl) {
@@ -1261,6 +1306,15 @@ namespace Coroner.Patch
                     AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Explode_Bystander);
                 }
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(VehicleController))]
+    [HarmonyPatch("RemovePlayerControlOfVehicleClientRpc")]
+    class VehicleControllerRemovePlayerControlOfVehicleClientRpcPatch {
+
+        static void Postfix(VehicleController __instance, int playerId, bool setIgnitionStarted) {
+            Plugin.Instance.PluginLogger.LogDebug($"Removed player control of vehicle: {playerId} ({setIgnitionStarted})");
         }
     }
 
@@ -1377,7 +1431,7 @@ namespace Coroner.Patch
             // Called when the player is DAMAGED by a crash, but not necessarily killed.
             var targetPlayer = GameNetworkManager.Instance.localPlayerController;
             if (targetPlayer.isPlayerDead) {
-                Plugin.Instance.PluginLogger.LogDebug($"Player died from non-lethal car accident damage");
+                Plugin.Instance.PluginLogger.LogDebug($"Player died from car accident damage");
                 RewriteCauseOfDeath(vehicle);
             } else {
                 Plugin.Instance.PluginLogger.LogDebug($"Player did not die from car accident (left at ${targetPlayer.health} health)");
@@ -1406,7 +1460,6 @@ namespace Coroner.Patch
             }
         }
     }
-
 
     // Player_Cruiser_Ran_Over
     [HarmonyPatch(typeof(VehicleCollisionTrigger))]
@@ -1522,7 +1575,7 @@ namespace Coroner.Patch
             var targetPlayer = GameNetworkManager.Instance.localPlayerController;
             if (targetPlayer.isPlayerDead) {
                 if (targetPlayer.causeOfDeath == CauseOfDeath.Crushing) {
-                    Plugin.Instance.PluginLogger.LogDebug($"Player died from non-lethal car accident damage");
+                    Plugin.Instance.PluginLogger.LogDebug($"Player died from car accident damage");
                     RewriteCauseOfDeath();
                 } else {
                     Plugin.Instance.PluginLogger.LogWarning($"Player was hit by a car but died of something else? {targetPlayer.causeOfDeath}");
@@ -1540,7 +1593,6 @@ namespace Coroner.Patch
             AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Ran_Over);
         }
     }
-
 
     // =========
     // Other
@@ -1729,7 +1781,7 @@ namespace Coroner.Patch
         public static void MaybeRewriteCauseOfDeath(PlayerControllerB targetPlayer, float killRange) {
             // Called when the player is DAMAGED by an explosion, but not necessarily killed.
             if (targetPlayer.isPlayerDead) {
-                Plugin.Instance.PluginLogger.LogDebug($"Player died from non-lethal landmine damage");
+                Plugin.Instance.PluginLogger.LogDebug($"Player died from landmine damage");
                 RewriteCauseOfDeath(targetPlayer, killRange);
             } else {
                 Plugin.Instance.PluginLogger.LogDebug($"Player did not die from landmine (left at ${targetPlayer.health} health)");

@@ -141,7 +141,7 @@ namespace Coroner
             }
         }
 
-        static GrabbableObject? GetHeldObject(PlayerControllerB playerController)
+        public static GrabbableObject? GetHeldObject(PlayerControllerB playerController)
         {
             var heldObjectServer = playerController.currentlyHeldObjectServer;
             if (heldObjectServer == null) return null;
@@ -174,7 +174,7 @@ namespace Coroner
 
             if (heldObject is Shovel)
             {
-                if (heldObject.gameObject.name == "Shovel")
+                if (heldObject.gameObject.name.StartsWith("Shovel"))
                 {
                     return true;
                 }
@@ -189,7 +189,7 @@ namespace Coroner
 
             if (heldObject is Shovel)
             {
-                if (heldObject.gameObject.name == "StopSign")
+                if (heldObject.gameObject.name.StartsWith("StopSign"))
                 {
                     return true;
                 }
@@ -205,7 +205,7 @@ namespace Coroner
 
             if (heldObject is Shovel)
             {
-                if (heldObject.gameObject.name == "YieldSign")
+                if (heldObject.gameObject.name.StartsWith("YieldSign"))
                 {
                     return true;
                 }

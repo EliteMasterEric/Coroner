@@ -274,13 +274,13 @@
         <DeathPlayerEasterEgg text="Got blown up by an Easter Egg." />
         <DeathPlayerEasterEgg text="Had an Easter Egg thrown at them." />
 
-        <DeathPlayerCruiserDriver text="Died while driving the Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
+        <DeathPlayerCruiserDriver text="Got blown up by the Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
 
-        <DeathPlayerCruiserPassenger text="Died as a passenger in the Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the passenger seat. -->
+        <DeathPlayerCruiserPassenger text="Got blown up by the Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the passenger seat. -->
 
         <DeathPlayerCruiserExplodeBystander text="Got blown up by the Company Cruiser." /> <!-- TN: Occurs when near (but not seated in) the car as it explodes. -->
 
-        <DeathPlayerCruiserRanOver text="Got run over by the Company Cruiser." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
+        <DeathPlayerCruiserRanOver text="Got hit by the Company Cruiser." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
 
         <DeathOtherItemDropship text="Was crushed by the Item Dropship." /> <!-- TN: Used when a player stands underneath the Item Dropship and gets crushed. -->
         <DeathOtherItemDropship text="Couldn't wait for their items." />

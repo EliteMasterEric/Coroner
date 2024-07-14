@@ -9,12 +9,15 @@ This update represents a major refactor of Coroner's codebase.
 - Split up causes of death for coworkers murdering with different weapons into different types (for example, Stop Signs vs Knives).
 - Added a documented `Coroner.API` class to make it easy for mods to add their own integrations.
     - NOTE: This feature is not currently 100% complete as mods cannot display their own custom causes of death right now.
+- Added a `test` language which displays generic death messages for debugging purposes.
 ## Changed
 - Replaced `LC_API` with `StaticNetcodeLib` for more reliable, less bloated networking that doesn't depend on an outdated library.
 ## Removed
 - Removed all languages except for English, due to the other languages now having missing causes of death. A long-term solution for this problem will come later.
 ## Fixed
 - Fixed a bug where leaving the game before the Performance Report and then joining a new lobby would not clear causes of death, resulting in incorrect causes of death being displayed later.
+## Known Issues
+- Coroner may sometimes fail to distinguish between the driver and passenger of the Company Cruiser.
 
 # 1.6.2
 ## Fixed
