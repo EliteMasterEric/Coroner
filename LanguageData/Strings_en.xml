@@ -75,10 +75,22 @@
         <DeathDrowning text="Drowned to death." />
 
         <DeathAbandoned text="Abandoned by their coworkers." />
+        <DeathAbandoned text="Found out there's no 'I' in TEAM." />
 
         <DeathElectrocution text="Electrocuted to death." />
 
         <DeathKicking text="Kicked to death." />
+
+        <DeathBurning text="Burned to death." />
+
+        <DeathStabbing text="Stabbed to death." />
+
+        <DeathFan text="Shredded by a fan." />
+        <DeathFan text="Became death's biggest fan." />
+
+        <DeathInertia text="Died to inertia." />
+
+        <DeathSnipped text="Snipped to death." />
 
         <!-- 
             TN: Enemy Death Messages
@@ -93,7 +105,10 @@
         <DeathEnemyEyelessDog text="Got caught using a mechanical keyboard." />
         <DeathEnemyEyelessDog text="Wasn't quiet around an Eyeless Dog." />
 
-        <DeathEnemyForestGiant text="Swallowed whole by a Forest Giant." />
+        <DeathEnemyForestGiantEaten text="Swallowed whole by a Forest Giant." />
+        <DeathEnemyForestGiantEaten text="Made like a tree and died to a Forest Giant." /> <!-- TN: Make like a tree and leave. -->
+
+        <DeathEnemyForestGiantDeath text="Crushed under a dying Forest Giant." /> <!-- TN: Forest Giants crush nearby players as they play their death animation. -->
 
         <DeathEnemyCircuitBees text="Electro-stung to death by Circuit Bees." />
 
@@ -106,6 +121,7 @@
 
         <DeathEnemyBaboonHawk text="Was eaten by a Baboon Hawk." />
         <DeathEnemyBaboonHawk text="Was mauled by a Baboon Hawk." />
+        <DeathEnemyBaboonHawk text="Ganged up on by Baboon Hawks." />
 
         <DeathEnemyJester text="Mauled to death by a Jester." />
         <DeathEnemyJester text="Was the butt of the Jester's joke." />
@@ -117,6 +133,7 @@
         <DeathEnemyCoilHead text="Lost a staring contest with a Coil Head." />
 
         <DeathEnemySnareFlea text="Was suffocated by a Snare Flea." />
+        <DeathEnemySnareFlea text="Made their best HL1 Scientist impression." /> <!-- TN: Half-Life 1 features headcrabs. -->
 
         <DeathEnemyHygrodere text="Was absorbed by a Hygrodere." />
         <DeathEnemyHygrodere text="Got lost in the sauce." />
@@ -126,6 +143,8 @@
         <DeathEnemyHoarderBug text="Was swarmed by a Hoarder Bug." />
         <DeathEnemyHoarderBug text="Was hoarded by a Hoarder Bug." />
         <DeathEnemyHoarderBug text="Tried to steal from a Hoarder Bug." />
+
+        <DeathEnemyLassoMan text="Was lassoed by a Lasso Man." />
 
         <DeathEnemySporeLizard text="Was bitten by a Spore Lizard." />
         <DeathEnemySporeLizard text="Was puffed by a Spore Lizard." />
@@ -144,15 +163,58 @@
         <DeathEnemyMaskedPlayerWear text="Donned the Mask." /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
         <DeathEnemyMaskedPlayerWear
             text="Nobody cared who they were until they put on the Mask." /> <!-- TN: The Dark Knight Rises reference -->
+        <DeathEnemyMaskedPlayerWear text="Became the Imposter." /> <!-- TN: Among Us reference -->
 
         <DeathEnemyMaskedPlayerVictim text="Was killed by a Masked coworker." /> <!-- TN: Message used when a Masked Player (even one that spawned naturally) attacks and kills a player. -->
         <DeathEnemyMaskedPlayerVictim text="Became a tragedy at the hands of the Mask." /> <!-- TN: A reference to the Tragedy Mask that transforms players who pick it up. -->
+        <DeathEnemyMaskedPlayerVictim text="Stabbed by an Imposter." /> <!-- TN: Among Us reference -->
+        <DeathEnemyMaskedPlayerVictim text="Died to the imposter among us." /> <!-- TN: Among Us reference -->
 
         <DeathEnemyNutcrackerKicked text="Was kicked to death by a Nutcracker." /> <!-- TN: Used when a Nutcracker kills a player that happens to walk in its path -->
         <DeathEnemyNutcrackerKicked text="Got their nuts cracked by a Nutcracker." />
 
         <DeathEnemyNutcrackerShot text="Got shot by a Nutcracker." /> <!-- TN: Used when a nutcracker -->
         <DeathEnemyNutcrackerShot text="Was at the wrong end of a 21-gun salute." />
+
+        <!-- 
+            TN: v50 Enemy Death Messages
+            Messages used for enemies added in v50.
+        -->
+
+        <DeathEnemyButlerStab text="Stabbed to death by the Butler." />
+        <DeathEnemyButlerStab text="Got too close to the Butler." />
+        <DeathEnemyButlerStab text="Shouldn't have asked Jeeves." /> <!-- TN: AskJeeves -->
+        
+        <DeathEnemyButlerExplode text="Blown up by the Butler." />
+        
+        <DeathEnemyMaskHornets text="Stung to death by Mask Hornets." /> <!-- TN: Spawned when the Butler dies. -->
+        
+        <DeathEnemyTulipSnakeDrop text="Dropped by a Tulip Snake." /> <!-- TN: When the player dies of fall damage due to a Tulip Snake. -->
+                
+        <DeathEnemyOldBirdRocket text="Blown up by an Old Bird." />
+        <DeathEnemyOldBirdRocket text="Woke the baby." /> <!-- TN: Old Bird makes a crying sound. -->
+        <DeathEnemyOldBirdRocket text="Didn't get in the robot." /> <!-- TN: Evangelion meme -->
+        
+        <DeathEnemyOldBirdStomp text="Stomped by an Old Bird." />
+        <DeathEnemyOldBirdStomp text="Got their butt kicked by the robot." />
+        
+        <DeathEnemyOldBirdCharge text="Got too close to a charging Old Bird." />
+        <DeathEnemyOldBirdCharge text="Found out why Embrion is condemned." /> <!-- TN: See Old Bird Bestiary entry. -->
+        
+        <DeathEnemyOldBirdTorch text="Got torched by an Old Bird." />
+        <DeathEnemyOldBirdTorch text="Got flambéed by an Old Bird." /> <!-- TN: Flambée: To douse with a liquor and ignite. -->
+        
+        <!-- 
+            TN: v55 Enemy Death Messages
+            Messages used for enemies added in v55.
+        -->
+
+        <DeathEnemyKidnapperFox text="Was mauled by a Kidnapper Fox." />
+        <DeathEnemyKidnapperFox text="Dragged into the Vain Shroud by a Fox." />
+
+        <DeathEnemyBarber text="Was snipped by the Barber." />
+        <DeathEnemyBarber text="Was snipped in half by the Barber." />
+        <DeathEnemyBarber text="Had a little too much taken off the top." />
 
         <!-- 
             TN: Player Death Messages
@@ -167,16 +229,38 @@
         <DeathPlayerJetpackBlast text="Blew up while using a Jetpack." /> <!-- TN: Message used when the player uses the jetpack too long and it explodes. -->
         <DeathPlayerJetpackBlast text="Turned into a firework." />
 
-        <DeathPlayerMurderMelee text="Was bludgeoned to death by a coworker." /> <!-- TN: Used when a player kills another player with a shovel. -->
-        <DeathPlayerMurderMelee text="Was the victim of a murder." />
-        <DeathPlayerMurderMelee text="Got murdered." />
-        <DeathPlayerMurderMelee text="Got backstabbed by a coworker." />
+        <DeathPlayerMurderShovel text="Was beaten with a Shovel by a coworker." /> <!-- TN: Used when a player kills another player with a shovel. -->
+        <DeathPlayerMurderShovel text="Was the victim of a murder." />
+        <DeathPlayerMurderShovel text="Got murdered." />
+        <DeathPlayerMurderShovel text="Got beaten to death by a coworker." />
+        <DeathPlayerMurderShovel text="Had their grave dug by a coworker." />
+        <DeathPlayerMurderShovel text="A coworker dug their grave." />
+
+        <DeathPlayerMurderStopSign text="Was beaten with a Stop Sign by a coworker." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
+        <DeathPlayerMurderStopSign text="Was the victim of a murder." />
+        <DeathPlayerMurderStopSign text="Got murdered." />
+        <DeathPlayerMurderStopSign text="Got beaten to death by a coworker." />
+        <DeathPlayerMurderStopSign text="Was forced to stop by a coworker." />
+        <DeathPlayerMurderStopSign text="Budgeoned by eight fantastic sides." /> <!-- TN: Jack Black's Octagon -->
+        <DeathPlayerMurderStopSign text="Budgeoned by eight awesome angles." /> <!-- TN: Jack Black's Octagon -->
+
+        <DeathPlayerMurderYieldSign text="Was beaten with a Yield Sign by a coworker." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
+        <DeathPlayerMurderYieldSign text="Was the victim of a murder." />
+        <DeathPlayerMurderYieldSign text="Got murdered." />
+        <DeathPlayerMurderYieldSign text="Got beaten to death by a coworker." />
+        <DeathPlayerMurderYieldSign text="Failed to yield to a coworker." />
+
+        <DeathPlayerMurderKnife text="Was stabbed to death by a coworker." /> <!-- TN: Used when a player kills another player with a knife. -->
+        <DeathPlayerMurderKnife text="Was the victim of a murder." />
+        <DeathPlayerMurderKnife text="Got murdered." />
+        <DeathPlayerMurderKnife text="Got backstabbed by a coworker." />
+        <DeathPlayerMurderKnife text="Gutted like a cornish game hen." /> <!-- TN: Team Fortress 2 reference -->
 
         <DeathPlayerMurderShotgun text="Was shot to death by a coworker." /> <!-- TN: Used when a player kills another player with the Nutcracker's shotgun. -->
         <DeathPlayerMurderShotgun text="Was the victim of a murder." />
         <DeathPlayerMurderShotgun text="Got murdered." />
         <DeathPlayerMurderShotgun text="Got one-pumped by a coworker." />
-        <DeathPlayerMurderShotgun text="Got 360-noscoped by a coworker." />
+        <DeathPlayerMurderShotgun text="Got 360-noscoped by a coworker." /> <!-- TN: Call of Duty reference -->
 
         <DeathPlayerLadder text="Got crushed by an Extension Ladder." /> <!-- TN: Used when a player stands underneath an Extension Ladder and gets crushed. -->
         <DeathPlayerLadder text="Was squashed by an Extension Ladder." />
@@ -187,9 +271,27 @@
         <DeathPlayerStunGrenade text="Held a Stun Grenade for too long." /> <!-- TN: Yes, the stun grenade can do damage, but only if you're holding it when it goes off. -->
         <DeathPlayerStunGrenade text="Was absolutely stunning." />
 
+        <DeathPlayerEasterEgg text="Got blown up by an Easter Egg." />
+        <DeathPlayerEasterEgg text="Had an Easter Egg thrown at them." />
+
+        <DeathPlayerCruiserDriver text="Got blown up by the Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
+
+        <DeathPlayerCruiserPassenger text="Got blown up by the Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the passenger seat. -->
+
+        <DeathPlayerCruiserExplodeBystander text="Got blown up by the Company Cruiser." /> <!-- TN: Occurs when near (but not seated in) the car as it explodes. -->
+
+        <DeathPlayerCruiserRanOver text="Got hit by the Company Cruiser." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
+
         <DeathOtherItemDropship text="Was crushed by the Item Dropship." /> <!-- TN: Used when a player stands underneath the Item Dropship and gets crushed. -->
         <DeathOtherItemDropship text="Couldn't wait for their items." />
         <DeathOtherItemDropship text="Got too impatient for their items." />
+
+        <DeathOtherFacilityPit text="Fell into a pit." /> <!-- TN: Used for facility-specific falling deaths. -->
+        <DeathOtherFacilityPit text="Died in a pit." />
+        <DeathOtherFacilityPit text="Took a leap of faith, and lost." />
+
+        <DeathOtherSpikeTrap text="Crushed by a Spike Trap." />
+        <DeathOtherSpikeTrap text="Was turned into a pancake." />
 
         <!--
             TN: Messages for the tentacle that kills players at the company building.
@@ -198,12 +300,18 @@
         <DeathOtherDepositItemsDesk text="Received a demotion." />
         <DeathOtherDepositItemsDesk text="Was put on disciplinary leave." />
 
-
         <DeathOtherLandmine text="Stepped on a landmine." />
 
         <DeathOtherTurret text="Got shot by a turret." />
 
         <DeathOtherLightning text="Was struck by lightning." />
+
+        <!--
+            TN: When the player clips out of the map while in the Facility.
+            If they fall out of the map while outside the facility, they teleport back.
+        -->
+        <DeathOtherOutOfBounds text="Fell out of the world." />
+        <DeathOtherOutOfBounds text="Noclipped into the Backrooms." />
 
         <DeathUnknown text="Died somehow." />
         <DeathUnknown text="Most sincerely dead." /> <!-- TN: Wizard of Oz reference -->
