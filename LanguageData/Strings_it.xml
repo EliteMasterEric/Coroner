@@ -75,10 +75,22 @@
         <DeathDrowning text="Morto annegato." />
 
         <DeathAbandoned text="Abbandonato dai colleghi." />
+        <DeathAbandoned text="Ha scoperto che non c'è la 'I' in Squadra." />
 
         <DeathElectrocution text="Folgorato a morte." />
 
-        <DeathKicking text="Preso a calci." />
+        <DeathKicking text="Preso a calci fino alla morte." />
+
+        <DeathBurning text="Bruciato vivo." />
+
+        <DeathStabbing text="Pugnalato a morte." />
+
+        <DeathFan text="Sminuzzato da una ventola." />
+        <DeathFan text="Diventato il fan numero uno della morte." />
+
+        <DeathInertia text="Morto per inerzia." />
+
+        <DeathSnipped text="Tagliato a morte." />
 
         <!-- 
             TN: Enemy Death Messages
@@ -94,29 +106,34 @@
         <DeathEnemyEyelessDog text="Non è stato in silenzio vicino ad un Cane Talpa." />
 
         <DeathEnemyForestGiant text="Ingoiato da un Gigante della Foresta." />
+        <DeathEnemyForestGiantEaten text="Ha fatto come un albero ed è morto per colpa di un Gigante della Foresta." /> <!-- TN: Make like a tree and leave. -->
+
+        <DeathEnemyForestGiantDeath text="Schiacciato sotto un gigante della foresta morente." /> <!-- TN: Forest Giants crush nearby players as they play their death animation. -->
 
         <DeathEnemyCircuitBees text="Punto e folgorato a morte dalle Api Elettriche." />
 
         <DeathEnemyGhostGirl text="Morto misteriosamente." />
         <DeathEnemyGhostGirl text="Ha perso la testa." />
-        <DeathEnemyGhostGirl text="Gli è venuto un brutto mal di testa." />
+        <DeathEnemyGhostGirl text="Gli è venuto un brutto mal di testa." /> <!-- TN: The Ghost Girl causes the player's head to explode. -->
         <DeathEnemyGhostGirl text="???" />
 
         <DeathEnemyEarthLeviathan text="Ingoiato in un sol boccone da un Leviatano Terrestre." />
 
         <DeathEnemyBaboonHawk text="Mangiato da un Falcuìno." />
         <DeathEnemyBaboonHawk text="Sbranato da un Falcuìno." />
+        <DeathEnemyBaboonHawk text="Ucciso da un gruppo di Falcuìni." />
 
         <DeathEnemyJester text="Sbranato da un Giullare." />
         <DeathEnemyJester text="Era il bersaglio dello scherzo del Giullare." />
         <DeathEnemyJester text="Il Giullare gli ha fatto uno scherzo." />
-        <DeathEnemyJester text="Gli hanno fatto cucùsettete." />
+        <DeathEnemyJester text="Gli hanno fatto cucùsettete." /> <!-- TN: "Pop Goes The Weasel" is the song used by Jack-in-the-box toys. -->
 
         <DeathEnemyCoilHead text="Sbranato da un Testa-Molla." />
         <DeathEnemyCoilHead text="Ha partecipato ad una gara di sguardi con un Testa-Molla." />
         <DeathEnemyCoilHead text="Ha perso la gara di sguardi con un Testa-Molla." />
 
         <DeathEnemySnareFlea text="Soffocato da un Intrappolatore Strisciante." />
+        <DeathEnemySnareFlea text="Ha fatto un'ottima imitazione dello scienziato di HL1." /> <!-- TN: Half-Life 1 features headcrabs. -->
 
         <DeathEnemyHygrodere text="Assorbito da un Igrodera." />
         <DeathEnemyHygrodere text="Annegato nella pozzanghera." />
@@ -126,6 +143,8 @@
         <DeathEnemyHoarderBug text="Assalito da una Mosca Accumulatrice." />
         <DeathEnemyHoarderBug text="Aggredito da una Mosca Accumulatrice." />
         <DeathEnemyHoarderBug text="Ha provato a derubare una Mosca Accumulatrice." />
+
+        <DeathEnemyLassoMan text="Preso al lasso dall'uomo lasso." />
 
         <DeathEnemySporeLizard text="Morso da una Lucertola Soffiante." />
         <DeathEnemySporeLizard text="Soffocato da una Lucertola Soffiante." />
@@ -144,9 +163,12 @@
         <DeathEnemyMaskedPlayerWear text="Ha indossato la maschera." />
         <DeathEnemyMaskedPlayerWear
             text="A nessuno importava chi fossero finché non hanno indossato la maschera." />
+        <DeathEnemyMaskedPlayerWear text="Became the Imposter." /> <!-- TN: Among Us reference -->
 
         <DeathEnemyMaskedPlayerVictim text="Ucciso da un collega mascherato." />
         <DeathEnemyMaskedPlayerVictim text="Finì in tragedia a causa di una maschera." />
+        <DeathEnemyMaskedPlayerVictim text="Pugnalato da un Impostore." /> <!-- TN: Among Us reference -->
+        <DeathEnemyMaskedPlayerVictim text="Morto per causa dell'impostore fra di noi." /> <!-- TN: Among Us reference -->
 
         <DeathEnemyNutcrackerKicked text="Si è preso un calcio dallo Schiaccianoci." />
         <DeathEnemyNutcrackerKicked text="Si è fatto schiacciare le noci dallo Schiaccianoci." />
@@ -156,56 +178,143 @@
 
         <!-- 
             TN: Player Death Messages
+            Messages used for enemies added in v50.
+        -->
+
+        <DeathEnemyButlerStab text="Stabbed to death by the Butler." />
+        <DeathEnemyButlerStab text="Got too close to the Butler." />
+        <DeathEnemyButlerStab text="Shouldn't have asked Jeeves." /> <!-- TN: AskJeeves -->
+        
+        <DeathEnemyButlerExplode text="Blown up by the Butler." />
+        
+        <DeathEnemyMaskHornets text="Stung to death by Mask Hornets." /> <!-- TN: Spawned when the Butler dies. -->
+        
+        <DeathEnemyTulipSnakeDrop text="Dropped by a Tulip Snake." /> <!-- TN: When the player dies of fall damage due to a Tulip Snake. -->
+                
+        <DeathEnemyOldBirdRocket text="Blown up by an Old Bird." />
+        <DeathEnemyOldBirdRocket text="Woke the baby." /> <!-- TN: Old Bird makes a crying sound. -->
+        <DeathEnemyOldBirdRocket text="Didn't get in the robot." /> <!-- TN: Evangelion meme -->
+        
+        <DeathEnemyOldBirdStomp text="Stomped by an Old Bird." />
+        <DeathEnemyOldBirdStomp text="Got their butt kicked by the robot." />
+        
+        <DeathEnemyOldBirdCharge text="Got too close to a charging Old Bird." />
+        <DeathEnemyOldBirdCharge text="Found out why Embrion is condemned." /> <!-- TN: See Old Bird Bestiary entry. -->
+        
+        <DeathEnemyOldBirdTorch text="Got torched by an Old Bird." />
+        <DeathEnemyOldBirdTorch text="Got flambéed by an Old Bird." /> <!-- TN: Flambée: To douse with a liquor and ignite. -->
+        
+        <!-- 
+            TN: v55 Enemy Death Messages
+            Messages used for enemies added in v55.
+        -->
+
+        <DeathEnemyKidnapperFox text="Was mauled by a Kidnapper Fox." />
+        <DeathEnemyKidnapperFox text="Dragged into the Vain Shroud by a Fox." />
+
+        <DeathEnemyBarber text="Was snipped by the Barber." />
+        <DeathEnemyBarber text="Was snipped in half by the Barber." />
+        <DeathEnemyBarber text="Had a little too much taken off the top." />
+
+        <!-- 
+            TN: Player Death Messages
             These are messages for when the player dies due to player-related means,
             such as murder or using an item improperly.
         -->
 
-        <DeathPlayerJetpackGravity text="Caduto mentre utilizzava il jetpack." />
-        <DeathPlayerJetpackGravity text="Ha volato troppo vicino al sole." />
+        <DeathPlayerJetpackGravity text="Caduto mentre utilizzava un jetpack." /> <!-- TN: Message used when the player dies of fall damage while holding a jetpack. -->
+        <DeathPlayerJetpackGravity text="Volato troppo vicino al sole." /> <!-- TN: Reference to Icarus of Greek mythology -->
         <DeathPlayerJetpackGravity text="Ha finito il carburante." />
 
-        <DeathPlayerJetpackBlast text="Esploso mentre utilizzava il Jetpack." />
-        <DeathPlayerJetpackBlast text="Trasformato in un fuoco d'artificio." />
+        <DeathPlayerJetpackBlast text="Saltato in aria mentre utilizzava un Jetpack." /> <!-- TN: Message used when the player uses the jetpack too long and it explodes. -->
+        <DeathPlayerJetpackBlast text="Si è trasformato in un fuoco d'artificio." />
 
-        <DeathPlayerMurderMelee text="Picchiato a morte da un collega." />
-        <DeathPlayerMurderMelee text="Vittima di un omicidio." />
-        <DeathPlayerMurderMelee text="Assassinato." />
-        <DeathPlayerMurderMelee text="Pugnalato alle spalle da un collega." />
+        <DeathPlayerMurderShovel text="Picchiato con una pala da un collega." /> <!-- TN: Used when a player kills another player with a shovel. -->
+        <DeathPlayerMurderShovel text="Vittima di un omicidio." />
+        <DeathPlayerMurderShovel text="Assassinato." />
+        <DeathPlayerMurderShovel text="Picchiato a morte da un collega." />
+        <DeathPlayerMurderShovel text="Si è fatto scavare la tomba da un collega." />
+        <DeathPlayerMurderShovel text="Un collega ha scavato la sua tomba." />
 
-        <DeathPlayerMurderShotgun text="Colpito a morte da un collega." />
+        <DeathPlayerMurderStopSign text="Picchiato con un segnale di stop da un collega." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
+        <DeathPlayerMurderStopSign text="Vittima di un omicidio." />
+        <DeathPlayerMurderStopSign text="Assassinato." />
+        <DeathPlayerMurderStopSign text="Picchiato a morte da un collega." />
+        <DeathPlayerMurderStopSign text="Un collega lo ha costretto a fermarsi." />
+        <DeathPlayerMurderStopSign text="Colpito da otto fantastici lati." /> <!-- TN: Jack Black's Octagon -->
+        <DeathPlayerMurderStopSign text="Colpito da otto fantastici angoli." /> <!-- TN: Jack Black's Octagon -->
+
+        <DeathPlayerMurderYieldSign text="Picchiato con un cartello di divieto di accesso da un collega." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
+        <DeathPlayerMurderYieldSign text="Vittima di un omicidio." />
+        <DeathPlayerMurderYieldSign text="Assassinato." />
+        <DeathPlayerMurderYieldSign text="Picchiato da un collega." />
+        <DeathPlayerMurderYieldSign text="Ha ceduto a un collega." />
+
+        <DeathPlayerMurderKnife text="Pugnalato a morte da un collega." /> <!-- TN: Used when a player kills another player with a knife. -->
+        <DeathPlayerMurderKnife text="Vittima di un omicidio." />
+        <DeathPlayerMurderKnife text="Assassinato." />
+        <DeathPlayerMurderKnife text="Pugnalata alle spalle da un collega." />
+        <DeathPlayerMurderKnife text="Eviscerato come una gallina di campagna." /> <!-- TN: Team Fortress 2 reference -->
+
+        <DeathPlayerMurderShotgun text="È stato colpito a morte da un collega." /> <!-- TN: Used when a player kills another player with the Nutcracker's shotgun. -->
         <DeathPlayerMurderShotgun text="Vittima di un omicidio." />
         <DeathPlayerMurderShotgun text="Assassinato." />
-        <DeathPlayerMurderShotgun text="Un suo collega lo ha colpito con il fucile." />
-        <DeathPlayerMurderShotgun text="Un suo collega ha fatto un 360-noscope." />
+        <DeathPlayerMurderShotgun text="Un collega lo ha colpito col fucile." />
+        <DeathPlayerMurderShotgun text="Ha ricevuto un 360-noscope da un collega." /> <!-- TN: Call of Duty reference -->
 
-        <DeathPlayerQuicksand text="Ha trovato delle sabbie mobili." />
+        <DeathPlayerLadder text="Schiacciato da una scala allungabile." /> <!-- TN: Used when a player stands underneath an Extension Ladder and gets crushed. -->
+        <DeathPlayerLadder text="Schiacciato da una scala estraibile." />
+
+        <DeathPlayerQuicksand text="Rimasto incastrato nelle sabbie mobili." />
         <DeathPlayerQuicksand text="Annegato nelle sabbie mobili." />
 
-        <DeathPlayerStunGrenade text="Accecato da un collega." />
-        <DeathPlayerStunGrenade text="Vittima di un omicidio." />
+        <DeathPlayerStunGrenade text="Ha tenuto una granata stordente troppo a lungo." /> <!-- TN: Yes, the stun grenade can do damage, but only if you're holding it when it goes off. -->
+        <DeathPlayerStunGrenade text="Era assolutamente stupefacente." />
 
-        <DeathOtherDepositItemsDesk text="Ha ricevuto una retrocessione." />
-        <DeathOtherDepositItemsDesk text="Messo in congedo disciplinare." />
+        <DeathPlayerEasterEgg text="Fatto esplodere da un Uovo di Pasqua." />
+        <DeathPlayerEasterEgg text="Gli è stato tirato addosso un Uovo di Pasqua." />
 
-        <DeathOtherItemDropship text="Schiacciato dalla Navicella di Consegna." />
-        <DeathOtherItemDropship text="Non vedeva l'ora che arrivasse la consegna." />
-        <DeathOtherItemDropship text="Troppo impaziente per la consegna." />
+        <DeathPlayerCruiserDriver text="Saltato in aria a causa dell'incrociatore della Compagnia." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
+
+        <DeathPlayerCruiserPassenger text="Saltato in aria a causa dell'incrociatore della Compagnia." /> <!-- TN: Occurs on explosion or severe impacts while in the passenger seat. -->
+
+        <DeathPlayerCruiserExplodeBystander text="Saltato in aria a causa dell'incrociatore della Compagnia." /> <!-- TN: Occurs when near (but not seated in) the car as it explodes. -->
+
+        <DeathPlayerCruiserRanOver text="Colpito dall'incrociatore della Compagnia." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
+
+        <DeathOtherItemDropship text="È stato schiacciato dalla Capsula degli oggetti." /> <!-- TN: Used when a player stands underneath the Item Dropship and gets crushed. -->
+        <DeathOtherItemDropship text="Non vedeva l'ora di avere i suoi oggetti." />
+        <DeathOtherItemDropship text="Troppo impaziente." />
+
+        <DeathOtherFacilityPit text="Caduto in una fossa." /> <!-- TN: Used for facility-specific falling deaths. -->
+        <DeathOtherFacilityPit text="Morto in una fossa." />
+        <DeathOtherFacilityPit text="Ha fatto il saldo della fede, e ha fallito." />
+
+        <DeathOtherSpikeTrap text="Schiacciato da una trappola a spuntoni." />
+        <DeathOtherSpikeTrap text="Trasformato in un pancake." />
 
         <!--
             TN: Messages for the tentacle that kills players at the company building.
             Performance reports don't show up at the company building so this is unused.
         -->
-        <DeathOtherDepositItemsDesk text="Ha ricevuto una retrocessione." />
-        <DeathOtherDepositItemsDesk text="È stato messo in congedo disciplinare." />
+        <DeathOtherDepositItemsDesk text="Degradato." />
+        <DeathOtherDepositItemsDesk text="Messo in congedo disciplinare." />
 
-        <DeathOtherLandmine text="Inciampato su una mina." />
+        <DeathOtherLandmine text="Ha camminato su una mina." />
 
         <DeathOtherTurret text="Ucciso da una torretta." />
 
         <DeathOtherLightning text="Colpito da un fulmine." />
 
-        <DeathUnknown text="In qualche modo è morto." />
-        <DeathUnknown text="Sinceramente morto." />
-        <DeathUnknown text="Scomparso in modo inspiegabile." />
+        <!--
+            TN: When the player clips out of the map while in the Facility.
+            If they fall out of the map while outside the facility, they teleport back.
+        -->
+        <DeathOtherOutOfBounds text="Caduto fuori dal mondo." />
+        <DeathOtherOutOfBounds text="Noclippato nelle Backroom." />
+
+        <DeathUnknown text="Morto in qualche modo." />
+        <DeathUnknown text="Sinceramente morto." /> <!-- TN: Wizard of Oz reference -->
+        <DeathUnknown text="Morto in modo inspiegabile." />
     </strings>
 </base>
