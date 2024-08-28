@@ -508,6 +508,34 @@ namespace Coroner.Patch
         }
     }
 
+    // Enemy_Maneater
+    [HarmonyPatch(typeof(CaveDwellerAI))]
+    [HarmonyPatch("killAnimation")]
+    class CaveDwellerAIKillAnimationPatch
+    {
+        public static void Postfix(CaveDwellerAI __instance, PlayerControllerB killingPlayer)
+        {
+            try
+            {
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after Maneater mauling...");
+
+                if (killingPlayer == null)
+                {
+                    Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
+                    return;
+                }
+
+                Plugin.Instance.PluginLogger.LogDebug("Player was killed by Maneater! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(killingPlayer, AdvancedCauseOfDeath.Enemy_Maneater);
+            }
+            catch (System.Exception e)
+            {
+                Plugin.Instance.PluginLogger.LogError("Error in CaveDwellerAIKillAnimationPatch.Postfix: " + e);
+                Plugin.Instance.PluginLogger.LogError(e.StackTrace);
+            }
+        }
+    }
+
     // Enemy_SnareFlea
     [HarmonyPatch(typeof(CentipedeAI))]
     [HarmonyPatch("DamagePlayerOnIntervals")]
@@ -2238,7 +2266,7 @@ namespace Coroner.Patch
                 {
                     Plugin.Instance.PluginLogger.LogDebug("Player died to KillPlayerTrigger(Gravity)! Setting special cause of death...");
                     // I believe the only KillTriggers which use this are pits in the facility.
-                    AdvancedDeathTracker.SetCauseOfDeath(playerWhoTriggered, AdvancedCauseOfDeath.Other_Facility_Pit);
+                    AdvancedDeathTracker.SetCauseOfDeath(playerWhoTriggered, DistinguishGravityKillTrigger(__instance));
                 }
                 else if (__instance.causeOfDeath == AdvancedCauseOfDeath.Fan)
                 {
@@ -2257,6 +2285,43 @@ namespace Coroner.Patch
             {
                 Plugin.Instance.PluginLogger.LogError("Error in KillLocalPlayerStartPatch.Postfix: " + e);
                 Plugin.Instance.PluginLogger.LogError(e.StackTrace);
+            }
+        }
+
+        public static AdvancedCauseOfDeath DistinguishGravityKillTrigger(KillLocalPlayer __instance) {
+            var instanceGameObject = __instance.gameObject;
+            var instanceParent = __instance.gameObject.transform.parent;
+
+            if (instanceGameObject == null || instanceParent == null) {
+                Plugin.Instance.PluginLogger.LogError("Could not fetch GameObject or parent from KillLocalPlayer.");
+                return AdvancedCauseOfDeath.Pit_Generic;
+            }
+
+            var name = instanceParent.name.Replace("(Clone)", "");
+            switch (name) {
+                case "4x4BigStairTile": // Facility stairway with protected pit
+                    return AdvancedCauseOfDeath.Pit_Facility_Pit;
+                case "CatwalkTile2x1": // Facility protected catwalk
+                    return AdvancedCauseOfDeath.Pit_Facility_Pit;
+                case "CatwalkTile2x1Split": // Facility, the infamous "jump"
+                    return AdvancedCauseOfDeath.Pit_Facility_Catwalk_Jump;
+                case "LargeForkTileB": // U-shaped room in the facility
+                    return AdvancedCauseOfDeath.Pit_Facility_Pit;
+                case "SmallStairTile": // Spiral stairs in the facility
+                    return AdvancedCauseOfDeath.Pit_Facility_Pit;
+                
+                case "CaveForkStairTile": // Cave in the Mines
+                    return AdvancedCauseOfDeath.Pit_Mine_Cave;
+                case "CaveLongRampTile": // Cave in the Mines
+                    return AdvancedCauseOfDeath.Pit_Mine_Cave;
+                case "DeepShaftTile": // Mines with protected pit
+                    return AdvancedCauseOfDeath.Pit_Mine_Pit;
+                case "MineshaftStartTile": // The elevator in the mines
+                    return AdvancedCauseOfDeath.Pit_Mine_Elevator;
+
+                default:
+                    Plugin.Instance.PluginLogger.LogError($"Could not identify KillTrigger parent by name (got {name}).");
+                    return AdvancedCauseOfDeath.Pit_Generic;
             }
         }
     }

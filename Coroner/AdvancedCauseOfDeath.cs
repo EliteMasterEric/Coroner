@@ -350,6 +350,9 @@ namespace Coroner
         public static AdvancedCauseOfDeath Enemy_KidnapperFox = Build(LanguageHandler.TAG_DEATH_ENEMY_KIDNAPPER_FOX);
         public static AdvancedCauseOfDeath Enemy_Barber = Build(LanguageHandler.TAG_DEATH_ENEMY_BARBER);
 
+        // Enemies from v60
+        public static AdvancedCauseOfDeath Enemy_Maneater = Build(LanguageHandler.TAG_DEATH_ENEMY_MANEATER);
+
         // Custom causes (player)
         public static AdvancedCauseOfDeath Player_Jetpack_Gravity = Build(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_GRAVITY); // I think this one just never triggers.
         public static AdvancedCauseOfDeath Player_Jetpack_Blast = Build(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_BLAST);
@@ -368,13 +371,20 @@ namespace Coroner
         public static AdvancedCauseOfDeath Player_Cruiser_Explode_Bystander = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_EXPLODE_BYSTANDER);
         public static AdvancedCauseOfDeath Player_Cruiser_Ran_Over = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_RAN_OVER);
 
+        // Custom causes (facility pits)
+        public static AdvancedCauseOfDeath Pit_Generic = Build(LanguageHandler.TAG_DEATH_PIT_GENERIC);
+        public static AdvancedCauseOfDeath Pit_Facility_Pit = Build(LanguageHandler.TAG_DEATH_PIT_FACILITY_PIT);
+        public static AdvancedCauseOfDeath Pit_Facility_Catwalk_Jump = Build(LanguageHandler.TAG_DEATH_PIT_FACILITY_CATWALK_JUMP);
+        public static AdvancedCauseOfDeath Pit_Mine_Pit = Build(LanguageHandler.TAG_DEATH_PIT_MINE_PIT);
+        public static AdvancedCauseOfDeath Pit_Mine_Cave = Build(LanguageHandler.TAG_DEATH_PIT_MINE_CAVE);
+        public static AdvancedCauseOfDeath Pit_Mine_Elevator = Build(LanguageHandler.TAG_DEATH_PIT_MINE_ELEVATOR);
+
         // Custom causes (other)
         public static AdvancedCauseOfDeath Other_Landmine = Build(LanguageHandler.TAG_DEATH_OTHER_LANDMINE);
         public static AdvancedCauseOfDeath Other_Turret = Build(LanguageHandler.TAG_DEATH_OTHER_TURRET);
         public static AdvancedCauseOfDeath Other_Lightning = Build(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
         public static AdvancedCauseOfDeath Other_DepositItemsDesk = Build(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK); // You never see this one since there's no report.
         public static AdvancedCauseOfDeath Other_Dropship = Build(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
-        public static AdvancedCauseOfDeath Other_Facility_Pit = Build(LanguageHandler.TAG_DEATH_OTHER_FACILITY_PIT);
         public static AdvancedCauseOfDeath Other_Spike_Trap = Build(LanguageHandler.TAG_DEATH_OTHER_SPIKE_TRAP);
         public static AdvancedCauseOfDeath Other_OutOfBounds = Build(LanguageHandler.TAG_DEATH_OTHER_OUT_OF_BOUNDS);
 

@@ -1,5 +1,19 @@
 # Changelog
 
+# 2.1.0
+This update finalizes the modding API!
+## Added
+- Added cause of death for the new enemy in v61.
+- Finished up the Modding API!
+    - See [the Modding docs](MODDING.md) for more info.
+    - Check out the [Coroner Mimic plugin]() for an example of how to implement this
+- Split up cause of death for pits to differentiate between different tiles.
+    - Added specific cause of death for that one pit in the Facility. You know the one.
+# Fixed
+- Fixed an issue with fallback behavior (for when a language is missing translations).
+# Known Issues
+- Reinstalling Coroner may sometimes delete modded language data.
+
 # 2.0.0
 This update represents a major refactor of Coroner's codebase.
 ## Added
@@ -18,6 +32,7 @@ This update represents a major refactor of Coroner's codebase.
 - Fixed a bug where leaving the game before the Performance Report and then joining a new lobby would not clear causes of death, resulting in incorrect causes of death being displayed later.
 ## Known Issues
 - Coroner may sometimes fail to distinguish between the driver and passenger of the Company Cruiser.
+- Languages other than English may be missing causes of death, they should fall back to English if one is missing.
 
 # 1.6.2
 ## Fixed

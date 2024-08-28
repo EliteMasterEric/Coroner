@@ -4,7 +4,7 @@ A plugin which overhauls the end-of-mission Performance Report with new informat
 
 Refactored to no longer
 
-Built for Lethal Company v56.
+Built for Lethal Company v62.
 
 **NOTE:** If you have issues when using foreign language fonts, install [FontFixer](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/FontFixer/).
 
@@ -13,6 +13,10 @@ Built for Lethal Company v56.
 Starting with version 1.5.0, Coroner now has support for multiple languages! Open the mod's config file (or use the Config Editor in R2Modman) to choose your desired language.
 
 Side note, custom language files placed in the plugin folder should work, just make sure you specify your language code in the config.
+
+# Modding Support
+
+Starting with version 2.1.0, Coroner now has a Modding API which allows other mods to access causes of death and assign your own.
 
 ## Issues
 Report any issues on the [Lethal Company Modding Discord](https://discord.com/channels/1168655651455639582/1180049504418930709).
@@ -23,31 +27,6 @@ Report any issues on the [Lethal Company Modding Discord](https://discord.com/ch
 ## Notice
 - Supports More Company's changes to the Performance Report.
 - Does not support Bigger Company (they just straight up disable Performance Reports).
-
-## Upcoming
-- Finalization of mod API
-- Support for language plugins
-- Additional cause of death messages.
-- Additional bug fixes.
-[X] Redo networking
-[X] New causes of death
-    [X] Language strings
-    [X] Code implementation
-    [X] Fix Old Bird deaths
-    [X] Implement cruiser
-    [X] Implement Kidnapper Fox
-    [X] Implement Barber
-[] Implement localization modules
-    [] Create documentation for localization
-[] Fix FontFixer (post 2.0)
-[X] Develop mod API
-    [X] Create API class
-    [X] Add ability to create custom causes of death
-    [] Develop Mimic mod
-    [] Create documentation for mod API
-- More variety in causes of death.
-- Support for additional languages.
-- Additional bug fixes.
 
 ## Credits
 - EliteMasterEric: Programming
