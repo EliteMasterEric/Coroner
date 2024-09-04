@@ -11,7 +11,7 @@ If you encounter any issues with the mod, please report them on the [Lethal Comp
 # Languages
 As of v1.5.0, Coroner has support for multiple languages, and you're able to create your own translations if they're inaccurate or your language isn't available! To choose your language, open the config file for the mod (or use the [Thunderstore app](https://www.overwolf.com/app/Thunderstore-Thunderstore_Mod_Manager)/[R2modman](https://r2modman.net/) config editor). For more information on translations, or how to add/edit your language, please check [`TRANSLATION.md`](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATION.md).
 
-# Mod Compatiblity
+# Mod Compatibility
 
 - Supports [More Company](https://thunderstore.io/c/lethal-company/p/notnotnotswipez/MoreCompany)'s changes to the performance report
 - Doesn't support Bigger Company (as it disables performance reports)
