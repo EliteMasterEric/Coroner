@@ -1,46 +1,25 @@
 # Coroner
 
-A plugin which overhauls the end-of-mission Performance Report with new information, including cause of death for any deceased players. There are some fun easter eggs thrown in too.
+A Lethal Company plugin which overhauls the end-of-mission performance report with new information, including cause of death for any deceased players. There are some fun easter eggs thrown in too.
 
-Refactored to no longer
+If you encounter any issues with the mod, please report them on the [Lethal Company Modding Discord](https://discord.gg/lcmod) or via the [GitHub Issue Tracker](https://github.com/EliteMasterEric/Coroner/issues).
 
-Built for Lethal Company v62.
+> **NOTE:** If you have issues when using foreign language fonts, install FontFixer via [Thunderstore](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/FontFixer/) or [GitHub](https://github.com/EliteMasterEric/FontFixer) BEFORE reporting.
 
-**NOTE:** If you have issues when using foreign language fonts, install [FontFixer](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/FontFixer/).
-
-# Localization
-
-Starting with version 1.5.0, Coroner now has support for multiple languages! Open the mod's config file (or use the Config Editor in R2Modman) to choose your desired language.
-
-Side note, custom language files placed in the plugin folder should work, just make sure you specify your language code in the config.
-
-# Modding Support
-
-Starting with version 2.1.0, Coroner now has a Modding API which allows other mods to access causes of death and assign your own.
-
-## Issues
-Report any issues on the [Lethal Company Modding Discord](https://discord.com/channels/1168655651455639582/1180049504418930709).
-
-## Demonstration
 ![](https://raw.githubusercontent.com/EliteMasterEric/Coroner/master/Art/Nutcracker.png)
 
-## Notice
-- Supports More Company's changes to the Performance Report.
-- Does not support Bigger Company (they just straight up disable Performance Reports).
+# Languages
+As of v1.5.0, Coroner has support for multiple languages, and you're able to create your own translations if they're inaccurate or your language isn't available! To choose your language, open the config file for the mod (or use the [Thunderstore app](https://www.overwolf.com/app/Thunderstore-Thunderstore_Mod_Manager)/[R2modman](https://r2modman.net/) config editor). For more information on translations, or how to add/edit your language, please check [`TRANSLATION.md`](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATION.md).
 
-## Credits
-- EliteMasterEric: Programming
-- Ceva: Playtesting, Dutch Localization
+# Mod Compatiblity
 
-- NickolasFleim: Programmed Localization Feature, Russian Localization (via Github)
-- Fleetway: French Localization
-- YoBii: German Localization
-- MakinDay: Italian Localization
-- Sgkill6: Korean Localization
-- Kultercode: Hungarian Localization
-- 颜绎: Chinese (Simplified) Localization
-- Helado de Pato: Spanish Localization
-- Foxeru: Portuguese (Brazilian) Localization
+- Supports [More Company](https://thunderstore.io/c/lethal-company/p/notnotnotswipez/MoreCompany)'s changes to the performance report
+- Doesn't support Bigger Company (as it disables performance reports)
 
-- Xilophor: Creating [StaticNetcodeLib](https://github.com/Xilophor/StaticNetcodeLib)
-- giosuel: Creating [Imperium](https://thunderstore.io/c/lethal-company/p/giosuel/Imperium/) which kept us sane during playtesting
+# Credits
+- [EliteMasterEric](https://github.com/EliteMasterEric): Programming
+- [NickolasFleim](https://github.com/NickolasFleim): Programming (custom language support)
+- Ceva: Playtesting
+- [Everyone]((https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATION.md)) who added or helped improve their languages
+- [Xilophor](https://github.com/Xilophor/): Creating [StaticNetcodeLib](https://github.com/Xilophor/StaticNetcodeLib)
+- [giosuel](https://github.com/giosuel): Creating [Imperium](https://github.com/giosuel/Imperium) which kept us sane during playtesting
