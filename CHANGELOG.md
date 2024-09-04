@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Known Issues
 - Reinstalling the mod may sometimes cause modded language data to be deleted.
+> - As of v2.0.0, all other languages apart from English are currently disabled due to new causes of death in v50+. A fix is currently being implemented and will be available soon™.
 
 # 2.1.0 (2024-08-28)
 This update finalizes the modding API!
