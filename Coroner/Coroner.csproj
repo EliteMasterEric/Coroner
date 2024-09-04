@@ -6,10 +6,10 @@
     <Company>EliteMasterEric</Company>
     <AssemblyName>Coroner</AssemblyName>
     <GUID>com.elitemastereric.coroner</GUID>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
 
     <Title>Coroner</Title>
-    <Description>Rework the Performance Report with new info, including cause of death.</Description>
+    <Description>A Lethal Company plugin which overhauls the end-of-mission performance report with new information, including cause of death for any deceased players.</Description>
 
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <!--<LangVersion>latest</LangVersion>-->
