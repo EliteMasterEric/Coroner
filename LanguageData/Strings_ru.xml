@@ -5,159 +5,316 @@
         <tag language="ru" />
     </tags>
     <strings>
-        <UINotes text="Заметки: " />
-        <UICauseOfDeath text="Причина смерти: " />
+        <!--
+            Translation Notes:
+            This is the default localization file for Coroner.
+            
+            By default, any of the `FunnyNote` or `Death` strings are dynamically chosen at random.
+            If the `SeriousDeathMessages` option is enabled, the first `Death` message found in the file is used,
+                so make this one literal and specific.
+            The other ones can be puns or jokes, and options can be added or removed as needed, just make sure
+                to keep the correct tags, and make sure that there is at least one message for each `Death` type.
+        -->
 
-        <FunnyNote text="Самый тупой болван." />
-        <FunnyNote text="Самый милый сотрудник." />
-        <FunnyNote text="Получил больше веселья чем другие." />
-        <FunnyNote text="Получил меньше веселья чем другие." />
-        <FunnyNote text="Самый смелый сотрудник." />
-        <FunnyNote text="Сделал крутой кувырок." />
-        <FunnyNote text="Ушиб палец на ноге." />
-        <FunnyNote text="Скорее всего, умрёт в следующий раз." />
-        <FunnyNote text="Вряд ли умрёт в следующий раз." />
-        <FunnyNote text="Не любит курящих." />
+        <UINotes text="Заметки: " /> <!-- TN: First line of the notes if the player hasn't died. -->
+        <UICauseOfDeath text="Причина смерти: " /> <!-- TN: First line of the notes if the player has died. -->
+
+        <!--
+            TN: Funny Notes
+            If the player has not died, and has no performance notes to display,
+            one of these will be chosen at random, so that nobody has no notes.
+        -->
+
+        <FunnyNote text="Самый тупой болван." /> <!-- TN: Spongebob reference -->
+        <FunnyNote text="Милейший сотрудник." />
+        <FunnyNote text="Веселился больше всех." />
+        <FunnyNote text="Приуныл." />
+        <FunnyNote text="Храбрейший сотрудник." />
+        <FunnyNote text="Неудачно сделал сальто." />
+        <FunnyNote text="Ударился мизинцем о тумбочку." />
+        <FunnyNote text="Скорее всего в следующий раз он умрёт." />
+        <FunnyNote text="Вряд ли он умрёт в следующий раз." />
+        <FunnyNote text="Явно накуренный." /> 
         <FunnyNote text="Командный игрок." />
-        <FunnyNote text="Настоящий мусорщик." />
-        <FunnyNote text="Съел больше всего закусок." />
-        <FunnyNote text="Прошел GO и получил 200$" />
-        <FunnyNote text="Нажрался в пятницу вечером." />
-        <FunnyNote text="Я думаю, что это серийный убийца." />
-        <FunnyNote text="Совершенно ничем не примечателен." />
-        <FunnyNote text="Давненько не звонил матери." />
-        <FunnyNote text="Имеет IP-адрес 127.0.0.1." />
-        <FunnyNote text="Тайно ящерка." />
+        <FunnyNote text="Реально отличный сотрудник." />
+        <FunnyNote text="Съел все чипсы." />
+        <FunnyNote text="Слишком много сидит в Тик-Токе." /> <!-- TN: Spongebob reference -->
+        <FunnyNote text="Он явно ждёт вечера пятницы." /> 
+        <FunnyNote text="Ведёт себя как маньяк" />
+        <FunnyNote text="Совершенно не примечательный." />
+        <FunnyNote text="Давно не звонил своей маме." />
+        <FunnyNote text="Доигрался. Его IP-адрес: 127.0.0.1." /> <!-- TN: This note pretends to dox the user but actually specifies the loopback IP address. -->
+        <FunnyNote text="Скрывает свою квадроберскую сущность." />
+
+        <!--
+            TN: Generic Death Messages
+            Generally, causes of death like bludgeoning, strangulation, and blasts will be overridden by messages specific to that type.
+            These are fallbacks for when there is no specific message. Try to make these broadly applicable.
+        -->
 
         <DeathBludgeoning text="Забит до смерти." />
 
         <DeathGravity text="Разбился насмерть." />
-        <DeathGravity text="Упал с обрыва." />
+        <DeathGravity text="Упал со скалы." />
 
         <DeathBlast text="Взорвался." />
-        <DeathBlast text="Ушёл с фейерверком." />
-        <DeathBlast text="Был разнесён вдребезги." />
+        <DeathBlast text="БОМБезно ушёл." />
+        <DeathBlast text="Разлетелся на атомы." />
 
-        <DeathStrangulation text="Задушен." />
+        <DeathStrangulation text="Погиб от удушья." />
 
-        <DeathSuffocation text="Умер от нехватки воздуха." />
+        <DeathSuffocation text="Задохнулся до смерти." />
 
-        <DeathMauling text="Изуродован до смерти." />
+        <DeathMauling text="Растерзан." />
 
         <DeathGunshots text="Застрелен." />
-        <DeathGunshots text="Набит до краев пулями." />
+        <DeathGunshots text="Забит пулями по самое не хочу." />
 
         <DeathCrushing text="Раздавлен." />
 
         <DeathDrowning text="Утонул." />
 
         <DeathAbandoned text="Брошен своими коллегами." />
+        <DeathAbandoned text="Не нашёл своего места в команде." />
 
-        <DeathElectrocution text="Убит электрическим током." />
+        <DeathElectrocution text="Поражён током." />
 
         <DeathKicking text="Запинали до смерти." />
 
+        <DeathBurning text="Сгорел, почернел." />
 
-        <DeathEnemyBracken text="Брекен свернул ему шею." />
-        <DeathEnemyBracken text="Проиграл Брекену в гляделки." />
+        <DeathStabbing text="Зарезан." />
 
-        <DeathEnemyEyelessDog text="Был съеден Слепой собакой." />
-        <DeathEnemyEyelessDog text="Был пойман за использование механической клавиатуры." />
-        <DeathEnemyEyelessDog text="Чихнул рядом со Слепой собакой." />
+        <DeathFan text="Расхерачен вентилятором." />
+        <DeathFan text="Завентилирован." />
 
-        <DeathEnemyForestGiant text="Проглочен Лесным гигантом." />
+        <DeathInertia text="Не учил физику и погиб от инерции." />
 
-        <DeathEnemyCircuitBees text="Был зажарен Электропчелами." />
+        <DeathSnipped text="Зарезан до смерти." />
 
-        <DeathEnemyGhostGirl text="Умер загадочной смертью." />
+        <!-- 
+            TN: Enemy Death Messages
+            These are messages for when the player is killed by a specific enemy.
+            Try to keep these high quality since they will be the ones players see the most.
+        -->
+
+        <DeathEnemyBracken text="Бракен свернул ему шею." />
+        <DeathEnemyBracken text="Проиграл в гляделки." />
+
+        <DeathEnemyEyelessDog text="Съеден слепой собакой." />
+        <DeathEnemyEyelessDog text="Его подвела его механическая клавиатура." />
+        <DeathEnemyEyelessDog text="Не был тихим рядом со слепой собакой." />
+
+        <DeathEnemyForestGiantEaten text="Проглочен хранителем леса." />
+        <DeathEnemyForestGiantEaten text="Перепутал хранителя леса с деревом." /> 
+
+        <DeathEnemyForestGiantDeath text="Раздавлен умирающим хранителем леса." /> 
+
+        <DeathEnemyCircuitBees text="Получил разряд от пчёл." />
+
+        <DeathEnemyGhostGirl text="Крайне загадочно умер." />
         <DeathEnemyGhostGirl text="Потерял рассудок." />
-        <DeathEnemyGhostGirl text="Получил сильную головную боль." />
+        <DeathEnemyGhostGirl text="Единственный видел угрозу." /> 
         <DeathEnemyGhostGirl text="???" />
 
-        <DeathEnemyEarthLeviathan text="Проглочен Земным Левиафаном." />
+        <DeathEnemyEarthLeviathan text="Проглочен левиафаном." />
 
-        <DeathEnemyBaboonHawk text="Был съеден Бабуиновым ястребом." />
-        <DeathEnemyBaboonHawk text="Был изуродован Бабуиновым ястребом." />
+        <DeathEnemyBaboonHawk text="Был съеден бабуиновым ястребом." />
+        <DeathEnemyBaboonHawk text="Был растерзан бабуиновым ястребом." />
+        <DeathEnemyBaboonHawk text="Его гоп-стопнули ястребы." />
 
-        <DeathEnemyJester text="Был изуродован Шутом." />
-        <DeathEnemyJester text="Стал объектом шутки Шута." />
-        <DeathEnemyJester text="Это всего лишь пранк, Бро!" />
-        <DeathEnemyJester text="Умер от кринжа." />
+        <DeathEnemyJester text="Растерзан джестером." />
+        <DeathEnemyJester text="Не выкупил рофла от шкатулки." />
+        <DeathEnemyJester text="Его разыграл Джестер." />
+        <DeathEnemyJester text="Чёртик из табакерки." /> 
 
-        <DeathEnemyCoilHead text="Был изуродован Пружиноголовым." />
-        <DeathEnemyCoilHead text="Неудачно моргнул." />
-        <DeathEnemyCoilHead text="Проиграл Пружиноголовому в гляделки." />
+        <DeathEnemyCoilHead text="Вместо шеи у него теперь пружина)" />
+        <DeathEnemyCoilHead text="Проиграл в гляделки." />
+        <DeathEnemyCoilHead text="Проиграл битву взглядов." />
 
-        <DeathEnemySnareFlea text="Был задушен Многоножкой." />
+        <DeathEnemySnareFlea text="Был задушен сороконожкой." />
+        <DeathEnemySnareFlea text="Это был не хедкраб." /> 
 
-        <DeathEnemyHygrodere text="Был поглощен Гигродером." />
-        <DeathEnemyHygrodere text="Потерялся в соусе." />
-        <DeathEnemyHygrodere text="Превратился в лужу." />
+        <DeathEnemyHygrodere text="Слился с гидрорером." />
+        <DeathEnemyHygrodere text="Проиграл битву соусу." />
+        <DeathEnemyHygrodere text="Инцидент со слаймом." />
 
-        <DeathEnemyHoarderBug text="Был изуродован Жуком-собирателем." />
-        <DeathEnemyHoarderBug text="Был окружен Жуком-собирателем." />
-        <DeathEnemyHoarderBug text="Был собран Жуком-собирателем." />
-        <DeathEnemyHoarderBug text="Пытался украсть у Жука-собирателя." />
+        <DeathEnemyHoarderBug text="Был растерзан жуком-собирателем." />
+        <DeathEnemyHoarderBug text="Разозлил жука." />
+        <DeathEnemyHoarderBug text="Был собран жуком-собирателем." />
+        <DeathEnemyHoarderBug text="Неудачно ограбил жука." />
 
-        <DeathEnemySporeLizard text="Был укушен Споровой ящерицей." />
-        <DeathEnemySporeLizard text="Был отравлен Споровой ящерицей." />
+        <DeathEnemyLassoMan text="Was lassoed by a Lasso Man." />
 
-        <DeathEnemyBunkerSpider text="Попался в сети Бункерного паука." />
+        <DeathEnemySporeLizard text="Was bitten by a Spore Lizard." />
+        <DeathEnemySporeLizard text="Was puffed by a Spore Lizard." />
 
-        <DeathEnemyThumper text="Был съеден Тампером." />
-        <DeathEnemyThumper text="Был раздавлен Тампером." />
+        <DeathEnemyBunkerSpider text="Ensnared in the Bunker Spider's web." />
 
-        <DeathEnemyMaskedPlayerWear text="Надел Маску." />
-        <DeathEnemyMaskedPlayerWear text="Никого не волновало, кем он был, пока не надел Маску." />
+        <DeathEnemyThumper text="Was ravaged by a Thumper." />
+        <DeathEnemyThumper text="Got thumped by a Thumper." />
 
-        <DeathEnemyMaskedPlayerVictim text="Был убит коллегой в Маске." />
-        <DeathEnemyMaskedPlayerVictim text="Стал трагедией от рук Маски." />
+        <!-- 
+            TN: v45 Enemy Death Messages
+            Messages used for enemies added in v45.
+            Most of these enemies have multiple ways they can kill you, so make sure you don't mix them up.
+        -->
 
-        <DeathEnemyNutcrackerKicked text="Был забит до смерти Щелкунчиком." />
-        <DeathEnemyNutcrackerKicked text="Щелкунчик расколол его орехи." />
+        <DeathEnemyMaskedPlayerWear text="Надел маску." /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
+        <DeathEnemyMaskedPlayerWear
+            text="Зачем-то надел маску." /> 
+        <DeathEnemyMaskedPlayerWear text="Стал импостором." /> <!-- TN: Among Us reference -->
 
-        <DeathEnemyNutcrackerShot text="Был застрелен Щелкунчиком." />
-        <DeathEnemyNutcrackerShot text="Был не на том конце салюта из 21 калибра." />
+        <DeathEnemyMaskedPlayerVictim text="Был убит коллегой в маске." /> <!-- TN: Message used when a Masked Player (even one that spawned naturally) attacks and kills a player. -->
+        <DeathEnemyMaskedPlayerVictim text="Стал трагедией в маске." /> <!-- TN: A reference to the Tragedy Mask that transforms players who pick it up. -->
+        <DeathEnemyMaskedPlayerVictim text="Зарезан импостором." /> <!-- TN: Among Us reference -->
+        <DeathEnemyMaskedPlayerVictim text="Погиб от рук импостора." /> <!-- TN: Among Us reference -->
 
-        <DeathPlayerJetpackGravity text="Упал используя Джетпак." />
-        <DeathPlayerJetpackGravity text="Подлетел слишком близко к солнцу." />
+        <DeathEnemyNutcrackerKicked text="Был пнут щелкунчиком." /> <!-- TN: Used when a Nutcracker kills a player that happens to walk in its path -->
+        <DeathEnemyNutcrackerKicked text="Его орешки были расколоты щелкунчиком." />
+
+        <DeathEnemyNutcrackerShot text="Застрелен щелкунчиком." /> <!-- TN: Used when a nutcracker -->
+        <DeathEnemyNutcrackerShot text="Погиб от скул-шуттинга." />
+
+        <!-- 
+            TN: v50 Enemy Death Messages
+            Messages used for enemies added in v50.
+        -->
+
+        <DeathEnemyButlerStab text="Зарезан Дворецким." />
+        <DeathEnemyButlerStab text="Подошел слишком близко к Дворецкому." />
+        <DeathEnemyButlerStab text="Пообщался с обслуживающим персоналом." /> 
+        
+        <DeathEnemyButlerExplode text="Подорван Дворецким." />
+        
+        <DeathEnemyMaskHornets text="Зажален пчёлами дворецкого." /> <!-- TN: Spawned when the Butler dies. -->
+        
+        <DeathEnemyTulipSnakeDrop text="Тюльпановые змеи его уронили." /> <!-- TN: When the player dies of fall damage due to a Tulip Snake. -->
+                
+        <DeathEnemyOldBirdRocket text="Взорван Старой Птицей." />
+        <DeathEnemyOldBirdRocket text="Разбудил малыша." /> <!-- TN: Old Bird makes a crying sound. -->
+        <DeathEnemyOldBirdRocket text="Не полез в Еву." /> <!-- TN: Evangelion meme -->
+        
+        <DeathEnemyOldBirdStomp text="Растоптан Старой Птицей." />
+        <DeathEnemyOldBirdStomp text="Робот надрал ему задницу." />
+        
+        <DeathEnemyOldBirdCharge text="Подошел слишком близко к Старой Птице." />
+        <DeathEnemyOldBirdCharge text="Узнал, почему 5-Embrion необитаем." /> <!-- TN: See Old Bird Bestiary entry. -->
+        
+        <DeathEnemyOldBirdTorch text="Был сожжен Старой Птицей." />
+        <DeathEnemyOldBirdTorch text="Был фламбирован Старой Птицей." /> <!-- TN: Flambée: To douse with a liquor and ignite. -->
+        
+        <!-- 
+            TN: v55 Enemy Death Messages
+            Messages used for enemies added in v55.
+        -->
+
+        <DeathEnemyKidnapperFox text="Был изувечен Лисом-Похитителем." />
+        <DeathEnemyKidnapperFox text="Лис затащил его в кусты." />
+
+        <DeathEnemyBarber text="Был порезан Парикмахером." />
+        <DeathEnemyBarber text="Был разрезан пополам Парикмахером." />
+        <DeathEnemyBarber text="Не оценил стрижку." />
+
+        <!-- 
+            TN: Player Death Messages
+            These are messages for when the player dies due to player-related means,
+            such as murder or using an item improperly.
+        -->
+
+        <DeathPlayerJetpackGravity text="Упал, используя джетпак." /> <!-- TN: Message used when the player dies of fall damage while holding a jetpack. -->
+        <DeathPlayerJetpackGravity text="Подлетел слишком близко к солнцу." /> <!-- TN: Reference to Icarus of Greek mythology -->
         <DeathPlayerJetpackGravity text="Закончилось топливо." />
 
-        <DeathPlayerJetpackBlast text="Взорвался используя Джетпак." />
-        <DeathPlayerJetpackBlast text="Превратился в фейерверк." />
+        <DeathPlayerJetpackBlast text="Взорвался, используя джетпак." /> <!-- TN: Message used when the player uses the jetpack too long and it explodes. -->
+        <DeathPlayerJetpackBlast text="Превратился в фейрверк." />
 
-        <DeathPlayerMurderMelee text="Был забит до смерти коллегой." />
-        <DeathPlayerMurderMelee text="Стал жертвой убийства." />
-        <DeathPlayerMurderMelee text="Был убит." />
-        <DeathPlayerMurderMelee text="Получил удар в спину от коллеги." />
+        <DeathPlayerMurderShovel text="Был забит лопатой своего коллеги." /> <!-- TN: Used when a player kills another player with a shovel. -->
+        <DeathPlayerMurderShovel text="Получил лопатой в лицо." />
+        <DeathPlayerMurderShovel text="Понюхал бебру." />
+        <DeathPlayerMurderShovel text="Был избит до смерти коллегой." />
+        <DeathPlayerMurderShovel text="Коллега выкопал ему могилу." />
+        <DeathPlayerMurderShovel text="Коллега его вскопал." />
 
-        <DeathPlayerMurderShotgun text="Был застрелен коллегой." />
-        <DeathPlayerMurderShotgun text="Стал жертвой убийства." />
+        <DeathPlayerMurderStopSign text="Был забит знаком стоп своим коллегой." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
+        <DeathPlayerMurderStopSign text="Остановился по правилам ПДД." />
+        <DeathPlayerMurderStopSign text="Был убит." />
+        <DeathPlayerMurderStopSign text="Господь дал ему знак." />
+        <DeathPlayerMurderStopSign text="Остановлен коллегой." />
+        <DeathPlayerMurderStopSign text="СТОП." /> 
+        <DeathPlayerMurderStopSign text="Предупреждение его не остановило. Зато остановил знак." /> 
+
+        <DeathPlayerMurderYieldSign text="Забит знаком Уступите дорогу." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
+        <DeathPlayerMurderYieldSign text="Уступил дорогу." />
+        <DeathPlayerMurderYieldSign text="Господь дал ему знак." />
+        <DeathPlayerMurderYieldSign text="Уступил дорогу своему коллеге." />
+        <DeathPlayerMurderYieldSign text="Не уступил дорогу своему коллеге." />
+
+        <DeathPlayerMurderKnife text="Проиграл в ножички." /> <!-- TN: Used when a player kills another player with a knife. -->
+        <DeathPlayerMurderKnife text="Стал жертвой мясника." />
+        <DeathPlayerMurderKnife text="Зарезан коллегой." />
+        <DeathPlayerMurderKnife text="Получил удар ножом в спину от коллеги." />
+        <DeathPlayerMurderKnife text="Выпотрошен, как курица из Корнуолла." /> <!-- TN: Team Fortress 2 reference -->
+
+        <DeathPlayerMurderShotgun text="Выступил в роли мишени для своего коллеги." /> <!-- TN: Used when a player kills another player with the Nutcracker's shotgun. -->
+        <DeathPlayerMurderShotgun text="Стал жертвой убийцы." />
         <DeathPlayerMurderShotgun text="Был убит." />
-        <DeathPlayerMurderShotgun text="Был нафарширован коллегой." />
-        <DeathPlayerMurderShotgun text="Получил 360 в лицо от коллеги." />
+        <DeathPlayerMurderShotgun text="Застрелен коллегой." />
+        <DeathPlayerMurderShotgun text="Получил 360 ноускоп от коллеги." /> 
+
+        <DeathPlayerLadder text="Расхерачен приставной лестницей." /> <!-- TN: Used when a player stands underneath an Extension Ladder and gets crushed. -->
+        <DeathPlayerLadder text="Был раздавлен приставной лестницей." />
 
         <DeathPlayerQuicksand text="Застрял в зыбучих песках." />
         <DeathPlayerQuicksand text="Утонул в зыбучих песках." />
 
-        <DeathPlayerStunGrenade text="Был убит светошумовой гранатой." />
-        <DeathPlayerStunGrenade text="Стал жертвой убийства." />
+        <DeathPlayerStunGrenade text="Слишком долго держал светошумовую гранату." /> <!-- TN: Yes, the stun grenade can do damage, but only if you're holding it when it goes off. -->
+        <DeathPlayerStunGrenade text="ФЛЕШКА НА МИД!" />
 
-        <DeathOtherDepositItemsDesk text="Получил понижение в должности." />
-        <DeathOtherDepositItemsDesk text="Был отправлен в дисциплинарный отпуск." />
+        <DeathPlayerEasterEgg text="Взорван пасхальным яйцом." />
+        <DeathPlayerEasterEgg text="В него бросили пасхальное яйцо." />
 
-        <DeathOtherItemDropship text="Был раздавлен десантной капсулой." />
-        <DeathOtherItemDropship text="Не мог дождаться своих товаров." />
-        <DeathOtherItemDropship text="Был слишком нетерпелив с десантной капсулой." />
+        <DeathPlayerCruiserDriver text="Взорван грузовиком." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
+
+        <DeathPlayerCruiserPassenger text="Взорван грузовиком." /> <!-- TN: Occurs on explosion or severe impacts while in the passenger seat. -->
+
+        <DeathPlayerCruiserExplodeBystander text="Взорван грузовиком." /> <!-- TN: Occurs when near (but not seated in) the car as it explodes. -->
+
+        <DeathPlayerCruiserRanOver text="Был сбит грузовиком." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
+
+        <DeathOtherItemDropship text="Раздавлен дроном-доставщиком." /> <!-- TN: Used when a player stands underneath the Item Dropship and gets crushed. -->
+        <DeathOtherItemDropship text="Не дождался своего заказа." />
+        <DeathOtherItemDropship text="Слишком нетерпелив к доставке." />
+
+        <DeathOtherFacilityPit text="Упал в яму." /> <!-- TN: Used for facility-specific falling deaths. -->
+        <DeathOtherFacilityPit text="Умер в яме." />
+        <DeathOtherFacilityPit text="Сделал прыжок веры. Не получилось." />
+
+        <DeathOtherSpikeTrap text="Раздавлен ловушкой с шипами." />
+        <DeathOtherSpikeTrap text="Превратился в отбивную." />
+
+        <!--
+            TN: Messages for the tentacle that kills players at the company building.
+            Performance reports don't show up at the company building so this is unused.
+        -->
+        <DeathOtherDepositItemsDesk text="Понижен в должности." />
+        <DeathOtherDepositItemsDesk text="Вызван на ковёр к начальству." />
 
         <DeathOtherLandmine text="Наступил на мину." />
 
-        <DeathOtherTurret text="Был застрелен турелью." />
+        <DeathOtherTurret text="Застрелен турелью." />
 
-        <DeathOtherLightning text="Был поражен молнией." />
+        <DeathOtherLightning text="Был поражён молнией." />
+
+        <!--
+            TN: When the player clips out of the map while in the Facility.
+            If they fall out of the map while outside the facility, they teleport back.
+        -->
+        <DeathOtherOutOfBounds text="Выпал из мира." />
+        <DeathOtherOutOfBounds text="Провалился в бекрумс." />
 
         <DeathUnknown text="Умер как-то." />
-        <DeathUnknown text="Самый искренний мертвец." />
-        <DeathUnknown text="Срок годности истек необъяснимым образом." />
+        <DeathUnknown text="Не понятно как умер." /> <!-- TN: Wizard of Oz reference -->
+        <DeathUnknown text="Истёк срок годности." />
     </strings>
 </base>
