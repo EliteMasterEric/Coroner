@@ -25,6 +25,7 @@ For more information on translations, or how to add/edit your language, please c
 - [EliteMasterEric](https://github.com/EliteMasterEric): Programming
 - [NickolasFleim](https://github.com/NickolasFleim): Programming (custom language support)
 - Ceva: Playtesting
+- [Jatc251](https://jatc251.com): Miscellaneous cleanup of README.md, TRANSLATING.md, MODDING.md, and repository
 - [Everyone]((https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATION.md)) who added or helped improve their languages
 - [Xilophor](https://github.com/Xilophor/): Creating [StaticNetcodeLib](https://github.com/Xilophor/StaticNetcodeLib)
 - [giosuel](https://github.com/giosuel): Creating [Imperium](https://github.com/giosuel/Imperium) which kept us sane during playtesting
