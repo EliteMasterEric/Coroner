@@ -6,7 +6,7 @@ A Lethal Company plugin which overhauls the end-of-mission performance report wi
 ![](https://raw.githubusercontent.com/EliteMasterEric/Coroner/master/Art/README_nutcracker.png)
 
 ### Issues
-If you encounter any issues with the mod, please report them on the [Lethal Company Modding Discord](https://discord.gg/lcmod) or via the [GitHub Issue Tracker](https://github.com/EliteMasterEric/Coroner/issues).
+If you encounter any issues with the mod, please report them on the [Lethal Company Modding Discord](https://discord.gg/lcmod) or via the [GitHub Issue Tracker](https://github.com/EliteMasterEric/Coroner/issues). Please ensure you check for known issues on the [GitHub Issue Tracker](https://github.com/EliteMasterEric/Coroner/issues) or [`CHANGELOG.md`](https://github.com/EliteMasterEric/Coroner/blob/master/CHANGELOG.md) BEFORE reporting.
 
 # Languages
 As of v1.5.0, Coroner has support for multiple languages, and you're able to create your own translations if they're inaccurate or your language isn't available! To choose your language, open the config file for the mod (or use the [Thunderstore app](https://www.overwolf.com/app/Thunderstore-Thunderstore_Mod_Manager)/[R2modman](https://r2modman.net/) config editor). For more information on translations, or how to add/edit your language, please check [`TRANSLATION.md`](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATION.md).
