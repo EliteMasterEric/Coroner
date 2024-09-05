@@ -127,7 +127,7 @@
         <DeathEnemyJester text="Был растерзан Джестером." />
         <DeathEnemyJester text="Не выкупил рофла от шкатулки." />
         <DeathEnemyJester text="Его разыграла 'музыкальная коробка'." />
-        <DeathEnemyJester text="Увидел чёртик из табакерки." /> <!-- TN: "Pop Goes The Weasel" is the song used by Jack-in-the-box toys. -->
+        <DeathEnemyJester text="Увидел чёртика из табакерки." /> <!-- TN: "Pop Goes The Weasel" is the song used by Jack-in-the-box toys. -->
 
         <DeathEnemyCoilHead text="Был изуродован Пружиноголовым." />
         <DeathEnemyCoilHead text="Неудачно моргнул." />
@@ -162,8 +162,7 @@
         -->
 
         <DeathEnemyMaskedPlayerWear text="Надел Маску." /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
-        <DeathEnemyMaskedPlayerWear
-            text="Думал, что привратится в зелёного красавчика, одев Маску." /> <!-- RU-TN: The Mask (1994 film) reference -->
+        <DeathEnemyMaskedPlayerWear text="Думал, что привратится в зелёного красавчика, одев Маску." /> <!-- RU-TN: The Mask (1994 film) reference -->
         <DeathEnemyMaskedPlayerWear text="Стал предателем СРЕДИ НАС." /> <!-- TN: Among Us reference -->
 
         <DeathEnemyMaskedPlayerVictim text="Был убит коллегой в Маске." /> <!-- TN: Message used when a Masked Player (even one that spawned naturally) attacks and kills a player. -->
