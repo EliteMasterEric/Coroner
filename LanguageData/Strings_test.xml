@@ -415,40 +415,40 @@
         <DeathOtherSpikeTrap text="Spike Trap 5" />
 
         <DeathPitGeneric text="Pit (Generic) 1" />
-        <DeathPitGeneric text="Pit (Generic) 1" />
-        <DeathPitGeneric text="Pit (Generic) 1" />
-        <DeathPitGeneric text="Pit (Generic) 1" />
-        <DeathPitGeneric text="Pit (Generic) 1" />
+        <DeathPitGeneric text="Pit (Generic) 2" />
+        <DeathPitGeneric text="Pit (Generic) 3" />
+        <DeathPitGeneric text="Pit (Generic) 4" />
+        <DeathPitGeneric text="Pit (Generic) 5" />
 
         <DeathPitFacilityPit text="Pit (Facility) 1" />
-        <DeathPitFacilityPit text="Pit (Facility) 1" />
-        <DeathPitFacilityPit text="Pit (Facility) 1" />
-        <DeathPitFacilityPit text="Pit (Facility) 1" />
-        <DeathPitFacilityPit text="Pit (Facility) 1" />
+        <DeathPitFacilityPit text="Pit (Facility) 2" />
+        <DeathPitFacilityPit text="Pit (Facility) 3" />
+        <DeathPitFacilityPit text="Pit (Facility) 4" />
+        <DeathPitFacilityPit text="Pit (Facility) 5" />
 
         <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 1" />
-        <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 1" />
-        <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 1" />
-        <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 1" />
-        <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 1" />
+        <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 2" />
+        <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 3" />
+        <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 4" />
+        <DeathPitFacilityCatwalkJump text="Pit (Catwalk Jump) 5" />
 
         <DeathPitMineElevator text="Pit (Mine Elevator) 1" />
-        <DeathPitMineElevator text="Pit (Mine Elevator) 1" />
-        <DeathPitMineElevator text="Pit (Mine Elevator) 1" />
-        <DeathPitMineElevator text="Pit (Mine Elevator) 1" />
-        <DeathPitMineElevator text="Pit (Mine Elevator) 1" />
+        <DeathPitMineElevator text="Pit (Mine Elevator) 2" />
+        <DeathPitMineElevator text="Pit (Mine Elevator) 3" />
+        <DeathPitMineElevator text="Pit (Mine Elevator) 4" />
+        <DeathPitMineElevator text="Pit (Mine Elevator) 5" />
 
         <DeathPitMinePit text="Pit (Mine Pit) 1" />
-        <DeathPitMinePit text="Pit (Mine Pit) 1" />
-        <DeathPitMinePit text="Pit (Mine Pit) 1" />
-        <DeathPitMinePit text="Pit (Mine Pit) 1" />
-        <DeathPitMinePit text="Pit (Mine Pit) 1" />
+        <DeathPitMinePit text="Pit (Mine Pit) 2" />
+        <DeathPitMinePit text="Pit (Mine Pit) 3" />
+        <DeathPitMinePit text="Pit (Mine Pit) 4" />
+        <DeathPitMinePit text="Pit (Mine Pit) 5" />
 
         <DeathPitMineCave text="Pit (Mine Cave) 1" />
-        <DeathPitMineCave text="Pit (Mine Cave) 1" />
-        <DeathPitMineCave text="Pit (Mine Cave) 1" />
-        <DeathPitMineCave text="Pit (Mine Cave) 1" />
-        <DeathPitMineCave text="Pit (Mine Cave) 1" />
+        <DeathPitMineCave text="Pit (Mine Cave) 2" />
+        <DeathPitMineCave text="Pit (Mine Cave) 3" />
+        <DeathPitMineCave text="Pit (Mine Cave) 4" />
+        <DeathPitMineCave text="Pit (Mine Cave) 5" />
 
         <DeathOtherDepositItemsDesk text="Deposit Items Desk 1" />
         <DeathOtherDepositItemsDesk text="Deposit Items Desk 2" />
