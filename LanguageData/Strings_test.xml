@@ -6,11 +6,12 @@
     </tags>
     <strings>
         <!--
-            Debug v3
+            Debug v4
             (test)
             
             Translation Notes:
-            There is no need to translate this file, as it is only used for debugging.
+            * There is no need to translate this file, as it is only used for debugging.
+            * Causes of death marked with `[GENERIC]` should never appear during gameplay.
         -->
         <UINotes text="Notes: " />
         <UICauseOfDeath text="Cause of Death: " />
@@ -480,6 +481,12 @@
         <DeathOtherLightning text="Lightning 3" />
         <DeathOtherLightning text="Lightning 4" />
         <DeathOtherLightning text="Lightning 5" />
+
+        <DeathOtherMeteor text="Meteor 1" />
+        <DeathOtherMeteor text="Meteor 2" />
+        <DeathOtherMeteor text="Meteor 3" />
+        <DeathOtherMeteor text="Meteor 4" />
+        <DeathOtherMeteor text="Meteor 5" />
 
         <DeathOtherOutOfBounds text="Out of Bounds 1" />
         <DeathOtherOutOfBounds text="Out of Bounds 2" />

@@ -6,7 +6,7 @@
     </tags>
     <strings>
         <!--
-            English (American) v3
+            English (American) v4
             (en-us)
 
             Translation Notes:
@@ -121,6 +121,7 @@
         <DeathEnemyGhostGirl text="Died a mysterious death." />
         <DeathEnemyGhostGirl text="Lost their mind." />
         <DeathEnemyGhostGirl text="Got a real bad headache." /> <!-- TN: The Ghost Girl causes the player's head to explode. -->
+        <DeathEnemyGhostGirl text="Their head just... did that on its own... we think." />
         <DeathEnemyGhostGirl text="???" />
 
         <DeathEnemyEarthLeviathan text="Swallowed whole by an Earth Leviathan." />
@@ -335,6 +336,8 @@
         <DeathOtherTurret text="Got shot by a turret." />
 
         <DeathOtherLightning text="Was struck by lightning." />
+
+        <DeathOtherMeteor text="Was struck by a meteor." />
 
         <!--
             TN: When the player clips out of the map while in the Facility.

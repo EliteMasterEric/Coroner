@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Known Issues
 - Reinstalling the mod may sometimes cause modded language data to be deleted.
 
+# 2.2.0 (2024-09-06)
+This update improves the documentation as well as adds support for v64.
+
+### Added
+- Added cause of death for the new event in v64.
+### Changed
+- Improved documentation for the modding API and translations (major thanks to Jatc251!).
+
 # 2.1.0 (2024-08-28)
 This update finalizes the modding API!
 
