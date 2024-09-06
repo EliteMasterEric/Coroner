@@ -13,7 +13,7 @@
             *This is the default localization file for Coroner. 
             *Please ensure that the correct version is noted above in translations, to help future translators.
             *Don't forget to update TRANSLATING.md with your translation's information!
-            *Remove these lines marked with an asterisk when not in the English file.
+            *Remove these lines marked with an asterisk when not in the English (American) file.
             
             By default, any of the `FunnyNote` or `Death` strings are dynamically chosen at random.
             If the `SeriousDeathMessages` option is enabled, the first `Death` message found in the file is used,
