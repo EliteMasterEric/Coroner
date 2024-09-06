@@ -9,7 +9,7 @@
     <Version>2.1.0</Version>
 
     <Title>Coroner</Title>
-    <Description>A Lethal Company plugin which overhauls the end-of-mission performance report with new information, including cause of death for any deceased players.</Description>
+    <Description>A Lethal Company plugin which overhauls the end-of-mission performance report with new information, including cause of death for any deceased players with some fun easter eggs thrown in too.</Description>
 
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <!--<LangVersion>latest</LangVersion>-->

@@ -8,21 +8,25 @@ A Lethal Company plugin which overhauls the end-of-mission performance report wi
 ### Issues
 If you encounter any issues with the mod, please report them on the [Lethal Company Modding Discord](https://discord.gg/lcmod) or via the [GitHub Issue Tracker](https://github.com/EliteMasterEric/Coroner/issues). Please ensure you check for known issues on the [GitHub Issue Tracker](https://github.com/EliteMasterEric/Coroner/issues) or [`CHANGELOG.md`](https://github.com/EliteMasterEric/Coroner/blob/master/CHANGELOG.md) BEFORE reporting.
 
-# Languages
-As of v1.5.0, Coroner has support for multiple languages, and you're able to create your own translations if they're inaccurate or your language isn't available! To choose your language, open the config file for the mod (or use the [Thunderstore app](https://www.overwolf.com/app/Thunderstore-Thunderstore_Mod_Manager)/[R2modman](https://r2modman.net/) config editor).
+# Translations and Customization
+## Translations
+Coroner has support for multiple languages, and you're able to create your own translations if they're inaccurate or your language isn't available! Choose your language's code from the [List of Available Translations](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATING.md#list-of-available-translations), and edit the `LanguagePicker` option in the config file for the mod (or use the [Thunderstore app](https://www.overwolf.com/app/Thunderstore-Thunderstore_Mod_Manager)/[R2modman](https://r2modman.net/) config editor).
 
 For more information on translations, or how to add/edit your language, please check [`TRANSLATING.md`](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATING.md).
 
-## Custom Language Data
+## Create or Edit Custom Death Messages
 
-If you want to augment or replace the language data for Coroner and share it with your friends, follow [this guide](https://github.com/EliteMasterEric/Coroner/blob/master/MODDING.md#replacing-language-strings) to learn how to make a modpack which does this.
+Coroner provides the ability to add, or completely replace, the death messages already provided, which can be shared with your friends via a user created mod. Check out [this guide](https://github.com/EliteMasterEric/Coroner/blob/master/MODDING.md#replacing-language-strings) for more information.
 
-DO NOT reupload Coroner to the Thunderstore just to make changes to the language files. This will cause players to use outdated versions of the mod and harm development.
+It is urged that you follow this guide and **do not** reupload Coroner to Thunderstore in order to make changes to the language files. It will cause you, your friends, and others to use outdated version of the mod, which harms development and may have severe impacts on gameplay, performance, and security.
 
-# Mod Compatibility
-- Depends on BepInEx, as well as [Xilophor](https://github.com/Xilophor/)'s [StaticNetcodeLib](https://thunderstore.io/c/lethal-company/p/xilophor/StaticNetcodeLib/)
-- Supports [More Company](https://thunderstore.io/c/lethal-company/p/notnotnotswipez/MoreCompany)'s changes to the performance report
-- Doesn't support Bigger Company (as it disables performance reports)
+# Mod Dependencies and Compatibility
+## Dependencies
+- [BepInExPack](https://thunderstore.io/c/lethal-company/p/BepInEx/BepInExPack/) (5.4.2100) by [BepInEx](https://thunderstore.io/c/lethal-company/p/BepInEx/)
+- [StaticNetcodeLib](https://thunderstore.io/c/lethal-company/p/xilophor/StaticNetcodeLib/) (1.1.1) by [Xilophor](https://github.com/Xilophor/)
+## Compatibility
+- Compatible with [More Company](https://thunderstore.io/c/lethal-company/p/notnotnotswipez/MoreCompany), and its changes to the performance report
+- Incompatible with Bigger Company, as it disables performance reports
 
 # Credits
 - [EliteMasterEric](https://github.com/EliteMasterEric): Programming

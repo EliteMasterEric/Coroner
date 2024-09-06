@@ -5,8 +5,15 @@
         <tag language="test" />
     </tags>
     <strings>
-        <UINotes text="Notes: " /> <!-- TN: First line of the notes if the player hasn't died. -->
-        <UICauseOfDeath text="Cause of Death: " /> <!-- TN: First line of the notes if the player has died. -->
+        <!--
+            Debug v3
+            (test)
+            
+            Translation Notes:
+            There is no need to translate this file, as it is only used for debugging.
+        -->
+        <UINotes text="Notes: " />
+        <UICauseOfDeath text="Cause of Death: " />
 
         <FunnyNote text="FunnyNote 1" />
         <FunnyNote text="FunnyNote 2" />

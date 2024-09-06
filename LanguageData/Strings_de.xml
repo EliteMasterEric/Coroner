@@ -5,6 +5,17 @@
         <tag language="de" />
     </tags>
     <strings>
+        <!--
+            German v0
+            (de)
+            Translation Notes:
+            
+            By default, any of the `FunnyNote` or `Death` strings are dynamically chosen at random.
+            If the `SeriousDeathMessages` option is enabled, the first `Death` message found in the file is used,
+                so make this one literal and specific.
+            The other ones can be puns or jokes, and options can be added or removed as needed, just make sure
+                to keep the correct tags, and make sure that there is at least one message for each `Death` type.
+        -->
         <UINotes text="Anmerkungen: " />
         <UICauseOfDeath text="Todesursache: " />
 

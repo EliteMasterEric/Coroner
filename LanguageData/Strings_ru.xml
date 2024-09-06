@@ -6,8 +6,8 @@
     </tags>
     <strings>
         <!--
-            Translation Notes:
-            This is the default localization file for Coroner.
+            Russian v3
+            (ru)
             
             By default, any of the `FunnyNote` or `Death` strings are dynamically chosen at random.
             If the `SeriousDeathMessages` option is enabled, the first `Death` message found in the file is used,
