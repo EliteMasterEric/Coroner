@@ -3,11 +3,11 @@ In order to create a translation, create a copy of the [`Strings_en.xml`](https:
 
 When you've finalized your translation, ensure that you add or edit your translation's information (such as version) below under the [List of Available Translations](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATING.md#list-of-available-translations), as well as adding yourself to the contributors with a link to your GitHub profile.
 
-# Custom Translations
-If you're trying to create your own variation of an already added language, please check [`MODDING.md`]("https://github.com/EliteMasterEric/Coroner/blob/master/MODDING.md") for more information on how to add or replace text in an already created translation.
+# Create or Edit Custom Death Messages
+If you're trying to create your own variation of an already added language, please check [`MODDING.md`]("https://github.com/EliteMasterEric/Coroner/blob/master/MODDING.md#adding-or-replacing-language-strings") for more information on how to add or replace text in an already created translation.
 
 # List of Available Translations
-Below is a list of currently included languages, the version of the translation, and their contributor(s). Any translation which isn't on the latest version is in need of translation. To join the list, create or edit a translation and submit a [pull request](https://github.com/EliteMasterEric/Coroner/pulls)!
+Below is a list of currently included languages, the version of the translation, and their contributor(s). Any language which isn't on the latest version is in need of translation. To join the list, create or edit a translation and submit a [pull request](https://github.com/EliteMasterEric/Coroner/pulls)!
 
 - English (American) (`en-us`) [v3] | [EliteMasterEric (Eric)](https://github.com/EliteMasterEric)
 - Chinese (Simplified) (`zh-cn`) [v2] | [RAINighty (颜绎)](https://github.com/RAINighty)
@@ -22,7 +22,7 @@ Below is a list of currently included languages, the version of the translation,
 - Spanish (`es`) [v0] | Helado de Pato
 - Debug (`test`) [v3]
 
-# Versions of Translation Files
+# Versions of Translations
 Please ensure when creating or amending a translation that the correct version number is noted at the top of the translation's file.
 ### v3
 - Added v60 death messages

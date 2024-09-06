@@ -35,8 +35,8 @@ namespace Coroner
 
         internal PluginConfig PluginConfig;
 
-        internal LanguageHandler LanguageHandler; // Uses player selected language, default to English
-        internal LanguageHandler FallbackLanguageHandler; // Always uses English
+        internal LanguageHandler LanguageHandler; // Uses player selected language, default to English (American)
+        internal LanguageHandler FallbackLanguageHandler; // Always uses English (American)
         #nullable enable
 
         public static string AssemblyDirectory

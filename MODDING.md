@@ -76,12 +76,7 @@ Coroner.API.SetCauseOfDeath(player, MIMIC);
 
 The above will currently display `{Enemy_Mimic}` as the cause of death rather than your desired string. You need to provide an XML config which includes your language strings:
 
-In `BepInEx/config/EliteMasterEric-Coroner/` in your mod upload, create a file named `Strings_<lang>_<suffix>.xml`, where `<lang>` should be the language code you want (`en` is the English language and the default for most players) and `suffix` is a value of your choice (try to choose something that another mod won't use on accident).
-
-```xml
-
-```
-
+In `BepInEx/config/EliteMasterEric-Coroner/` in your mod upload, create a file named `Strings_<lang>_<suffix>.xml`, where `<lang>` should be the language code you want (`en-us` is the English (American) language and the default for most players) and `suffix` is a value of your choice (try to choose something that another mod won't use on accident).
 
 ## List of Methods
 
