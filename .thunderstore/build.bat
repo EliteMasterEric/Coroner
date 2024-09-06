@@ -6,9 +6,6 @@ copy /y ..\README.md .
 REM Copy ../CHANGELOG.md to the current directory
 copy /y ..\CHANGELOG.md .
 
-REM Copy ../LICENSE to the current directory (not needed for Thunderstore but it's still included in the plugin folder)
-copy /y ..\LICENSE .
-
 REM Copy all files from ../Coroner/build/bin/Debug to the current directory
 xcopy /s /y /q ..\Coroner\build\bin\Debug\* .\
 
