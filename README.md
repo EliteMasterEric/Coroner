@@ -18,7 +18,7 @@ For more information on translations, or how to add/edit your language, please c
 
 Coroner provides the ability to add, or completely replace, the death messages already provided, which can be shared with your friends via a user created mod. Check out [this guide](https://github.com/EliteMasterEric/Coroner/blob/master/MODDING.md#replacing-language-strings) for more information.
 
-It is urged that you follow this guide and **do not** reupload Coroner to Thunderstore in order to make changes to the language files. It will cause you, your friends, and others to use outdated version of the mod, which harms development and may have severe impacts on gameplay, performance, and security.
+It is urged that you follow this guide and **do not** reupload Coroner to Thunderstore in order to make changes to the language files. It will cause you, your friends, and others to use an outdated version of the mod, which harms development and may have severe impacts on gameplay, performance, and security.
 
 # Mod Dependencies and Compatibility
 ## Dependencies
