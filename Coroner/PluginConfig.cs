@@ -26,7 +26,7 @@ namespace Coroner
             DisplayFunnyNotes = _config.Bind("General", "DisplayFunnyNotes", true, "Display a random note when the player has no notes.");
             DeathReplacesNotes = _config.Bind("General", "DeathReplacesNotes", true, "True to replace notes when the player dies, false to append.");
 
-            LanguagePicker = _config.Bind("Language", "LanguagePicker", "en", "Select a language to use.");// + LanguageHandler.GetLanguageList());
+            LanguagePicker = _config.Bind("Language", "LanguagePicker", "en-us", "Select a language to use.");// + LanguageHandler.GetLanguageList());
         }
 
         public bool ShouldDisplayCauseOfDeath()
@@ -69,7 +69,7 @@ namespace Coroner
         {
             if (LanguagePicker == null) {
                 Plugin.Instance.PluginLogger.LogWarning("Invalid access to uninstantiated config value LanguagePicker");
-                return "en"; // default value
+                return "en-us"; // default value
             }
             return LanguagePicker.Value.Replace('-', '_');
         }

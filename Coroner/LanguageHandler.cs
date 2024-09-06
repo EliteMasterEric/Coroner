@@ -11,7 +11,7 @@ namespace Coroner
 {
     class LanguageHandler
     {
-        public const string DEFAULT_LANGUAGE = "en";
+        public const string DEFAULT_LANGUAGE = "en-us";
 
         public const string TAG_FUNNY_NOTES = "FunnyNote";
 

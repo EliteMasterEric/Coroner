@@ -1,20 +1,32 @@
 # Modding Support
 
-As of v2.1.0, Coroner now has an API which allows other mods to access causes of death and assign your own, as well as a config system which allows players to replace causes of death with custom ones provided by a modpack.
+As of v2.1.0, Coroner has an API which allows other mods and their developers (such as [CoronerMimics](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/CoronerMimics/)) to access, create, and assign a player's cause of death. Players are also able to create or edit their own custom death messages via a mod, which can be shared to others by including it in a modpack (such as on [Thunderstore](https://thunderstore.io/c/lethal-company/?section=modpacks)), or by distributing the mod directly.
 
-## Replacing Language Strings
+## Adding or Replacing Language Strings
+To begin, follow these instructions for both adding and replacing:
+1. Create a new Thunderstore mod. For more information, check H3VR Modding Wiki's [guide to creating a Thunderstore mod/package](https://h3vr-modding.github.io/wiki/creating/thunderstore/uploading.html#manual-creation) from the **Manual Creation** section.
+2. Create a folder `yourmod/BepInEx/config/EliteMasterEric-Coroner` in your mod's folder (where the `yourmod` folder has `manifest.json`).
 
-Steps to creating a custom modpack which replaces or adds new language strings:
+> **NOTE:** It is important to update your mod whenever there is an update to Lethal Company which adds a new way of dying, otherwise the mod will use its default values for death messages.
 
 ### Adding New Language Strings
 
-1. Create a new Thunderstore mod, with a file `BepInEx/config/EliteMasterEric-Coroner/Strings_en_<suffix>.xml`. Replace `<suffix>` with something unique.
-2. Fill the file with the following:
+1. Create the file `Strings_<lang>_<suffix>.xml` in the folder `EliteMasterEric-Coroner`. Replace `<lang>` with the language you want to target (most commonly `en-us`) and `<suffix>` with something unique. You should end up with a folder structure like this:
+
+```
+yourmod/
+    BepInEx/config/EliteMasterEric-Coroner/Strings_<lang>_<suffix>.xml
+    icon.png
+    manifest.json
+    README.md
+```
+2. Add the following code to the file `Strings_<lang>_<suffix>.xml`:
 
 ```xml
 <base>
     <tags>
-        <tag language="en" />
+        <tag language="<lang>" />
+        <!-- Ensure you replace <lang> with the language you want to target, otherwise it won't work -->
     </tags>
 
     <strings>
@@ -25,19 +37,23 @@ Steps to creating a custom modpack which replaces or adds new language strings:
 </base>
 ```
 
-3. Add tags in the `<strings>` section with your own values, see [the base language file](https://github.com/EliteMasterEric/Coroner/blob/master/LanguageData/Strings_en.xml) as an example.
-
-You're done! When the mod is installed, all `Strings_en` language files get added together into a single large language file.
+3. Add tags in the `<strings>` section with the values you want to replace. For all available tags, see [`Strings_en-us.xml`](https://github.com/EliteMasterEric/Coroner/blob/master/LanguageData/Strings_en-us.xml).
+4. You're done! Whenever your mod is installed alongside Coroner, all `Strings_<lang>.xml` and `Strings_<lang>_<suffix>.xml` files will be added together into one xml file in memory and Coroner will pick a death message from the combined file.
 
 ### Replacing Existing Language Strings
 
-1. Create a new Thunderstore mod, with a file `BepInEx/config/EliteMasterEric-Coroner/Strings_en.xml`
-2. Fill the file with the contents of [the base language file](https://github.com/EliteMasterEric/Coroner/blob/master/LanguageData/Strings_en.xml).
+1. Create the file `Strings_<lang>.xml` in the folder `EliteMasterEric-Coroner`. Replace `<lang>` with the language you want to target (most commonly `en-us`). You should end up with a folder structure like this:
+
+```
+yourmod/
+    BepInEx/config/EliteMasterEric-Coroner/Strings_<lang>.xml
+    icon.png
+    manifest.json
+    README.md
+```
+2. Copy the contents of the language you want to target (most commonly [`Strings_en-us.xml`](https://github.com/EliteMasterEric/Coroner/blob/master/LanguageData/Strings_en-us.xml)) into `Strings_<lang>.xml`.
 3. Modify the language file as desired.
-
-Once you're complete, you should have a new mod which JUST contains the Thunderstore mod manifest file and the custom language file.
-
-Installing this alongside Coroner will replace the language data, and you will see your custom language data in-game.
+4. You're done! Whenever your mod is installed alongside Coroner, all death messages from your mod will replace the death messages that were included with the mod's default language file for your targeted language.
 
 ## Creating Custom Causes of Death
 
@@ -60,12 +76,7 @@ Coroner.API.SetCauseOfDeath(player, MIMIC);
 
 The above will currently display `{Enemy_Mimic}` as the cause of death rather than your desired string. You need to provide an XML config which includes your language strings:
 
-In `BepInEx/config/EliteMasterEric-Coroner/` in your mod upload, create a file named `Strings_<lang>_<suffix>.xml`, where `<lang>` should be the language code you want (`en` is the English language and the default for most players) and `suffix` is a value of your choice (try to choose something that another mod won't use on accident).
-
-```xml
-
-```
-
+In `BepInEx/config/EliteMasterEric-Coroner/` in your mod upload, create a file named `Strings_<lang>_<suffix>.xml`, where `<lang>` should be the language code you want (`en-us` is the English (American) language and the default for most players) and `suffix` is a value of your choice (try to choose something that another mod won't use on accident).
 
 ## List of Methods
 
