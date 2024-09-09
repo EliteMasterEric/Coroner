@@ -1,6 +1,6 @@
 # Modding Support
 
-As of v2.1.0, Coroner has an API which allows other mods and their developers (such as [CoronerMimics](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/CoronerMimics/)) to access, create, and assign a player's cause of death. Players are also able to create or edit their own custom death messages via a mod, which can be shared to others by including it in a modpack (such as on [Thunderstore](https://thunderstore.io/c/lethal-company/?section=modpacks)), or by distributing the mod directly.
+As of v2.1.0, Coroner provides an API which allows other mods and their developers (such as [CoronerMimics](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/CoronerMimics/)) to access, create, and assign a player's cause of death. Players are also able to create or edit their own custom death messages via a mod, which can be shared to others by including it in a modpack (such as on [Thunderstore](https://thunderstore.io/c/lethal-company/?section=modpacks)), or by distributing the mod directly.
 
 ## Adding or Replacing Language Strings
 To begin, follow these instructions for both adding and replacing:
@@ -85,6 +85,7 @@ In `BepInEx/config/EliteMasterEric-Coroner/` in your mod upload, create a file n
     </tags>
 
     <strings>
+        <!-- NOTE: If SeriousDeathNotes is turned on, it displays only the first entry, so make the first entry literal! -->
         <DeathEnemyMimic text="Was killed by a Mimic." />
         <DeathEnemyMimic text="Fell for a Mimic." />
     </strings>

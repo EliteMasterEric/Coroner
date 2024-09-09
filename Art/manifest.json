@@ -1,6 +1,6 @@
 {
     "name": "Coroner",
-    "version_number": "2.1.0",
+    "version_number": "2.2.0",
     "website_url": "https://github.com/EliteMasterEric/Coroner",
     "description": "Add Cause of Death to the performance report, now with a Mod API!",
     "dependencies": [
