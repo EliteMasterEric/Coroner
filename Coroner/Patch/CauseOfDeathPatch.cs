@@ -1720,10 +1720,14 @@ namespace Coroner.Patch
         {
             var result = new List<CodeInstruction>();
 
-            // var argumentIndex_explosionPosition = 0;
-            // var argumentIndex_spawnExplosionEffect = 1;
-            var argumentIndex_killRange = 2;
-            // var argumentIndex_damageRange = 3;
+            // var argumentIndex_explosionPosition = 0; // UnityEngine.Vector3
+            // var argumentIndex_spawnExplosionEffect = 1; // bool
+            var argumentIndex_killRange = 2; // single
+            // var argumentIndex_damageRange = 3; // single
+            // var argumentIndex_nonLethalDamage = 4; // int
+            var argumentIndex_physicsForce = 5; // single
+            // var argumentIndex_overridePrefab = 6; // UnityEngine.GameObject
+            // var argumentIndex_goThroughCars = 7; // bool
 
             IList<LocalVariableInfo> localVars = method.GetMethodBody().LocalVariables;
             LocalVariableInfo? localVar_component = null;
@@ -1754,6 +1758,7 @@ namespace Coroner.Patch
 
             // IL_017F: ldarg.2
             result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_killRange));
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_physicsForce));
 
             // IL_0180: call      void [Coroner]Coroner.Patch.LandmineSpawnExplosionPatch::RewriteCauseOfDeath(class GameNetcodeStuff.PlayerControllerB, float32)
             result.Add(new CodeInstruction(OpCodes.Call, typeof(LandmineSpawnExplosionPatch).GetMethod(nameof(RewriteCauseOfDeath))));
@@ -1764,15 +1769,14 @@ namespace Coroner.Patch
         static List<CodeInstruction>? BuildInstructionsToInsertDamage(MethodBase method)
         {
             var result = new List<CodeInstruction>();
-
-            // var argumentIndex_explosionPosition = 0;
-            // var argumentIndex_spawnExplosionEffect = 1;
-            var argumentIndex_killRange = 2;
-            // var argumentIndex_damageRange = 3;
-            // var argumentIndex_nonLethalDamage = 4;
-            var argumentIndex_physicsForce = 5;
-            // var argumentIndex_overridePrefab = 6;
-            // var argumentIndex_goThroughCards = 7;
+            // var argumentIndex_explosionPosition = 0; // UnityEngine.Vector3
+            // var argumentIndex_spawnExplosionEffect = 1; // bool
+            var argumentIndex_killRange = 2; // single
+            // var argumentIndex_damageRange = 3; // single
+            // var argumentIndex_nonLethalDamage = 4; // int
+            var argumentIndex_physicsForce = 5; // single
+            // var argumentIndex_overridePrefab = 6; // UnityEngine.GameObject
+            // var argumentIndex_goThroughCars = 7; // bool
 
             IList<LocalVariableInfo> localVars = method.GetMethodBody().LocalVariables;
             LocalVariableInfo? localVar_component = null;

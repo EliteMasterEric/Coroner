@@ -71,7 +71,7 @@ namespace Coroner
                 Plugin.Instance.PluginLogger.LogWarning("Invalid access to uninstantiated config value LanguagePicker");
                 return "en-us"; // default value
             }
-            return LanguagePicker.Value.Replace('-', '_');
+            return LanguagePicker.Value.Replace('_', '-');
         }
     }
 }
