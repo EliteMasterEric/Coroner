@@ -254,8 +254,8 @@
         <DeathPlayerMurderStopSign text="Got murdered." />
         <DeathPlayerMurderStopSign text="Got beaten to death by a coworker." />
         <DeathPlayerMurderStopSign text="Was forced to stop by a coworker." />
-        <DeathPlayerMurderStopSign text="Budgeoned by eight fantastic sides." /> <!-- TN: Jack Black's Octagon -->
-        <DeathPlayerMurderStopSign text="Budgeoned by eight awesome angles." /> <!-- TN: Jack Black's Octagon -->
+        <DeathPlayerMurderStopSign text="Bludgeoned by eight fantastic sides." /> <!-- TN: Jack Black's Octagon -->
+        <DeathPlayerMurderStopSign text="Bludgeoned by eight awesome angles." /> <!-- TN: Jack Black's Octagon -->
 
         <DeathPlayerMurderYieldSign text="Was beaten with a Yield Sign by a coworker." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
         <DeathPlayerMurderYieldSign text="Was the victim of a murder." />
@@ -322,6 +322,7 @@
         <DeathPitMinePit text="Jumped the railing and fell." />
 
         <!-- TN: Fell in a hole and died in the caves in the Mines layout. -->
+        <DeathPitMineCave text="Fell into a pit in the caves." />
         <DeathPitMineCave text="Fell into a pit while spelunking." />
 
         <!--
@@ -338,6 +339,8 @@
         <DeathOtherLightning text="Was struck by lightning." />
 
         <DeathOtherMeteor text="Was struck by a meteor." />
+        <DeathOtherMeteor text="Found out what it's like to be a dinosaur." /> <!-- TN: Referencing the meteor that ended the Cretaceous period -->
+        <DeathOtherMeteor text="Died debating whether it's a meteor or a meteorite." />
 
         <!--
             TN: When the player clips out of the map while in the Facility.
