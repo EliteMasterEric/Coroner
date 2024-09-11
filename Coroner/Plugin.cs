@@ -7,7 +7,6 @@ using System.Reflection;
 using System.IO;
 using static BepInEx.BepInDependency;
 using LobbyCompatibility.Enums;
-using LobbyCompatibility.Attributes;
 using LobbyCompatibility.Features;
 
 #nullable enable
@@ -66,11 +65,29 @@ namespace Coroner
             harmony.PatchAll();
 
             // Plugin startup logic
-            PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded!");
+            PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded");
 
-            // Lobby Compatibility
-            Version ver = new Version("2.1.0");
-            PluginHelper.RegisterPlugin(PluginInfo.PLUGIN_GUID, ver, CompatibilityLevel.Everyone, VersionStrictness.Patch);
+            // Detect LobbyCompatibility by BMX and register if found
+            // Based off code from IA3Dev on GitHub (https://github.com/1A3Dev)
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("BMX.LobbyCompatibility"))
+            {
+                PluginLogger.LogInfo("Detected LobbyCompatibility, registering with plugin");
+                // Parse from PluginInfo.PLUGIN_VERSION so this doesn't have to be updated every time there's a plugin update
+                Version pluginVersion = Version.Parse(PluginInfo.PLUGIN_VERSION);
+                try
+                {
+                    PluginHelper.RegisterPlugin(PluginInfo.PLUGIN_GUID, pluginVersion, CompatibilityLevel.Everyone, VersionStrictness.Patch);
+                }
+                catch (Exception ex) {
+                    PluginLogger.LogError("Failed to register with LobbyCompatibility after detection: " + ex);
+                    PluginLogger.LogError(ex.StackTrace);
+
+                }
+            }
+            else
+            {
+                PluginLogger.LogInfo("Could not detect LobbyCompatibility in PluginInfos, not registering");
+            }
 
             LoadConfig();
             LoadLanguageHandlers();
