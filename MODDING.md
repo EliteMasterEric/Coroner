@@ -1,6 +1,6 @@
 # Modding Support
 
-As of v2.1.0, Coroner has an API which allows other mods and their developers (such as [CoronerMimics](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/CoronerMimics/)) to access, create, and assign a player's cause of death. Players are also able to create or edit their own custom death messages via a mod, which can be shared to others by including it in a modpack (such as on [Thunderstore](https://thunderstore.io/c/lethal-company/?section=modpacks)), or by distributing the mod directly.
+As of v2.1.0, Coroner provides an API which allows other mods and their developers (such as [CoronerMimics](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/CoronerMimics/)) to access, create, and assign a player's cause of death. Players are also able to create or edit their own custom death messages via a mod, which can be shared to others by including it in a modpack (such as on [Thunderstore](https://thunderstore.io/c/lethal-company/?section=modpacks)), or by distributing the mod directly.
 
 ## Adding or Replacing Language Strings
 To begin, follow these instructions for both adding and replacing:
@@ -76,7 +76,21 @@ Coroner.API.SetCauseOfDeath(player, MIMIC);
 
 The above will currently display `{Enemy_Mimic}` as the cause of death rather than your desired string. You need to provide an XML config which includes your language strings:
 
-In `BepInEx/config/EliteMasterEric-Coroner/` in your mod upload, create a file named `Strings_<lang>_<suffix>.xml`, where `<lang>` should be the language code you want (`en-us` is the English (American) language and the default for most players) and `suffix` is a value of your choice (try to choose something that another mod won't use on accident).
+In `BepInEx/config/EliteMasterEric-Coroner/` in your mod upload, create a file named `Strings_<lang>_<suffix>.xml`, where `<lang>` should be the language code you want (`en-us` is the English (American) language and the default for most players) and `suffix` is a value of your choice (try to choose something that another mod won't use on accident). Add tags to `<strings>` for each cause of death you want to add. You can include multiple tags for each cause of death and the game will randomize between them.
+
+```xml
+<base>
+    <tags>
+        <tag language="en-us" />
+    </tags>
+
+    <strings>
+        <!-- NOTE: If SeriousDeathNotes is turned on, it displays only the first entry, so make the first entry literal! -->
+        <DeathEnemyMimic text="Was killed by a Mimic." />
+        <DeathEnemyMimic text="Fell for a Mimic." />
+    </strings>
+</base>
+```
 
 ## List of Methods
 

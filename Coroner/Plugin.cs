@@ -19,7 +19,7 @@ namespace Coroner
         public const string PLUGIN_ID = "Coroner";
         public const string PLUGIN_NAME = "Coroner";
         public const string PLUGIN_AUTHOR = "EliteMasterEric";
-        public const string PLUGIN_VERSION = "2.1.0";
+        public const string PLUGIN_VERSION = "2.2.0";
         public const string PLUGIN_GUID = "com.elitemastereric.coroner";
     }
 

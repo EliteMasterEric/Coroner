@@ -383,6 +383,7 @@ namespace Coroner
         public static AdvancedCauseOfDeath Other_Landmine = Build(LanguageHandler.TAG_DEATH_OTHER_LANDMINE);
         public static AdvancedCauseOfDeath Other_Turret = Build(LanguageHandler.TAG_DEATH_OTHER_TURRET);
         public static AdvancedCauseOfDeath Other_Lightning = Build(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
+        public static AdvancedCauseOfDeath Other_Meteor = Build(LanguageHandler.TAG_DEATH_OTHER_METEOR);
         public static AdvancedCauseOfDeath Other_DepositItemsDesk = Build(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK); // You never see this one since there's no report.
         public static AdvancedCauseOfDeath Other_Dropship = Build(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
         public static AdvancedCauseOfDeath Other_Spike_Trap = Build(LanguageHandler.TAG_DEATH_OTHER_SPIKE_TRAP);

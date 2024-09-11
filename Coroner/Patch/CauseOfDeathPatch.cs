@@ -1720,10 +1720,14 @@ namespace Coroner.Patch
         {
             var result = new List<CodeInstruction>();
 
-            // var argumentIndex_explosionPosition = 0;
-            // var argumentIndex_spawnExplosionEffect = 1;
-            var argumentIndex_killRange = 2;
-            // var argumentIndex_damageRange = 3;
+            // var argumentIndex_explosionPosition = 0; // UnityEngine.Vector3
+            // var argumentIndex_spawnExplosionEffect = 1; // bool
+            var argumentIndex_killRange = 2; // single
+            // var argumentIndex_damageRange = 3; // single
+            // var argumentIndex_nonLethalDamage = 4; // int
+            var argumentIndex_physicsForce = 5; // single
+            // var argumentIndex_overridePrefab = 6; // UnityEngine.GameObject
+            // var argumentIndex_goThroughCars = 7; // bool
 
             IList<LocalVariableInfo> localVars = method.GetMethodBody().LocalVariables;
             LocalVariableInfo? localVar_component = null;
@@ -1754,6 +1758,7 @@ namespace Coroner.Patch
 
             // IL_017F: ldarg.2
             result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_killRange));
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_physicsForce));
 
             // IL_0180: call      void [Coroner]Coroner.Patch.LandmineSpawnExplosionPatch::RewriteCauseOfDeath(class GameNetcodeStuff.PlayerControllerB, float32)
             result.Add(new CodeInstruction(OpCodes.Call, typeof(LandmineSpawnExplosionPatch).GetMethod(nameof(RewriteCauseOfDeath))));
@@ -1764,11 +1769,14 @@ namespace Coroner.Patch
         static List<CodeInstruction>? BuildInstructionsToInsertDamage(MethodBase method)
         {
             var result = new List<CodeInstruction>();
-
-            // var argumentIndex_explosionPosition = 0;
-            // var argumentIndex_spawnExplosionEffect = 1;
-            var argumentIndex_killRange = 2;
-            // var argumentIndex_damageRange = 3;
+            // var argumentIndex_explosionPosition = 0; // UnityEngine.Vector3
+            // var argumentIndex_spawnExplosionEffect = 1; // bool
+            var argumentIndex_killRange = 2; // single
+            // var argumentIndex_damageRange = 3; // single
+            // var argumentIndex_nonLethalDamage = 4; // int
+            var argumentIndex_physicsForce = 5; // single
+            // var argumentIndex_overridePrefab = 6; // UnityEngine.GameObject
+            // var argumentIndex_goThroughCars = 7; // bool
 
             IList<LocalVariableInfo> localVars = method.GetMethodBody().LocalVariables;
             LocalVariableInfo? localVar_component = null;
@@ -1799,24 +1807,25 @@ namespace Coroner.Patch
 
             // IL_017F: ldarg.2
             result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_killRange));
+            result.Add(new CodeInstruction(OpCodes.Ldarg, argumentIndex_physicsForce));
 
-            // IL_0180: call      void [Coroner]Coroner.Patch.LandmineSpawnExplosionPatch::MaybeRewriteCauseOfDeath(class GameNetcodeStuff.PlayerControllerB, float32)
+            // IL_0180: call      void [Coroner]Coroner.Patch.LandmineSpawnExplosionPatch::MaybeRewriteCauseOfDeath(class GameNetcodeStuff.PlayerControllerB, float32, float32)
             result.Add(new CodeInstruction(OpCodes.Call, typeof(LandmineSpawnExplosionPatch).GetMethod(nameof(MaybeRewriteCauseOfDeath))));
 
             return result;
         }
 
-        public static void MaybeRewriteCauseOfDeath(PlayerControllerB targetPlayer, float killRange) {
+        public static void MaybeRewriteCauseOfDeath(PlayerControllerB targetPlayer, float killRange, float physicsForce) {
             // Called when the player is DAMAGED by an explosion, but not necessarily killed.
             if (targetPlayer.isPlayerDead) {
                 Plugin.Instance.PluginLogger.LogDebug($"Player died from landmine damage");
-                RewriteCauseOfDeath(targetPlayer, killRange);
+                RewriteCauseOfDeath(targetPlayer, killRange, physicsForce);
             } else {
                 Plugin.Instance.PluginLogger.LogDebug($"Player did not die from landmine (left at ${targetPlayer.health} health)");
             }
         }
 
-        public static void RewriteCauseOfDeath(PlayerControllerB targetPlayer, float killRange)
+        public static void RewriteCauseOfDeath(PlayerControllerB targetPlayer, float killRange, float physicsForce)
         {
             // This function sets different causes of death for the player based on the kill range of the explosion.
             // This works because different explosion types have different kill ranges.
@@ -1824,39 +1833,49 @@ namespace Coroner.Patch
             // It will become a problem if two different sources can create identically-sized explosions.
 
             AdvancedCauseOfDeath causeOfDeath = AdvancedCauseOfDeath.Blast;
-            if (killRange == 0.0f)
+            if ( /* killRange == ??.?f && */ physicsForce == 50.0f) {
+                // Check if it's a meteor (which has a random kill range)
+                causeOfDeath = AdvancedCauseOfDeath.Other_Meteor;
+            }
+            else if (killRange == 0.0f && physicsForce == 80.0f)
             {
                 causeOfDeath = AdvancedCauseOfDeath.Enemy_Butler_Explode;
             }
-            else if (killRange == 6.0f)
+            else if (killRange == 6.0f && physicsForce == 200.0f)
             {
                 // Assume that the player is outside the vehicle.
                 // We can update this later.
                 causeOfDeath = AdvancedCauseOfDeath.Player_Cruiser_Explode_Bystander;
             }
-            else if (killRange == 5.0f)
+            else if (killRange == 5.0f && physicsForce == 0.0f)
             {
                 causeOfDeath = AdvancedCauseOfDeath.Player_Jetpack_Blast;
             }
-            else if (killRange == 5.7f)
+            else if (killRange == 5.7f && physicsForce == 0.0f)
             {
                 causeOfDeath = AdvancedCauseOfDeath.Other_Landmine;
             }
-            else if (killRange == 1.0f)
+            else if (killRange == 1.0f && physicsForce == 65.0f)
             {
                 causeOfDeath = AdvancedCauseOfDeath.Enemy_Old_Bird_Rocket;
             }
-            else if (killRange == 2.0f)
+            else if (killRange == 1.0f && physicsForce == 35.0f)
+            {
+                causeOfDeath = AdvancedCauseOfDeath.Enemy_Old_Bird_Rocket;
+            }
+            else if (killRange == 2.0f && physicsForce == 45.0f)
             {
                 causeOfDeath = AdvancedCauseOfDeath.Enemy_Old_Bird_Charge;
             }
-            else if (killRange == 2.4f)
+            else if (killRange == 2.4f && physicsForce == 0.0f)
             {
                 causeOfDeath = AdvancedCauseOfDeath.Other_Lightning;
             }
-            else if (killRange == 0.5f)
+            else if (killRange == 0.5f && physicsForce == 45.0f)
             {
                 causeOfDeath = AdvancedCauseOfDeath.Player_EasterEgg;
+            } else {
+                Plugin.Instance.PluginLogger.LogWarning($"Could not identify explosion type! Using generic cause of death for Blasts...");
             }
 
             Plugin.Instance.PluginLogger.LogDebug($"Player died from Explosion({causeOfDeath})! Setting special cause of death...");

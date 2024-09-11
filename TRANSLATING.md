@@ -9,9 +9,9 @@ If you're trying to create your own variation of an already added language, plea
 # List of Available Translations
 Below is a list of currently included languages, the version of the translation, and their contributor(s). Any language which isn't on the latest version is in need of translation. To join the list, create or edit a translation and submit a [pull request](https://github.com/EliteMasterEric/Coroner/pulls)!
 
-- English (American) (`en-us`) [v3] | [EliteMasterEric (Eric)](https://github.com/EliteMasterEric)
+- English (American) (`en-us`) [v4] | [EliteMasterEric (Eric)](https://github.com/EliteMasterEric)
 - Chinese (Simplified) (`zh-cn`) [v2] | [RAINighty (颜绎)](https://github.com/RAINighty)
-- Dutch (`nl`) [v0] | Ceva
+- Dutch (`nl`) [v4] | Ceva
 - French (`fr`) [v0] | Fleetway
 - German (`de`) [v0] | [YoBii](https://github.com/YoBii)
 - Hungarian (`hu`) [v0] | [Kultercode (Kristóf Juhász)](https://github.com/Kultercode)
@@ -24,6 +24,8 @@ Below is a list of currently included languages, the version of the translation,
 
 # Versions of Translations
 Please ensure when creating or amending a translation that the correct version number is noted at the top of the translation's file.
+### v4
+- Added v64 death messages
 ### v3
 - Added v60 death messages
 - Added specific pit death messages
