@@ -6,7 +6,7 @@
     </tags>
     <strings>
         <!--
-            Russian v3
+            Russian v4
             (ru)
             
             By default, any of the `FunnyNote` or `Death` strings are dynamically chosen at random.
@@ -52,7 +52,7 @@
             These are fallbacks for when there is no specific message. Try to make these broadly applicable.
         -->
 
-        <DeathBludgeoning text="Забит до смерти." />
+        <DeathBludgeoning text="Был забит до смерти." />
 
         <DeathGravity text="Разбился насмерть." />
         <DeathGravity text="Упал со скалы." />
@@ -62,16 +62,16 @@
         <DeathBlast text="БОМБезно ушёл." />
         <DeathBlast text="Разлетелся на атомы." />
 
-        <DeathStrangulation text="Задушен." />
+        <DeathStrangulation text="Был задушен." />
 
         <DeathSuffocation text="Умер от нехватки воздуха." />
 
-        <DeathMauling text="Растерзан." />
+        <DeathMauling text="Был растерзан." />
 
-        <DeathGunshots text="Застрелен." />
+        <DeathGunshots text="Был застрелен." />
         <DeathGunshots text="Забит пулями по самое не хочу." />
 
-        <DeathCrushing text="Раздавлен." />
+        <DeathCrushing text="Был раздавлен." />
 
         <DeathDrowning text="Утонул." />
 
@@ -106,19 +106,20 @@
         <DeathEnemyEyelessDog text="Его подвела его механическая клавиатура." />
         <DeathEnemyEyelessDog text="Чихнул рядом со Слепой Собакой." />
 
-        <DeathEnemyForestGiantEaten text="Проглочен Хранителем Леса." />
+        <DeathEnemyForestGiantEaten text="Был проглочен Хранителем Леса." />
         <DeathEnemyForestGiantEaten text="Перепутал Хранителя Леса с деревом." /> <!-- TN: Make like a tree and leave. -->
 
-        <DeathEnemyForestGiantDeath text="Раздавлен умирающим Хранителем Леса." /> <!-- TN: Forest Giants crush nearby players as they play their death animation. -->
+        <DeathEnemyForestGiantDeath text="Был раздавлен умирающим Хранителем Леса." /> <!-- TN: Forest Giants crush nearby players as they play their death animation. -->
 
         <DeathEnemyCircuitBees text="Получил разряд от Электропчёл." />
 
         <DeathEnemyGhostGirl text="Умер загадочной смертью." />
         <DeathEnemyGhostGirl text="Потерял рассудок." />
         <DeathEnemyGhostGirl text="Получил сильную головную боль." /> <!-- TN: The Ghost Girl causes the player's head to explode. -->
+        <DeathEnemyGhostGirl text="Его голова просто... сама по себе лопнула?.. Наверное?.." />
         <DeathEnemyGhostGirl text="???" />
 
-        <DeathEnemyEarthLeviathan text="Проглочен Левиафаном." />
+        <DeathEnemyEarthLeviathan text="Был проглочен Левиафаном." />
 
         <DeathEnemyBaboonHawk text="Был съеден Бабуиновым Ястребом." />
         <DeathEnemyBaboonHawk text="Был изуродован Бабуиновым Ястребом." />
@@ -185,7 +186,7 @@
         <DeathEnemyButlerStab text="Подошел слишком близко к Дворецкому." />
         <DeathEnemyButlerStab text="Пообщался с обслуживающим персоналом." />
         
-        <DeathEnemyButlerExplode text="Подорван Дворецким." />
+        <DeathEnemyButlerExplode text="Был подорван Дворецким." />
         
         <DeathEnemyMaskHornets text="Был зажален пчёлами дворецкого." /> <!-- TN: Spawned when the Butler dies. -->
         
@@ -349,6 +350,12 @@
         <DeathOtherTurret text="Был застрелен турелью." />
 
         <DeathOtherLightning text="Был ПОРАЖЁН молнией." />
+
+        <DeathOtherMeteor text="Был раздавлен метеоритом" />
+        <DeathOtherMeteor text="Узнал, каково это - быть динозавром." /> <!-- TN: Referencing the meteor that ended the Cretaceous period -->
+        <DeathOtherMeteor text="Умер, рассуждая, метеор это или метеорит." />
+        <DeathOtherMeteor text="Это птица? Это самолёт?! Нет, ЭТО МЕТЕОРИТ!!!" /> <!-- RU-TN: Its a Bird... Its a Plane... Its Superman meme -->
+        <DeathOtherMeteor text="Решил посчитать ворон во время метеоритного дождя." /> <!-- RU-TN: Russian phraseologism -->
 
         <!--
             TN: When the player clips out of the map while in the Facility.
