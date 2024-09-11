@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Known Issues
 - Reinstalling the mod may sometimes cause modded language data to be deleted.
 
+## Unreleased
+### Added
+- Added [LobbyCompatibility](https://thunderstore.io/c/lethal-company/p/BMX/LobbyCompatibility/) (1.2.0) by [BMX](https://thunderstore.io/c/lethal-company/p/BMX/) as a soft dependency to aid modpack players in determining mod compatibilities.
+
 # 2.2.0 (2024-09-06)
 This update improves the documentation as well as adds support for v64.
 

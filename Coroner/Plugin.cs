@@ -6,6 +6,8 @@ using System;
 using System.Reflection;
 using System.IO;
 using static BepInEx.BepInDependency;
+using LobbyCompatibility.Enums;
+using LobbyCompatibility.Features;
 
 #nullable enable
 
@@ -23,6 +25,7 @@ namespace Coroner
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     // [BepInDependency("LethalNetworkAPI")]
     [BepInDependency(StaticNetcodeLib.MyPluginInfo.PLUGIN_GUID, DependencyFlags.HardDependency)]
+    [BepInDependency("BMX.LobbyCompatibility", DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {   
         // Variables instantiated in Awake() should never be null.
@@ -62,7 +65,29 @@ namespace Coroner
             harmony.PatchAll();
 
             // Plugin startup logic
-            PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded!");
+            PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded");
+
+            // Detect LobbyCompatibility by BMX and register if found
+            // Based off code from 1A3Dev on GitHub (https://github.com/1A3Dev)
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("BMX.LobbyCompatibility"))
+            {
+                PluginLogger.LogInfo("Detected LobbyCompatibility, registering with plugin");
+                // Parse from PluginInfo.PLUGIN_VERSION so this doesn't have to be updated every time there's a plugin update
+                Version pluginVersion = Version.Parse(PluginInfo.PLUGIN_VERSION);
+                try
+                {
+                    PluginHelper.RegisterPlugin(PluginInfo.PLUGIN_GUID, pluginVersion, CompatibilityLevel.Everyone, VersionStrictness.Patch);
+                }
+                catch (Exception ex) {
+                    PluginLogger.LogError("Failed to register with LobbyCompatibility after detection: " + ex);
+                    PluginLogger.LogError(ex.StackTrace);
+
+                }
+            }
+            else
+            {
+                PluginLogger.LogInfo("Could not detect LobbyCompatibility in PluginInfos, not registering");
+            }
 
             LoadConfig();
             LoadLanguageHandlers();

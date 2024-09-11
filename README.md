@@ -22,8 +22,11 @@ It is urged that you follow this guide and **do not** reupload Coroner to Thunde
 
 # Mod Dependencies and Compatibility
 ## Dependencies
+### Required
 - [BepInExPack](https://thunderstore.io/c/lethal-company/p/BepInEx/BepInExPack/) (5.4.2100) by [BepInEx](https://thunderstore.io/c/lethal-company/p/BepInEx/)
 - [StaticNetcodeLib](https://thunderstore.io/c/lethal-company/p/xilophor/StaticNetcodeLib/) (1.1.1) by [Xilophor](https://github.com/Xilophor/)
+### Optional
+- [LobbyCompatibility](https://thunderstore.io/c/lethal-company/p/BMX/LobbyCompatibility/) (1.2.0) by [BMX](https://thunderstore.io/c/lethal-company/p/BMX/)
 ## Compatibility
 - Compatible with [More Company](https://thunderstore.io/c/lethal-company/p/notnotnotswipez/MoreCompany), and its changes to the performance report
 - Incompatible with Bigger Company, as it disables performance reports
