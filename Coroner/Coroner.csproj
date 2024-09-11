@@ -20,10 +20,11 @@
   <ItemGroup>
     <!-- Development -->
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
-    <PackageReference Include="TeamBMX.LobbyCompatibility" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="TeamBMX.LobbyCompatibility" Version="1.2.0" PrivateAssets="all" />
     <!-- Runtime -->
-    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
     <PackageReference Include="HarmonyX" Version="2.10.2" />
+    <!-- 2022.3.9 is the version of Unity that Lethal Company is built on-->
     <PackageReference Include="UnityEngine.Modules" Version="2022.3.9" IncludeAssets="compile" />
   </ItemGroup>
   
