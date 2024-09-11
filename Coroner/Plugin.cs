@@ -8,6 +8,7 @@ using System.IO;
 using static BepInEx.BepInDependency;
 using LobbyCompatibility.Enums;
 using LobbyCompatibility.Attributes;
+using LobbyCompatibility.Features;
 
 #nullable enable
 
@@ -25,7 +26,7 @@ namespace Coroner
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     // [BepInDependency("LethalNetworkAPI")]
     [BepInDependency(StaticNetcodeLib.MyPluginInfo.PLUGIN_GUID, DependencyFlags.HardDependency)]
-    [LobbyCompatibility(CompatibilityLevel.Everyone, VersionStrictness.Patch)]
+    [BepInDependency("BMX.LobbyCompatibility", DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {   
         // Variables instantiated in Awake() should never be null.
@@ -66,6 +67,10 @@ namespace Coroner
 
             // Plugin startup logic
             PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded!");
+
+            // Lobby Compatibility
+            Version ver = new Version("2.1.0");
+            PluginHelper.RegisterPlugin(PluginInfo.PLUGIN_GUID, ver, CompatibilityLevel.Everyone, VersionStrictness.Patch);
 
             LoadConfig();
             LoadLanguageHandlers();
