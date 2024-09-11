@@ -90,15 +90,15 @@ This update represents a major refactor of Coroner's codebase.
 ### Fixed
 - Fixes for Lethal Company v49.
 
-# 1.5.3
+# 1.5.3 (2024-12-30)
 ### Fixed
 - Fixed a build issue with 1.5.2.
 
-# 1.5.2
+# 1.5.2 (2023-12-30)
 ### Fixed
 - Attempting to fix an issue caused when installing Coroner without R2Modman.
 
-# 1.5.1
+# 1.5.1 (2023-12-29)
 ### Added
 - Added a new French localization.
 
@@ -106,7 +106,7 @@ This update represents a major refactor of Coroner's codebase.
 - I have removed LC_API as a dependency from the manifest. Coroner on its own does a reasonable job of synchronizing cause of death messages across clients without it, in my experience, to a greater extent than I originally thought. I do not anticipate making it a dependency again in the future. Apologies for the inconvenience.
 - Improved the Dutch localization.
 
-# 1.5.0
+# 1.5.0 (2023-12-28)
 ### Added
 - Added a new localization feature! Coroner now has official support for English, Dutch, and Russian.
     - If you want to help localize Coroner for other languages, please visit the Lethal Company Modding Discord or submit a pull request on GitHub, I would GREATLY appreciate your contributions.
@@ -118,15 +118,15 @@ This update represents a major refactor of Coroner's codebase.
 - Fixed an issue where vanilla notes would be replaced with funny notes (funny notes should only display if no vanilla ones were given)
 - Fixed an issue where "Funny Notes" were not randomized when serious death messages were turned on.
 
-# 1.4.2
+# 1.4.2 (2023-12-18)
 ### Added
 - Now includes the mod lel
 
-# 1.4.1
+# 1.4.1 (2023-12-17)
 ### Removed
 - I decided you folks had it too good *yoinks mod away*
 
-# 1.4.0
+# 1.4.0 (2023-12-17)
 ### Added
 - Added custom death messages for specific types of explosions:
     - Landmines
@@ -139,12 +139,12 @@ This update represents a major refactor of Coroner's codebase.
 - The death report now says "Cause of Death" instead of "Notes" when a player dies.
 - Decreased log verbosity to improve performance.
 
-# 1.3.1
+# 1.3.1 (2023-12-17)
 ### Fixed
 - Fixed an issue where an exception in one of the cause-of-death patches would cause the player to not die.
 - Fixed an issue where not having LC_API installed would cause an exception to occur.
 
-# 1.3.0
+# 1.3.0 (2023-12-15)
 ### Added
 - Additional death messages for other death types.
 - Added new death messages for the enemies from v45.
@@ -152,7 +152,7 @@ This update represents a major refactor of Coroner's codebase.
 ### Fixed
 - Fixed some bugs related to v45.
 
-# 1.2.0
+# 1.2.0 (unknown date)
 ### Added
 - Each death type can now randomly display one of several messages.
 - Messages should now match across clients, even when randomized.
@@ -171,7 +171,7 @@ This update represents a major refactor of Coroner's codebase.
 - Fixed an issue where Bunkers Spiders were called Sand Spiders.
 - Fixed an issue where the mod ZIP was included inside the mod ZIP, causing a console error.
 
-# 1.1.0
+# 1.1.0 (2023-12-02)
 ### Added
 - Added a custom cause of death for the dropship.
 - Added an optional dependency on LC_API and used it to improve accuracy of cause of death reports over multiplayer.
@@ -184,7 +184,7 @@ This update represents a major refactor of Coroner's codebase.
 - Fixed an issue where BepInEx was not listed as a mandatory dependency.
 - Fixed an issue with enemy-related custom deaths not working
 
-# 1.0.0
+# 1.0.0 (2023-12-01)
 Initial release
 
 ### Added
