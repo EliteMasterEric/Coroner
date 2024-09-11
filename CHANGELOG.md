@@ -13,8 +13,10 @@ This update improves the documentation as well as adds support for v64.
 
 ### Added
 - Added cause of death for the new event in v64.
+
 ### Changed
-- Improved documentation for the modding API and translations (major thanks to Jatc251!).
+- Improved documentation for the modding API and translations (major thanks to [Jatc251](https://jatc251.com)!).
+
 ### Fixed
 - Fixed a crash found when dying to the Eyeless Dogs.
 
