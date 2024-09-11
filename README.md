@@ -1,5 +1,5 @@
 # Coroner
-A Lethal Company plugin which overhauls the end-of-mission performance report with new information, including cause of death for any deceased players with some fun easter eggs thrown in too. Available to download from [Thunderstore](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/Coroner/) or view the source code on [GitHub](https://github.com/EliteMasterEric/Coroner).
+A Lethal Company mod which overhauls the end-of-mission performance report with new information, including cause of death for any deceased players with some fun easter eggs thrown in too. Available to download from [Thunderstore](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/Coroner/) or view the source code on [GitHub](https://github.com/EliteMasterEric/Coroner).
 
 > **NOTE:** If you have issues when using foreign language fonts, install FontFixer via [Thunderstore](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/FontFixer/) or [GitHub](https://github.com/EliteMasterEric/FontFixer) BEFORE reporting.
 
