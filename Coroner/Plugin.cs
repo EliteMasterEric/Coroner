@@ -68,7 +68,7 @@ namespace Coroner
             PluginLogger.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded");
 
             // Detect LobbyCompatibility by BMX and register if found
-            // Based off code from IA3Dev on GitHub (https://github.com/1A3Dev)
+            // Based off code from 1A3Dev on GitHub (https://github.com/1A3Dev)
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("BMX.LobbyCompatibility"))
             {
                 PluginLogger.LogInfo("Detected LobbyCompatibility, registering with plugin");
