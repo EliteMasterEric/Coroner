@@ -12,7 +12,7 @@ Below is a list of currently included languages, the version of the translation,
 - English (American) (`en-us`) [v4] | [EliteMasterEric](https://github.com/EliteMasterEric), [Thundermaker300](https://github.com/Thundermaker300/Coroner)
 - Chinese (Simplified) (`zh-cn`) [v2] | [RAINighty (颜绎)](https://github.com/RAINighty)
 - Dutch (`nl`) [v4] | [Ceva](https://twitter.com/cevaskullderg)
-- French (`fr`) [v0] | Fleetway
+- French (`fr`) [v4] | Fleetway, [AlexandrinFR (Alexandrin)](https://github.com/AlexandrinFR)
 - German (`de`) [v0] | [YoBii](https://github.com/YoBii)
 - Hungarian (`hu`) [v0] | [Kultercode (Kristóf Juhász)](https://github.com/Kultercode)
 - Italian (`it`) [v1] | [MakinDay (Federico G.)](https://github.com/MakinDay)
