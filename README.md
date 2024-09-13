@@ -26,7 +26,6 @@ It is urged that you follow this guide and **do not** reupload Coroner to Thunde
 - [StaticNetcodeLib](https://thunderstore.io/c/lethal-company/p/xilophor/StaticNetcodeLib/) (1.1.1) by [Xilophor](https://github.com/Xilophor/)
 ## Compatibility
 - Compatible with [More Company](https://thunderstore.io/c/lethal-company/p/notnotnotswipez/MoreCompany), and its changes to the performance report
-- Incompatible with Bigger Company, as it disables performance reports
 
 # Credits
 - [EliteMasterEric](https://github.com/EliteMasterEric): Programming
