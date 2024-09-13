@@ -29,7 +29,7 @@
         <FunnyNote text="Le plus stupide." />
         <FunnyNote text="Est trop mignon." />
         <FunnyNote text="S'est bien amusé." />
-        <FunnyNote text="N'a pas eu un bon temps." />
+        <FunnyNote text="N'a pas passé un bon moment." />
         <FunnyNote text="S'est montré brave." />
         <FunnyNote text="A fait des figures." />
         <FunnyNote text="A cogné une table." />
@@ -39,7 +39,7 @@
         <FunnyNote text="Aime jouer en équipe." />
         <FunnyNote text="Est un VRAI fonceur." />
         <FunnyNote text="Est un goinfre." />
-        <FunnyNote text="S'est fait aspergé d'encre." />
+        <FunnyNote text="S'est fait asperger d'encre." />
         <FunnyNote text="Est allé trop vite." />
         <FunnyNote text="N'a pas fait attention." />
         <FunnyNote text="Absolument parfait." />
@@ -89,7 +89,7 @@
         <DeathFan text="Déchiqueté." />
         <DeathFan text="S'est retrouvé trop près d'un ventilateur." />
 
-        <DeathInertia text="A séché ses cours de psysique." />
+        <DeathInertia text="A séché ses cours de physique." />
 
         <DeathSnipped text="Ciselé." />
 
@@ -103,7 +103,7 @@
         <DeathEnemyBracken text="A regardé un Bracken trop longtemps." />
 
         <DeathEnemyEyelessDog text="A été mangé par un Eyeless Dog." />
-        <DeathEnemyEyelessDog text="Pris en train d'utiliser un clavier méchanique." />
+        <DeathEnemyEyelessDog text="Pris en train d'utiliser un clavier mécanique." />
         <DeathEnemyEyelessDog text="N'a pas été silencieux a coté d'un Eyeless Dog." />
 
         <DeathEnemyForestGiantEaten text="Dévoré entier par un Forest Giant." />
@@ -148,7 +148,7 @@
 
         <DeathEnemyLassoMan text="A été attrapé au lasso par un Lasso Man." />
 
-        <DeathEnemySporeLizard text="A été mordu per un Spore Lizard." />
+        <DeathEnemySporeLizard text="A été mordu par un Spore Lizard." />
         <DeathEnemySporeLizard text="A énervé un Spore Lizard." />
 
         <DeathEnemyBunkerSpider text="Attrapé dans la toile de la Bunker Spider." />
@@ -232,7 +232,7 @@
 
         <DeathPlayerJetpackGravity text="Est tombé en utilisant un jetpack." /> <!-- TN: Message used when the player dies of fall damage while holding a jetpack. -->
         <DeathPlayerJetpackGravity text="A volé trop près du soleil." /> <!-- TN: Reference to Icarus of Greek mythology -->
-        <DeathPlayerJetpackGravity text="Est tombé a court de carburant." />
+        <DeathPlayerJetpackGravity text="Est tombé à court de carburant." />
 
         <DeathPlayerJetpackBlast text="A explosé en utilisant un Jetpack." /> <!-- TN: Message used when the player uses the jetpack too long and it explodes. -->
         <DeathPlayerJetpackBlast text="S'est transformé en feu d'artifice." />
@@ -242,7 +242,7 @@
         <DeathPlayerMurderShovel text="A été tué." />
         <DeathPlayerMurderShovel text="A été trahi par un collègue." />
         <DeathPlayerMurderShovel text="A eu sa tombe creusée par un collègue." />
-        <DeathPlayerMurderShovel text="Un collègue a creusée sa tombe." />
+        <DeathPlayerMurderShovel text="Un collègue a creusé sa tombe." />
 
         <DeathPlayerMurderStopSign text="A été battu avec un panneau stop par un collègue." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
         <DeathPlayerMurderStopSign text="A été victime de meurtre." />
