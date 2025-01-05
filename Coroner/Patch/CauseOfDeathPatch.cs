@@ -352,7 +352,8 @@ namespace Coroner.Patch
                 }
             }
 
-            if (localVar_component == null) {
+            if (localVar_component == null)
+            {
                 Plugin.Instance.PluginLogger.LogError("Could not find PlayerControllerB local variable in ForestGiantAIAnimationEventAPatch!");
                 return null;
             }
@@ -863,15 +864,20 @@ namespace Coroner.Patch
     // Enemy_Tulip_Snake_Drop
     [HarmonyPatch(typeof(FlowerSnakeEnemy))]
     [HarmonyPatch("StopClingingOnLocalClient")]
-    class FlowerSnakeEnemyStopClingingOnLocalClientPatch {
-        public static void Prefix(FlowerSnakeEnemy __instance) {
-            if (__instance.clingingToPlayer != null) {
+    class FlowerSnakeEnemyStopClingingOnLocalClientPatch
+    {
+        public static void Prefix(FlowerSnakeEnemy __instance)
+        {
+            if (__instance.clingingToPlayer != null)
+            {
                 Plugin.Instance.PluginLogger.LogDebug("Tulip Snake let go of player...");
 
-                if (__instance.clingingToPlayer.isPlayerDead) {
+                if (__instance.clingingToPlayer.isPlayerDead)
+                {
                     Plugin.Instance.PluginLogger.LogDebug("Tulip Snake let go of player because they died...");
 
-                    if (__instance.clingingToPlayer.causeOfDeath == AdvancedCauseOfDeath.Gravity) {
+                    if (__instance.clingingToPlayer.causeOfDeath == AdvancedCauseOfDeath.Gravity)
+                    {
                         Plugin.Instance.PluginLogger.LogDebug("Tulip Snake let go of player because they died of gravity! Setting special cause of death...");
                         AdvancedDeathTracker.SetCauseOfDeath(__instance.clingingToPlayer, AdvancedCauseOfDeath.Enemy_TulipSnake_Drop);
                     }
@@ -905,7 +911,8 @@ namespace Coroner.Patch
             PlayerControllerB localPlayerController = GameNetworkManager.Instance.localPlayerController;
 
             if (localPlayerController.isPlayerDead && !AdvancedDeathTracker.HasCauseOfDeath(localPlayerController)
-                && localPlayerController.causeOfDeath == AdvancedCauseOfDeath.Crushing) {
+                && localPlayerController.causeOfDeath == AdvancedCauseOfDeath.Crushing)
+            {
                 Plugin.Instance.PluginLogger.LogDebug("Player was crushed to death by Old Bird, setting special cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(localPlayerController, AdvancedCauseOfDeath.Enemy_Old_Bird_Stomp);
             }
@@ -1141,13 +1148,17 @@ namespace Coroner.Patch
             return result;
         }
 
-        public static void MaybeRewriteCauseOfDeath(PlayerControllerB targetPlayer, int damageAmount, Vector3 hitDirection, int playerWhoHit, int newHealthAmount) {
+        public static void MaybeRewriteCauseOfDeath(PlayerControllerB targetPlayer, int damageAmount, Vector3 hitDirection, int playerWhoHit, int newHealthAmount)
+        {
             Plugin.Instance.PluginLogger.LogDebug($"Player damaged another player ${targetPlayer}({damageAmount}, {hitDirection}, {playerWhoHit}, {newHealthAmount})");
             // Called when the player is DAMAGED by an explosion, but not necessarily killed.
-            if (targetPlayer.isPlayerDead) {
+            if (targetPlayer.isPlayerDead)
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Player died from friendly fire damage");
                 RewriteCauseOfDeath(targetPlayer, playerWhoHit);
-            } else {
+            }
+            else
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Player did not die from friendly fire (left at ${targetPlayer.health} health)");
             }
         }
@@ -1156,14 +1167,20 @@ namespace Coroner.Patch
         {
             PlayerControllerB playerWhoHit = StartOfRound.Instance.allPlayerScripts[playerWhoHitIndex];
 
-            if (targetPlayer == null) {
+            if (targetPlayer == null)
+            {
                 Plugin.Instance.PluginLogger.LogError("Damage from other client: victim is null!");
-            } else if (playerWhoHit == null) {
+            }
+            else if (playerWhoHit == null)
+            {
                 Plugin.Instance.PluginLogger.LogError("Damage from other client: attacker is null!");
-            } else {
+            }
+            else
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Player died from murder ({targetPlayer.causeOfDeath}), determining special cause of death...");
 
-                if (AdvancedDeathTracker.IsHoldingShotgun(playerWhoHit)) {
+                if (AdvancedDeathTracker.IsHoldingShotgun(playerWhoHit))
+                {
                     Plugin.Instance.PluginLogger.LogDebug("Player was murdered by Shotgun! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(targetPlayer, AdvancedCauseOfDeath.Player_Murder_Shotgun);
                 }
@@ -1318,18 +1335,26 @@ namespace Coroner.Patch
             // This function sets the cause of death when the player is crushed by the giant's body.
             Plugin.Instance.PluginLogger.LogDebug("Player died to Cruiser Explosion! Setting special cause of death...");
 
-            if (vehicle == null) {
+            if (vehicle == null)
+            {
                 Plugin.Instance.PluginLogger.LogWarning("Could not get reference to vehicle...");
                 AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Explode_Bystander);
-            } else {
+            }
+            else
+            {
 
                 Plugin.Instance.PluginLogger.LogDebug($"Got vehicle controller. ({vehicle.localPlayerInControl}, {vehicle.localPlayerInPassengerSeat})");
 
-                if (vehicle.localPlayerInControl) {
+                if (vehicle.localPlayerInControl)
+                {
                     AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Driver);
-                } else if (vehicle.localPlayerInPassengerSeat) {
+                }
+                else if (vehicle.localPlayerInPassengerSeat)
+                {
                     AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Passenger);
-                } else {
+                }
+                else
+                {
                     Plugin.Instance.PluginLogger.LogWarning("Could not get reference to local player in control or passenger seat...");
                     AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Explode_Bystander);
                 }
@@ -1339,9 +1364,11 @@ namespace Coroner.Patch
 
     [HarmonyPatch(typeof(VehicleController))]
     [HarmonyPatch("RemovePlayerControlOfVehicleClientRpc")]
-    class VehicleControllerRemovePlayerControlOfVehicleClientRpcPatch {
+    class VehicleControllerRemovePlayerControlOfVehicleClientRpcPatch
+    {
 
-        static void Postfix(VehicleController __instance, int playerId, bool setIgnitionStarted) {
+        static void Postfix(VehicleController __instance, int playerId, bool setIgnitionStarted)
+        {
             Plugin.Instance.PluginLogger.LogDebug($"Removed player control of vehicle: {playerId} ({setIgnitionStarted})");
         }
     }
@@ -1455,13 +1482,17 @@ namespace Coroner.Patch
             return result;
         }
 
-        public static void MaybeRewriteCauseOfDeath(VehicleController vehicle) {
+        public static void MaybeRewriteCauseOfDeath(VehicleController vehicle)
+        {
             // Called when the player is DAMAGED by a crash, but not necessarily killed.
             var targetPlayer = GameNetworkManager.Instance.localPlayerController;
-            if (targetPlayer.isPlayerDead) {
+            if (targetPlayer.isPlayerDead)
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Player died from car accident damage");
                 RewriteCauseOfDeath(vehicle);
-            } else {
+            }
+            else
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Player did not die from car accident (left at ${targetPlayer.health} health)");
             }
         }
@@ -1471,17 +1502,25 @@ namespace Coroner.Patch
             // This function sets the cause of death when the player is killed in a crash.
             Plugin.Instance.PluginLogger.LogDebug("Player died to Cruiser Explosion! Setting special cause of death...");
 
-            if (vehicle == null) {
+            if (vehicle == null)
+            {
                 Plugin.Instance.PluginLogger.LogWarning("Could not get reference to vehicle...");
                 AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Ran_Over);
-            } else {
+            }
+            else
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Got vehicle controller. ({vehicle.localPlayerInControl}, {vehicle.localPlayerInPassengerSeat})");
 
-                if (vehicle.localPlayerInControl) {
+                if (vehicle.localPlayerInControl)
+                {
                     AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Driver);
-                } else if (vehicle.localPlayerInPassengerSeat) {
+                }
+                else if (vehicle.localPlayerInPassengerSeat)
+                {
                     AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Passenger);
-                } else {
+                }
+                else
+                {
                     Plugin.Instance.PluginLogger.LogWarning("Could not get reference to local player in control or passenger seat...");
                     AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Player_Cruiser_Ran_Over);
                 }
@@ -1598,17 +1637,24 @@ namespace Coroner.Patch
             return result;
         }
 
-        public static void MaybeRewriteCauseOfDeath() {
+        public static void MaybeRewriteCauseOfDeath()
+        {
             // Called when the player is DAMAGED by being run over, but not necessarily killed.
             var targetPlayer = GameNetworkManager.Instance.localPlayerController;
-            if (targetPlayer.isPlayerDead) {
-                if (targetPlayer.causeOfDeath == CauseOfDeath.Crushing) {
+            if (targetPlayer.isPlayerDead)
+            {
+                if (targetPlayer.causeOfDeath == CauseOfDeath.Crushing)
+                {
                     Plugin.Instance.PluginLogger.LogDebug($"Player died from car accident damage");
                     RewriteCauseOfDeath();
-                } else {
+                }
+                else
+                {
                     Plugin.Instance.PluginLogger.LogWarning($"Player was hit by a car but died of something else? {targetPlayer.causeOfDeath}");
                 }
-            } else {
+            }
+            else
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Player did not die from car accident (left at ${targetPlayer.health} health)");
             }
         }
@@ -1748,7 +1794,8 @@ namespace Coroner.Patch
                 }
             }
 
-            if (localVar_component == null) {
+            if (localVar_component == null)
+            {
                 Plugin.Instance.PluginLogger.LogError("Could not find PlayerControllerB local variable in LandmineSpawnExplosionPatch!");
                 return null;
             }
@@ -1797,7 +1844,8 @@ namespace Coroner.Patch
                 }
             }
 
-            if (localVar_component == null) {
+            if (localVar_component == null)
+            {
                 Plugin.Instance.PluginLogger.LogError("Could not find PlayerControllerB local variable in LandmineSpawnExplosionPatch!");
                 return null;
             }
@@ -1815,12 +1863,16 @@ namespace Coroner.Patch
             return result;
         }
 
-        public static void MaybeRewriteCauseOfDeath(PlayerControllerB targetPlayer, float killRange, float physicsForce) {
+        public static void MaybeRewriteCauseOfDeath(PlayerControllerB targetPlayer, float killRange, float physicsForce)
+        {
             // Called when the player is DAMAGED by an explosion, but not necessarily killed.
-            if (targetPlayer.isPlayerDead) {
+            if (targetPlayer.isPlayerDead)
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Player died from landmine damage");
                 RewriteCauseOfDeath(targetPlayer, killRange, physicsForce);
-            } else {
+            }
+            else
+            {
                 Plugin.Instance.PluginLogger.LogDebug($"Player did not die from landmine (left at ${targetPlayer.health} health)");
             }
         }
@@ -1833,7 +1885,8 @@ namespace Coroner.Patch
             // It will become a problem if two different sources can create identically-sized explosions.
 
             AdvancedCauseOfDeath causeOfDeath = AdvancedCauseOfDeath.Blast;
-            if ( /* killRange == ??.?f && */ physicsForce == 50.0f) {
+            if ( /* killRange == ??.?f && */ physicsForce == 50.0f)
+            {
                 // Check if it's a meteor (which has a random kill range)
                 causeOfDeath = AdvancedCauseOfDeath.Other_Meteor;
             }
@@ -1874,7 +1927,9 @@ namespace Coroner.Patch
             else if (killRange == 0.5f && physicsForce == 45.0f)
             {
                 causeOfDeath = AdvancedCauseOfDeath.Player_EasterEgg;
-            } else {
+            }
+            else
+            {
                 Plugin.Instance.PluginLogger.LogWarning($"Could not identify explosion type! Using generic cause of death for Blasts...");
             }
 
@@ -1973,7 +2028,7 @@ namespace Coroner.Patch
             AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Other_Turret);
         }
     }
- 
+
     // Unknown, possibly a trigger on the player ship 
     [HarmonyPatch(typeof(AnimatedObjectFloatSetter))]
     [HarmonyPatch("KillPlayerAtPoint")]
@@ -2307,17 +2362,20 @@ namespace Coroner.Patch
             }
         }
 
-        public static AdvancedCauseOfDeath DistinguishGravityKillTrigger(KillLocalPlayer __instance) {
+        public static AdvancedCauseOfDeath DistinguishGravityKillTrigger(KillLocalPlayer __instance)
+        {
             var instanceGameObject = __instance.gameObject;
             var instanceParent = __instance.gameObject.transform.parent;
 
-            if (instanceGameObject == null || instanceParent == null) {
+            if (instanceGameObject == null || instanceParent == null)
+            {
                 Plugin.Instance.PluginLogger.LogError("Could not fetch GameObject or parent from KillLocalPlayer.");
                 return AdvancedCauseOfDeath.Pit_Generic;
             }
 
             var name = instanceParent.name.Replace("(Clone)", "");
-            switch (name) {
+            switch (name)
+            {
                 case "4x4BigStairTile": // Facility stairway with protected pit
                     return AdvancedCauseOfDeath.Pit_Facility_Pit;
                 case "CatwalkTile2x1": // Facility protected catwalk
@@ -2328,7 +2386,7 @@ namespace Coroner.Patch
                     return AdvancedCauseOfDeath.Pit_Facility_Pit;
                 case "SmallStairTile": // Spiral stairs in the facility
                     return AdvancedCauseOfDeath.Pit_Facility_Pit;
-                
+
                 case "CaveForkStairTile": // Cave in the Mines
                     return AdvancedCauseOfDeath.Pit_Mine_Cave;
                 case "CaveLongRampTile": // Cave in the Mines
