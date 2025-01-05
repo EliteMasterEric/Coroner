@@ -341,7 +341,6 @@
         <DeathOtherLandmine text="Stepped on a landmine." />
 
         <DeathOtherTurret text="Got shot by a turret." />
-        <DeathOtherTurret text="Got in a fight with a turret and lost." />
         <DeathOtherTurret text="Brought a shovel to a turret fight." /> <!-- TN: Knife to a gun fight -->
 
         <DeathOtherLightning text="Was struck by lightning." />
