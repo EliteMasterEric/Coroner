@@ -9,7 +9,7 @@ If you're trying to create your own variation of an already added language, plea
 # List of Available Translations
 Below is a list of currently included languages, the version of the translation, and their contributor(s). Any language which isn't on the latest version is in need of translation. To join the list, create or edit a translation and submit a [pull request](https://github.com/EliteMasterEric/Coroner/pulls)!
 
-- English (American) (`en-us`) [v4] | [EliteMasterEric](https://github.com/EliteMasterEric)
+- English (American) (`en-us`) [v4] | [EliteMasterEric](https://github.com/EliteMasterEric), [Thundermaker300](https://github.com/Thundermaker300/Coroner)
 - Chinese (Simplified) (`zh-cn`) [v2] | [RAINighty (颜绎)](https://github.com/RAINighty)
 - Dutch (`nl`) [v4] | [Ceva](https://twitter.com/cevaskullderg)
 - French (`fr`) [v0] | Fleetway
