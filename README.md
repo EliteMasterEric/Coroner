@@ -30,7 +30,7 @@ It is urged that you follow this guide and **do not** reupload Coroner to Thunde
 
 # Credits
 - [EliteMasterEric](https://github.com/EliteMasterEric): Programming
-- Ceva: Playtesting
+- [Ceva](https://twitter.com/cevaskullderg): Playtesting
 - [NickolasFleim](https://github.com/NickolasFleim): Programming (custom language support)
 - [Jatc251](https://jatc251.com): Miscellaneous cleanup of README.md, TRANSLATING.md, MODDING.md, and repository
 - All [contributors](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATING.md) who added or helped improve their language's translations
