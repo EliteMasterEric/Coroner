@@ -688,8 +688,8 @@ namespace Coroner.Patch
 
     // Enemy_MaskedPlayer_Victim
     [HarmonyPatch(typeof(MaskedPlayerEnemy))]
-    [HarmonyPatch("killAnimation")]
-    class MaskedPlayerEnemykillAnimationPatch
+    [HarmonyPatch("FinishKillAnimation")]
+    class MaskedPlayerEnemyFinishKillAnimationPatch
     {
         public static void Postfix(MaskedPlayerEnemy __instance)
         {
@@ -697,7 +697,7 @@ namespace Coroner.Patch
             {
                 Plugin.Instance.PluginLogger.LogDebug("Masked Player killed someone...");
 
-                PlayerControllerB playerControllerB = __instance.inSpecialAnimationWithPlayer;
+                PlayerControllerB playerControllerB = Traverse.Create(__instance).Field("lastPlayerKilled").GetValue<PlayerControllerB>();
                 if (playerControllerB == null)
                 {
                     Plugin.Instance.PluginLogger.LogWarning("Could not access player after death!");
@@ -710,7 +710,7 @@ namespace Coroner.Patch
             }
             catch (System.Exception e)
             {
-                Plugin.Instance.PluginLogger.LogError("Error in MaskedPlayerEnemykillAnimationPatch.Postfix: " + e);
+                Plugin.Instance.PluginLogger.LogError("Error in MaskedPlayerEnemyFinishKillAnimationPatch.Postfix: " + e);
                 Plugin.Instance.PluginLogger.LogError(e.StackTrace);
             }
         }

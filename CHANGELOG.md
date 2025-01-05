@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Known Issues
 - Reinstalling the mod may sometimes cause modded language data to be deleted.
 
+# 2.2.1 (2025-01-??)
+This update improves the documentation as well as adds support for v64.
+
+## Fixed
+- Fixed an issue when getting captured by the Masked and then getting saved.
+
 # 2.2.0 (2024-09-06)
 This update improves the documentation as well as adds support for v64.
 
