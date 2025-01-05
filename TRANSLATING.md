@@ -9,13 +9,13 @@ If you're trying to create your own variation of an already added language, plea
 # List of Available Translations
 Below is a list of currently included languages, the version of the translation, and their contributor(s). Any language which isn't on the latest version is in need of translation. To join the list, create or edit a translation and submit a [pull request](https://github.com/EliteMasterEric/Coroner/pulls)!
 
-- English (American) (`en-us`) [v4] | [EliteMasterEric (Eric)](https://github.com/EliteMasterEric)
+- English (American) (`en-us`) [v4] | [EliteMasterEric](https://github.com/EliteMasterEric), [Thundermaker300](https://github.com/Thundermaker300/Coroner)
 - Chinese (Simplified) (`zh-cn`) [v2] | [RAINighty (颜绎)](https://github.com/RAINighty)
-- Dutch (`nl`) [v4] | Ceva
+- Dutch (`nl`) [v4] | [Ceva](https://twitter.com/cevaskullderg)
 - French (`fr`) [v0] | Fleetway
 - German (`de`) [v0] | [YoBii](https://github.com/YoBii)
 - Hungarian (`hu`) [v0] | [Kultercode (Kristóf Juhász)](https://github.com/Kultercode)
-- Italian (`it`) [v0] | [MakinDay (Federico G.)](https://github.com/MakinDay)
+- Italian (`it`) [v1] | [MakinDay (Federico G.)](https://github.com/MakinDay)
 - Korean (`ko`) [v0] | [sgkill8 (킬육)](https://github.com/sgkill6)
 - Portuguese (Brazil) (`pt-br`) [v0] | Foxeru
 - Russian (`ru`) [v3] | [NickolasFleim](https://github.com/NickolasFleim), [D4N9 (D4N9-Twitch)](https://github.com/D4N9-Twitch)

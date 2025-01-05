@@ -9,10 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reinstalling the mod may sometimes cause modded language data to be deleted.
 
 # 2.2.1 (2025-01-??)
-This update improves the documentation as well as adds support for v64.
+This update provides some updated language strings as well as a bugfix.
 
 ## Added
 - Added additional death messages for English (via Thundermaker300).
+# Changed
+- Updated Italian translations (via MakinDay)
 ## Fixed
 - Fixed an issue when getting captured by the Masked and then getting saved.
 
@@ -30,7 +32,7 @@ This update improves the documentation as well as adds support for v64.
 This update finalizes the modding API!
 
 ### Added
-- Added cause of death for the new enemy in v61.
+- Added cause of death for the new enemy in v60/61.
 - Finished up the Modding API!
     - See the [modding docs](https://github.com/EliteMasterEric/Coroner/blob/master/MODDING.md) for more info.
     - Check out the [Coroner Mimic plugin](https://github.com/EliteMasterEric/Coroner-Mimics) for an example of how to implement this
