@@ -15,6 +15,7 @@ This update provides some updated language strings as well as a bugfix.
 - Added additional death messages for English (via Thundermaker300).
 # Changed
 - Updated Italian translations (via MakinDay)
+- Updated Russian translations (via D4N9-Twitch)
 ## Fixed
 - Fixed an issue when getting captured by the Masked and then getting saved.
 

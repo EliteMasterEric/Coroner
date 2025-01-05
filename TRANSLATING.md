@@ -18,7 +18,7 @@ Below is a list of currently included languages, the version of the translation,
 - Italian (`it`) [v1] | [MakinDay (Federico G.)](https://github.com/MakinDay)
 - Korean (`ko`) [v0] | [sgkill8 (킬육)](https://github.com/sgkill6)
 - Portuguese (Brazil) (`pt-br`) [v0] | Foxeru
-- Russian (`ru`) [v3] | [NickolasFleim](https://github.com/NickolasFleim), [D4N9 (D4N9-Twitch)](https://github.com/D4N9-Twitch)
+- Russian (`ru`) [v4] | [NickolasFleim](https://github.com/NickolasFleim), [D4N9 (D4N9-Twitch)](https://github.com/D4N9-Twitch)
 - Spanish (`es`) [v0] | Helado de Pato
 - Debug (`test`) [v3]
 
