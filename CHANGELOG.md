@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # 2.2.1 (2025-01-??)
 This update improves the documentation as well as adds support for v64.
 
+## Added
+- Added additional death messages for English (via Thundermaker300).
 ## Fixed
 - Fixed an issue when getting captured by the Masked and then getting saved.
 

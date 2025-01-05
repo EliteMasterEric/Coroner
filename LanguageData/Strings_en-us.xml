@@ -115,8 +115,10 @@
         <DeathEnemyForestGiantEaten text="Made like a tree and died to a Forest Giant." /> <!-- TN: Make like a tree and leave. -->
 
         <DeathEnemyForestGiantDeath text="Crushed under a dying Forest Giant." /> <!-- TN: Forest Giants crush nearby players as they play their death animation. -->
+        <DeathEnemyForestGiantDeath text="Stood too close to a dying Forest Giant." />
 
         <DeathEnemyCircuitBees text="Electro-stung to death by Circuit Bees." />
+        <DeathEnemyCircuitBees text="Tried to steal a Beehive." />
 
         <DeathEnemyGhostGirl text="Died a mysterious death." />
         <DeathEnemyGhostGirl text="Lost their mind." />
@@ -138,6 +140,7 @@
         <DeathEnemyCoilHead text="Mauled to death by a Coil Head." />
         <DeathEnemyCoilHead text="Got in a staring contest with a Coil Head." />
         <DeathEnemyCoilHead text="Lost a staring contest with a Coil Head." />
+        <DeathEnemyCoilHead text="Turned tail and ran from a Coil Head." />
 
         <DeathEnemySnareFlea text="Was suffocated by a Snare Flea." />
         <DeathEnemySnareFlea text="Made their best HL1 Scientist impression." /> <!-- TN: Half-Life 1 features headcrabs. -->
@@ -157,6 +160,7 @@
         <DeathEnemySporeLizard text="Was puffed by a Spore Lizard." />
 
         <DeathEnemyBunkerSpider text="Ensnared in the Bunker Spider's web." />
+        <DeathEnemyBunkerSpider text="Had an unfriendly Bunker Spider encounter." />
 
         <DeathEnemyThumper text="Was ravaged by a Thumper." />
         <DeathEnemyThumper text="Got thumped by a Thumper." />
@@ -192,6 +196,7 @@
         <DeathEnemyButlerStab text="Shouldn't have asked Jeeves." /> <!-- TN: AskJeeves -->
         
         <DeathEnemyButlerExplode text="Blown up by the Butler." />
+        <DeathEnemyButlerExplode text="Stood too close to a dying Butler." />
         
         <DeathEnemyMaskHornets text="Stung to death by Mask Hornets." /> <!-- TN: Spawned when the Butler dies. -->
         
@@ -294,6 +299,7 @@
         <DeathPlayerCruiserExplodeBystander text="Got blown up by the Company Cruiser." /> <!-- TN: Occurs when near (but not seated in) the car as it explodes. -->
 
         <DeathPlayerCruiserRanOver text="Got hit by the Company Cruiser." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
+        <DeathPlayerCruiserRanOver text="Jumped into oncoming traffic." />
 
         <DeathOtherItemDropship text="Was crushed by the Item Dropship." /> <!-- TN: Used when a player stands underneath the Item Dropship and gets crushed. -->
         <DeathOtherItemDropship text="Couldn't wait for their items." />
@@ -335,6 +341,7 @@
         <DeathOtherLandmine text="Stepped on a landmine." />
 
         <DeathOtherTurret text="Got shot by a turret." />
+        <DeathOtherTurret text="Brought a shovel to a turret fight." /> <!-- TN: Knife to a gun fight -->
 
         <DeathOtherLightning text="Was struck by lightning." />
 
@@ -348,6 +355,7 @@
         -->
         <DeathOtherOutOfBounds text="Fell out of the world." />
         <DeathOtherOutOfBounds text="Noclipped into the Backrooms." />
+        <DeathOtherOutOfBounds text="Visited the void." />
 
         <DeathUnknown text="Died somehow." />
         <DeathUnknown text="Most sincerely dead." /> <!-- TN: Wizard of Oz reference -->
