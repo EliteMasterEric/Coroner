@@ -263,13 +263,12 @@
         <DeathEnemyForestGiantEaten text="Tried to hide, but the Giant was faster and hungrier." />
 
         <DeathEnemyForestGiantDeath text="Crushed under a dying Forest Giant." /> <!-- TN: Forest Giants crush nearby players as they play their death animation. -->
-        <DeathEnemyForestGiantDeath text="Stood too close to a dying Forest Giant." />
+        <DeathEnemyForestGiantDeath text="Went out with the Giant." />
         <DeathEnemyForestGiantDeath text="Crushed by a Giant’s final farewell." />
         <DeathEnemyForestGiantDeath text="Crushed under the weight of a dying Giant." />
         <DeathEnemyForestGiantDeath text="Giant’s final act: flattening you." />
 
         <DeathEnemyCircuitBees text="Electro-stung to death by Circuit Bees." />
-        <DeathEnemyCircuitBees text="Tried to steal a Beehive." />
         <DeathEnemyCircuitBees text="Received a shocking dose of bee power." />
         <DeathEnemyCircuitBees text="Overstepped the hive’s boundary." />
         <DeathEnemyCircuitBees text="Got too close to the hive." />
@@ -313,7 +312,6 @@
         <DeathEnemyCoilHead text="Mauled to death by a Coil Head." />
         <DeathEnemyCoilHead text="Got in a staring contest with a Coil Head." />
         <DeathEnemyCoilHead text="Lost a staring contest with a Coil Head." />
-        <DeathEnemyCoilHead text="Turned tail and ran from a Coil Head." />
         <DeathEnemyCoilHead text="Failed to look at the Coil Head." />
         <DeathEnemyCoilHead text="Looked away for a second." />
         <DeathEnemyCoilHead text="Got caught blinking." />
@@ -328,6 +326,7 @@
         <DeathEnemySnareFlea text="Snared and suffocated." />
         <DeathEnemySnareFlea text="Overlooked the ceiling." />
         <DeathEnemySnareFlea text="Trapped by the Snare Flea." />
+
 
         <DeathEnemyHygrodere text="Was absorbed by a Hygrodere." />
         <DeathEnemyHygrodere text="Got lost in the sauce." />
@@ -361,9 +360,7 @@
         <DeathEnemySporeLizard text="Cornered a Spore Lizard." />
         <DeathEnemySporeLizard text="Got caught in a spore cloud." />
 
-
         <DeathEnemyBunkerSpider text="Ensnared in the Bunker Spider's web." />
-        <DeathEnemyBunkerSpider text="Had an unfriendly Bunker Spider encounter." />
         <DeathEnemyBunkerSpider text="Caught in a spider’s web of doom." />
         <DeathEnemyBunkerSpider text="Got too caught up" /> <!-- TN: In reference to the spiders webs. -->
         <DeathEnemyBunkerSpider text="Became Australia's best friend." />
@@ -403,7 +400,6 @@
         <DeathEnemyMaskedPlayerVictim text="Tried to reason with a Masked." />
         <DeathEnemyMaskedPlayerVictim text="Got a little too friendly with a Masked." />
 
-
         <DeathEnemyNutcrackerKicked text="Was kicked to death by a Nutcracker." /> <!-- TN: Used when a Nutcracker kills a player that happens to walk in its path -->
         <DeathEnemyNutcrackerKicked text="Got their nuts cracked by a Nutcracker." />
         <DeathEnemyNutcrackerKicked text="Got kicked out." />
@@ -426,42 +422,43 @@
         <DeathEnemyButlerStab text="Got too close to the Butler." />
         <DeathEnemyButlerStab text="Shouldn't have asked Jeeves." /> <!-- TN: AskJeeves -->
         <DeathEnemyButlerStab text="Butler served up a deadly slice." />
-        
+
         <DeathEnemyButlerExplode text="Blown up by the Butler." />
-        <DeathEnemyButlerExplode text="Stood too close to a dying Butler." />
         <DeathEnemyButlerExplode text="Handled the Butler, then handled by the explosion." />
-        
+
         <DeathEnemyMaskHornets text="Stung to death by Mask Hornets." /> <!-- TN: Spawned when the Butler dies. -->
         <DeathEnemyMaskHornets text="Butler’s revenge: a swarm of angry hornets." />
         <DeathEnemyMaskHornets text="Found out bosses always have a second phase." />
         <DeathEnemyMaskHornets text="Butler’s gone, but the hornets weren’t happy." />
-        
+
         <DeathEnemyTulipSnakeDrop text="Dropped by a Tulip Snake." /> <!-- TN: When the player dies of fall damage due to a Tulip Snake. -->
         <DeathEnemyTulipSnakeDrop text="Caught a ride, missed the landing." />
         <DeathEnemyTulipSnakeDrop text="Tulip Snake dropped the ball… and the player." />
-                
+
         <DeathEnemyOldBirdRocket text="Blown up by an Old Bird." />
         <DeathEnemyOldBirdRocket text="Didn't get in the robot." /> <!-- TN: Evangelion meme -->
         <DeathEnemyOldBirdRocket text="Found out the Old Bird’s rocket wasn’t homing." />
         <DeathEnemyOldBirdRocket text="Dodged everything but the Old Bird’s rocket." />
         <DeathEnemyOldBirdRocket text="Tried to outrun a rocket." />
-        
+
+
         <DeathEnemyOldBirdStomp text="Stomped by an Old Bird." />
         <DeathEnemyOldBirdStomp text="Got their butt kicked by the robot." />
         <DeathEnemyOldBirdStomp text="Got in the way of the Old Bird." />
         <DeathEnemyOldBirdStomp text="Tried to outrun the Old Bird." />
         <DeathEnemyOldBirdStomp text="Squashed like a bug" />
         
+        
         <DeathEnemyOldBirdCharge text="Got too close to a charging Old Bird." />
         <DeathEnemyOldBirdCharge text="Found out why Embrion is condemned." /> <!-- TN: See Old Bird Bestiary entry. -->
         <DeathEnemyOldBirdCharge text="Tried to stand their ground, Old Bird had other plans." />
-        
+
         <DeathEnemyOldBirdTorch text="Got torched by an Old Bird." />
         <DeathEnemyOldBirdTorch text="Got flambéed by an Old Bird." /> <!-- TN: Flambée: To douse with a liquor and ignite. -->
         <DeathEnemyOldBirdTorch text="Became finger lickin' good." /> <!-- TN: KFC's slogan. -->
         <DeathEnemyOldBirdTorch text="Got cooked by the Old Bird." />
         <DeathEnemyOldBirdTorch text="Thought they could handle the heat." />
-        
+
         <!-- 
             TN: v55 Enemy Death Messages
             Messages used for enemies added in v55.
@@ -585,7 +582,6 @@
         <DeathPlayerCruiserExplodeBystander text="Found out that being a bystander has its risks." />
 
         <DeathPlayerCruiserRanOver text="Got hit by the Company Cruiser." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
-        <DeathPlayerCruiserRanOver text="Jumped into oncoming traffic." />
         <DeathPlayerCruiserRanOver text="Turned into a speed bump." />
         <DeathPlayerCruiserRanOver text="Got ran over and turned into roadkill." />
         <DeathPlayerCruiserRanOver text="Was transported to an isekai." /> <!-- TN: Isekai is a subgenre of anime/manga  in which ordinary people are transported to a magical world, usually death by cars/trucks. -->
@@ -675,7 +671,6 @@
         <DeathOtherLandmine text="Became confetti without the celebration." />
 
         <DeathOtherTurret text="Got shot by a turret." />
-        <DeathOtherTurret text="Brought a shovel to a turret fight." /> <!-- TN: Knife to a gun fight -->
         <DeathOtherTurret text="Turned into turret target practice." />
         <DeathOtherTurret text="Met their end with a turret’s attention to detail." />
         <DeathOtherTurret text="The turret doesn’t misses." />
@@ -711,7 +706,6 @@
         -->
         <DeathOtherOutOfBounds text="Fell out of the world." />
         <DeathOtherOutOfBounds text="Noclipped into the Backrooms." />
-        <DeathOtherOutOfBounds text="Visited the void." />
         <DeathOtherOutOfBounds text="Discovered the ground wasn't solid." />
         <DeathOtherOutOfBounds text="Took 'think outside the box' literally." />
         <DeathOtherOutOfBounds text="Explored the great beyond." />
