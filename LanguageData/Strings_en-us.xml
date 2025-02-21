@@ -256,6 +256,7 @@
         <DeathEnemyEyelessDog text="Caught by a dog with perfect pitch." />
 
         <DeathEnemyForestGiantEaten text="Swallowed whole by a Forest Giant." />
+        <DeathEnemyForestGiantDeath text="Stood too close to a dying Forest Giant." />
         <DeathEnemyForestGiantEaten text="Made like a tree and died to a Forest Giant." /> <!-- TN: Make like a tree and leave. -->
         <DeathEnemyForestGiantEaten text="Became one with natures Giants." />
         <DeathEnemyForestGiantEaten text="Tried to outrun a Forest Giant." />
@@ -269,6 +270,7 @@
         <DeathEnemyForestGiantDeath text="Giant’s final act: flattening you." />
 
         <DeathEnemyCircuitBees text="Electro-stung to death by Circuit Bees." />
+        <DeathEnemyCircuitBees text="Tried to steal a Beehive." />
         <DeathEnemyCircuitBees text="Received a shocking dose of bee power." />
         <DeathEnemyCircuitBees text="Overstepped the hive’s boundary." />
         <DeathEnemyCircuitBees text="Got too close to the hive." />
@@ -312,6 +314,7 @@
         <DeathEnemyCoilHead text="Mauled to death by a Coil Head." />
         <DeathEnemyCoilHead text="Got in a staring contest with a Coil Head." />
         <DeathEnemyCoilHead text="Lost a staring contest with a Coil Head." />
+        <DeathEnemyCoilHead text="Turned tail and ran from a Coil Head." />
         <DeathEnemyCoilHead text="Failed to look at the Coil Head." />
         <DeathEnemyCoilHead text="Looked away for a second." />
         <DeathEnemyCoilHead text="Got caught blinking." />
@@ -361,6 +364,7 @@
         <DeathEnemySporeLizard text="Got caught in a spore cloud." />
 
         <DeathEnemyBunkerSpider text="Ensnared in the Bunker Spider's web." />
+        <DeathEnemyBunkerSpider text="Had an unfriendly Bunker Spider encounter." />
         <DeathEnemyBunkerSpider text="Caught in a spider’s web of doom." />
         <DeathEnemyBunkerSpider text="Got too caught up" /> <!-- TN: In reference to the spiders webs. -->
         <DeathEnemyBunkerSpider text="Became Australia's best friend." />
@@ -424,6 +428,7 @@
         <DeathEnemyButlerStab text="Butler served up a deadly slice." />
 
         <DeathEnemyButlerExplode text="Blown up by the Butler." />
+        <DeathEnemyButlerExplode text="Stood too close to a dying Butler." />
         <DeathEnemyButlerExplode text="Handled the Butler, then handled by the explosion." />
 
         <DeathEnemyMaskHornets text="Stung to death by Mask Hornets." /> <!-- TN: Spawned when the Butler dies. -->
@@ -582,6 +587,7 @@
         <DeathPlayerCruiserExplodeBystander text="Found out that being a bystander has its risks." />
 
         <DeathPlayerCruiserRanOver text="Got hit by the Company Cruiser." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
+        <DeathPlayerCruiserRanOver text="Jumped into oncoming traffic." />
         <DeathPlayerCruiserRanOver text="Turned into a speed bump." />
         <DeathPlayerCruiserRanOver text="Got ran over and turned into roadkill." />
         <DeathPlayerCruiserRanOver text="Was transported to an isekai." /> <!-- TN: Isekai is a subgenre of anime/manga  in which ordinary people are transported to a magical world, usually death by cars/trucks. -->
@@ -671,6 +677,7 @@
         <DeathOtherLandmine text="Became confetti without the celebration." />
 
         <DeathOtherTurret text="Got shot by a turret." />
+        <DeathOtherTurret text="Brought a shovel to a turret fight." /> <!-- TN: Knife to a gun fight -->
         <DeathOtherTurret text="Turned into turret target practice." />
         <DeathOtherTurret text="Met their end with a turret’s attention to detail." />
         <DeathOtherTurret text="The turret doesn’t misses." />
@@ -706,6 +713,7 @@
         -->
         <DeathOtherOutOfBounds text="Fell out of the world." />
         <DeathOtherOutOfBounds text="Noclipped into the Backrooms." />
+        <DeathOtherOutOfBounds text="Visited the void." />
         <DeathOtherOutOfBounds text="Discovered the ground wasn't solid." />
         <DeathOtherOutOfBounds text="Took 'think outside the box' literally." />
         <DeathOtherOutOfBounds text="Explored the great beyond." />
