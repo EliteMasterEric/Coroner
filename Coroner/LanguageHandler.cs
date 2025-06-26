@@ -233,6 +233,21 @@ namespace Coroner
             return GetValuesByTag(tag)[0];
         }
 
+        public string GetRandomValueByTag(string tag, Random random)
+        {
+            var result = GetValuesByTag(tag);
+
+            // NOTE: obtaining a random number is skipped if there is only one result. This may be relavant for synced randoms.
+            if (result.Length > 1)
+            {
+                var index = random.Next(result.Length);
+                return result[index];
+            }
+
+            // NOTE: Assumes GetValuesByTag always returns a non-empty array.
+            return result[0];
+        }
+
         public string[] GetValuesByTag(string tag)
         {
             if (languageData.Count == 0 && languageCode != DEFAULT_LANGUAGE)

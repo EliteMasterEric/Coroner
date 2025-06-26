@@ -251,34 +251,32 @@ namespace Coroner
 
         public static string StringifyCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath, Random random)
         {
-            var result = SelectCauseOfDeath(causeOfDeath);
+            var languageTag = SelectCauseOfDeathLanguageTag(causeOfDeath);
 
-            var shouldRandomize = result.Length > 1 && (causeOfDeath == null || !Plugin.Instance.PluginConfig.ShouldUseSeriousDeathMessages());
+            var shouldRandomize = causeOfDeath == null || !Plugin.Instance.PluginConfig.ShouldUseSeriousDeathMessages();
 
             if (shouldRandomize)
             {
-                var index = random.Next(result.Length);
-                return result[index];
+                return Plugin.Instance.LanguageHandler.GetRandomValueByTag(languageTag, random);
             }
             else
             {
-                return result[0];
+                // NOTE: First cause of death in the list should be the "serious" entry.
+                return Plugin.Instance.LanguageHandler.GetFirstValueByTag(languageTag);
             }
         }
 
-        public static string[] SelectCauseOfDeath(AdvancedCauseOfDeath? causeOfDeath)
+        public static string SelectCauseOfDeathLanguageTag(AdvancedCauseOfDeath? causeOfDeath)
         {
-            if (causeOfDeath == null) return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_FUNNY_NOTES);
-
-            // NOTE: First cause of death in the list should be the "serious" entry.
+            if (causeOfDeath == null) return LanguageHandler.TAG_FUNNY_NOTES;
 
             if (AdvancedCauseOfDeath.IsCauseOfDeathRegistered(causeOfDeath))
             {
-                return ((AdvancedCauseOfDeath)causeOfDeath).GetLanguageValues();
+                return ((AdvancedCauseOfDeath)causeOfDeath).GetLanguageTag();
             }
             else
             {
-                return Plugin.Instance.LanguageHandler.GetValuesByTag(LanguageHandler.TAG_DEATH_UNKNOWN);
+                return LanguageHandler.TAG_DEATH_UNKNOWN;
             }
         }
     }
@@ -487,11 +485,6 @@ namespace Coroner
         public string GetLanguageTag()
         {
             return languageTag;
-        }
-
-        public string[] GetLanguageValues()
-        {
-            return Plugin.Instance.LanguageHandler.GetValuesByTag(languageTag);
         }
 
         public override bool Equals(object obj)
