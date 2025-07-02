@@ -75,6 +75,8 @@
 
         <DeathGunshots text="Shot to death." />
         <DeathGunshots text="Filled to the brim with bullets." />
+        <DeathGunshots text="Forgot to dodge the bullets." />
+        <DeathGunshots text="Should have simply dodged the bullets." />
 
         <DeathCrushing text="Crushed to death." />
 
@@ -234,6 +236,14 @@
         <DeathEnemyManeater text="Dropped the baby." />
         <DeathEnemyManeater text="Was a bad parent." />
 
+        <!--
+            TN: v70 Enemy Death Messages
+            Messages used for enemies added in v70.
+        -->
+        <DeathEnemyGiantSapsucker text="Was stabbed by a Giant Sapsucker." />
+        <DeathEnemyGiantSapsucker text="Got obliterated by a big bird." />
+        <DeathEnemyGiantSapsucker text="Was a bad piggy." /> <!-- TN: Angry Birds reference -->
+
         <!-- 
             TN: Player Death Messages
             These are messages for when the player dies due to player-related means,
@@ -280,6 +290,10 @@
         <DeathPlayerMurderShotgun text="Got one-pumped by a coworker." />
         <DeathPlayerMurderShotgun text="Got 360-noscoped by a coworker." /> <!-- TN: Call of Duty reference -->
 
+        <DeathPlayerElectricChair text="Got shocked by an Electric Chair." /> <!-- TN: If a player sits in the electric chair and there is a power surge, they die. -->
+        <DeathPlayerElectricChair text="Was sentenced to death by Electric Chair." />
+        <DeathPlayerElectricChair text="Paid for their crimes." />
+
         <DeathPlayerLadder text="Got crushed by an Extension Ladder." /> <!-- TN: Used when a player stands underneath an Extension Ladder and gets crushed. -->
         <DeathPlayerLadder text="Was squashed by an Extension Ladder." />
 
@@ -320,6 +334,7 @@
         <!-- TN: Died to the famous split catwalk in the Facility layout. -->
         <DeathPitFacilityCatwalkJump text="Tried to jump across the catwalk." />
         <DeathPitFacilityCatwalkJump text="Took a leap of faith, and lost." />
+        <DeathPitFacilityCatwalkJump text="Tried to make THAT jump, you know the one." />
 
         <!-- TN: Died in the Mines by falling down the elevator shaft. -->
         <DeathPitMineElevator text="Fell down the elevator shaft." />

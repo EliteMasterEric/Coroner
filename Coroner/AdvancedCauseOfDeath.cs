@@ -353,6 +353,9 @@ namespace Coroner
         // Enemies from v60
         public static AdvancedCauseOfDeath Enemy_Maneater = Build(LanguageHandler.TAG_DEATH_ENEMY_MANEATER);
 
+        // Enemies from v70
+        public static AdvancedCauseOfDeath Enemy_Giant_Sapsucker = Build(LanguageHandler.TAG_DEATH_ENEMY_GIANT_SAPSUCKER);
+
         // Custom causes (player)
         public static AdvancedCauseOfDeath Player_Jetpack_Gravity = Build(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_GRAVITY); // I think this one just never triggers.
         public static AdvancedCauseOfDeath Player_Jetpack_Blast = Build(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_BLAST);
@@ -365,6 +368,7 @@ namespace Coroner
         public static AdvancedCauseOfDeath Player_Murder_Knife = Build(LanguageHandler.TAG_DEATH_PLAYER_MURDER_KNIFE);
         public static AdvancedCauseOfDeath Player_StunGrenade = Build(LanguageHandler.TAG_DEATH_PLAYER_STUN_GRENADE);
         public static AdvancedCauseOfDeath Player_EasterEgg = Build(LanguageHandler.TAG_DEATH_PLAYER_EASTER_EGG);
+        public static AdvancedCauseOfDeath Player_Electric_Chair = Build(LanguageHandler.TAG_DEATH_PLAYER_ELECTRIC_CHAIR);
 
         public static AdvancedCauseOfDeath Player_Cruiser_Driver = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_DRIVER);
         public static AdvancedCauseOfDeath Player_Cruiser_Passenger = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_PASSENGER);

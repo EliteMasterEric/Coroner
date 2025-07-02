@@ -6,7 +6,7 @@
     <Company>EliteMasterEric</Company>
     <AssemblyName>Coroner</AssemblyName>
     <GUID>com.elitemastereric.coroner</GUID>
-    <Version>2.2.0</Version>
+    <Version>2.3.0</Version>
 
     <Title>Coroner</Title>
     <Description>A Lethal Company plugin which overhauls the end-of-mission performance report with new information, including cause of death for any deceased players with some fun easter eggs thrown in too.</Description>

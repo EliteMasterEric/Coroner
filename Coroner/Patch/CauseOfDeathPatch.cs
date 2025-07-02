@@ -987,6 +987,46 @@ namespace Coroner.Patch
         }
     }
 
+    // Enemy_Giant_Sapsucker
+    [HarmonyPatch(typeof(GiantKiwiAI))]
+    [HarmonyPatch("AnimationEventB")]
+    class GiantKiwiAIAAnimationEventBPatch
+    {
+        public static void Postfix()
+        {
+            try
+            {
+                Plugin.Instance.PluginLogger.LogDebug("Handling Sapsucker stab damage...");
+
+                // This damage is handled by the local player rather than normal collision for some reason???
+
+                PlayerControllerB playerControllerB = GameNetworkManager.Instance.localPlayerController;
+
+                if (playerControllerB == null)
+                {
+                    Plugin.Instance.PluginLogger.LogWarning("Could not access player after stabbing!");
+                    return;
+                }
+
+                if (playerControllerB.isPlayerDead)
+                {
+                    Plugin.Instance.PluginLogger.LogDebug("Player was killed by Sapsucker (Stabbing)! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_Giant_Sapsucker);
+                }
+                else
+                {
+                    Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");
+                    return;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Plugin.Instance.PluginLogger.LogError("Error in GiantKiwiAIAAnimationEventBPatch.AnimationEventB: " + e);
+                Plugin.Instance.PluginLogger.LogError(e.StackTrace);
+            }
+        }
+    }
+
     // =========
     // Players
     // =========
@@ -1213,6 +1253,45 @@ namespace Coroner.Patch
         }
     }
 
+    // Player_Electric_Chair
+    [HarmonyPatch(typeof(MoveToExitSpecialAnimation))]
+    [HarmonyPatch("shockChair")]
+    class MoveToExitSpecialAnimationShockChairPatch
+    {
+        public static void Postfix(MoveToExitSpecialAnimation __instance)
+        {
+            try
+            {
+                Plugin.Instance.PluginLogger.LogDebug("Accessing state after Electric Chair shock...");
+
+                UnityEngine.Transform? playerGameObject = __instance.interactTrigger.lockedPlayer;
+
+                if (playerGameObject == null)
+                {
+                    Plugin.Instance.PluginLogger.LogWarning("Could not access player after electric chair shock!");
+                    return;
+                }
+
+                PlayerControllerB playerControllerB = playerGameObject.GetComponent<PlayerControllerB>();
+
+                if (playerControllerB == null)
+                {
+                    Plugin.Instance.PluginLogger.LogWarning("Could not access player after electric chair shock!");
+                    return;
+                }
+
+                // These aren't true yet because this is a coroutine, UGH
+                // if (playerControllerB.isPlayerDead && playerControllerB.causeOfDeath == CauseOfDeath.Electrocution) {
+                Plugin.Instance.PluginLogger.LogDebug("Player was shocked by Electric Chair! Setting special cause of death...");
+                AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Player_Electric_Chair, false);
+            }
+            catch (System.Exception e)
+            {
+                Plugin.Instance.PluginLogger.LogError("Error in ForestGiantAIEatPlayerAnimationPatch.Postfix: " + e);
+                Plugin.Instance.PluginLogger.LogError(e.StackTrace);
+            }
+        }
+    }
 
     // Player_Ladder
     [HarmonyPatch(typeof(ExtensionLadderItem))]

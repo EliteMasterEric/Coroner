@@ -81,6 +81,9 @@ namespace Coroner
         // Enemies from v60
         public const string TAG_DEATH_ENEMY_MANEATER = "DeathEnemyManeater";
 
+        // Enemies from v70
+        public const string TAG_DEATH_ENEMY_GIANT_SAPSUCKER = "DeathEnemyGiantSapsucker";
+
         // Custom causes (player)
         public const string TAG_DEATH_PLAYER_JETPACK_GRAVITY = "DeathPlayerJetpackGravity";
         public const string TAG_DEATH_PLAYER_JETPACK_BLAST = "DeathPlayerJetpackBlast";
@@ -93,6 +96,7 @@ namespace Coroner
         public const string TAG_DEATH_PLAYER_MURDER_SHOTGUN = "DeathPlayerMurderShotgun";
         public const string TAG_DEATH_PLAYER_QUICKSAND = "DeathPlayerQuicksand";
         public const string TAG_DEATH_PLAYER_STUN_GRENADE = "DeathPlayerStunGrenade";
+        public const string TAG_DEATH_PLAYER_ELECTRIC_CHAIR = "DeathPlayerElectricChair";
 
         // Custom causes (player vehicles)
         public const string TAG_DEATH_PLAYER_CRUISER_DRIVER = "DeathPlayerCruiserDriver";
