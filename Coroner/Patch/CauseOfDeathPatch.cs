@@ -990,17 +990,16 @@ namespace Coroner.Patch
     // Enemy_Giant_Sapsucker
     [HarmonyPatch(typeof(GiantKiwiAI))]
     [HarmonyPatch("AnimationEventB")]
-    class GiantKiwiAIAAnimationEventBPatch
+    class GiantKiwiAIAnimationEventBPatch
     {
-        public static void Postfix()
+        public static void Postfix(GiantKiwiAI __instance)
         {
             try
             {
                 Plugin.Instance.PluginLogger.LogDebug("Handling Sapsucker stab damage...");
 
-                // This damage is handled by the local player rather than normal collision for some reason???
-
-                PlayerControllerB playerControllerB = GameNetworkManager.Instance.localPlayerController;
+                // The player being attacked.
+                PlayerControllerB playerControllerB = __instance.targetPlayer;
 
                 if (playerControllerB == null)
                 {
@@ -1008,7 +1007,7 @@ namespace Coroner.Patch
                     return;
                 }
 
-                if (playerControllerB.isPlayerDead)
+                if (playerControllerB.isPlayerDead && playerControllerB.causeOfDeath == CauseOfDeath.Stabbing)
                 {
                     Plugin.Instance.PluginLogger.LogDebug("Player was killed by Sapsucker (Stabbing)! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_Giant_Sapsucker);
@@ -1021,7 +1020,7 @@ namespace Coroner.Patch
             }
             catch (System.Exception e)
             {
-                Plugin.Instance.PluginLogger.LogError("Error in GiantKiwiAIAAnimationEventBPatch.AnimationEventB: " + e);
+                Plugin.Instance.PluginLogger.LogError("Error in GiantKiwiAIAnimationEventBPatch.AnimationEventB: " + e);
                 Plugin.Instance.PluginLogger.LogError(e.StackTrace);
             }
         }
