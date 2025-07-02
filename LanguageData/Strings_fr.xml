@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
     <tags>
@@ -6,7 +6,7 @@
     </tags>
     <strings>
         <!--
-            French v4
+            French v5
             (fr)
 
             Translation Notes:            
@@ -53,7 +53,7 @@
             These are fallbacks for when there is no specific message. Try to make these broadly applicable.
         -->
 
-        <DeathBludgeoning text="Battu a mort." />
+        <DeathBludgeoning text="Battu à mort." />
 
         <DeathGravity text="Est tombé." />
         <DeathGravity text="A glissé." />
@@ -70,6 +70,8 @@
 
         <DeathGunshots text="Tiré dessus." />
         <DeathGunshots text="A été rempli de balles." />
+        <DeathGunshots text="A oublié d'esquiver les balles." />
+        <DeathGunshots text="Aurait simplement dû esquiver les balles." />
 
         <DeathCrushing text="Écrasé." />
 
@@ -89,6 +91,7 @@
         <DeathFan text="Déchiqueté." />
         <DeathFan text="S'est retrouvé trop près d'un ventilateur." />
 
+        <DeathInertia text="Tué par l’inertie." />
         <DeathInertia text="A séché ses cours de physique." />
 
         <DeathSnipped text="Ciselé." />
@@ -104,7 +107,7 @@
 
         <DeathEnemyEyelessDog text="A été mangé par un Eyeless Dog." />
         <DeathEnemyEyelessDog text="Pris en train d'utiliser un clavier mécanique." />
-        <DeathEnemyEyelessDog text="N'a pas été silencieux a coté d'un Eyeless Dog." />
+        <DeathEnemyEyelessDog text="N'a pas été silencieux à côté d'un Eyeless Dog." />
 
         <DeathEnemyForestGiantEaten text="Dévoré entier par un Forest Giant." />
         <DeathEnemyForestGiantEaten text="A fait comme dans l'infanterie et s'est tiré vers un Forest Giant." /> <!-- TN: Make like a tree and leave. -->
@@ -138,8 +141,8 @@
         <DeathEnemySnareFlea text="A confondu un Snare Flea avec un crabe de tête." /> <!-- TN: Half-Life 1 features headcrabs. -->
 
         <DeathEnemyHygrodere text="A été absorbé par un Hygrodere." />
-        <DeathEnemyHygrodere text="A donné un calin a un Hygrodere." />
-        <DeathEnemyHygrodere text="A eu un oupsie avec un Hygrodere." />
+        <DeathEnemyHygrodere text="A fait un câlin à un Hygrodere." />
+        <DeathEnemyHygrodere text="A fait un faux pas avec un Hygrodere." />
 
         <DeathEnemyHoarderBug text="A été battu par un Hoarder Bug." />
         <DeathEnemyHoarderBug text="A été essaimé par un Hoarder Bug." />
@@ -162,12 +165,12 @@
             Most of these enemies have multiple ways they can kill you, so make sure you don't mix them up.
         -->
 
-        <DeathEnemyMaskedPlayerWear text="A mis le Masque." /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
+        <DeathEnemyMaskedPlayerWear text="A revêtu le Masque." /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
         <DeathEnemyMaskedPlayerWear text="Personne ne se souciait de qui il était avant qu'il mette ce masque." /> <!-- TN: The Dark Knight Rises reference -->
         <DeathEnemyMaskedPlayerWear text="A joué la comédie." />
 
         <DeathEnemyMaskedPlayerVictim text="A été tué par un collègue Masked." /> <!-- TN: Message used when a Masked Player (even one that spawned naturally) attacks and kills a player. -->
-        <DeathEnemyMaskedPlayerVictim text="Est devenu une tragédie aux mains du Masked." />  <!-- TN: A reference to the Tragedy Mask that transforms players who pick it up. -->
+        <DeathEnemyMaskedPlayerVictim text="Est devenu une tragédie entre les mains du Masked." />  <!-- TN: A reference to the Tragedy Mask that transforms players who pick it up. -->
         <DeathEnemyMaskedPlayerVictim text="Poignardé par un imposteur." /> <!-- TN: Among Us reference -->
         <DeathEnemyMaskedPlayerVictim text="Est mort d'un imposteur parmi nous." /> <!-- TN: Among Us reference -->
 
@@ -224,6 +227,13 @@
         <DeathEnemyManeater text="A fait tomber le bébé." />
         <DeathEnemyManeater text="A été un mauvais parent." />
 
+        <!--
+            TN: v70 Enemy Death Messages
+            Messages used for enemies added in v70.
+        -->
+        <DeathEnemyGiantSapsucker text="A été démembré par un Giant Sapsucker." />
+        <DeathEnemyGiantSapsucker text="S'est fait anéantir par un gros oiseau." />
+
         <!-- 
             TN: Player Death Messages
             These are messages for when the player dies due to player-related means,
@@ -270,6 +280,10 @@
         <DeathPlayerMurderShotgun text="A été pompé par un collègue." />
         <DeathPlayerMurderShotgun text="N'a pas pu éviter le tir de son collègue." />
 
+        <DeathPlayerElectricChair text="S'est fait électrocuter par une chaise électrique." /> <!-- TN: If a player sits in the electric chair and there is a power surge, they die. -->
+        <DeathPlayerElectricChair text="A été condamné à mort par chaise électrique." />
+        <DeathPlayerElectricChair text="A payé pour ses crimes." />
+
         <DeathPlayerLadder text="A été écrasé par une Extension Ladder." /> <!-- TN: Used when a player stands underneath an Extension Ladder and gets crushed. -->
         <DeathPlayerLadder text="A été réduit en bouillie par une Extension Ladder." />
 
@@ -309,6 +323,7 @@
         <!-- TN: Died to the famous split catwalk in the Facility layout. -->
         <DeathPitFacilityCatwalkJump text="A glissé sur une poutre métallique." />
         <DeathPitFacilityCatwalkJump text="A tenté un acte de foi, et a perdu." />
+        <DeathPitFacilityCatwalkJump text="A tenté de faire CE saut... oui, celui-là." />
 
         <!-- TN: Died in the Mines by falling down the elevator shaft. -->
         <DeathPitMineElevator text="Est tombé dans la cage d'ascenseur." />
