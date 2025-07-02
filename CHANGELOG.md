@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This update updates the game for provides some updated language strings as well as a bugfix.
 
 ## Added
-- Added cause of death for the new enemy
-- Added cause of death for a potentially deadly furniture piece
+- Added cause of death for the new enemy from v70
+- Added cause of death for a potentially deadly furniture piece from v70
 - Added additional death messages for English (via Lynn Koya).
 - Added additional death messages for English (via Thundermaker300).
 # Changed
