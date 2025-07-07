@@ -9,7 +9,7 @@ If you're trying to create your own variation of an already added language, plea
 # List of Available Translations
 Below is a list of currently included languages, the version of the translation, and their contributor(s). Any language which isn't on the latest version is in need of translation. To join the list, create or edit a translation and submit a [pull request](https://github.com/EliteMasterEric/Coroner/pulls)!
 
-- English (American) (`en-us`) [v5] | [EliteMasterEric](https://github.com/EliteMasterEric), [Thundermaker300](https://github.com/Thundermaker300/Coroner)
+- English (American) (`en-us`) [v5] | [EliteMasterEric](https://github.com/EliteMasterEric), [Thundermaker300](https://github.com/Thundermaker300/Coroner), [Lynn Koya](https://gaywhiteboy.newgrounds.com/)
 - Chinese (Simplified) (`zh-cn`) [v2] | [RAINighty (颜绎)](https://github.com/RAINighty)
 - Dutch (`nl`) [v4] | [Ceva](https://twitter.com/cevaskullderg)
 - French (`fr`) [v5] | Fleetway, [AlexandrinFR (Alexandrin)](https://github.com/AlexandrinFR)
@@ -26,6 +26,7 @@ Below is a list of currently included languages, the version of the translation,
 Please ensure when creating or amending a translation that the correct version number is noted at the top of the translation's file.
 ### v5
 - Added v70 death messages
+- Added additional death message (via Lynn Koya)
 ### v4
 - Added v64 death messages
 ### v3
