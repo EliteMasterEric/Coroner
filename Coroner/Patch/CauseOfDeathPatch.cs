@@ -1012,6 +1012,12 @@ namespace Coroner.Patch
                     Plugin.Instance.PluginLogger.LogDebug("Player was killed by Sapsucker (Stabbing)! Setting special cause of death...");
                     AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_Giant_Sapsucker);
                 }
+                else if (playerControllerB.health <= 0)
+                {
+                    // Sapsucker damage handling is FUCKED it only registers properly if you're the host?
+                    Plugin.Instance.PluginLogger.LogDebug("Player was JUST killed by Sapsucker (Stabbing)! Setting special cause of death...");
+                    AdvancedDeathTracker.SetCauseOfDeath(playerControllerB, AdvancedCauseOfDeath.Enemy_Giant_Sapsucker);
+                }
                 else
                 {
                     Plugin.Instance.PluginLogger.LogDebug("Player is somehow still alive! Skipping...");

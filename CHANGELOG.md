@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Known Issues
 - Reinstalling the mod may sometimes cause modded language data to be deleted.
 
-# 2.3.0 (2025-07-??)
+# 2.3.0 (2025-07-07)
 This update updates the game for provides some updated language strings as well as a bugfix.
 
 ## Added
