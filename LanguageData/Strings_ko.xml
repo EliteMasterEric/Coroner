@@ -6,8 +6,14 @@
     </tags>
     <strings>
         <!--
-            Korean v0
+            Korean (Korea) v4
             (ko)
+
+            Translation Notes:
+            *This is the default localization file for Coroner. 
+            *Please ensure that the correct version is noted above in translations, to help future translators.
+            *Don't forget to update TRANSLATING.md with your translation's information!
+            *Remove these lines marked with an asterisk when not in the English (American) file.
             
             By default, any of the `FunnyNote` or `Death` strings are dynamically chosen at random.
             If the `SeriousDeathMessages` option is enabled, the first `Death` message found in the file is used,
@@ -16,163 +22,340 @@
                 to keep the correct tags, and make sure that there is at least one message for each `Death` type.
         -->
 
-        <UINotes text="노트: " /> 
-        <UICauseOfDeath text="사망 원인: " /> 
+        <UINotes text="노트: " /> <!-- TN: First line of the notes if the player hasn't died. -->
+        <UICauseOfDeath text="사망 원인: " /> <!-- TN: First line of the notes if the player has died. -->
 
-        <FunnyNote text="세상에서 가장 멍청함." />
-        <FunnyNote text="세상에서 가장 귀여움." />
-        <FunnyNote text="즐겁다!" />
+        <!--
+            TN: Funny Notes
+            If the player has not died, and has no performance notes to display,
+            one of these will be chosen at random, so that nobody has no notes.
+        -->
+
+        <FunnyNote text="그런 짓은 하지 말아야 했는데 난 그 사실을 몰랐어" /> <!-- TN: Spongebob reference -->
+        <FunnyNote text="이쁨받는 직원." />
+        <FunnyNote text="꿀잼." />
         <FunnyNote text="노잼." />
-        <FunnyNote text="가장 용감한 직원." />
-        <FunnyNote text="경 아무것도 안함 축" />
-        <FunnyNote text="터미널 모서리에 발가락을 찧음." />
-        <FunnyNote text="다음에 죽을 확률이 높음." />
-        <FunnyNote text="다음에 죽을 확률이 낮음." />
+        <FunnyNote text="용기있는 직원." />
+        <FunnyNote text="나의 공중제비를 멈추게 하십시오! " />
+        <FunnyNote text="모서리에 발가락을 찧음" />
+        <FunnyNote text="다음번에 죽을 확률이 큼." />
+        <FunnyNote text="다음번에 죽을 확률이 적음." />
+        <FunnyNote text="담배 연기를 싫어함." /> <!-- TN: Legend of Zelda reference -->
         <FunnyNote text="팀 플레이어." />
-        <FunnyNote text="내가 제일 잘나가." />
-        <FunnyNote text="돼지." />
-        <FunnyNote text="자택 경비원." />
-        <FunnyNote text="날먹." />
+        <FunnyNote text="능률이 좋음." />
+        <FunnyNote text="식량 털이범." />
+        <FunnyNote text="5억년 버튼을 누르고 900만원을 벌었음." /> 
         <FunnyNote text="내 생각엔 얘가 임포스터야." />
-        <FunnyNote text="뭐야 너 있었어?" />
-        <FunnyNote text="얘가 엄마랑 통화하는걸 본적이 없어." />
-        <FunnyNote text="얘 아이피 127.0.0.1임." />
-        <FunnyNote text="랩틸리언." />
+        <FunnyNote text="놀라울 만큼, 그 누구도 관심을 주지 않았다." />
+        <FunnyNote text="엄마 전화번호를 잊어먹음." />
+        <FunnyNote text="얘 아이피 127.0.0.1임." /> <!-- TN: This note pretends to dox the user but actually specifies the loopback IP address. -->
+        <FunnyNote text="임마 렙틸리언임." />
 
-        <DeathBludgeoning text="구타당함." />
+        <!--
+            TN: Generic Death Messages
+            Generally, causes of death like bludgeoning, strangulation, and blasts will be overridden by messages specific to that type.
+            These are fallbacks for when there is no specific message. Try to make these broadly applicable.
+        -->
 
-        <DeathGravity text="낙사." />
-        <DeathGravity text="절벽에 쳐박힘." />
+        <DeathBludgeoning text="Bludgeoned to death." />
 
-        <DeathBlast text="폭발함" />
-        <DeathBlast text="폭발과 함게 사라지다." />
-        <DeathBlast text="폭☆발은 예술이다." />
+        <DeathGravity text="떨어져 죽음." />
+        <DeathGravity text="절벽에 쳐박음." />
 
-        <DeathStrangulation text="목이 졸려 사망." />
+        <DeathBlast text="펑(뭔가 터지는 소리)" />
+        <DeathBlast text="터져버림." />
+        <DeathBlast text="산산조각 나버림." />
 
-        <DeathSuffocation text="숨이 막혀 사망." />
+        <DeathStrangulation text="목이 졸려 죽음." />
 
-        <DeathMauling text="찢겨 죽음." />
+        <DeathSuffocation text="질식." />
 
-        <DeathGunshots text="총살." />
-        <DeathGunshots text="벌집이됨." />
+        <DeathMauling text="잔혹하게 살해됨." />
+
+        <DeathGunshots text="벌집." />
+        <DeathGunshots text="몸이 탄창이 되버림." />
 
         <DeathCrushing text="압사." />
 
         <DeathDrowning text="익사." />
 
-        <DeathAbandoned text="버려짐." />
-        <DeathAbandoned text="너는 여기 살아 우리는 갈꺼야." />
-        <DeathAbandoned text="그러게 처신 잘 했어야지." />
-        <DeathAbandoned text="쓸 모 없음." />
+        <DeathAbandoned text="그러게 처신 잘했어야지." />
+        <DeathAbandoned text="분명 네명이지 않았어? 왜 셋이지?" />
 
         <DeathElectrocution text="감전사." />
 
-        <DeathKicking text="발로 차여 사망." />
+        <DeathKicking text="헥토파스칼 킥." />
 
-        <DeathEnemyBracken text="브래켄에 의해 목이 돌아감" />
-        <DeathEnemyBracken text="스토커를 발견함." />
+        <DeathBurning text="실례지만 지금 불타고 계십니다." />
+        <DeathBurning text="익사(익어서 사망)." />
+        <DeathBurning text="오버워치 캐리중." />
 
-        <DeathEnemyEyelessDog text="우리 댕댕이 영양간식." />
-        <DeathEnemyEyelessDog text="그러게 누가 기계식 키보드 쓰래?" />
-        <DeathEnemyEyelessDog text="댕댕이가 너 시끄럽대." />
+        <DeathStabbing text="돔 공연 축하해." />
+        <DeathStabbing text="칼에 찔림." />
+        <DeathStabbing text="네놈이 몇 초를 움직이든 상관없는 처형을 떠올렸다." />
 
-        <DeathEnemyForestGiant text="거인에게 먹힘." />
-        <DeathEnemyForestGiant text="진격의 거인." />
+        <DeathFan text="환풍구에 찢김." />
 
-        <DeathEnemyCircuitBees text="회로 벌에게 감전됨." />
+        <DeathInertia text="운전면혀를 땃어야지." />
 
-        <DeathEnemyGhostGirl text="혼자 쓰러짐" />
-        <DeathEnemyGhostGirl text="저는 그만 정신을 잃고 말았습니다." />
-        <DeathEnemyGhostGirl text="정신병." />
+        <DeathSnipped text="범부." />
+    
+
+        <!-- 
+            TN: Enemy Death Messages
+            These are messages for when the player is killed by a specific enemy.
+            Try to keep these high quality since they will be the ones players see the most.
+        -->
+
+        <DeathEnemyBracken text="브레켄한테 목이 꺾임." />
+        <DeathEnemyBracken text="브레켄을 너무 오래 쳐다봄" />
+
+        <DeathEnemyEyelessDog text="멍멍이 한끼 식사." />
+        <DeathEnemyEyelessDog text="그러게 누가 기계식 키보드 쓰래?." />
+        <DeathEnemyEyelessDog text="멍멍이가 너 시끄럽대." />
+
+        <DeathEnemyForestGiantEaten text="거인에게 삼켜짐." />
+        <DeathEnemyForestGiantEaten text="거인을 나무로 착각함." /> <!-- TN: Make like a tree and leave. -->
+
+        <DeathEnemyForestGiantDeath text="거인 시체에 깔려죽음." /> <!-- TN: Forest Giants crush nearby players as they play their death animation. -->
+
+        <DeathEnemyCircuitBees text="회로벌에게 쏘임." />
+
+        <DeathEnemyGhostGirl text="사유 : 의문." />
+        <DeathEnemyGhostGirl text="유령을 보고 미쳐버림." />
+        <DeathEnemyGhostGirl text="두통 때문에 머리가 터짐." /> <!-- TN: The Ghost Girl causes the player's head to explode. -->
+        <DeathEnemyGhostGirl text="얘 머리 붙어 있지 않았냐?" />
         <DeathEnemyGhostGirl text="???" />
 
-        <DeathEnemyEarthLeviathan text="육지 레비아탄이 먹음." />
+        <DeathEnemyEarthLeviathan text="레비아탄에게 삼켜짐." />
 
-        <DeathEnemyBaboonHawk text="하지만 오늘은 개코매의 점심이죠." />
-        <DeathEnemyBaboonHawk text="개코매가 찢음" />
+        <DeathEnemyBaboonHawk text="개코매에게 먹힘." />
+        <DeathEnemyBaboonHawk text="개코매에게 습격당함." />
+        <DeathEnemyBaboonHawk text="개코매에게 집단린치 당함." />
 
-        <DeathEnemyJester text="제스터에게 찔려죽음." />
-        <DeathEnemyJester text="제스터의 농담에 얼어죽음." />
-        <DeathEnemyJester text="제스터에게 나댔음." />
-        <DeathEnemyJester text="이곳은 8시의 서커스." /> 
+        <DeathEnemyJester text="제스터에게 찢김." />
+        <DeathEnemyJester text="제스터의 농담에 얼어붙음." />
+        <DeathEnemyJester text="제스터에게 몰래카메라를 당함." />
+        <DeathEnemyJester text="Got popped like a weasel." /> <!-- TN: "Pop Goes The Weasel" is the song used by Jack-in-the-box toys. -->
 
-        <DeathEnemyCoilHead text="코일 헤드에 의해 사망함." />
-        <DeathEnemyCoilHead text="코일 헤드와 눈싸움함." />
-        <DeathEnemyCoilHead text="코일 헤드와의 눈싸움에서 패배함" />
+        <DeathEnemyCoilHead text="코일헤드에게 찢김" />
+        <DeathEnemyCoilHead text="코일헤드랑 눈싸움 해서 짐." />
+        <DeathEnemyCoilHead text="머리가 스프링이 됨." />
 
-        <DeathEnemySnareFlea text="올무 벼룩에 의해 질식사." />
-        <DeathEnemySnareFlea text="봉이 아빠." />
+        <DeathEnemySnareFlea text="올무벼룩에게 질식사함." />
+        <DeathEnemySnareFlea text="하프라이프1의 과학자로써 강한 인상을 남김." /> <!-- TN: Half-Life 1 features headcrabs. -->
 
-        <DeathEnemyHygrodere text="하이그로데레에게 흡수됨." />
-        <DeathEnemyHygrodere text="액체괴물." />
-        <DeathEnemyHygrodere text="슬라임에게 메챠쿠챠." />
+        <DeathEnemyHygrodere text="슬라임에 흡수됨." />
+        <DeathEnemyHygrodere text="초록색 소스속으로 사라짐." />
 
-        <DeathEnemyHoarderBug text="비축 벌레에게 찢김." />
-        <DeathEnemyHoarderBug text="비축 벌레에게 비축당함." />
-        <DeathEnemyHoarderBug text="예삐." />
+        <DeathEnemyHoarderBug text="비축벌레에게 습격당함." />
+        <DeathEnemyHoarderBug text="비축벌레에게 린치당함." />
+        <DeathEnemyHoarderBug text="비축벌레의 비축당함." />
+        <DeathEnemyHoarderBug text="비축벌레의 물건을 건들임." />
 
-        <DeathEnemySporeLizard text="포자 도마뱀에게 물림." />
+        <DeathEnemyLassoMan text="올가미맨에게 졸려짐." />
 
-        <DeathEnemyBunkerSpider text="벙커 거미 거미줄에 걸림." />
-        <DeathEnemyBunkerSpider text="거미 공포증." />
+        <DeathEnemySporeLizard text="포자 도마뱀에게 물려죽음." />
+
+        <DeathEnemyBunkerSpider text="거미줄에 걸림." />
+        <DeathEnemyBunkerSpider text="거미 공포증을 해결하지 못함." />
 
         <DeathEnemyThumper text="덤퍼가 파괴함." />
-        <DeathEnemyThumper text="덤퍼 과실 100." />
+        <DeathEnemyThumper text="덤퍼에게 찢김" />
 
-        <DeathEnemyMaskedPlayerWear text="가면을 썼음." />
-        <DeathEnemyMaskedPlayerWear
-            text="인간을 포기함." /> 
+        <!-- 
+            TN: v45 Enemy Death Messages
+            Messages used for enemies added in v45.
+            Most of these enemies have multiple ways they can kill you, so make sure you don't mix them up.
+        -->
 
-        <DeathEnemyMaskedPlayerVictim text="가면을 쓴 동료에게 살해당함." /> 
-        <DeathEnemyMaskedPlayerVictim text="DIO에게 살해당함." />
+        <DeathEnemyMaskedPlayerWear text="난 인간을 포기하겠다!!" /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
+        <DeathEnemyMaskedPlayerWear text="마스크 쓴 관종에게 아무도 관심이 없었음." /> <!-- TN: The Dark Knight Rises reference -->
+        <DeathEnemyMaskedPlayerWear text="임포스터가 되었다." /> <!-- TN: Among Us reference -->
 
-        <DeathEnemyNutcrackerKicked text="호두까기 인형에게 차였음." /> 
-        <DeathEnemyNutcrackerKicked text="호두까기 인형이 영 좋지 않을곳을 찼음." />
+        <DeathEnemyMaskedPlayerVictim text="넌 네가 먹은 밥알의 개수를 기억하는가?" /> <!-- TN: Message used when a Masked Player (even one that spawned naturally) attacks and kills a player. -->
+        <DeathEnemyMaskedPlayerVictim text="저 자식 석가면을 썼어!" /> <!-- TN: A reference to the Tragedy Mask that transforms players who pick it up. -->
+        <DeathEnemyMaskedPlayerVictim text="임포스터에게 찢김." /> <!-- TN: Among Us reference -->
+        <DeathEnemyMaskedPlayerVictim text="얘 왜 혼자 어몽어스함?" /> <!-- TN: Among Us reference -->
 
-        <DeathEnemyNutcrackerShot text="호두까기 인형에 의해 구멍이 났음." /> 
-        <DeathEnemyNutcrackerShot text="더블배럴 샷건 훌륭한 대화 수단이지!" />
+        <DeathEnemyNutcrackerKicked text="병정에게 고백했다 차임." /> <!-- TN: Used when a Nutcracker kills a player that happens to walk in its path -->
+        <DeathEnemyNutcrackerKicked text="호두까기 병정이 사람머리를 까버림." />
 
-        <DeathPlayerJetpackGravity text="제트팩을 잘못탐." />
-        <DeathPlayerJetpackGravity text="태양과 가까워짐." /> 
-        <DeathPlayerJetpackGravity text="나로호." />
+        <DeathEnemyNutcrackerShot text="병정이 벌집으로 만듬." /> <!-- TN: Used when a nutcracker -->
+        <DeathEnemyNutcrackerShot text="아! 샷건! 아주 좋은 대화 수단이지!" />
 
-        <DeathPlayerJetpackBlast text="제트팩과 함께 폭사함." />
-        <DeathPlayerJetpackBlast text="인간 폭죽." />
+        <!-- 
+            TN: v50 Enemy Death Messages
+            Messages used for enemies added in v50.
+        -->
 
-        <DeathPlayerMurderMelee text="동료에게 맞아죽음." />
-        <DeathPlayerMurderMelee text="사내 괴롭힘." />
-        <DeathPlayerMurderMelee text="임포스터에게 맞아죽음." />
-        <DeathPlayerMurderMelee text="살해당함." />
+        <DeathEnemyButlerStab text="버틀러에게 칼찌당함." />
+        <DeathEnemyButlerStab text="버틀러와 거리두기를 실패함." />
+        
+        <DeathEnemyButlerExplode text="버틀러와 함께 터져죽음." />
+        
+        <DeathEnemyMaskHornets text="위장 말벌에게 쏘임." /> <!-- TN: Spawned when the Butler dies. -->
+        
+        <DeathEnemyTulipSnakeDrop text="튤립뱀을 타다가 떨어짐." /> <!-- TN: When the player dies of fall damage due to a Tulip Snake. -->
+                
+        <DeathEnemyOldBirdRocket text="올드버드에게 터짐." />
+        <DeathEnemyOldBirdRocket text="에바에 타지 못함." /> <!-- TN: Evangelion meme -->
+        
+        <DeathEnemyOldBirdStomp text="올드버드에게 짖밟힘." />
+        <DeathEnemyOldBirdStomp text="로봇에게 차임." />
+        
+        <DeathEnemyOldBirdCharge text="돌진하는 올드버드에게 너무 가까이감." />
+        <DeathEnemyOldBirdCharge text="엠브리온으로 안가는 이유를 알아냈음." /> <!-- TN: See Old Bird Bestiary entry. -->
+        
+        <DeathEnemyOldBirdTorch text="올드버드가 웰던으로 구음" />
+        
+        <!-- 
+            TN: v55 Enemy Death Messages
+            Messages used for enemies added in v55.
+        -->
 
-        <DeathPlayerMurderShotgun text="동료가 쏴죽임." />
+        <DeathEnemyKidnapperFox text="Was mauled by a Kidnapper Fox." />
+        <DeathEnemyKidnapperFox text="Dragged into the Vain Shroud by a Fox." />
+
+        <DeathEnemyBarber text="이발사가 머리말고 허리를 잘라버림." />
+        <DeathEnemyBarber text="지는거예요? 「이겨」 " />
+        <DeathEnemyBarber text="작별이다, 최강. 내가 없는 시대에 태어난 것뿐인 범부여." />
+        <DeathEnemyBarber text="머리를 좀 많이 잘라버림." />
+
+        <!--
+            TN: v60 Player Death Messages
+            Messages used for players added in v60.
+        -->
+        <DeathEnemyManeater text="맨이터에게 찢김." />
+        <DeathEnemyManeater text="아기를 떨굼." />
+        <DeathEnemyManeater text="나쁜 부모가 되었음." />
+
+        <!-- 
+            TN: Player Death Messages
+            These are messages for when the player dies due to player-related means,
+            such as murder or using an item improperly.
+        -->
+
+        <DeathPlayerJetpackGravity text="제트팩 사용법을 모름." /> <!-- TN: Message used when the player dies of fall damage while holding a jetpack. -->
+        <DeathPlayerJetpackGravity text="태양과 너무 가까워짐." /> <!-- TN: Reference to Icarus of Greek mythology -->
+        <DeathPlayerJetpackGravity text="연료 부족." />
+
+        <DeathPlayerJetpackBlast text="제트팩이 터짐." /> <!-- TN: Message used when the player uses the jetpack too long and it explodes. -->
+        <DeathPlayerJetpackBlast text="킬러퀸은 이미 네 제트팩을 만졌다..!!" />
+        <DeathPlayerJetpackBlast text="제트팩이 폭죽으로 바뀜." />
+
+        <DeathPlayerMurderShovel text="삽으로 야차뜨다 발렸음." /> <!-- TN: Used when a player kills another player with a shovel. -->
+        <DeathPlayerMurderShovel text="삽으로 구타당함." />
+        <DeathPlayerMurderShovel text="살해당함." />
+        <DeathPlayerMurderShovel text="동료에게 괴롭힘 당함." />
+        <DeathPlayerMurderShovel text="동료가 직접 무덤에 넣음." />
+        <DeathPlayerMurderShovel text="관을 박차고 나온거냐!!." />
+
+        <DeathPlayerMurderStopSign text="정지표지판을 무시해서 맞아죽음." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
+        <DeathPlayerMurderStopSign text="머더에게 살해당함." />
+        <DeathPlayerMurderStopSign text="살해당함." />
+        <DeathPlayerMurderStopSign text="표지판으로 야차뜨다 발렸음.." />
+        <DeathPlayerMurderStopSign text="동료가 정지표지판을 사용해서 강제로 멈추게 만듬." />
+        <DeathPlayerMurderStopSign text="멈춰!" /> <!-- TN: Jack Black's Octagon -->
+        <DeathPlayerMurderStopSign text="소코마데다." /> <!-- TN: Jack Black's Octagon -->
+
+        <DeathPlayerMurderYieldSign text="양보표지판으로 쳐맞음." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
+        <DeathPlayerMurderYieldSign text="살해당함." />
+        <DeathPlayerMurderYieldSign text="동료에게 괴롭힘 당함." />
+        <DeathPlayerMurderYieldSign text="동료가 양보하는 법을 가르쳐줌." />
+        <DeathPlayerMurderYieldSign text="표지판에게 양보하는법을 배움." />
+
+        <DeathPlayerMurderKnife text="동료가 칼로 살해함." /> <!-- TN: Used when a player kills another player with a knife. -->
+        <DeathPlayerMurderKnife text="살해당함." />
+        <DeathPlayerMurderKnife text="대절단-세로." />
+        <DeathPlayerMurderKnife text="동료가 등 뒤에 칼을 꽃음." />
+        <DeathPlayerMurderKnife text="콘월의 사냥닭처럼 껍질이 벗겨지다.(팀포2 밈인거 같은데 뭐라는지 모르겠음)" /> <!-- TN: Team Fortress 2 reference -->
+
+        <DeathPlayerMurderShotgun text="총기난사." /> <!-- TN: Used when a player kills another player with the Nutcracker's shotgun. -->
+        <DeathPlayerMurderShotgun text="총기사고." />
         <DeathPlayerMurderShotgun text="살해당함." />
-        <DeathPlayerMurderShotgun text="딱 한번 만 쏴보려고 했는데." />
-        <DeathPlayerMurderShotgun text="감히 내 딸을 넘봐?" />
+        <DeathPlayerMurderShotgun text="화장실가서 돌아오지마." />
+        <DeathPlayerMurderShotgun text="360도 노스코프샷에 맞아죽음." /> <!-- TN: Call of Duty reference -->
 
-        <DeathPlayerLadder text="연장형 사다리에 압사." />
-        <DeathPlayerLadder text="사다리 설치방법을 몰랐음." />
+        <DeathPlayerLadder text="사다리에 깔려죽음." /> <!-- TN: Used when a player stands underneath an Extension Ladder and gets crushed. -->
+        <DeathPlayerLadder text="사다리에 뭉개짐." />
 
-        <DeathPlayerQuicksand text="진흙에 빠짐." />
+        <DeathPlayerQuicksand text="진흙에 빠져죽음." />
+        <DeathPlayerQuicksand text="진흙에 빠져 익사함." />
 
-        <DeathPlayerStunGrenade text="섬광탄." /> 
-        <DeathPlayerStunGrenade text="이것은 섬광탄이여." />
+        <DeathPlayerStunGrenade text="기절 수류탄에 터져죽음." /> <!-- TN: Yes, the stun grenade can do damage, but only if you're holding it when it goes off. -->
+        <DeathPlayerStunGrenade text="이것은 (기절) 수류탄이여." /> 
 
-        <DeathOtherItemDropship text="아이템 수송선에 압사함." />
-        <DeathOtherItemDropship text="참을성이 없음." />
-        <DeathOtherItemDropship text="너무 급했음." />
+        <DeathPlayerEasterEgg text="이스터에그에 터져죽음." />
+        <DeathPlayerEasterEgg text="이것은 이스터에그여." />
 
-        <DeathOtherDepositItemsDesk text="강등당함." />
-        <DeathOtherDepositItemsDesk text="징계." />
+        <DeathPlayerCruiserDriver text="운전하다 터져죽음." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
 
+        <DeathPlayerCruiserPassenger text="보조석에서 터져죽음." /> <!-- TN: Occurs on explosion or severe impacts while in the passenger seat. -->
 
-        <DeathOtherLandmine text="지뢰를 밟았음." />
+        <DeathPlayerCruiserExplodeBystander text="크루저 보관함에서 아이템들과 함께 터져죽음." /> <!-- TN: Occurs when near (but not seated in) the car as it explodes. -->
 
-        <DeathOtherTurret text="포탑에 의해 벌집이됨." />
+        <DeathPlayerCruiserRanOver text="크루저에 치여서 이세계 갈뻔함." /> <!-- TN: Occurs when the Company Cruiser hits and crushes a player. -->
 
-        <DeathOtherLightning text="전기 통구이." />
+        <DeathOtherItemDropship text="배달 우주선에 깔려죽음." /> <!-- TN: Used when a player stands underneath the Item Dropship and gets crushed. -->
+        <DeathOtherItemDropship text="아이템 기다리는걸 참지 못했음." />
+        <DeathOtherItemDropship text="자기 목숨보다 아이템이 더 중요하다고 생각한거야?" />
 
-        <DeathUnknown text="어떻게든 죽었겠지." />
-        <DeathUnknown text="불명." />
+        <DeathOtherSpikeTrap text="스파이크에게 짓눌림." />
+        <DeathOtherSpikeTrap text="팬케이크가 되었음." />
+
+        <!-- TN: Used for falling deaths inside the facility. -->
+
+        <!-- Unknown/generic pits. -->
+        <DeathPitGeneric text="구덩이에 빠졌다." />
+
+        <!-- TN: Jumped the railing and died in the Facility layout, outside the split catwalk. -->
+        <DeathPitFacilityPit text="시설 내 구덩이에 빠졌다." />
+        <DeathPitFacilityPit text="난간 점프에 실패했음." />
+
+        <!-- TN: Died to the famous split catwalk in the Facility layout. -->
+        <DeathPitFacilityCatwalkJump text="신뢰의 도약." />
+        <DeathPitFacilityCatwalkJump text="신뢰의 도약에 실패함." />
+
+        <!-- TN: Died in the Mines by falling down the elevator shaft. -->
+        <DeathPitMineElevator text="엘베 구멍에 빠짐." />
+
+        <!-- TN: Jumped the railing and died in the Mines layout, outside the split catwalk. -->
+        <DeathPitMinePit text="난간에서 미끄러짐." />
+
+        <!-- TN: Fell in a hole and died in the caves in the Mines layout. -->
+        <DeathPitMineCave text="동굴속에 빠져죽음." />
+        <DeathPitMineCave text="동굴탐험하다 빠져죽음." />
+
+        <!--
+            TN: Messages for the tentacle that kills players at the company building.
+            Performance reports don't show up at the company building so this is unused.
+        -->
+        <DeathOtherDepositItemsDesk text="강등됨." />
+        <DeathOtherDepositItemsDesk text="징계휴가를 받았음." />
+
+        <DeathOtherLandmine text="지뢰 밟고 터짐." />
+        <DeathOtherLandmine text="키라퀸 제 3의 폭탄 「바이츠 더 더스트」." />
+
+        <DeathOtherTurret text="포탑에게 총맞고 죽음." />
+        <DeathOtherTurret text="볼베 궁없이 다이브하다 죽음." />
+
+        <DeathOtherLightning text="번개 맞고 죽음." />
+        <DeathOtherLightning text="람쥐썬더!!!" />
+
+        <DeathOtherMeteor text="운석에 맞아죽음." />
+        <DeathOtherMeteor text="공룡 따라감." /> <!-- TN: Referencing the meteor that ended the Cretaceous period -->
+        <DeathOtherMeteor text="아우솔 궁에 맞아죽음" />
+
+        <!--
+            TN: When the player clips out of the map while in the Facility.
+            If they fall out of the map while outside the facility, they teleport back.
+        -->
+        <DeathOtherOutOfBounds text="글리치 쓰려다 죽음." />
+        <DeathOtherOutOfBounds text="백룸으로 떨어짐." />
+
+        <DeathUnknown text="왜 죽음?." />
+        <DeathUnknown text="의문사." /> <!-- TN: Wizard of Oz reference -->
+        <DeathUnknown text="설명은 못하겠지만 일단 죽었음." />
     </strings>
 </base>
