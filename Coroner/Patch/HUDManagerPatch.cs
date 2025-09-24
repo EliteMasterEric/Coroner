@@ -59,7 +59,7 @@ namespace Coroner.Patch
                         {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " is dead! Replacing notes with Cause of Death...");
                             // Reset the notes.
-                            textMesh.text = Plugin.Instance.LanguageHandler.GetFirstValueByTag(LanguageHandler.TAG_UI_DEATH) + "\n";
+                            textMesh.text = CreateMessagePrefixFromTag(LanguageHandler.TAG_UI_DEATH, syncedRandom) + "\n";
                         }
                         else
                         {
@@ -82,7 +82,7 @@ namespace Coroner.Patch
                         {
                             Plugin.Instance.PluginLogger.LogInfo("[REPORT] Player " + playerIndex + " has no notes! Injecting something funny...");
 
-                            textMesh.text = Plugin.Instance.LanguageHandler.GetFirstValueByTag(LanguageHandler.TAG_UI_NOTES) + "\n";
+                            textMesh.text = CreateMessagePrefixFromTag(LanguageHandler.TAG_UI_NOTES, syncedRandom) + "\n";
                             textMesh.text += "* " + AdvancedDeathTracker.StringifyCauseOfDeath(null, syncedRandom) + "\n";
                         }
                         else
@@ -99,6 +99,17 @@ namespace Coroner.Patch
 
             // We are done with the death tracker, so clear it.
             AdvancedDeathTracker.ClearDeathTracker();
+        }
+
+        private static string CreateMessagePrefixFromTag(string prefixLanguageTag, Random random)
+        {
+            if (Plugin.Instance.PluginConfig.ShouldUseSeriousDeathMessages())
+            {
+                // NOTE: First entry in the list should be the "serious" entry.
+                return Plugin.Instance.LanguageHandler.GetFirstValueByTag(prefixLanguageTag);
+            }
+
+            return Plugin.Instance.LanguageHandler.GetRandomValueByTag(prefixLanguageTag, random);
         }
     }
 }
