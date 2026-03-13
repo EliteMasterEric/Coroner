@@ -12,7 +12,7 @@ namespace Coroner
         /// You can set this to a default one (see `Coroner.AdvancedCauseOfDeath`) or a custom one (see `Register()`).
         /// </summary>
         /// <param name="player">The player to set the cause of death for.</param>
-        /// <param name="causeOfDeath">The cause of death to use. Set to `null` to clear.</param>
+        /// <param name="causeOfDeath">The cause of death to use.</param>
         /// <example> SetCauseOfDeath(player, AdvancedCauseOfDeath.Enemy_ForestGiant); </example>
         public static void SetCauseOfDeath(PlayerControllerB player, AdvancedCauseOfDeath? causeOfDeath)
         {
@@ -25,7 +25,7 @@ namespace Coroner
         /// You can set this to a default one (see `Coroner.AdvancedCauseOfDeath`) or a custom one (see `Register()`).
         /// </summary>
         /// <param name="playerId">The ID of the player.</param>
-        /// <param name="causeOfDeath">The cause of death to use. Set to `null` to clear.</param>
+        /// <param name="causeOfDeath">The cause of death to use.</param>
         /// <example> SetCauseOfDeath(0, AdvancedCauseOfDeath.Enemy_ForestGiant); </example>
         public static void SetCauseOfDeath(int playerId, AdvancedCauseOfDeath? causeOfDeath)
         {
@@ -55,6 +55,30 @@ namespace Coroner
         {
             // Call the proper internal method.
             return AdvancedDeathTracker.GetCauseOfDeath(playerId);
+        }
+        
+        /// <summary>
+        /// Resets the cause of death to null for a player object.
+        /// </summary>
+        /// <param name="player">The player to set the cause of death for.</param>
+        /// <returns>The cause of death for the player.</returns>
+        /// <example> GetCauseOfDeath(0); </example>
+        public static void ResetCauseOfDeath(PlayerControllerB player)
+        {
+            // Call the proper internal method.
+            AdvancedDeathTracker.SetCauseOfDeath(player, null, true);
+        }
+        
+        /// <summary>
+        /// Resets the cause of death to null for a player with the given ID.
+        /// </summary>
+        /// <param name="playerId">The ID of the player.</param>
+        /// <returns>The cause of death for the player.</returns>
+        /// <example> GetCauseOfDeath(0); </example>
+        public static void ResetCauseOfDeath(int playerId)
+        {
+            // Call the proper internal method.
+            AdvancedDeathTracker.SetCauseOfDeath(playerId, null, true);
         }
 
         /// <summary>

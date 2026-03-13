@@ -30,6 +30,11 @@ namespace Coroner
         [ClientRpc]
         public static void BroadcastCauseOfDeathClientRpc(int playerClientId, string? codLanguageTag, bool forceOverride) { 
             Plugin.Instance.PluginLogger.LogDebug($"Client received cause of death via RPC: ({playerClientId}, {(codLanguageTag == null ? "null" : codLanguageTag)})");
+            if (codLanguageTag == null && !forceOverride)
+            {
+                Plugin.Instance.PluginLogger.LogDebug("Resetting cause of death.");
+                AdvancedDeathTracker.StoreLocalCauseOfDeath(playerClientId,null, forceOverride);
+            }
             
             if (codLanguageTag == null || !AdvancedCauseOfDeath.IsTagRegistered(codLanguageTag)) { 
                 Plugin.Instance.PluginLogger.LogError($"Could not deserialize cause of death ({codLanguageTag})");

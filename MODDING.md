@@ -107,11 +107,17 @@ In `BepInEx/config/EliteMasterEric-Coroner/` in your mod upload, create a file n
     - Retrieves the currently known cause of death for the player by reference, if any.
     - Returns: An `AdvancedCauseOfDeath`, or `null` if no cause of death is known.
 - `Coroner.API.SetCauseOfDeath(PlayerControllerB player, AdvancedCauseOfDeath? causeOfDeath)`
-    - Applies a given cause of death to the player by their client ID.
-    - Provide the `AdvancedCauseOfDeath` via argument. `AdvancedCauseOfDeath` has static constants for all the vanilla causes of death, or you can use one created by `Coroner.API.Register()`.
-- `Coroner.API.SetCauseOfDeath(int playerId, AdvancedCauseOfDeath? causeOfDeath)`
     - Applies a given cause of death to the player by reference.
     - Provide the `AdvancedCauseOfDeath` via argument. `AdvancedCauseOfDeath` has static constants for all the vanilla causes of death, or you can use one created by `Coroner.API.Register()`.
+- `Coroner.API.SetCauseOfDeath(int playerId, AdvancedCauseOfDeath? causeOfDeath)`
+    - Applies a given cause of death to the player by their client ID.
+    - Provide the `AdvancedCauseOfDeath` via argument. `AdvancedCauseOfDeath` has static constants for all the vanilla causes of death, or you can use one created by `Coroner.API.Register()`.
+- `Coroner.API.ResetCauseOfDeath(PlayerControllerB player)`
+    - Resets the cause of death of the player by reference.
+    - Sets the cause of death to null.
+- `Coroner.API.ResetCauseOfDeath(int playerId)`
+    - Resets the cause of death of the player by their client ID.
+    - Sets the cause of death to null.
 - `Coroner.API.StringifyCauseOfDeath(AdvancedCauseOfDeath causeOfDeath, Random? random)`
     - Translate a cause of death to the user's current language.
     - Pass this the result of `Coroner.API.GetCauseOfDeath()` for best results.
