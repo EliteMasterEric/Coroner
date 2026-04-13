@@ -40,6 +40,7 @@ It is urged that you follow this guide and **do not** reupload Coroner to Thunde
 
 
 # To Test (v80)
+[] Test when other players don't have the mod! It shouldn't fully work but it also shouldn't crash or block connecting to lobbies
 ## New Causes
 - [] Cadaver Growth
 - [] Cadaver Bloom
