@@ -6,7 +6,7 @@
     </tags>
     <strings>
         <!--
-            English (American) v4
+            English (American) v5
             (en-us)
 
             Translation Notes:
@@ -135,7 +135,9 @@
 
         <DeathInertia text="Died to inertia." />
 
-        <DeathSnipped text="Snipped to death." />
+        <DeathSnipping text="Snipped to death." /> <!-- Note: This one got renamed from Snipped to Snipping in v81 -->
+
+        <DeathScratching text="Scratched to death." />
 
         <!-- 
             TN: Enemy Death Messages
@@ -296,6 +298,15 @@
         <DeathEnemyGiantSapsucker text="Pecked to death." />
         <DeathEnemyGiantSapsucker text="Death by a thousand pecks." />
 
+        <!--
+            TN: v81 Enemy Death Messages
+            Messages used for enemies added in v81.
+        -->
+
+        <DeathEnemyCadaverGrowth text="Burst into a Cadaver Bloom." />
+        <DeathEnemyCadaverBloom text="Mauled by a Cadaver Bloom." />
+        <DeathEnemyFeiopar text="Mauled by a Feiopar." />
+
         <!-- 
             TN: Player Death Messages
             These are messages for when the player dies due to player-related means,
@@ -365,7 +376,6 @@
         <DeathPlayerEasterEgg text="Got blown up by an Easter Egg." />
         <DeathPlayerEasterEgg text="Had an Easter Egg thrown at them." />
         <DeathPlayerEasterEgg text="Got scrambled by an Egg." />
-        <!-- <DeathPlayerEasterEgg text="Egg'd." /> --> <!-- TN: Not sure I'm feeling this one. -->
 
         <DeathPlayerCruiserDriver text="Blew up the Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
         <DeathPlayerCruiserDriver text="Got rear-ended by a woman in scrubs." /> <!-- TN: Classic EliteMasticEric reference. -->
@@ -429,7 +439,6 @@
         <DeathOtherTurret text="Got shot by a turret." />
         <DeathOtherTurret text="Brought a shovel to a turret fight." /> <!-- TN: Knife to a gun fight -->
         <DeathOtherTurret text="Swiss cheesed." /> <!-- TN: Shoot someone so full of holes they resemble a slice of Emmental cheese -->
-        <!-- <DeathOtherTurret text="Turned into swiss cheese." /> -->
 
         <DeathOtherLightning text="Was struck by lightning." />
         <DeathOtherLightning text="Invoked the wrath of Zeus." />
