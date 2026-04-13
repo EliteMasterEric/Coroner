@@ -14,8 +14,10 @@ namespace Coroner
         /// <param name="player">The player to set the cause of death for.</param>
         /// <param name="causeOfDeath">The cause of death to use. Set to `null` to clear.</param>
         /// <example> SetCauseOfDeath(player, AdvancedCauseOfDeath.Enemy_ForestGiant); </example>
-        public static void SetCauseOfDeath(PlayerControllerB player, AdvancedCauseOfDeath? causeOfDeath)
+        public static void SetCauseOfDeath(PlayerControllerB player, AdvancedCauseOfDeath causeOfDeath)
         {
+            if (causeOfDeath == null) throw new Exception("Cannot set cause of death to null! Use ClearCauseOfDeath() to remove an existing cause of death.");
+
             // Call the proper internal method.
             AdvancedDeathTracker.SetCauseOfDeath(player, causeOfDeath);
         }
@@ -27,14 +29,39 @@ namespace Coroner
         /// <param name="playerId">The ID of the player.</param>
         /// <param name="causeOfDeath">The cause of death to use. Set to `null` to clear.</param>
         /// <example> SetCauseOfDeath(0, AdvancedCauseOfDeath.Enemy_ForestGiant); </example>
-        public static void SetCauseOfDeath(int playerId, AdvancedCauseOfDeath? causeOfDeath)
+        public static void SetCauseOfDeath(int playerId, AdvancedCauseOfDeath causeOfDeath)
         {
+            if (causeOfDeath == null) throw new Exception("Cannot set cause of death to null! Use ClearCauseOfDeath() to remove an existing cause of death.");
+
             // Call the proper internal method.
             AdvancedDeathTracker.SetCauseOfDeath(playerId, causeOfDeath);
         }
 
         /// <summary>
+        /// Clears the cause of death for a player object.
+        /// </summary>
+        /// <param name="player">The player to set the cause of death for.</param>
+        /// <example> ClearCauseOfDeath(player); </example>
+        public static void ClearCauseOfDeath(PlayerControllerB player)
+        {
+            // Call the proper internal method.
+            ClearCauseOfDeath((int) player.playerClientId);
+        }
+
+        /// <summary>
+        /// Clears the cause of death for a player with the given ID.
+        /// </summary>
+        /// <param name="playerId">The ID of the player.</param>
+        /// <example> ClearCauseOfDeath(0); </example>
+        public static void ClearCauseOfDeath(int playerId)
+        {
+            // Call the proper internal method.
+            AdvancedDeathTracker.StoreLocalCauseOfDeath(playerId, null, true);
+        }
+
+        /// <summary>
         /// Gets the cause of death for a player object.
+        /// Will return null if no cause of death is set.
         /// </summary>
         /// <param name="player">The player to get the cause of death for.</param>
         /// <returns>The cause of death for the player. May be null if none is set, or a custom value provided by a mod.</returns>
@@ -47,6 +74,7 @@ namespace Coroner
 
         /// <summary>
         /// Gets the cause of death for a player with the given ID.
+        /// Will return null if no cause of death is set.
         /// </summary>
         /// <param name="playerId">The ID of the player.</param>
         /// <returns>The cause of death for the player.</returns>
