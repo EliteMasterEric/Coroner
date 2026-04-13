@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
     <tags>
@@ -6,7 +6,7 @@
     </tags>
     <strings>
         <!--
-            French v4
+            French v5
             (fr)
 
             Translation Notes:            
@@ -44,8 +44,39 @@
         <FunnyNote text="N'a pas fait attention." />
         <FunnyNote text="Absolument parfait." />
         <FunnyNote text="A oublié d'appeler sa mère." />
-        <FunnyNote text="A oublié de changer d'IP." />
+        <FunnyNote text="A oublié de masquer son IP." />
         <FunnyNote text="Secrètement un renard." />
+        <FunnyNote text="N'a pas cligné des yeux." />
+        <FunnyNote text="Commence à regretter ses choix de vie." />
+        <FunnyNote text="A le mal du pays." />
+        <FunnyNote text="A le hoquet." />
+        <FunnyNote text="Assez affamé pour manger un Bracken." />
+        <FunnyNote text="A trouvé une entité plutôt mignonne." />
+        <FunnyNote text="A trouvé une entité répugnante." />
+        <FunnyNote text="Voit des gens qui sont morts." /> <!-- TN: The Sixth Sense reference -->
+        <FunnyNote text="Devrait s'étirer davantage." />
+        <FunnyNote text="A peut-être oublié quelque chose." />
+        <FunnyNote text="Travaille trop." />
+        <FunnyNote text="A un peu trop insisté." />
+        <FunnyNote text="Devrait se détendre un peu." />
+        <FunnyNote text="Le plus intelligent." />
+        <FunnyNote text="Premier à repérer une entité." /> <!-- TN: This is a flat out lie, I just want to potentially induce paranoia  -->
+        <FunnyNote text="A deux doigts de mourir." />
+        <FunnyNote text="Tryhard." />
+        <FunnyNote text="A les mains les plus douces." />
+        <FunnyNote text="A pleuré en secret." />
+        <FunnyNote text="Passe un bon moment." />
+        <FunnyNote text="A la gueule de bois." />
+        <FunnyNote text="Pense que les autres peuvent lire dans ses pensées." />
+        <FunnyNote text="A peur que les autres découvrent la vérité." />
+        <FunnyNote text="French monster." />
+        <FunnyNote text="QI le plus élevé." />
+        <FunnyNote text="QI le moins élevé." />
+        <FunnyNote text="Pense que les évaluations du QI sont stupides." />
+        <FunnyNote text="Le plus gros point faible." />
+        <FunnyNote text="A un e-mail professionnel non lu." />
+        <FunnyNote text="Le plus rapide à réfléchir." />
+        <FunnyNote text="Perdu dans ses pensées." />
 
         <!--
             TN: Generic Death Messages
@@ -53,7 +84,7 @@
             These are fallbacks for when there is no specific message. Try to make these broadly applicable.
         -->
 
-        <DeathBludgeoning text="Battu a mort." />
+        <DeathBludgeoning text="Battu à mort." />
 
         <DeathGravity text="Est tombé." />
         <DeathGravity text="A glissé." />
@@ -61,6 +92,8 @@
         <DeathBlast text="A explosé." />
         <DeathBlast text="Est parti avec un bang." />
         <DeathBlast text="A explosé en mille morceaux." />
+        <DeathBlast text="A été réduit en poussière." />
+        <DeathBlast text="S'est dissipé en une fine brume rouge" />
 
         <DeathStrangulation text="Étranglé." />
 
@@ -70,17 +103,23 @@
 
         <DeathGunshots text="Tiré dessus." />
         <DeathGunshots text="A été rempli de balles." />
+        <DeathGunshots text="A oublié d'esquiver les balles." />
+        <DeathGunshots text="Aurait simplement dû esquiver les balles." />
 
         <DeathCrushing text="Écrasé." />
 
         <DeathDrowning text="Noyé." />
+        <DeathDrowning text="A nagé avec les poissons." />
+        <DeathDrowning text="A oublié comment nager." />
 
         <DeathAbandoned text="Abandonné par ses collègues." />
         <DeathAbandoned text="N'a pas su trouver sa place dans l'équipe." />
+        <DeathAbandoned text="Jugé comme remplaçable." />
 
         <DeathElectrocution text="Électrocuté." />
 
         <DeathKicking text="Botté." />
+        <DeathKicking text="A reçu un coup de pied mortel." />
 
         <DeathBurning text="Brûlé." />
 
@@ -89,6 +128,7 @@
         <DeathFan text="Déchiqueté." />
         <DeathFan text="S'est retrouvé trop près d'un ventilateur." />
 
+        <DeathInertia text="Tué par l'inertie." />
         <DeathInertia text="A séché ses cours de physique." />
 
         <DeathSnipped text="Ciselé." />
@@ -101,10 +141,13 @@
 
         <DeathEnemyBracken text="A eu son cou cassé par un Bracken." />
         <DeathEnemyBracken text="A regardé un Bracken trop longtemps." />
+        <DeathEnemyBracken text="Assasiné par un Bracken." />
+        <DeathEnemyBracken text="A été emporté sans laisser la moindre trace." />
 
         <DeathEnemyEyelessDog text="A été mangé par un Eyeless Dog." />
         <DeathEnemyEyelessDog text="Pris en train d'utiliser un clavier mécanique." />
-        <DeathEnemyEyelessDog text="N'a pas été silencieux a coté d'un Eyeless Dog." />
+        <DeathEnemyEyelessDog text="N'a pas été silencieux à côté d'un Eyeless Dog." />
+        <DeathEnemyEyelessDog text="N'a pas pu rester silencieux." />
 
         <DeathEnemyForestGiantEaten text="Dévoré entier par un Forest Giant." />
         <DeathEnemyForestGiantEaten text="A fait comme dans l'infanterie et s'est tiré vers un Forest Giant." /> <!-- TN: Make like a tree and leave. -->
@@ -120,6 +163,8 @@
         <DeathEnemyGhostGirl text="???" />
 
         <DeathEnemyEarthLeviathan text="Dévoré entier par un Earth Leviathan." />
+        <DeathEnemyEarthLeviathan text="Est devenu de la nouriture pour vers." />
+        <DeathEnemyEarthLeviathan text="M'aimerais-tu encore... si j'étais un ver ?." /> <!-- FR-TN: Would You Still Love Me If I Was A Worm?. -->
 
         <DeathEnemyBaboonHawk text="A été mangé par un Baboon Hawk." />
         <DeathEnemyBaboonHawk text="A été mordu par un Baboon Hawk." />
@@ -136,10 +181,12 @@
 
         <DeathEnemySnareFlea text="A été asphyxié par un Snare Flea." />
         <DeathEnemySnareFlea text="A confondu un Snare Flea avec un crabe de tête." /> <!-- TN: Half-Life 1 features headcrabs. -->
+        <DeathEnemySnareFlea text="Un insecte a étouffé ses appels à l'aide." />
 
         <DeathEnemyHygrodere text="A été absorbé par un Hygrodere." />
-        <DeathEnemyHygrodere text="A donné un calin a un Hygrodere." />
-        <DeathEnemyHygrodere text="A eu un oupsie avec un Hygrodere." />
+        <DeathEnemyHygrodere text="A fait un câlin à un Hygrodere." />
+        <DeathEnemyHygrodere text="A fait un faux pas avec un Hygrodere." />
+        <DeathEnemyHygrodere text="Recouvert de slime." />
 
         <DeathEnemyHoarderBug text="A été battu par un Hoarder Bug." />
         <DeathEnemyHoarderBug text="A été essaimé par un Hoarder Bug." />
@@ -155,6 +202,7 @@
 
         <DeathEnemyThumper text="A été ravagé par un Thumper." />
         <DeathEnemyThumper text="A été cogné par un Thumper." />
+        <DeathEnemyThumper text="N'a pas réussi à semer un Thumper." />
 
         <!-- 
             TN: v45 Enemy Death Messages
@@ -162,12 +210,12 @@
             Most of these enemies have multiple ways they can kill you, so make sure you don't mix them up.
         -->
 
-        <DeathEnemyMaskedPlayerWear text="A mis le Masque." /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
+        <DeathEnemyMaskedPlayerWear text="A revêtu le Masque." /> <!-- TN: Message used when the player is transformed into a Masked Player enemy -->
         <DeathEnemyMaskedPlayerWear text="Personne ne se souciait de qui il était avant qu'il mette ce masque." /> <!-- TN: The Dark Knight Rises reference -->
         <DeathEnemyMaskedPlayerWear text="A joué la comédie." />
 
         <DeathEnemyMaskedPlayerVictim text="A été tué par un collègue Masked." /> <!-- TN: Message used when a Masked Player (even one that spawned naturally) attacks and kills a player. -->
-        <DeathEnemyMaskedPlayerVictim text="Est devenu une tragédie aux mains du Masked." />  <!-- TN: A reference to the Tragedy Mask that transforms players who pick it up. -->
+        <DeathEnemyMaskedPlayerVictim text="Est devenu une tragédie entre les mains du Masked." />  <!-- TN: A reference to the Tragedy Mask that transforms players who pick it up. -->
         <DeathEnemyMaskedPlayerVictim text="Poignardé par un imposteur." /> <!-- TN: Among Us reference -->
         <DeathEnemyMaskedPlayerVictim text="Est mort d'un imposteur parmi nous." /> <!-- TN: Among Us reference -->
 
@@ -185,8 +233,11 @@
         <DeathEnemyButlerStab text="Poignardé par le Butler." />
         <DeathEnemyButlerStab text="S'est retrouvé trop près du Butler." />
         <DeathEnemyButlerStab text="N'aurait pas dû être en tête-à-tête avec le Butler." /> 
+        <DeathEnemyButlerStab text="Mort par un millier de coupures du Butler." />
+        <DeathEnemyButlerStab text="Mort sous un déluge de coups de couteaux du Butler." />
         
         <DeathEnemyButlerExplode text="Explosé par le Butler." />
+        <DeathEnemyButlerExplode text="Était trop près d'un Butler mourant." />
         
         <DeathEnemyMaskHornets text="Piqué par des Mask Hornets." /> <!-- TN: Spawned when the Butler dies. -->
         
@@ -224,6 +275,15 @@
         <DeathEnemyManeater text="A fait tomber le bébé." />
         <DeathEnemyManeater text="A été un mauvais parent." />
 
+        <!--
+            TN: v70 Enemy Death Messages
+            Messages used for enemies added in v70.
+        -->
+        <DeathEnemyGiantSapsucker text="A été démembré par un Giant Sapsucker." />
+        <DeathEnemyGiantSapsucker text="S'est fait anéantir par un gros oiseau." />
+        <DeathEnemyGiantSapsucker text="Percé à coups de bec." />
+        <DeathEnemyGiantSapsucker text="Mort sous un déluge de coups de bec." />
+
         <!-- 
             TN: Player Death Messages
             These are messages for when the player dies due to player-related means,
@@ -243,6 +303,7 @@
         <DeathPlayerMurderShovel text="A été trahi par un collègue." />
         <DeathPlayerMurderShovel text="A eu sa tombe creusée par un collègue." />
         <DeathPlayerMurderShovel text="Un collègue a creusé sa tombe." />
+        <DeathPlayerMurderShovel text="Désaccords professionnels." />
 
         <DeathPlayerMurderStopSign text="A été battu avec un panneau stop par un collègue." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
         <DeathPlayerMurderStopSign text="A été victime de meurtre." />
@@ -251,44 +312,65 @@
         <DeathPlayerMurderStopSign text="A été forcé de s'arrêter à un stop par un collègue." />
         <DeathPlayerMurderStopSign text="A été battu par huit côtés fantastiques." /> <!-- TN: Jack Black's Octagon -->
         <DeathPlayerMurderStopSign text="A été battu par huit angles impressionnants." /> <!-- TN: Jack Black's Octagon -->
+        <DeathPlayerMurderStopSign text="Chocs d'ego." /> <!-- TN: Turn of phrase similar to butting heads, seems to be more colloquial however -->
 
         <DeathPlayerMurderYieldSign text="A été battu avec un panneau cédez le passage par un collègue." /> <!-- TN: Used when a player kills another player with a stop/yield sign. -->
         <DeathPlayerMurderYieldSign text="A été victime de meurtre." />
         <DeathPlayerMurderYieldSign text="A été tué." />
         <DeathPlayerMurderYieldSign text="A été trahi par un collègue." />
         <DeathPlayerMurderYieldSign text="N'a pas cédé le passage à un collègue." />
+        <DeathPlayerMurderYieldSign text="Conflits interpersonnels." />
 
         <DeathPlayerMurderKnife text="A été poignardé par un collègue." /> <!-- TN: Used when a player kills another player with a knife. -->
         <DeathPlayerMurderKnife text="A été victime de meurtre." />
         <DeathPlayerMurderKnife text="A été tué." />
         <DeathPlayerMurderKnife text="A été poignardé dans le dos par un collègue." />
         <DeathPlayerMurderKnife text="A été vidé comme une volaille." /> <!-- TN: Team Fortress 2 reference -->
+        <DeathPlayerMurderKnife text="Conflits de personnalité." />
 
         <DeathPlayerMurderShotgun text="A été tiré dessus par un collègue." /> <!-- TN: Used when a player kills another player with the Nutcracker's shotgun. -->
         <DeathPlayerMurderShotgun text="A été victime de meurtre." />
         <DeathPlayerMurderShotgun text="A été tué." />
         <DeathPlayerMurderShotgun text="A été pompé par un collègue." />
         <DeathPlayerMurderShotgun text="N'a pas pu éviter le tir de son collègue." />
+        <DeathPlayerMurderShotgun text="A oublié que ce n'était pas lui qui avait le fusil." />
+
+        <DeathPlayerElectricChair text="S'est fait électrocuter par une chaise électrique." /> <!-- TN: If a player sits in the electric chair and there is a power surge, they die. -->
+        <DeathPlayerElectricChair text="A été condamné à mort par chaise électrique." />
+        <DeathPlayerElectricChair text="A payé pour ses crimes." />
 
         <DeathPlayerLadder text="A été écrasé par une Extension Ladder." /> <!-- TN: Used when a player stands underneath an Extension Ladder and gets crushed. -->
         <DeathPlayerLadder text="A été réduit en bouillie par une Extension Ladder." />
 
         <DeathPlayerQuicksand text="S'est retrouvé coincé dans des sables mouvants." />
-        <DeathPlayerQuicksand text="S'est noyé dans des sables mouvants." />
+        <DeathPlayerQuicksand text="A suffoqué dans des sables mouvants." />
 
         <DeathPlayerStunGrenade text="A été ébloui par un collègue." />
         <DeathPlayerStunGrenade text="N'a pas supporté la lumière." />
+        <DeathPlayerStunGrenade text="Aveuglé par le flash." />
+        <DeathPlayerStunGrenade text="A oublié qu'il fallait lancer les grenades." />
 
         <DeathPlayerEasterEgg text="Explosé par un Easter Egg." />
         <DeathPlayerEasterEgg text="A eu un Easter Egg jeté sur lui." />
+        <DeathPlayerEasterEgg text="A été réduit en omelette." />
 
-        <DeathPlayerCruiserDriver text="Explosé par le Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
+        <DeathPlayerCruiserDriver text="A explosé le Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
+        <DeathPlayerCruiserDriver text="A détruit le véhicule de la Company." />
+        <DeathPlayerCruiserDriver text="A eu une conduite imprudente." />
+        <DeathPlayerCruiserDriver text="A conduit en état d'ivresse." />
 
         <DeathPlayerCruiserPassenger text="Explosé par le Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the passenger seat. -->
+        <DeathPlayerCruiserPassenger text="N'aurait pas dû faire confiance au conducteur." />
+        <DeathPlayerCruiserPassenger text="N'a pas choisi SAM comme conducteur désigné." /> <!-- FR-TN: SAM is the name of the designated driver in France -->
 
         <DeathPlayerCruiserExplodeBystander text="Explosé par le Company Cruiser." /> <!-- TN: Occurs when near (but not seated in) the car as it explodes. -->
+        <DeathPlayerCruiserExplodeBystander text="Est devenu une victime collatérale." />
+        <DeathPlayerCruiserExplodeBystander text="N'a pas pu s'échapper à temps." />
+        <DeathPlayerCruiserExplodeBystander text="A assisté à un accident de la route au ralenti." />
 
         <DeathPlayerCruiserRanOver text="Écrasé par le Company Cruiser." />
+        <DeathPlayerCruiserRanOver text="S'est jeté sur un véhicule en marche." />
+        <DeathPlayerCruiserRanOver text="N'a pas regardé avant de traverser." />
 
         <DeathOtherItemDropship text="A été écrasé par le vaisseau d'équipement." /> <!-- TN: Used when a player stands underneath the Item Dropship and gets crushed. -->
         <DeathOtherItemDropship text="N'a pas pu attendre son équipement." />
@@ -309,6 +391,7 @@
         <!-- TN: Died to the famous split catwalk in the Facility layout. -->
         <DeathPitFacilityCatwalkJump text="A glissé sur une poutre métallique." />
         <DeathPitFacilityCatwalkJump text="A tenté un acte de foi, et a perdu." />
+        <DeathPitFacilityCatwalkJump text="A tenté de faire CE saut... oui, celui-là." />
 
         <!-- TN: Died in the Mines by falling down the elevator shaft. -->
         <DeathPitMineElevator text="Est tombé dans la cage d'ascenseur." />
@@ -330,12 +413,18 @@
         <DeathOtherLandmine text="A marché sur une mine." />
 
         <DeathOtherTurret text="A été flingé par une tourelle." />
+        <DeathOtherTurret text="A défié une tourelle avec une pelle." /> <!-- TN: Knife to a gun fight -->
+        <DeathOtherTurret text="A été transformé en gruyère." /> <!-- TN: Shoot someone so full of holes they resemble a slice of Emmental cheese -->
 
         <DeathOtherLightning text="A été frappé par la foudre." />
+        <DeathOtherLightning text="A déclenché la fureur de Zeus." />
+        <DeathOtherLightning text="Foudroyé par les dieux." /> <!-- TN: Like being smitten (in love) but also smited, smote? Smote. -->
+        <DeathOtherLightning text="A invoqué le primordial Ramuh." /> <!-- FR-TN: Final Fantasy XIV Online: A Realm Reborn reference -->
 
         <DeathOtherMeteor text="A été frappé par une météorite." />
-        <DeathOtherMeteor text="A découvert ce que c'est d'être un dinausore." /> <!-- TN: Referencing the meteor that ended the Cretaceous period -->
+        <DeathOtherMeteor text="A découvert ce que c'est d'être un dinosaure." /> <!-- TN: Referencing the meteor that ended the Cretaceous period -->
         <DeathOtherMeteor text="N'a pas survécu au septième fléau." /> <!-- FR-TN: Final Fantasy XIV Online: A Realm Reborn reference -->
+        <DeathOtherMeteor text="Frappé à la tête par une pierre." />
 
         <!--
             TN: When the player clips out of the map while in the Facility.
@@ -347,5 +436,10 @@
         <DeathUnknown text="Mort inconnue." />
         <DeathUnknown text="Très probablement mort." />
         <DeathUnknown text="A expiré mystérieusement." />
+        <DeathUnknown text="Est mort ?" />
+        <DeathUnknown text="Présumé mort." />
+        <DeathUnknown text="Disparu sans laisser de trace." />
+        <DeathUnknown text="Porté disparu." />
+        <DeathUnknown text="Absence non autorisée." />
     </strings>
 </base>
