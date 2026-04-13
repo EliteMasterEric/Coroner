@@ -312,7 +312,12 @@ namespace Coroner
         public static AdvancedCauseOfDeath Stabbing = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_STABBING, CauseOfDeath.Stabbing); // This gets redirected based on who stabbed
         public static AdvancedCauseOfDeath Fan = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_FAN, CauseOfDeath.Fan); // This one gets actually used
         public static AdvancedCauseOfDeath Inertia = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_INERTIA, CauseOfDeath.Inertia); // This gets redirected to one of the car ones
-        public static AdvancedCauseOfDeath Snipped = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_SNIPPED, CauseOfDeath.Snipped); // This gets redirected to Enemy_Barber
+        
+        // New in v80
+        public static AdvancedCauseOfDeath Scratching = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_SCRATCHING, CauseOfDeath.Scratching);
+        // NOTE: Added in v50, renamed in v80
+        public static AdvancedCauseOfDeath Snipping = BuildFromExisting(LanguageHandler.TAG_DEATH_GENERIC_SNIPPING, CauseOfDeath.Snipping); // This gets redirected to Enemy_Barber
+
 
         // Custom causes (enemies)
         public static AdvancedCauseOfDeath Enemy_BaboonHawk = Build(LanguageHandler.TAG_DEATH_ENEMY_BABOON_HAWK); // Also known as BaboonBird
@@ -360,6 +365,11 @@ namespace Coroner
         // Enemies from v70
         public static AdvancedCauseOfDeath Enemy_Giant_Sapsucker = Build(LanguageHandler.TAG_DEATH_ENEMY_GIANT_SAPSUCKER);
 
+        // Enemies from v80
+        public static AdvancedCauseOfDeath Enemy_Cadaver_Growth = Build(LanguageHandler.TAG_DEATH_ENEMY_CADAVER_GROWTH); // Specifically when the person dies from the bloom bursting
+        public static AdvancedCauseOfDeath Enemy_Cadaver_Bloom = Build(LanguageHandler.TAG_DEATH_ENEMY_CADAVER_BLOOM); // Specifically when a player is killed by another player with the bloom
+        public static AdvancedCauseOfDeath Enemy_Feiopar = Build(LanguageHandler.TAG_DEATH_ENEMY_FEIOPAR); // Also known as the Puma
+
         // Custom causes (player)
         public static AdvancedCauseOfDeath Player_Jetpack_Gravity = Build(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_GRAVITY); // I think this one just never triggers.
         public static AdvancedCauseOfDeath Player_Jetpack_Blast = Build(LanguageHandler.TAG_DEATH_PLAYER_JETPACK_BLAST);
@@ -392,6 +402,7 @@ namespace Coroner
         public static AdvancedCauseOfDeath Other_Turret = Build(LanguageHandler.TAG_DEATH_OTHER_TURRET);
         public static AdvancedCauseOfDeath Other_Lightning = Build(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
         public static AdvancedCauseOfDeath Other_Meteor = Build(LanguageHandler.TAG_DEATH_OTHER_METEOR);
+        public static AdvancedCauseOfDeath Other_Vomiting = Build(LanguageHandler.TAG_DEATH_OTHER_VOMITING); // Happens when you spray a player with Weed Killer
         public static AdvancedCauseOfDeath Other_DepositItemsDesk = Build(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK); // You never see this one since there's no report.
         public static AdvancedCauseOfDeath Other_Dropship = Build(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
         public static AdvancedCauseOfDeath Other_Spike_Trap = Build(LanguageHandler.TAG_DEATH_OTHER_SPIKE_TRAP);

@@ -37,3 +37,30 @@ It is urged that you follow this guide and **do not** reupload Coroner to Thunde
 - All [contributors](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATING.md) who added or helped improve their language's translations
 - [Xilophor](https://github.com/Xilophor/): Creating [StaticNetcodeLib](https://thunderstore.io/c/lethal-company/p/xilophor/StaticNetcodeLib/)
 - [giosuel](https://github.com/giosuel): Creating [Imperium](https://thunderstore.io/c/lethal-company/p/giosuel/Imperium/) which kept us sane during playtesting
+
+
+# To Test (v80)
+## New Causes
+- [] Cadaver Growth
+- [] Cadaver Bloom
+- [] Feiopar
+- [] Vomiting
+- [] Kidnapper Fox
+## Potentially Broken Causes
+- [] Barber (Snipping)
+- [] Giant Sapsucker
+- [] Electric Chair
+- [] Forest Giant Crush
+- [] Landmine
+- [] Jetpack
+- [] Turret (killed, and damaged and not killed)
+- [] Shotgun
+- [] Butler Explosion
+- [] Player_Cruiser_Driver
+- [] Player_Cruiser_Passenger
+- [] Player_Cruiser_Explode_Bystander
+- [] Player_Cruiser_Ran_Over
+## Bonus
+- [] Snare Flea
+- [] Gravity while face covered in Stringray Goop
+- [] Gravity while slipping in Goop

@@ -35,7 +35,8 @@ namespace Coroner
         public const string TAG_DEATH_GENERIC_STABBING = "DeathStabbing"; // New in v50
         public const string TAG_DEATH_GENERIC_FAN = "DeathFan"; // New in v50
         public const string TAG_DEATH_GENERIC_INERTIA = "DeathInertia"; // New in v55
-        public const string TAG_DEATH_GENERIC_SNIPPED = "DeathSnipped"; // New in v55
+        public const string TAG_DEATH_GENERIC_SNIPPING = "DeathSnipped"; // New in v55, renamed in v80
+        public const string TAG_DEATH_GENERIC_SCRATCHING = "DeathScratching"; // New in v80
 
 
         // Custom causes (enemies)
@@ -84,6 +85,11 @@ namespace Coroner
         // Enemies from v70
         public const string TAG_DEATH_ENEMY_GIANT_SAPSUCKER = "DeathEnemyGiantSapsucker";
 
+        // Enemies from v80
+        public const string TAG_DEATH_ENEMY_CADAVER_GROWTH = "DeathEnemyCadaverGrowth";
+        public const string TAG_DEATH_ENEMY_CADAVER_BLOOM = "DeathEnemyCadaverBloom";
+        public const string TAG_DEATH_ENEMY_FEIOPAR = "DeathEnemyFeiopar";
+
         // Custom causes (player)
         public const string TAG_DEATH_PLAYER_JETPACK_GRAVITY = "DeathPlayerJetpackGravity";
         public const string TAG_DEATH_PLAYER_JETPACK_BLAST = "DeathPlayerJetpackBlast";
@@ -116,6 +122,7 @@ namespace Coroner
         public const string TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK = "DeathOtherDepositItemsDesk";
         public const string TAG_DEATH_OTHER_ITEM_DROPSHIP = "DeathOtherItemDropship";
         public const string TAG_DEATH_OTHER_LANDMINE = "DeathOtherLandmine";
+        public const string TAG_DEATH_OTHER_VOMITING = "DeathOtherVomiting";
         public const string TAG_DEATH_OTHER_TURRET = "DeathOtherTurret";
         public const string TAG_DEATH_OTHER_LIGHTNING = "DeathOtherLightning";
         public const string TAG_DEATH_OTHER_METEOR = "DeathOtherMeteor";
