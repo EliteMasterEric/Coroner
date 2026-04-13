@@ -83,6 +83,8 @@ namespace Coroner
 
         public static AdvancedCauseOfDeath? GetCauseOfDeath(int playerIndex, bool shouldGuess = true)
         {
+            if (playerIndex < 0 || playerIndex >= StartOfRound.Instance.allPlayerScripts.Length) return null;
+
             PlayerControllerB playerController = StartOfRound.Instance.allPlayerScripts[playerIndex];
 
             return GetCauseOfDeath(playerController, shouldGuess);
@@ -90,6 +92,8 @@ namespace Coroner
 
         public static bool HasCauseOfDeath(int playerIndex)
         {
+            if (playerIndex < 0 || playerIndex >= StartOfRound.Instance.allPlayerScripts.Length) return null;
+
             return HasCauseOfDeath(StartOfRound.Instance.allPlayerScripts[playerIndex]);
         }
 
