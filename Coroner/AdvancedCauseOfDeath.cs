@@ -92,7 +92,7 @@ namespace Coroner
 
         public static bool HasCauseOfDeath(int playerIndex)
         {
-            if (playerIndex < 0 || playerIndex >= StartOfRound.Instance.allPlayerScripts.Length) return null;
+            if (playerIndex < 0 || playerIndex >= StartOfRound.Instance.allPlayerScripts.Length) return false;
 
             return HasCauseOfDeath(StartOfRound.Instance.allPlayerScripts[playerIndex]);
         }
