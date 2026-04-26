@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Known Issues
 - Reinstalling the mod may sometimes cause modded language data to be deleted.
 
+# 2.4.0 (2026-04-??)
+This updates the game with some new causes of death from the latest update.
+# Added
+- Added cause of death messages for 5 new causes of death from v81.
+- Added additional death messages for English.
+- Added the `API.ClearCauseOfDeath()` function so mods can properly remove an existing cause of death.
+# Changed
+- Refactored some of the death hooks to more reliably track cause of death especially when there could be conflicts (such as one monster damaging before another kills).
+
 # 2.3.0 (2025-07-07)
 This update updates the game for provides some updated language strings as well as a bugfix.
 

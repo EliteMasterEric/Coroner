@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -7,6 +9,8 @@ using Mono.Cecil;
 using UnityEngine;
 
 #nullable enable
+
+#pragma warning disable Harmony003
 
 /*
  * A set of patches dedicated to tracking when a player dies in a specific manner,
@@ -23,9 +27,14 @@ namespace Coroner.Patch
         // IL_021c: callvirt instance void GameNetcodeStuff.PlayerControllerB::DamagePlayer(int32, bool, bool, valuetype CauseOfDeath, int32, bool, valuetype [UnityEngine.CoreModule]UnityEngine.Vector3)
         public const string DAMAGE_PLAYER_SIGNATURE = "Void DamagePlayer(Int32, Boolean, Boolean, CauseOfDeath, Int32, Boolean, UnityEngine.Vector3)";
 
-        public static void LogException(System.Exception e, string location) {
+        public static void LogException(Exception e, string location) {
             Plugin.Instance.PluginLogger.LogError($"Caught exception in {location}: {e.Message}");
             Plugin.Instance.PluginLogger.LogError(e.StackTrace);
+        }
+
+        public static bool IsPlayer(Collider collider) {
+            if (collider == null) return false;
+            return collider.gameObject.GetComponent<PlayerControllerB>() != null;
         }
 
         public static int LocateKillPlayerCall(List<CodeInstruction> instructions) {
@@ -72,7 +81,7 @@ namespace Coroner.Patch
     /*
      * A structure value used to store the state between a patch's Prefix and Postfix.
      */
-    struct CauseOfDeathPatchState
+    class CauseOfDeathPatchState
     {
         private int targetPlayerIndex;
 
@@ -80,13 +89,13 @@ namespace Coroner.Patch
 
         // Set of values set when the player is queried
         public bool previousIsPlayerDead;
-        public CauseOfDeath? previousCauseOfDeath;
+        public CauseOfDeath? previousCauseOfDeath = null;
         public bool wasHoldingJetpack;
 
         public CauseOfDeathPatchState()
         {
-            // Default values
             targetPlayerIndex = -1;
+            wasPlayerQueried = false;
         }
 
         // ============
@@ -94,6 +103,12 @@ namespace Coroner.Patch
         // ============
 
         public void TrySetPlayer(int targetPlayerIndex) {
+            if (targetPlayerIndex < 0)
+            {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access dying player: Invalid player index! " + targetPlayerIndex);
+                return;
+            }
+
             // Set the target player based on the index.
             this.targetPlayerIndex = targetPlayerIndex;
         }
@@ -118,6 +133,12 @@ namespace Coroner.Patch
                 return;
             }
 
+            if (!CauseOfDeathPatch.IsPlayer(collider))
+            {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access dying player: Collider was not a player!");
+                return;
+            }
+
             PlayerControllerB playerControllerB = collider.gameObject.GetComponent<PlayerControllerB>();
             TrySetPlayer(playerControllerB);
         }
@@ -131,15 +152,20 @@ namespace Coroner.Patch
             // Obtain information about the player before the hooked function executes.
             // This lets us check if the player was alive and became dead.
 
-            if (wasPlayerQueried) return;
+            if (wasPlayerQueried) {
+                Plugin.Instance.PluginLogger.LogWarning("Tried to query player state, but we already did that? " + ToString());
+                return;
+            }
 
             PlayerControllerB? targetPlayer = FetchPlayer();
             if (targetPlayer == null) return;
 
+            Plugin.Instance.PluginLogger.LogDebug("Querying target player parameters pre-death...");
             wasPlayerQueried = true;
             previousIsPlayerDead = targetPlayer.isPlayerDead;
             previousCauseOfDeath = targetPlayer.causeOfDeath;
             wasHoldingJetpack = AdvancedDeathTracker.IsHoldingJetpack(targetPlayer);
+            Plugin.Instance.PluginLogger.LogDebug("Query successful!" + wasPlayerQueried);
         }
 
         public int FetchPlayerIndex()
@@ -161,15 +187,21 @@ namespace Coroner.Patch
                 return null;
             }
 
+            if (targetPlayerIndex >= StartOfRound.Instance.allPlayerScripts.Length)
+            {
+                Plugin.Instance.PluginLogger.LogWarning("Could not access dying player: Index out of bounds! " + targetPlayerIndex);
+                return null;
+            }
+
             return StartOfRound.Instance.allPlayerScripts[targetPlayerIndex];
         }
 
         public PlayerControllerB GetPlayer()
         {
-            // Obtain the target player. Throws an error if it failed to be assigned.
+            // Obtain the target player. Throws an error (instead of null) if it failed to be assigned.
 
             PlayerControllerB? targetPlayer = FetchPlayer();
-            if (targetPlayer == null) throw new System.Exception("Could not retrieve player from state!");
+            if (targetPlayer == null) throw new Exception("Could not retrieve player from state!");
             return targetPlayer;
         }
     
@@ -221,11 +253,46 @@ namespace Coroner.Patch
 
             if (AdvancedDeathTracker.HasCauseOfDeath(FetchPlayerIndex()))
             {
-                Plugin.Instance.PluginLogger.LogWarning("Could not access dying player: Player already had a cause of death!");
+                Plugin.Instance.PluginLogger.LogWarning("Could not access dying player: Player already had a precise cause of death!");
                 return false;
             }
 
             return true;
+        }
+
+        public override string ToString()
+        {
+            return $"CauseOfDeathPatchState({targetPlayerIndex}:{wasPlayerQueried}, {previousIsPlayerDead}==false?)";   
+        }
+    }
+
+    class CauseOfDeathEnumerator : EnumeratorPatch
+    {
+        // Called before the IEnumerator executes to kill the player.
+        public Action<CauseOfDeathPatchState>? preDeathAction;
+        // Called after the IEnumerator executes to kill the player.
+        public Action<CauseOfDeathPatchState>? postDeathAction;
+
+        // Called after each step of the IEnumerator.
+        public Action<CauseOfDeathPatchState>? postDeathStepAction;
+
+        // instance should be the class that the IEnumerator is invoking on.
+        public CauseOfDeathEnumerator(IEnumerator targetEnumerator) : base(targetEnumerator)
+        {
+            var state = new CauseOfDeathPatchState();
+
+            prefixAction = () => {
+                preDeathAction?.Invoke(state);
+                Plugin.Instance.PluginLogger.LogDebug("Post step action done: " + state.ToString());
+            };
+            postfixAction = () => {
+                postDeathAction?.Invoke(state);
+                Plugin.Instance.PluginLogger.LogDebug("Post step action done: " + state.ToString());
+            };
+            postStepAction = (obj) => {
+                postDeathStepAction?.Invoke(state);
+                Plugin.Instance.PluginLogger.LogDebug("Post step action done: " + state.ToString());
+            };
         }
     }
 
@@ -234,19 +301,19 @@ namespace Coroner.Patch
     // =========
 
     // Enemy_BaboonHawk
-    [HarmonyPatch(typeof(BaboonBirdAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(BaboonBirdAI), "OnCollideWithPlayer")]
     class BaboonBirdAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+    
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "BaboonBirdAI.OnCollideWithPlayer:Prefix");
             }
@@ -265,7 +332,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Baboon Hawk killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_BaboonHawk);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "BaboonBirdAI.OnCollideWithPlayer:Postfix");
             }
@@ -273,19 +340,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Mask_Hornets
-    [HarmonyPatch(typeof(ButlerBeesEnemyAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(ButlerBeesEnemyAI), "OnCollideWithPlayer")]
     class ButlerBeesEnemyAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ButlerBeesEnemyAI.OnCollideWithPlayer:Prefix");
             }
@@ -304,7 +371,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Mask Hornet killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_MaskHornets);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ButlerBeesEnemyAI.OnCollideWithPlayer:Postfix");
             }
@@ -312,19 +379,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Butler_Stab
-    [HarmonyPatch(typeof(ButlerEnemyAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(ButlerEnemyAI), "OnCollideWithPlayer")]
     class ButlerEnemyAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ButlerEnemyAI.OnCollideWithPlayer:Prefix");
             }
@@ -343,7 +410,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Butler killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Butler_Stab);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ButlerEnemyAI.OnCollideWithPlayer:Postfix");
             }
@@ -351,19 +418,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Cadaver_Bloom
-    [HarmonyPatch(typeof(CadaverBloomAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(CadaverBloomAI), "OnCollideWithPlayer")]
     class CadaverBloomAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CadaverBloomAI.OnCollideWithPlayer:Prefix");
             }
@@ -382,7 +449,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Cadaver Bloom killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Cadaver_Bloom);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CadaverBloomAI.OnCollideWithPlayer:Postfix");
             }
@@ -390,19 +457,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Giant_Sapsucker
-    [HarmonyPatch(typeof(GiantKiwiAI))]
-    [HarmonyPatch("AnimationEventB")]
+    [HarmonyPatch(typeof(GiantKiwiAI), "AnimationEventB")]
     class GiantKiwiAIAnimationEventBPatch
     {
-        public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
+        public static void Prefix(ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(other);
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
+                __state.TrySetPlayer(GameNetworkManager.Instance.localPlayerController);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "GiantKiwiAI.AnimationEventB:Prefix");
             }
@@ -421,7 +488,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Giant Sapsucker killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Giant_Sapsucker);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "GiantKiwiAI.AnimationEventB:Postfix");
             }
@@ -429,19 +496,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Lasso_Man
-    [HarmonyPatch(typeof(LassoManAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(LassoManAI), "OnCollideWithPlayer")]
     class LassoManAIOnCollideWithPlayer
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "LassoManAI.OnCollideWithPlayer:Prefix");
             }
@@ -460,7 +527,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Lasso Man killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_LassoMan);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "LassoManAI.OnCollideWithPlayer:Postfix");
             }
@@ -468,19 +535,19 @@ namespace Coroner.Patch
     }
 
     // Player_Electric_Chair
-    [HarmonyPatch(typeof(MoveToExitSpecialAnimation))]
-    [HarmonyPatch("shockChair")]
+    [HarmonyPatch(typeof(MoveToExitSpecialAnimation), "shockChair")]
     class MoveToExitSpecialAnimationShockChairPatch
     {
         public static void Prefix(MoveToExitSpecialAnimation __instance, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(__instance.interactTrigger.lockedPlayer.GetComponent<PlayerControllerB>());
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "MoveToExitSpecialAnimation.shockChair:Prefix");
             }
@@ -499,7 +566,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Electric Chair killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Player_Electric_Chair);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "MoveToExitSpecialAnimation.shockChair:Postfix");
             }
@@ -507,19 +574,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_SporeLizard
-    [HarmonyPatch(typeof(PufferAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(PufferAI), "OnCollideWithPlayer")]
     class PufferAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PufferAI.OnCollideWithPlayer:Prefix");
             }
@@ -538,7 +605,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Spore Lizard killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_SporeLizard);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PufferAI.OnCollideWithPlayer:Postfix");
             }
@@ -546,19 +613,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Feiopar
-    [HarmonyPatch(typeof(PumaAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(PumaAI), "OnCollideWithPlayer")]
     class PumaAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PumaAI.OnCollideWithPlayer:Prefix");
             }
@@ -577,7 +644,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Feiopar killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Feiopar);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PumaAI.OnCollideWithPlayer:Postfix");
             }
@@ -585,19 +652,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Old_Bird_Stomp
-    [HarmonyPatch(typeof(RadMechAI))]
-    [HarmonyPatch("Stomp")]
+    [HarmonyPatch(typeof(RadMechAI), "Stomp")]
     class RadMechAIStompPatch
     {
-        public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
+        public static void Prefix(ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(other);
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
+                __state.TrySetPlayer(GameNetworkManager.Instance.localPlayerController);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "RadMechAI.Stomp:Prefix");
             }
@@ -616,7 +683,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Old Bird killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Old_Bird_Stomp);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "RadMechAI.Stomp:Postfix");
             }
@@ -624,38 +691,74 @@ namespace Coroner.Patch
     }
 
     // Enemy_Old_Bird_Torch
-    [HarmonyPatch(typeof(RadMechAI))]
-    [HarmonyPatch("CancelTorchPlayerAnimation")]
-    class RadMechAICancelTorchPlayerAnimationPatch
+    [HarmonyPatch(typeof(RadMechAI), "TorchPlayerAnimation")]
+    class RadMechAITorchPlayerAnimationPatch
     {
-        public static void Prefix(RadMechAI __instance)
+        public static void Postfix(RadMechAI __instance, ref IEnumerator __result)
         {
-            Plugin.Instance.PluginLogger.LogDebug("Handling Old Bird (Torch) damage...");
-
-            // TorchPlayerAnimation() is what actually kills the player, but that's an Enumerator, and this gets called immediately after.
-
-            if (__instance.inSpecialAnimationWithPlayer != null)
+            try
             {
+                var enumerator = new CauseOfDeathEnumerator(__result)
+                {
+                    preDeathAction = (CauseOfDeathPatchState __state) => EnumeratorPrefix(__instance, __state),
+                    postDeathStepAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state),
+                    postDeathAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state)
+                };
+
+                __result = enumerator.GetEnumerator();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "RadMechAI.TorchPlayerAnimation:Postfix");
+            }
+        }
+
+        static void EnumeratorPrefix(RadMechAI __instance, CauseOfDeathPatchState __state)
+        {
+            try
+            {
+                __state.TrySetPlayer(__instance.inSpecialAnimationWithPlayer);
+                __state.QueryPlayerState();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "RadMechAI.TorchPlayerAnimation:EnumeratorPrefix");
+            }
+        }
+
+        static void EnumeratorStepPostfix(RadMechAI __instance, CauseOfDeathPatchState __state) {
+            try
+            {
+                var targetPlayer = __state.GetPlayer();
+
+                if (!__state.ValidateWasntAlreadyDead()) return;
+                if (!__state.ValidateIsPlayerDead()) return;
+                if (!__state.ValidateHasNoCauseOfDeath()) return;
+
                 Plugin.Instance.PluginLogger.LogDebug("Old Bird killed Player! Setting cause of death...");
-                AdvancedDeathTracker.SetCauseOfDeath(__instance.inSpecialAnimationWithPlayer, AdvancedCauseOfDeath.Enemy_Old_Bird_Torch);
+                AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Old_Bird_Torch);
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "RadMechAI.TorchPlayerAnimation:EnumeratorStepPostfix");
             }
         }
     }
 
     // Enemy_BunkerSpider
-    [HarmonyPatch(typeof(SandSpiderAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(SandSpiderAI), "OnCollideWithPlayer")]
     class SandSpiderAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SandSpiderAI.OnCollideWithPlayer:Prefix");
             }
@@ -674,67 +777,27 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Bunker Spider killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_BunkerSpider);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SandSpiderAI.OnCollideWithPlayer:Postfix");
             }
         }
     }
-    
-    // Other_Turret
-    [HarmonyPatch(typeof(Turret))]
-    [HarmonyPatch("Update")]
-    class TurretUpdatePatch
-    {
-        public static void Prefix(ref CauseOfDeathPatchState __state)
-        {
-            try
-            {   
-                // It only kills if we are the local player, so we can just query that.
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(GameNetworkManager.Instance.localPlayerController);
-                __state.QueryPlayerState();
-            }
-            catch (System.Exception e)
-            {
-                CauseOfDeathPatch.LogException(e, "Turret.Update:Prefix");
-            }
-        }
-
-        public static void Postfix(ref CauseOfDeathPatchState __state)
-        {
-            try
-            {
-                Plugin.Instance.PluginLogger.LogDebug("Handling Turret damage...");
-
-                if (!__state.ValidateWasntAlreadyDead()) return;
-                if (!__state.ValidateIsPlayerDead()) return;
-                if (!__state.ValidateHasNoCauseOfDeath()) return;
-
-                Plugin.Instance.PluginLogger.LogDebug("Turret killed Player! Setting cause of death...");
-                AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Other_Turret);
-            }
-            catch (System.Exception e)
-            {
-                CauseOfDeathPatch.LogException(e, "Turret.Update:Postfix");
-            }
-        }
-    }
 
     // Enemy_Hygrodere
-    [HarmonyPatch(typeof(BlobAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(BlobAI), "OnCollideWithPlayer")]
     class BlobAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "BlobAI.OnCollideWithPlayer:Prefix");
             }
@@ -753,7 +816,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Bunker Spider killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Hygrodere);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "BlobAI.OnCollideWithPlayer:Postfix");
             }
@@ -761,19 +824,19 @@ namespace Coroner.Patch
     }
     
     // Enemy_SnareFlea
-    [HarmonyPatch(typeof(CentipedeAI))]
-    [HarmonyPatch("DamagePlayerOnIntervals")]
+    [HarmonyPatch(typeof(CentipedeAI), "DamagePlayerOnIntervals")]
     class CentipedeAIDamagePlayerOnIntervalsPatch
     {
         public static void Prefix(CentipedeAI __instance, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(__instance.clingingToPlayer);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CentipedeAI.DamagePlayerOnIntervals:Prefix");
             }
@@ -792,7 +855,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Centipede killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_SnareFlea);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CentipedeAI.DamagePlayerOnIntervals:Postfix");
             }
@@ -800,19 +863,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Thumper
-    [HarmonyPatch(typeof(CrawlerAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(CrawlerAI), "OnCollideWithPlayer")]
     class CrawlerAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CrawlerAI.OnCollideWithPlayer:Prefix");
             }
@@ -831,7 +894,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Thumper killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Thumper);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CrawlerAI.OnCollideWithPlayer:Postfix");
             }
@@ -839,19 +902,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_CircuitBees
-    [HarmonyPatch(typeof(RedLocustBees))]
-    [HarmonyPatch("BeeKillPlayerOnLocalClient")]
+    [HarmonyPatch(typeof(RedLocustBees), "BeeKillPlayerOnLocalClient")]
     class RedLocustBeesBeeKillPlayerOnLocalClientPatch
     {
         public static void Prefix(int playerId, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(playerId);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "RedLocustBees.BeeKillPlayerOnLocalClient:Prefix");
             }
@@ -870,7 +933,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Circuit Bees killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_CircuitBees);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "RedLocustBees.BeeKillPlayerOnLocalClient:Postfix");
             }
@@ -878,19 +941,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_HoarderBug
-    [HarmonyPatch(typeof(HoarderBugAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(HoarderBugAI), "OnCollideWithPlayer")]
     class HoarderBugAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "HoarderBugAI.OnCollideWithPlayer:Prefix");
             }
@@ -909,7 +972,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Hoarder Bug killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_HoarderBug);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "HoarderBugAI.OnCollideWithPlayer:Postfix");
             }
@@ -917,19 +980,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_CoilHead
-    [HarmonyPatch(typeof(SpringManAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(SpringManAI), "OnCollideWithPlayer")]
     class SpringManAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SpringManAI.OnCollideWithPlayer:Prefix");
             }
@@ -948,7 +1011,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Coil-Head killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_CoilHead);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SpringManAI.OnCollideWithPlayer:Postfix");
             }
@@ -957,19 +1020,19 @@ namespace Coroner.Patch
 
     // Enemy_Nutcracker_Shot
     // Player_Murder_Shotgun
-    [HarmonyPatch(typeof(ShotgunItem))]
-    [HarmonyPatch("ShootGun")]
+    [HarmonyPatch(typeof(ShotgunItem), "ShootGun")]
     class ShotgunItemShootGunPatch
     {
         public static void Prefix(ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(GameNetworkManager.Instance.localPlayerController);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ShotgunItem.ShootGun:Prefix");
             }
@@ -1000,27 +1063,27 @@ namespace Coroner.Patch
                     AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Player_Murder_Shotgun);
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ShotgunItem.ShootGun:Postfix");
             }
         }
     }
 
-    // Other_Vomiting
-    [HarmonyPatch(typeof(SprayPaintItem))]
-    [HarmonyPatch("HealPlayerInfection")]
+    // Player_Vomiting
+    [HarmonyPatch(typeof(SprayPaintItem), "HealPlayerInfection")]
     class SprayPaintItemHealPlayerInfectionPatch
     {
         public static void Prefix(ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(GameNetworkManager.Instance.localPlayerController);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SprayPaintItem.HealPlayerInfection:Prefix");
             }
@@ -1038,9 +1101,9 @@ namespace Coroner.Patch
                 if (!__state.ValidateHasNoCauseOfDeath()) return;
 
                 Plugin.Instance.PluginLogger.LogDebug("Vomiting killed Player! Setting cause of death...");
-                AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Other_Vomiting);
+                AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Player_Vomiting);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SprayPaintItem.HealPlayerInfection:Postfix");
             }
@@ -1048,19 +1111,19 @@ namespace Coroner.Patch
     }
     
     // Player_StunGrenade
-    [HarmonyPatch(typeof(StunGrenadeItem))]
-    [HarmonyPatch("StunExplosion")]
+    [HarmonyPatch(typeof(StunGrenadeItem), "StunExplosion")]
     class StunGrenadeItemStunExplosionPatch
     {
         public static void Prefix(StunGrenadeItem __instance, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(__instance.playerHeldBy);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "StunGrenadeItem.StunExplosion:Prefix");
             }
@@ -1079,7 +1142,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Stun Grenade killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Player_StunGrenade);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "StunGrenadeItem.StunExplosion:Postfix");
             }
@@ -1087,15 +1150,14 @@ namespace Coroner.Patch
     }
 
     // Player_Cruiser_Ran_Over
-    [HarmonyPatch(typeof(VehicleCollisionTrigger))]
-    [HarmonyPatch("OnTriggerEnter")]
+    [HarmonyPatch(typeof(VehicleCollisionTrigger), "OnTriggerEnter")]
     class VehicleCollisionTriggerOnTriggerEnterPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
                 
                 if (!other.gameObject.CompareTag("Player")) {
                     Plugin.Instance.PluginLogger.LogDebug("Vehicle collision with non-player...");
@@ -1105,7 +1167,7 @@ namespace Coroner.Patch
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "VehicleCollisionTrigger.OnTriggerEnter:Prefix");
             }
@@ -1124,7 +1186,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Vehicle (Collision) killed Player (Pedestrian)! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Player_Cruiser_Ran_Over);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "VehicleCollisionTrigger.OnTriggerEnter:Postfix");
             }
@@ -1133,15 +1195,14 @@ namespace Coroner.Patch
 
     // Player_Cruiser_Driver
     // Player_Cruiser_Passenger
-    [HarmonyPatch(typeof(VehicleController))]
-    [HarmonyPatch("DamagePlayerInVehicle")]
+    [HarmonyPatch(typeof(VehicleController), "DamagePlayerInVehicle")]
     class VehicleControllerDamagePlayerInVehiclePatch
     {
         public static void Prefix(VehicleController __instance, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
                 
                 if (__instance.localPlayerInControl || __instance.localPlayerInPassengerSeat)
                 {
@@ -1154,7 +1215,7 @@ namespace Coroner.Patch
                     return;
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "VehicleController.DamagePlayerInVehicle:Prefix");
             }
@@ -1186,7 +1247,7 @@ namespace Coroner.Patch
                     return;
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "VehicleController.DamagePlayerInVehicle:Postfix");
             }
@@ -1194,19 +1255,19 @@ namespace Coroner.Patch
     }
 
     // Gravity
-    [HarmonyPatch(typeof(PlayerControllerB))]
-    [HarmonyPatch("PlayerHitGroundEffects")]
+    [HarmonyPatch(typeof(PlayerControllerB), "PlayerHitGroundEffects")]
     class PlayerControllerBPlayerHitGroundEffectsPatch
     {
         public static void Prefix(PlayerControllerB __instance, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(__instance);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PlayerControllerB.PlayerHitGroundEffects:Prefix");
             }
@@ -1236,7 +1297,7 @@ namespace Coroner.Patch
                     AdvancedDeathTracker.SetCauseOfDeath(player, AdvancedCauseOfDeath.Gravity);
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PlayerControllerB.PlayerHitGroundEffects:Postfix");
             }
@@ -1247,19 +1308,19 @@ namespace Coroner.Patch
     // Player_Murder_Shovel
     // Player_Murder_Shotgun
     // Player_Murder_Sign
-    [HarmonyPatch(typeof(PlayerControllerB))]
-    [HarmonyPatch("DamagePlayerFromOtherClientClientRpc")]
+    [HarmonyPatch(typeof(PlayerControllerB), "DamagePlayerFromOtherClientClientRpc")]
     class PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch
     {
-        public static void Prefix(PlayerControllerB targetPlayer, ref CauseOfDeathPatchState __state)
+        public static void Prefix(PlayerControllerB __instance, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(targetPlayer);
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
+                __state.TrySetPlayer(__instance);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PlayerControllerB.DamagePlayerFromOtherClientClientRpc:Prefix");
             }
@@ -1315,7 +1376,7 @@ namespace Coroner.Patch
                     AdvancedDeathTracker.SetCauseOfDeath(target, target.causeOfDeath);
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PlayerControllerBDamagePlayerFromOtherClientClientRpcPatch:Postfix");
             }
@@ -1460,20 +1521,20 @@ namespace Coroner.Patch
     // =========
 
     // Unknown, possibly a trigger on the player ship 
-    [HarmonyPatch(typeof(AnimatedObjectFloatSetter))]
-    [HarmonyPatch("KillPlayerAtPoint")]
+    [HarmonyPatch(typeof(AnimatedObjectFloatSetter), "KillPlayerAtPoint")]
     class AnimatedObjectFloatSetterKillPlayerAtPointPatch
     {
         public static void Prefix(ref CauseOfDeathPatchState __state)
         {
             try
-            {   
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 // It only kills if we are the local player, so we can just query that.
-                __state = new CauseOfDeathPatchState();
                 __state.TrySetPlayer(GameNetworkManager.Instance.localPlayerController);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "AnimatedObjectFloatSetter.KillPlayerAtPoint:Prefix");
             }
@@ -1492,7 +1553,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogWarning("AnimatedObjectFloatSetter killed Player! Unknown cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Unknown);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "AnimatedObjectFloatSetter.KillPlayerAtPoint:Postfix");
             }
@@ -1500,19 +1561,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Kidnapper_Wolf
-    [HarmonyPatch(typeof(BushWolfEnemy))]
-    [HarmonyPatch("DoKillPlayerAnimationServerRpc")]
+    [HarmonyPatch(typeof(BushWolfEnemy), "DoKillPlayerAnimationServerRpc")]
     class BushWolfDoKillPlayerAnimationServerRpcPatch
     {
         public static void Prefix(int playerId, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(playerId);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "BushWolf.DoKillPlayerAnimationServerRpc:Prefix");
             }
@@ -1531,7 +1592,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogWarning("Kidnapper Fox killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_KidnapperFox);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "BushWolf.DoKillPlayerAnimationServerRpc:Postfix");
             }
@@ -1539,19 +1600,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Cadaver_Growth
-    [HarmonyPatch(typeof(CadaverBloomAI))]
-    [HarmonyPatch("BurstForth")]
+    [HarmonyPatch(typeof(CadaverBloomAI), "BurstForth")]
     class CadaverBloomAIBurstForthPatch
     {
-        public static void Prefix(int playerId, ref CauseOfDeathPatchState __state)
+        public static void Prefix(PlayerControllerB player, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(playerId);
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
+                __state.TrySetPlayer(player);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CadaverBloomAI.BurstForth:Prefix");
             }
@@ -1574,7 +1635,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogWarning("Cadaver Growth killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Cadaver_Growth);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CadaverBloomAI.BurstForth:Postfix");
             }
@@ -1582,20 +1643,20 @@ namespace Coroner.Patch
     }
 
     // Enemy_Maneater
-    [HarmonyPatch(typeof(CaveDwellerAI))]
-    [HarmonyPatch("KillPlayerAnimationClientRpc")]
+    [HarmonyPatch(typeof(CaveDwellerAI), "KillPlayerAnimationClientRpc")]
     class CaveDwellerAIKillPlayerAnimationClientRpcPatch
     {
 
         public static void Prefix(int playerObjectId, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(playerObjectId);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CaveDwellerAI.KillPlayerAnimationClientRpc:Prefix");
             }
@@ -1614,7 +1675,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogWarning("Maneater killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Maneater);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "CaveDwellerAI.KillPlayerAnimationClientRpc:Postfix");
             }
@@ -1622,19 +1683,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Barber
-    [HarmonyPatch(typeof(ClaySurgeonAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(ClaySurgeonAI), "OnCollideWithPlayer")]
     class ClaySurgeonAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ClaySurgeonAI.OnCollideWithPlayer:Prefix");
             }
@@ -1653,7 +1714,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Barber killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Barber);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ClaySurgeonAI.OnCollideWithPlayer:Postfix");
             }
@@ -1661,29 +1722,45 @@ namespace Coroner.Patch
     }
     
     // Other_DepositItemsDesk
-    [HarmonyPatch(typeof(DepositItemsDesk))]
-    [HarmonyPatch("AnimationGrabPlayer")]
+    [HarmonyPatch(typeof(DepositItemsDesk), "AnimationGrabPlayer")]
     class DepositItemsDeskAnimationGrabPlayerPatch
     {
-        public static void Prefix(int playerID, ref CauseOfDeathPatchState __state)
+        public static void Postfix(DepositItemsDesk __instance, int playerID, ref IEnumerator __result)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(playerID);
-                __state.QueryPlayerState();
-            }
-            catch (System.Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "DepositItemsDesk.AnimationGrabPlayer:Prefix");
+                var enumerator = new CauseOfDeathEnumerator(__result)
+                {
+                    preDeathAction = (CauseOfDeathPatchState __state) => EnumeratorPrefix(__instance, playerID, __state),
+                    postDeathStepAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state),
+                    postDeathAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state)
+                };
+
+                __result = enumerator.GetEnumerator();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "DepositItemsDesk.AnimationGrabPlayer:Postfix");
             }
         }
 
-        public static void Postfix(ref CauseOfDeathPatchState __state)
+        static void EnumeratorPrefix(DepositItemsDesk __instance, int playerID, CauseOfDeathPatchState __state)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogDebug("Handling Deposit Desk death...");
+                __state.TrySetPlayer(playerID);
+                __state.QueryPlayerState();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "DepositItemsDesk.AnimationGrabPlayer:EnumeratorPrefix");
+            }
+        }
+
+        static void EnumeratorStepPostfix(DepositItemsDesk __instance, CauseOfDeathPatchState __state) {
+            try
+            {
+                var targetPlayer = __state.GetPlayer();
 
                 if (!__state.ValidateWasntAlreadyDead()) return;
                 if (!__state.ValidateIsPlayerDead()) return;
@@ -1692,28 +1769,28 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Deposit Desk killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Other_DepositItemsDesk);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "DepositItemsDesk.AnimationGrabPlayer:Postfix");
+                CauseOfDeathPatch.LogException(e, "DepositItemsDesk.AnimationGrabPlayer:EnumeratorStepPostfix");
             }
         }
     }
 
     // Enemy_MaskedPlayer_Wear
-    [HarmonyPatch(typeof(HauntedMaskItem))]
-    [HarmonyPatch("FinishAttaching")]
+    [HarmonyPatch(typeof(HauntedMaskItem), "FinishAttaching")]
     class HauntedMaskItemFinishAttachingPatch
     {
         public static void Prefix(HauntedMaskItem __instance, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 PlayerControllerB previousPlayerHeldBy = Traverse.Create(__instance).Field("previousPlayerHeldBy").GetValue<PlayerControllerB>();
                 __state.TrySetPlayer(previousPlayerHeldBy);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "HauntedMaskItem.FinishAttaching:Prefix");
             }
@@ -1732,7 +1809,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Haunted Mask killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_MaskedPlayer_Wear);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "HauntedMaskItem.FinishAttaching:Postfix");
             }
@@ -1740,29 +1817,45 @@ namespace Coroner.Patch
     }
 
     // Enemy_Jester
-    [HarmonyPatch(typeof(JesterAI))]
-    [HarmonyPatch("killPlayerAnimation")]
+    [HarmonyPatch(typeof(JesterAI), "killPlayerAnimation")]
     class JesterAIKillPlayerAnimationPatch
     {
-        public static void Prefix(int playerId, ref CauseOfDeathPatchState __state)
+        public static void Postfix(JesterAI __instance, int playerId, ref IEnumerator __result)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(playerId);
-                __state.QueryPlayerState();
-            }
-            catch (System.Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "JesterAI.killPlayerAnimation:Prefix");
+                var enumerator = new CauseOfDeathEnumerator(__result)
+                {
+                    preDeathAction = (CauseOfDeathPatchState __state) => EnumeratorPrefix(__instance, playerId, __state),
+                    postDeathStepAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state),
+                    postDeathAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state)
+                };
+
+                __result = enumerator.GetEnumerator();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "JesterAI.killPlayerAnimation:Postfix");
             }
         }
 
-        public static void Postfix(ref CauseOfDeathPatchState __state)
+        static void EnumeratorPrefix(JesterAI __instance, int playerId, CauseOfDeathPatchState __state)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogDebug("Handling Jester death...");
+                __state.TrySetPlayer(playerId);
+                __state.QueryPlayerState();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "JesterAI.killPlayerAnimation:EnumeratorPrefix");
+            }
+        }
+
+        static void EnumeratorStepPostfix(JesterAI __instance, CauseOfDeathPatchState __state) {
+            try
+            {
+                var targetPlayer = __state.GetPlayer();
 
                 if (!__state.ValidateWasntAlreadyDead()) return;
                 if (!__state.ValidateIsPlayerDead()) return;
@@ -1771,27 +1864,27 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Jester killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Jester);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "JesterAI.killPlayerAnimation:Postfix");
+                CauseOfDeathPatch.LogException(e, "JesterAI.killPlayerAnimation:EnumeratorStepPostfix");
             }
         }
     }
 
     // Player_Jetpack_Gravity
-    [HarmonyPatch(typeof(JetpackItem))]
-    [HarmonyPatch("Update")]
+    [HarmonyPatch(typeof(JetpackItem), "Update")]
     class JetpackItemUpdatePatch
     {
         public static void Prefix(JetpackItem __instance, ref CauseOfDeathPatchState __state)
         {
             try
             {
-                __state = new CauseOfDeathPatchState();
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(__instance.playerHeldBy);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "JetpackItem.Update:Prefix");
             }
@@ -1811,7 +1904,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Jetpack (Falling/Collision) killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Player_Jetpack_Gravity);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "JetpackItem.Update:Postfix");
             }
@@ -1819,22 +1912,21 @@ namespace Coroner.Patch
     }
 
     // Enemy_MaskedPlayer_Victim
-    [HarmonyPatch(typeof(MaskedPlayerEnemy))]
-    [HarmonyPatch("FinishKillAnimation")]
+    [HarmonyPatch(typeof(MaskedPlayerEnemy), "FinishKillAnimation")]
     class MaskedPlayerEnemyFinishKillAnimationPatch
     {
         public static void Prefix(MaskedPlayerEnemy __instance, bool killedPlayer, ref CauseOfDeathPatchState __state)
         {
             try
             {
-                __state = new CauseOfDeathPatchState();
+                if (__state == null) __state = new CauseOfDeathPatchState();
 
                 if (!killedPlayer) return;
 
                 __state.TrySetPlayer(__instance.inSpecialAnimationWithPlayer);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "MaskedPlayerEnemyFinishKillAnimationPatch.Prefix");
             }
@@ -1854,7 +1946,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Masked Player killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_MaskedPlayer_Victim);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "MaskedPlayerEnemyFinishKillAnimationPatch.Postfix");
             }
@@ -1862,19 +1954,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Nutcracker_Kicked
-    [HarmonyPatch(typeof(NutcrackerEnemyAI))]
-    [HarmonyPatch("LegKickPlayer")]
+    [HarmonyPatch(typeof(NutcrackerEnemyAI), "LegKickPlayer")]
     class NutcrackerEnemyAILegKickPlayerPatch
     {
         public static void Prefix(int playerId, ref CauseOfDeathPatchState __state)
         {
             try
             {
-                __state = new CauseOfDeathPatchState();
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(playerId);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "NutcrackerEnemyAILegKickPlayerPatch.Prefix");
             }
@@ -1893,7 +1985,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Nutcracker (Kicking) killed player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Nutcracker_Kicked);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "NutcrackerEnemyAILegKickPlayerPatch.Postfix");
             }
@@ -1901,19 +1993,20 @@ namespace Coroner.Patch
     }
     
     // Other_OutOfBounds
-    [HarmonyPatch(typeof(OutOfBoundsTrigger))]
-    [HarmonyPatch("OnTriggerEnter")]
+    [HarmonyPatch(typeof(OutOfBoundsTrigger), "OnTriggerEnter")]
     class OutOfBoundsTriggerOnTriggerEnterPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "OutOfBoundsTrigger.OnTriggerEnter:Prefix");
             }
@@ -1932,7 +2025,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Out of Bounds trigger killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Barber);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "OutOfBoundsTrigger.OnTriggerEnter:Postfix");
             }
@@ -1940,19 +2033,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_EarthLeviathan
-    [HarmonyPatch(typeof(SandWormAI))]
-    [HarmonyPatch("EatPlayer")]
+    [HarmonyPatch(typeof(SandWormAI), "EatPlayer")]
     class SandWormAIEatPlayerPatch
     {
-        public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
+        public static void Prefix(PlayerControllerB playerScript, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(other);
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
+                __state.TrySetPlayer(playerScript);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SandWormAIEatPlayerPatch.Prefix");
             }
@@ -1971,7 +2064,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Earth Leviathan trigger killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_EarthLeviathan);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SandWormAIEatPlayerPatch.Postfix");
             }
@@ -1979,19 +2072,19 @@ namespace Coroner.Patch
     }
 
     // Unknown
-    [HarmonyPatch(typeof(QuickMenuManager))]
-    [HarmonyPatch("Debug_KillLocalPlayer")]
+    [HarmonyPatch(typeof(QuickMenuManager), "Debug_KillLocalPlayer")]
     class QuickMenuManagerDebugKillLocalPlayerPatch
     {
         public static void Prefix(ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(GameNetworkManager.Instance.localPlayerController);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "QuickMenuManager.Debug_KillLocalPlayer:Prefix");
             }
@@ -2010,7 +2103,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Debug manager killed Player! Unknown cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Unknown);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "QuickMenuManager.Debug_KillLocalPlayer:Postfix");
             }
@@ -2022,19 +2115,19 @@ namespace Coroner.Patch
     // StartOfRound.bloomPlayerOnDelay???
 
     // Enemy_GhostGirl
-    [HarmonyPatch(typeof(DressGirlAI))]
-    [HarmonyPatch("OnCollideWithPlayer")]
+    [HarmonyPatch(typeof(DressGirlAI), "OnCollideWithPlayer")]
     class DressGirlAIOnCollideWithPlayerPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "DressGirlAI.OnCollideWithPlayer:Prefix");
             }
@@ -2053,7 +2146,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Ghost Girl killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_GhostGirl);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "DressGirlAI.OnCollideWithPlayer:Postfix");
             }
@@ -2061,19 +2154,19 @@ namespace Coroner.Patch
     }
 
     // Enemy_Bracken
-    [HarmonyPatch(typeof(FlowermanAI))]
-    [HarmonyPatch("killAnimation")]
+    [HarmonyPatch(typeof(FlowermanAI), "killAnimation")]
     class FlowermanAIKillAnimationPatch
     {
         public static void Prefix(FlowermanAI __instance, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(__instance.inSpecialAnimationWithPlayer);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "FlowermanAI.killAnimation:Prefix");
             }
@@ -2092,7 +2185,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Bracken killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_Bracken);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "FlowermanAI.killAnimation:Postfix");
             }
@@ -2100,20 +2193,20 @@ namespace Coroner.Patch
     }
 
     // Enemy_ForestGiant_Death
-    [HarmonyPatch(typeof(ForestGiantAI))]
-    [HarmonyPatch("AnimationEventA")]
+    [HarmonyPatch(typeof(ForestGiantAI), "AnimationEventA")]
     class ForestGiantAnimationEventAPatch
     {
         public static void Prefix(ref CauseOfDeathPatchState __state)
         {
             try
-            {   
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 // It only kills if we are the local player, so we can just query that.
-                __state = new CauseOfDeathPatchState();
                 __state.TrySetPlayer(GameNetworkManager.Instance.localPlayerController);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ForestGiantAI.AnimationEventA:Prefix");
             }
@@ -2132,7 +2225,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Dying Forest Giant killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_ForestGiant_Death);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ForestGiantAI.AnimationEventA:Postfix");
             }
@@ -2140,30 +2233,45 @@ namespace Coroner.Patch
     }
 
     // Enemy_ForestGiant_Eaten
-    [HarmonyPatch(typeof(ForestGiantAI))]
-    [HarmonyPatch("EatPlayerAnimation")]
+    [HarmonyPatch(typeof(ForestGiantAI), "EatPlayerAnimation")]
     class ForestGiantAIEatPlayerAnimationPatch
     {
-        public static void Prefix(PlayerControllerB playerBeingEaten, ref CauseOfDeathPatchState __state)
+        public static void Postfix(ForestGiantAI __instance, PlayerControllerB playerBeingEaten, ref IEnumerator __result)
         {
             try
-            {   
-                // It only kills if we are the local player, so we can just query that.
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(playerBeingEaten);
-                __state.QueryPlayerState();
-            }
-            catch (System.Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "ForestGiantAI.EatPlayerAnimation:Prefix");
+                var enumerator = new CauseOfDeathEnumerator(__result)
+                {
+                    preDeathAction = (CauseOfDeathPatchState __state) => EnumeratorPrefix(__instance, playerBeingEaten, __state),
+                    postDeathStepAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state),
+                    postDeathAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state)
+                };
+
+                __result = enumerator.GetEnumerator();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "ForestGiantAI.EatPlayerAnimation:Postfix");
             }
         }
 
-        public static void Postfix(ref CauseOfDeathPatchState __state)
+        static void EnumeratorPrefix(ForestGiantAI __instance, PlayerControllerB playerBeingEaten, CauseOfDeathPatchState __state)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogDebug("Handling Forest Giant death...");
+                __state.TrySetPlayer(playerBeingEaten);
+                __state.QueryPlayerState();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "JesterAI.killPlayerAnimation:EnumeratorPrefix");
+            }
+        }
+
+        static void EnumeratorStepPostfix(ForestGiantAI __instance, CauseOfDeathPatchState __state) {
+            try
+            {
+                var targetPlayer = __state.GetPlayer();
 
                 if (!__state.ValidateWasntAlreadyDead()) return;
                 if (!__state.ValidateIsPlayerDead()) return;
@@ -2172,38 +2280,53 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Forest Giant killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_ForestGiant_Eaten);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "ForestGiantAI.EatPlayerAnimation:Postfix");
+                CauseOfDeathPatch.LogException(e, "ForestGiantAI.EatPlayerAnimation:EnumeratorStepPostfix");
             }
         }
     }
 
     // Enemy_EyelessDog
-    [HarmonyPatch(typeof(MouthDogAI))]
-    [HarmonyPatch("KillPlayer")]
+    [HarmonyPatch(typeof(MouthDogAI), "KillPlayer")]
     class MouthDogAIKillPlayerPatch
     {
-        public static void Prefix(int playerId, ref CauseOfDeathPatchState __state)
+        public static void Postfix(MouthDogAI __instance, int playerId, ref IEnumerator __result)
         {
             try
-            {   
-                // It only kills if we are the local player, so we can just query that.
-                __state = new CauseOfDeathPatchState();
-                __state.TrySetPlayer(playerId);
-                __state.QueryPlayerState();
-            }
-            catch (System.Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "MouthDogAI.killPlayer:Prefix");
+                var enumerator = new CauseOfDeathEnumerator(__result)
+                {
+                    preDeathAction = (CauseOfDeathPatchState __state) => EnumeratorPrefix(__instance, playerId, __state),
+                    postDeathStepAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state),
+                    postDeathAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state)
+                };
+
+                __result = enumerator.GetEnumerator();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "MouthDogAI.KillPlayer:Postfix");
             }
         }
 
-        public static void Postfix(ref CauseOfDeathPatchState __state)
+        static void EnumeratorPrefix(MouthDogAI __instance, int playerId, CauseOfDeathPatchState __state)
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogDebug("Handling Eyeless Dog death...");
+                __state.TrySetPlayer(playerId);
+                __state.QueryPlayerState();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "MouthDogAI.KillPlayer:EnumeratorPrefix");
+            }
+        }
+
+        static void EnumeratorStepPostfix(MouthDogAI __instance, CauseOfDeathPatchState __state) {
+            try
+            {
+                var targetPlayer = __state.GetPlayer();
 
                 if (!__state.ValidateWasntAlreadyDead()) return;
                 if (!__state.ValidateIsPlayerDead()) return;
@@ -2212,27 +2335,27 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Eyeless Dog killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Enemy_EyelessDog);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "MouthDogAI.killPlayer:Postfix");
+                CauseOfDeathPatch.LogException(e, "MouthDogAI.KillPlayer:EnumeratorStepPostfix");
             }
         }
     }
 
     // Other_Spike_Trap
-    [HarmonyPatch(typeof(SpikeRoofTrap))]
-    [HarmonyPatch("OnTriggerStay")]
+    [HarmonyPatch(typeof(SpikeRoofTrap), "OnTriggerStay")]
     class SpikeRoofTrapOnTriggerStayPatch
     {
         public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
-            {   
-                __state = new CauseOfDeathPatchState();
+            {
+                if (__state == null) __state = new CauseOfDeathPatchState();
+
                 __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SpikeRoofTrap.OnTriggerStay:Prefix");
             }
@@ -2251,7 +2374,7 @@ namespace Coroner.Patch
                 Plugin.Instance.PluginLogger.LogDebug("Spike Trap killed Player! Setting cause of death...");
                 AdvancedDeathTracker.SetCauseOfDeath(__state.GetPlayer(), AdvancedCauseOfDeath.Other_Spike_Trap);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "SpikeRoofTrap.OnTriggerStay:Postfix");
             }
@@ -2273,8 +2396,7 @@ namespace Coroner.Patch
     // Other_Landmine
     // Other_Lightning
     // Generic_Blast
-    [HarmonyPatch(typeof(Landmine))]
-    [HarmonyPatch("SpawnExplosion")]
+    [HarmonyPatch(typeof(Landmine), "SpawnExplosion")]
     class LandmineSpawnExplosionPatch
     {
         // Landmind.SpawnExplosion() calls DamagePlayer or KillPlayer on all players in range.
@@ -2519,8 +2641,7 @@ namespace Coroner.Patch
     }
 
     // Player_Quicksand
-    [HarmonyPatch(typeof(PlayerControllerB))]
-    [HarmonyPatch("KillPlayer")]
+    [HarmonyPatch(typeof(PlayerControllerB), "KillPlayer")]
     class PlayerControllerBKillPlayerPatch
     {
         public static void Prefix(PlayerControllerB __instance, ref CauseOfDeath causeOfDeath)
@@ -2538,19 +2659,76 @@ namespace Coroner.Patch
                 }
                 else
                 {
-                    Plugin.Instance.PluginLogger.LogDebug("Player is dying! Unknown cause of death in final hook...");
+                    Plugin.Instance.PluginLogger.LogDebug($"Player is dying! Unknown precise cause of death in final hook ({causeOfDeath})...");
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "PlayerControllerB.KillPlayer:Prefix");
             }
         }
     }
 
+    // Other_Turret
+    [HarmonyPatch(typeof(Turret), "Update")]
+    class TurretUpdatePatch
+    {
+        // IL_0177: callvirt  instance void GameNetcodeStuff.PlayerControllerB::KillPlayer(valuetype [UnityEngine.CoreModule]UnityEngine.Vector3, bool, valuetype CauseOfDeath, int32, valuetype [UnityEngine.CoreModule]UnityEngine.Vector3)
+        const string KILL_PLAYER_SIGNATURE = "Void KillPlayer(UnityEngine.Vector3, Boolean, CauseOfDeath, Int32, UnityEngine.Vector3)";
+
+        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator, MethodBase method)
+        {
+            var code = new List<CodeInstruction>(instructions);
+
+            // We'll need to modify code here.
+            var codeToInject = BuildInstructionsToInsert(method);
+            if (codeToInject == null)
+            {
+                Plugin.Instance.PluginLogger.LogError("Could not build instructions to insert in TurretUpdatePatch! Safely aborting...");
+                return instructions;
+            }
+
+            // Search for where PlayerControllerB.KillPlayer is called.
+            int insertionIndexKill = CauseOfDeathPatch.LocateKillPlayerCall(code);
+
+            if (insertionIndexKill == -1)
+            {
+                Plugin.Instance.PluginLogger.LogError("Could not find PlayerControllerB.KillPlayer call in TurretUpdatePatch! Safely aborting...");
+                return instructions;
+            }
+            else
+            {
+                // Moment of truth.
+                Plugin.Instance.PluginLogger.LogDebug("Injecting patch into Turret.Update...");
+                code.InsertRange(insertionIndexKill + 1, codeToInject);
+                Plugin.Instance.PluginLogger.LogDebug("Done.");
+
+                return code;
+            }
+        }
+
+        static List<CodeInstruction>? BuildInstructionsToInsert(MethodBase method)
+        {
+            var result = new List<CodeInstruction>();
+
+            // No local variables needed! We just need to make the static call.
+
+            // IL_0180: call      void [Coroner]Coroner.Patch.TurretUpdatePatch::RewriteCauseOfDeath()
+            result.Add(new CodeInstruction(OpCodes.Call, typeof(TurretUpdatePatch).GetMethod(nameof(RewriteCauseOfDeath))));
+
+            return result;
+        }
+
+        public static void RewriteCauseOfDeath()
+        {
+            // This function sets the cause of death when the player is crushed by the giant's body.
+            Plugin.Instance.PluginLogger.LogDebug("Player died to Turret! Setting special cause of death...");
+            AdvancedDeathTracker.SetCauseOfDeath(GameNetworkManager.Instance.localPlayerController, AdvancedCauseOfDeath.Other_Turret);
+        }
+    }
+
     // Other_ItemDropship
-    [HarmonyPatch(typeof(ItemDropship))]
-    [HarmonyPatch("Start")]
+    [HarmonyPatch(typeof(ItemDropship), "Start")]
     class ItemDropshipStartPatch
     {
         public static void Postfix(ItemDropship __instance)
@@ -2564,7 +2742,7 @@ namespace Coroner.Patch
 
                 CauseOfDeathPatch.OverrideKillLocalPlayer(killTriggerTransform, AdvancedCauseOfDeath.Other_Dropship);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ItemDropship.Start:Postfix");
             }
@@ -2572,8 +2750,7 @@ namespace Coroner.Patch
     }
 
     // Player_Ladder
-    [HarmonyPatch(typeof(ExtensionLadderItem))]
-    [HarmonyPatch("StartLadderAnimation")]
+    [HarmonyPatch(typeof(ExtensionLadderItem), "StartLadderAnimation")]
     class ExtensionLadderItemStartLadderAnimationPatch
     {
         // We inject into StartLadderAnimation instead of Start because the latter wasn't implemented by the Ladder, ehe.
@@ -2589,7 +2766,7 @@ namespace Coroner.Patch
 
                 CauseOfDeathPatch.OverrideKillLocalPlayer(killTriggerTransform, AdvancedCauseOfDeath.Player_Ladder);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 CauseOfDeathPatch.LogException(e, "ExtensionLadderItem.StartLadderAnimation:Postfix");
             }
@@ -2598,8 +2775,7 @@ namespace Coroner.Patch
 
     // Other_Facility_Pit
     // Generic_Fan
-    [HarmonyPatch(typeof(KillLocalPlayer))]
-    [HarmonyPatch("KillPlayer")]
+    [HarmonyPatch(typeof(KillLocalPlayer), "KillPlayer")]
     class KillLocalPlayerKillPlayerPatch
     {
         // We inject into KillPlayer instead of Start because the latter wasn't implemented by the Ladder, ehe.
@@ -2623,7 +2799,7 @@ namespace Coroner.Patch
                 }
                 // Else, don't override existing cause of death.
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Plugin.Instance.PluginLogger.LogError("Error in KillLocalPlayerStartPatch.Postfix: " + e);
                 Plugin.Instance.PluginLogger.LogError(e.StackTrace);
@@ -2675,8 +2851,7 @@ namespace Coroner.Patch
     }
 
     // Enemy_Tulip_Snake_Drop
-    [HarmonyPatch(typeof(FlowerSnakeEnemy))]
-    [HarmonyPatch("StopClingingOnLocalClient")]
+    [HarmonyPatch(typeof(FlowerSnakeEnemy), "StopClingingOnLocalClient")]
     class FlowerSnakeEnemyStopClingingOnLocalClientPatch
     {
         public static void Prefix(FlowerSnakeEnemy __instance)

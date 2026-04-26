@@ -419,6 +419,9 @@
         <DeathPlayerEasterEgg text="Got scrambled by an Egg." />
         <DeathPlayerEasterEgg text="Got Egg on their face." />
 
+        <DeathPlayerVomiting text="Vomited to death." /> <!-- TN: When you spray an infected player with Weed Killer, they puke and take damage. -->
+        <DeathPlayerVomiting text="Puked their guts out." /> 
+
         <DeathPlayerCruiserDriver text="Blew up the Company Cruiser." /> <!-- TN: Occurs on explosion or severe impacts while in the driver seat. -->
         <DeathPlayerCruiserDriver text="Got rear-ended by a woman in scrubs." /> <!-- TN: Classic EliteMasticEric reference. -->
         <DeathPlayerCruiserDriver text="Totalled company property." />

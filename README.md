@@ -65,3 +65,9 @@ It is urged that you follow this guide and **do not** reupload Coroner to Thunde
 - [] Snare Flea
 - [] Gravity while face covered in Stringray Goop
 - [] Gravity while slipping in Goop
+
+[] Fix coroner mimics to use right language data
+
+Beta 3
+- Fixed cause of death hooks for the following:
+- Old Bird (Stomp)

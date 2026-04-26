@@ -103,6 +103,7 @@ namespace Coroner
         public const string TAG_DEATH_PLAYER_QUICKSAND = "DeathPlayerQuicksand";
         public const string TAG_DEATH_PLAYER_STUN_GRENADE = "DeathPlayerStunGrenade";
         public const string TAG_DEATH_PLAYER_ELECTRIC_CHAIR = "DeathPlayerElectricChair";
+        public const string TAG_DEATH_PLAYER_VOMITING = "DeathPlayerVomiting";
 
         // Custom causes (player vehicles)
         public const string TAG_DEATH_PLAYER_CRUISER_DRIVER = "DeathPlayerCruiserDriver";
@@ -122,7 +123,6 @@ namespace Coroner
         public const string TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK = "DeathOtherDepositItemsDesk";
         public const string TAG_DEATH_OTHER_ITEM_DROPSHIP = "DeathOtherItemDropship";
         public const string TAG_DEATH_OTHER_LANDMINE = "DeathOtherLandmine";
-        public const string TAG_DEATH_OTHER_VOMITING = "DeathOtherVomiting";
         public const string TAG_DEATH_OTHER_TURRET = "DeathOtherTurret";
         public const string TAG_DEATH_OTHER_LIGHTNING = "DeathOtherLightning";
         public const string TAG_DEATH_OTHER_METEOR = "DeathOtherMeteor";

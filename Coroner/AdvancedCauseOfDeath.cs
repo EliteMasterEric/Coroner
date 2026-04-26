@@ -383,6 +383,7 @@ namespace Coroner
         public static AdvancedCauseOfDeath Player_StunGrenade = Build(LanguageHandler.TAG_DEATH_PLAYER_STUN_GRENADE);
         public static AdvancedCauseOfDeath Player_EasterEgg = Build(LanguageHandler.TAG_DEATH_PLAYER_EASTER_EGG);
         public static AdvancedCauseOfDeath Player_Electric_Chair = Build(LanguageHandler.TAG_DEATH_PLAYER_ELECTRIC_CHAIR);
+        public static AdvancedCauseOfDeath Player_Vomiting = Build(LanguageHandler.TAG_DEATH_PLAYER_VOMITING); // Happens when you spray a player with Weed Killer
 
         public static AdvancedCauseOfDeath Player_Cruiser_Driver = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_DRIVER);
         public static AdvancedCauseOfDeath Player_Cruiser_Passenger = Build(LanguageHandler.TAG_DEATH_PLAYER_CRUISER_PASSENGER);
@@ -402,7 +403,6 @@ namespace Coroner
         public static AdvancedCauseOfDeath Other_Turret = Build(LanguageHandler.TAG_DEATH_OTHER_TURRET);
         public static AdvancedCauseOfDeath Other_Lightning = Build(LanguageHandler.TAG_DEATH_OTHER_LIGHTNING);
         public static AdvancedCauseOfDeath Other_Meteor = Build(LanguageHandler.TAG_DEATH_OTHER_METEOR);
-        public static AdvancedCauseOfDeath Other_Vomiting = Build(LanguageHandler.TAG_DEATH_OTHER_VOMITING); // Happens when you spray a player with Weed Killer
         public static AdvancedCauseOfDeath Other_DepositItemsDesk = Build(LanguageHandler.TAG_DEATH_OTHER_DEPOSIT_ITEMS_DESK); // You never see this one since there's no report.
         public static AdvancedCauseOfDeath Other_Dropship = Build(LanguageHandler.TAG_DEATH_OTHER_ITEM_DROPSHIP);
         public static AdvancedCauseOfDeath Other_Spike_Trap = Build(LanguageHandler.TAG_DEATH_OTHER_SPIKE_TRAP);
