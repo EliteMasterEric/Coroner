@@ -1,6 +1,8 @@
 # Coroner
 A Lethal Company plugin which overhauls the end-of-mission performance report with new information, including cause of death for any deceased players with some fun easter eggs thrown in too. Available to download from [Thunderstore](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/Coroner/) or view the source code on [GitHub](https://github.com/EliteMasterEric/Coroner).
 
+Coroner is client-side, and provides generic information even if the host doesn't have the mod installed, you get more detail if the host has it installed!
+
 > **NOTE:** If you have issues when using foreign language fonts, install FontFixer via [Thunderstore](https://thunderstore.io/c/lethal-company/p/EliteMasterEric/FontFixer/) or [GitHub](https://github.com/EliteMasterEric/FontFixer) BEFORE reporting.
 
 ![](https://raw.githubusercontent.com/EliteMasterEric/Coroner/master/Art/README_nutcracker.png)
@@ -31,43 +33,10 @@ It is urged that you follow this guide and **do not** reupload Coroner to Thunde
 # Credits
 - [EliteMasterEric](https://github.com/EliteMasterEric): Programming
 - [Ceva](https://twitter.com/cevaskullderg): Playtesting
-- [Lynn Koya](https://gaywhiteboy.newgrounds.com/): Additional death message
+- [Shitycomics](https://x.com/SComics__): Additional playtesting
+- [Lynn Koya](https://gaywhiteboy.newgrounds.com/): Additional death messages
 - [NickolasFleim](https://github.com/NickolasFleim): Programming (custom language support)
 - [Jatc251](https://jatc251.com): Miscellaneous cleanup of README.md, TRANSLATING.md, MODDING.md, and repository
 - All [contributors](https://github.com/EliteMasterEric/Coroner/blob/master/TRANSLATING.md) who added or helped improve their language's translations
 - [Xilophor](https://github.com/Xilophor/): Creating [StaticNetcodeLib](https://thunderstore.io/c/lethal-company/p/xilophor/StaticNetcodeLib/)
 - [giosuel](https://github.com/giosuel): Creating [Imperium](https://thunderstore.io/c/lethal-company/p/giosuel/Imperium/) which kept us sane during playtesting
-
-
-# To Test (v80)
-[] Test when other players don't have the mod! It shouldn't fully work but it also shouldn't crash or block connecting to lobbies
-## New Causes
-- [] Cadaver Growth
-- [] Cadaver Bloom
-- [] Feiopar
-- [] Vomiting
-- [] Kidnapper Fox
-## Potentially Broken Causes
-- [] Barber (Snipping)
-- [] Giant Sapsucker
-- [] Electric Chair
-- [] Forest Giant Crush
-- [] Landmine
-- [] Jetpack
-- [] Turret (killed, and damaged and not killed)
-- [] Shotgun
-- [] Butler Explosion
-- [] Player_Cruiser_Driver
-- [] Player_Cruiser_Passenger
-- [] Player_Cruiser_Explode_Bystander
-- [] Player_Cruiser_Ran_Over
-## Bonus
-- [] Snare Flea
-- [] Gravity while face covered in Stringray Goop
-- [] Gravity while slipping in Goop
-
-[] Fix coroner mimics to use right language data
-
-Beta 3
-- Fixed cause of death hooks for the following:
-- Old Bird (Stomp)

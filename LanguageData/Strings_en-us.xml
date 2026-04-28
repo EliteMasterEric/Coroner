@@ -342,7 +342,8 @@
             Messages used for enemies added in v81.
         -->
 
-        <DeathEnemyCadaverGrowth text="Burst into a Cadaver Bloom." />
+        <DeathEnemyCadaverGrowth text="Bloom into a Cadaver Bloom." />
+        <DeathEnemyCadaverGrowth text="Inhaled too many Cadaver spores." />
         <DeathEnemyCadaverBloom text="Mauled by a Cadaver Bloom." />
         <DeathEnemyFeiopar text="Mauled by a Feiopar." />
 

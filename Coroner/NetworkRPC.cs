@@ -27,7 +27,7 @@ namespace Coroner
          * and wishes to report it back to all clients.
          * Call this function on the server, and it will be invoked on all clients.
          */
-        [ClientRpc]
+        [ClientRpc(DeferLocal = true, Delivery=RpcDelivery.Reliable)]
         public static void BroadcastCauseOfDeathClientRpc(int playerClientId, string? codLanguageTag, bool forceOverride) { 
             Plugin.Instance.PluginLogger.LogDebug($"Client received cause of death via RPC: ({playerClientId}, {(codLanguageTag == null ? "null" : codLanguageTag)})");
             

@@ -22,11 +22,15 @@ namespace Coroner
 
         public static void SetCauseOfDeath(int playerIndex, AdvancedCauseOfDeath? causeOfDeath, bool forceOverride = false) {
             if (causeOfDeath == null) {
-                NetworkRPC.ReportCauseOfDeathServerRpc(playerIndex, null, forceOverride);    
+                NetworkRPC.ReportCauseOfDeathServerRpc(playerIndex, null, forceOverride);
             } else {
                 AdvancedCauseOfDeath result = (AdvancedCauseOfDeath) causeOfDeath;
                 Plugin.Instance.PluginLogger.LogDebug($"Serializing {result} to {result.GetLanguageTag()}{(forceOverride ? " (FORCED)" : "")}");
                 NetworkRPC.ReportCauseOfDeathServerRpc(playerIndex, result.GetLanguageTag(), forceOverride);
+
+                // Also store the cause of death locally.
+                // Without this, causes of death will be vague on the local client if the host doesn't have the mod installed.
+                StoreLocalCauseOfDeath(playerIndex, causeOfDeath, forceOverride);
             }
         }
 

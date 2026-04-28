@@ -1561,21 +1561,21 @@ namespace Coroner.Patch
     }
 
     // Enemy_Kidnapper_Wolf
-    [HarmonyPatch(typeof(BushWolfEnemy), "DoKillPlayerAnimationServerRpc")]
-    class BushWolfDoKillPlayerAnimationServerRpcPatch
+    [HarmonyPatch(typeof(BushWolfEnemy), "OnCollideWithPlayer")]
+    class BushWolfOnCollideWithPlayerPatch
     {
-        public static void Prefix(int playerId, ref CauseOfDeathPatchState __state)
+        public static void Prefix(Collider other, ref CauseOfDeathPatchState __state)
         {
             try
             {
                 if (__state == null) __state = new CauseOfDeathPatchState();
 
-                __state.TrySetPlayer(playerId);
+                __state.TrySetPlayer(other);
                 __state.QueryPlayerState();
             }
             catch (Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "BushWolf.DoKillPlayerAnimationServerRpc:Prefix");
+                CauseOfDeathPatch.LogException(e, "BushWolf.OnCollideWithPlayer:Prefix");
             }
         }
 
@@ -1594,7 +1594,7 @@ namespace Coroner.Patch
             }
             catch (Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "BushWolf.DoKillPlayerAnimationServerRpc:Postfix");
+                CauseOfDeathPatch.LogException(e, "BushWolf.OnCollideWithPlayer:Postfix");
             }
         }
     }
@@ -2000,7 +2000,6 @@ namespace Coroner.Patch
         {
             try
             {
-
                 if (__state == null) __state = new CauseOfDeathPatchState();
 
                 __state.TrySetPlayer(other);

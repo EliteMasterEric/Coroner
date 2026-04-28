@@ -16,6 +16,8 @@ This updates the game with some new causes of death from the latest update.
 - Added the `API.ClearCauseOfDeath()` function so mods can properly remove an existing cause of death.
 # Changed
 - Refactored some of the death hooks to more reliably track cause of death especially when there could be conflicts (such as one monster damaging before another kills).
+# Fixed
+- Fixed an issue where the player's own cause of death would be too vague when playing as a client on a vanilla host.
 
 # 2.3.0 (2025-07-07)
 This update updates the game for provides some updated language strings as well as a bugfix.
