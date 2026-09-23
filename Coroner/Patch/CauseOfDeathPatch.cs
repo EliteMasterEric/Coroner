@@ -227,7 +227,7 @@ namespace Coroner.Patch
             return true;
         }
 
-        public bool ValidateIsPlayerDead()
+        public bool ValidateIsPlayerDead(bool verbose = true)
         {
             // Returns false if the player couldn't be queried, or if the player is still alive
 
@@ -238,7 +238,7 @@ namespace Coroner.Patch
 
             if (!targetPlayer.isPlayerDead)
             {
-                Plugin.Instance.PluginLogger.LogWarning("Could not access dying player: Player is still alive!");
+                if (verbose) Plugin.Instance.PluginLogger.LogWarning("Could not access dying player: Player is still alive!");
                 return false;
             }
             
@@ -1277,10 +1277,8 @@ namespace Coroner.Patch
         {
             try
             {
-                Plugin.Instance.PluginLogger.LogDebug("Handling generic fall damage...");
-
+                if (!__state.ValidateIsPlayerDead(false)) return;
                 if (!__state.ValidateWasntAlreadyDead()) return;
-                if (!__state.ValidateIsPlayerDead()) return;
                 if (!__state.ValidateHasNoCauseOfDeath()) return;
 
                 PlayerControllerB player = __state.GetPlayer();
@@ -1881,6 +1879,8 @@ namespace Coroner.Patch
             {
                 if (__state == null) __state = new CauseOfDeathPatchState();
 
+                if (__instance.playerHeldBy == null) return;
+
                 __state.TrySetPlayer(__instance.playerHeldBy);
                 __state.QueryPlayerState();
             }
@@ -1894,7 +1894,7 @@ namespace Coroner.Patch
         {
             try
             {
-                if (!__state.ValidateIsPlayerDead()) return;
+                if (!__state.ValidateIsPlayerDead(false)) return;
 
                 Plugin.Instance.PluginLogger.LogDebug("Handling Jetpack collision death...");
 
@@ -2156,26 +2156,42 @@ namespace Coroner.Patch
     [HarmonyPatch(typeof(FlowermanAI), "killAnimation")]
     class FlowermanAIKillAnimationPatch
     {
-        public static void Prefix(FlowermanAI __instance, ref CauseOfDeathPatchState __state)
+        public static void Postfix(FlowermanAI __instance, ref IEnumerator __result)
         {
             try
             {
-                if (__state == null) __state = new CauseOfDeathPatchState();
+                var enumerator = new CauseOfDeathEnumerator(__result)
+                {
+                    preDeathAction = (CauseOfDeathPatchState __state) => EnumeratorPrefix(__instance, __state),
+                    postDeathStepAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state),
+                    postDeathAction = (CauseOfDeathPatchState __state) => EnumeratorStepPostfix(__instance, __state)
+                };
 
+                __result = enumerator.GetEnumerator();
+            }
+            catch (Exception e)
+            {
+                CauseOfDeathPatch.LogException(e, "FlowermanAI.killAnimation:Postfix");
+            }
+        }
+
+        static void EnumeratorPrefix(FlowermanAI __instance, CauseOfDeathPatchState __state)
+        {
+            try
+            {
                 __state.TrySetPlayer(__instance.inSpecialAnimationWithPlayer);
                 __state.QueryPlayerState();
             }
             catch (Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "FlowermanAI.killAnimation:Prefix");
+                CauseOfDeathPatch.LogException(e, "FlowermanAI.killAnimation:Postfix");
             }
         }
 
-        public static void Postfix(ref CauseOfDeathPatchState __state)
-        {
+        static void EnumeratorStepPostfix(FlowermanAI __instance, CauseOfDeathPatchState __state) {
             try
             {
-                Plugin.Instance.PluginLogger.LogDebug("Handling Bracken death...");
+                var targetPlayer = __state.GetPlayer();
 
                 if (!__state.ValidateWasntAlreadyDead()) return;
                 if (!__state.ValidateIsPlayerDead()) return;
@@ -2263,7 +2279,7 @@ namespace Coroner.Patch
             }
             catch (Exception e)
             {
-                CauseOfDeathPatch.LogException(e, "JesterAI.killPlayerAnimation:EnumeratorPrefix");
+                CauseOfDeathPatch.LogException(e, "ForestGiantAI.EatPlayerAnimation:EnumeratorPrefix");
             }
         }
 
