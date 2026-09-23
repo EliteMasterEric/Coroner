@@ -8,15 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Known Issues
 - Reinstalling the mod may sometimes cause modded language data to be deleted.
 
-# 2.4.0 (2026-04-??)
+# 2.4.2 (2026-09-22)
+## Fixed
+- Fixed a bug where a player standing on certain ground types could sometimes spam the log.
+- Fixed a bug where a Jetpack on the ground (not held by a player) would spam the log.
+
+# 2.4.1 (2026-05-10)
+## Changed
+- Reduced the log level and frequency of some logs to make Coroner less spammy.
+- Fixed dying to a Bracken not being detected properly.
+
+# 2.4.0 (2026-04-28)
 This updates the game with some new causes of death from the latest update.
-# Added
+## Added
 - Added cause of death messages for 5 new causes of death from v81.
 - Added additional death messages for English.
 - Added the `API.ClearCauseOfDeath()` function so mods can properly remove an existing cause of death.
-# Changed
+## Changed
 - Refactored some of the death hooks to more reliably track cause of death especially when there could be conflicts (such as one monster damaging before another kills).
-# Fixed
+## Fixed
 - Fixed an issue where the player's own cause of death would be too vague when playing as a client on a vanilla host.
 
 # 2.3.0 (2025-07-07)
